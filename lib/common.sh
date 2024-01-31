@@ -4,10 +4,6 @@
 #------------------------------------------------------------------------------
 # Common bash functions to be reused in scripts
 
-
-
-echo "common.sh has been sourced"
-
 confirm() {
     read -p "$1 (y/n): " response  # Prompt the user with the message and (y/n) options
     case "$response" in
