@@ -85,7 +85,7 @@ ensure_dir_does_not_exist() {
     logMessage "Ensuring $dir directory does not exist."
     if [ -d "$dir" ]; then
         if confirm "$dir exists, confirm removal [y/n]"; then
-            rm -rf "$dir"
+            sudo rm -rf "$dir"
             logMessage "Removed $dir"
         else
             error_exit "Removal of $dir was not approved."

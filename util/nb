@@ -1,0 +1,11 @@
+#!/bin/bash
+if [ -z "$1" ]; then
+    echo "Usage: nb <new branch name>" >&2  # Print error message to stderr
+    exit 1  # Exit with a non-zero exit code to indicate an error
+fi
+
+NEW_BRANCH="$1"
+git checkout -b "$NEW_BRANCH"
+git push -u origin "$NEW_BRANCH"
+
+

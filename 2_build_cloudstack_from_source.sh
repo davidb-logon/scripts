@@ -42,9 +42,9 @@ main() {
     install_maven.sh
     install_python_mkisof_mysql.sh
     install_java.sh
-    cd "/home/davidb/logon/cloudstack"
+    cd "$HOME/logon/cloudstack"
     
-    mvn clean install -P developer,systemvm -DskipTests
+    mvn clean install -P developer,systemvm,generate-sources -DskipTests | tee "$LOGFILE"
 
     #print_final_messages_to_user
     script_ended_ok=true
@@ -65,11 +65,14 @@ parse_command_line_arguments() {
 
 cleanup() {
     if $script_ended_ok; then 
-        return
+        echo -e "$green"
+        echo 
+        echo "--- SCRIPT WAS SUCCESSFUL"
+    else
+        echo -e "$red"
+        echo 
+        echo "--- SCRIPT WAS UNSUCCESSFUL"
     fi
-    echo -e "$red"
-    echo 
-    echo "--- SCRIPT WAS UNSUCCESSFUL"
     echo "--- Logfile at: cat $LOGFILE"
     echo "--- End Script"
     echo -e "$reset"

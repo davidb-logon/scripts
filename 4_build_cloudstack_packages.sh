@@ -18,8 +18,7 @@ cat << EOF
 -------------------------------------------------------------------------------
 This script follows the instructions at: 
 http://docs.cloudstack.apache.org/en/4.18.1.0/installguide/building_from_source.html#building-deb-packages
-to build deb packages from cloudstack source dir, assuming build was done successfully.
- 
+and Builds deb packages from cloudstack source dir, but skips the tests.
 -------------------------------------------------------------------------------
 EOF
 script_ended_ok=true
@@ -27,22 +26,41 @@ script_ended_ok=true
 
 init_vars() {
     init_utils_vars $1 $2
-    CLOUDSTACK_DIR="/home/davidb/logon/cloudstack"
-    PACKAGING_DIR="${CLOUDSTACK_DIR}/packaging"
-    RULES_FILE="${CLOUDSTACK_DIR}/debian/rules" # Define the path to the debian/rules file for packaging
+    # Input
+    CLOUDSTACK_DIR="$HOME/logon/cloudstack"
+    /home/davidb/logon/work
+
+    LOGON_RULES_FILE="$CLOUDSTACK_DIR/a_logon_workdir/rules.logon" # rules file that skips tests and adds sources
+    SAVED_RULES_FILE="$CLOUDSTACK_DIR/a_logon_workdir/rules.original" # As it came from cloudstack, rc2
+    RULES_FILE="$CLOUDSTACK_DIR/debian/rules" # As it came from cloudstack, rc2
+    
+    PACKAGING_DIR="${CLOUDSTACK_DIR}/packaging" # Where the build-deb.sh script resides
+
+    # Output of the build
+    PACKAGES_OUTPUT_DIR="$HOME/logon/packages"
+    DEBIAN_PACKAGES_OUTPUT_DIR="$PACKAGES_OUTPUT_DIR/debian"
+    
+}
+
+text_files_are_different() {
+    cmp -s "$1" "$2" && return 1 || return 0
 }
 
 package_cloudstack() {
 
-    cp "$RULES_FILE" "${RULES_FILE}.backup" # Backup the original rules file
-
-    # Add -DskipTests to the mvn command in the rules file
-    sed -i '/mvn clean package -Psystemvm,developer -Dsystemvm \\/a\\t-DskipTests \\' "$RULES_FILE"
+    # check if the current rules file is different than the original RC2 files that was saved
+    # in a_logon_workdir. If not, the script is stopped and user is asked to update the files.
+    if text_files_are_different "$RULES_FILE" "$SAVED_RULES_FILE"; then
+        logMessage "$RULES_FILE and $SAVED_RULES_FILE are different. Please fix manually."
+        exit 1
+    fi
+    
+    cp -fv "$LOGON_RULES_FILE" "$RULES_FILE" # copy the rules fileto skip tests and add sources
 
     cd "$PACKAGING_DIR"
-    sudo ./build-deb.sh
+    sudo ./build-deb.sh -o "$DEBIAN_PACKAGES_OUTPUT_DIR" # -b "Log-On" # Beware that such branding will change all pom files (> 100) in the project
 
-    mv -f "${RULES_FILE}.backup" "$RULES_FILE" # Restore the original rules file from the backup
+    cp -fv  "$SAVED_RULES_FILE" "$RULES_FILE"  # Restore the original rules file 
 }
 
 main() {
