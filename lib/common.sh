@@ -80,6 +80,16 @@ check_if_remote_git_branch_exists() {
     git ls-remote "$repo" "refs/heads/$branch" | grep -q "refs/heads/$branch" && return 0 || return 1
 }
 
+check_if_connected_to_internet() {
+    ping -c 1 -W 5 "8.8.8.8" > /dev/null 2>&1 && return 0 || return 1
+}
+
+text_files_are_different() {
+    cmp -s "$1" "$2" && return 1 || return 0
+}
+
+check_if_connected_to_internet || exit 1
+
 ensure_dir_does_not_exist() {
     local dir=$1
     logMessage "Ensuring $dir directory does not exist."
@@ -99,7 +109,7 @@ do_cmd() {
     local success_message="${2:-$command_prefix}"
     local error_or_info_message="${3:-$command_prefix}"
 
-    logMessage "Doing: $command"
+    logMessage "--- EXECUTE: $command"
     eval "$command"
     local rc=$?
 

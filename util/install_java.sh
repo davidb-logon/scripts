@@ -28,21 +28,26 @@ update_bashrc() {
     local JAVA_HOME_SET=$(grep -c 'export JAVA_HOME=' "$BASHRC")
     local JAVA_PATH_SET=$(grep -c 'export PATH=.*JAVA_HOME' "$BASHRC")
 
+    local updated=0
     if [ $JAVA_HOME_SET -eq 0 ]; then
-        logMessage "Setting JAVA_HOME in .bashrc..."
+        logMessage "--- Setting JAVA_HOME in .bashrc..."
         sudo echo 'export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64' >> "$BASHRC"
+        updated=1
     else
-        logMessage "JAVA_HOME is already set in .bashrc."
+        logMessage "--- JAVA_HOME is already set in .bashrc."
     fi
 
     if [ $JAVA_PATH_SET -eq 0 ]; then
-        logMessage "Setting Java PATH in .bashrc..."
+        logMessage "--- Setting Java PATH in .bashrc..."
         sudo echo 'export PATH=${JAVA_HOME}/bin:${PATH}' >> "$BASHRC"
+        updated=1
     else
-        logMessage "Java PATH is already set in .bashrc."
+        logMessage "--- Java PATH is already set in .bashrc."
     fi
 
-    logMessage ".bashrc updated. Please reload it by executing: source ~/.bashrc"
+    if [ updated == 1 ]; then 
+        logMessage "--- .bashrc updated. Please reload it by executing: source ~/.bashrc"
+    fi
 }
 
 # Main script starts here

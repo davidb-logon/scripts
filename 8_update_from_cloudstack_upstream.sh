@@ -16,36 +16,17 @@ trap 'cleanup' EXIT
 usage() {
 cat << EOF
 -------------------------------------------------------------------------------
-This script builds and installs cloudstack management server and a 
-KVM agent on an X86_64 Ubuntu 22.04 machine.
-
-Before running this script, you must have the following:
-
-    1. An Ubuntu machine with enough memeory, disk space and CPU power
-    2. The CPU should support the linux KVM module
-    3. The CloudStack sources from github present on the machine.
-
-How to run this script:
-		
-Notes:
-    1.  
+wip
 -------------------------------------------------------------------------------
 EOF
 script_ended_ok=true
 }
 
 main() {
-    init_vars "logon" "build_cloudstack"
+    # Replace logon and template with your own values
+    init_vars "logon" "cloudstack"
     parse_command_line_arguments "$@"
     start_logging
-    install_kvm.sh
-    install_maven.sh
-    install_python_mkisof_mysql.sh
-    install_java.sh
-    cd "$HOME/logon/cloudstack"
-    
-    mvn clean install -P developer,systemvm,generate-sources -DskipTests | tee "$LOGFILE"
-
     #print_final_messages_to_user
     script_ended_ok=true
 }

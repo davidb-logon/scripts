@@ -16,37 +16,31 @@ trap 'cleanup' EXIT
 usage() {
 cat << EOF
 -------------------------------------------------------------------------------
-This script builds and installs cloudstack management server and a 
-KVM agent on an X86_64 Ubuntu 22.04 machine.
-
-Before running this script, you must have the following:
-
-    1. An Ubuntu machine with enough memeory, disk space and CPU power
-    2. The CPU should support the linux KVM module
-    3. The CloudStack sources from github present on the machine.
-
-How to run this script:
-		
-Notes:
-    1.  
+This script uninstalls cloudstack management server and agent from Ubuntu / KVM
 -------------------------------------------------------------------------------
 EOF
 script_ended_ok=true
 }
 
 main() {
-    init_vars "logon" "build_cloudstack"
-    parse_command_line_arguments "$@"
+    # Replace logon and template with your own values
+    init_vars "logon" "uninstall_cloudstack"
     start_logging
-    install_kvm.sh
-    install_maven.sh
-    install_python_mkisof_mysql.sh
-    install_java.sh
-    cd "$HOME/logon/cloudstack"
-    
-    mvn clean install -P developer,systemvm,generate-sources -DskipTests | tee "$LOGFILE"
 
-    #print_final_messages_to_user
+    do_cmd "sudo systemctl stop cloudstack-management" "Stopped cloudstack_management service"
+    do_cmd "sudo systemctl stop cloudstack-agent" "Stopped cloudstack_agent service"
+    do_cmd "sudo apt-get remove --purge cloudstack-management"
+    do_cmd "sudo apt-get remove --purge cloudstack-agent"
+    do_cmd "sudo apt-get autoremove"
+    do_cmd "sudo apt-get autoclean"
+    do_cmd "sudo rm -rf /etc/cloudstack"
+    do_cmd "sudo rm -rf /usr/share/cloudstack-common"
+    do_cmd "sudo rm -rf /usr/share/cloudstack-agent"
+    do_cmd "sudo rm -rf /var/log/cloudstack"
+    do_cmd "mysql -u cloud -pcloud -e 'DROP DATABASE cloud;'"
+    do_cmd "mysql -u cloud -pcloud -e 'DROP DATABASE cloud_usage;'"
+    #do_cmd "mysql -u cloud -pcloud -e 'DROP USER cloud@localhost';"
+
     script_ended_ok=true
 }
 

@@ -30,10 +30,6 @@ init_vars() {
     CLOUDSTACK_DIR="$HOME/logon/cloudstack"
     /home/davidb/logon/work
 
-    LOGON_RULES_FILE="$CLOUDSTACK_DIR/a_logon_workdir/rules.logon" # rules file that skips tests and adds sources
-    SAVED_RULES_FILE="$CLOUDSTACK_DIR/a_logon_workdir/rules.original" # As it came from cloudstack, rc2
-    RULES_FILE="$CLOUDSTACK_DIR/debian/rules" # As it came from cloudstack, rc2
-    
     PACKAGING_DIR="${CLOUDSTACK_DIR}/packaging" # Where the build-deb.sh script resides
 
     # Output of the build
@@ -42,25 +38,13 @@ init_vars() {
     
 }
 
-text_files_are_different() {
-    cmp -s "$1" "$2" && return 1 || return 0
-}
+
 
 package_cloudstack() {
-
-    # check if the current rules file is different than the original RC2 files that was saved
-    # in a_logon_workdir. If not, the script is stopped and user is asked to update the files.
-    if text_files_are_different "$RULES_FILE" "$SAVED_RULES_FILE"; then
-        logMessage "$RULES_FILE and $SAVED_RULES_FILE are different. Please fix manually."
-        exit 1
-    fi
-    
-    cp -fv "$LOGON_RULES_FILE" "$RULES_FILE" # copy the rules fileto skip tests and add sources
-
     cd "$PACKAGING_DIR"
-    sudo ./build-deb.sh -o "$DEBIAN_PACKAGES_OUTPUT_DIR" # -b "Log-On" # Beware that such branding will change all pom files (> 100) in the project
-
-    cp -fv  "$SAVED_RULES_FILE" "$RULES_FILE"  # Restore the original rules file 
+    export DEBUG=1 # To generate sources and skip tests. See debian/rules file.
+    ./build-deb.sh -o "$DEBIAN_PACKAGES_OUTPUT_DIR" 2>&1 | tee $LOGFILE  #W2 DB 3
+    # Note that the option -b "Log-On" for branding will change all pom files (> 100) in the project
 }
 
 main() {
@@ -68,6 +52,7 @@ main() {
     start_logging
     install_dch_and_debhelper.sh
     install_node_14.sh
+    install_python_mkisof_mysql.sh
     package_cloudstack
     script_ended_ok=true
 }

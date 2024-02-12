@@ -43,9 +43,10 @@ main() {
     start_logging
     install_dch_and_debhelper.sh
     cd "$DEBIAN_PACKAGES_OUTPUT_DIR"
-    do_cmd "sudo dpkg-scanpackages . override_file.txt > Packages"
-    do_cmd "sudo gzip -9k Packages"
-    do_cmd "sudo apt-ftparchive release . > Release"
+    touch override_file.txt
+    do_cmd "dpkg-scanpackages . override_file.txt > Packages"
+    do_cmd "gzip -9k Packages"
+    do_cmd "apt-ftparchive release . > Release"
     logMessage "NOTE: temprarily not signing the repo, as mentioned in http://docs.cloudstack.apache.org/en/4.18.1.0/installguide/building_from_source.html#repository-signing"
     logMessage "Bringing up an HTTP server on port 8090"
     start_web_server_in_background 8090

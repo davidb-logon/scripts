@@ -13,7 +13,7 @@ declare -a lines
 while IFS= read -r file; do
     time=$(stat -c '%y' "$file" | cut -d '.' -f 1)  # Get modification time up to seconds
     name=$(basename "$file")
-    lines+=("$time $name")  # Add the line to the array
+    lines+=("$time $name $file")  # Add the line to the array
 done < <(find . -type f | grep $pattern)
 
 # Sort the lines array and print each line
