@@ -4,6 +4,21 @@
 #------------------------------------------------------------------------------
 # Common bash functions to be reused in scripts
 
+#check_if_connected_to_internet || exit 1
+check_if_connected_to_internet() {
+    ping -c 1 -W 5 "8.8.8.8" > /dev/null 2>&1 && return 0 || return 1
+}
+
+# Ensure the script is run as root, if not exists with message
+check_if_root() {
+    [ "$(id -u)" -eq 0 ] || { logMessage "ERROR: script must be run as root."; exit 1; }
+}
+
+check_if_ubuntu() {
+    grep -qi 'ubuntu' /etc/os-release || { logMessage "ERROR: script is intended to run on Ubuntu only." >&2; exit 1; }
+}
+
+# confirm "are you sure" || exit 1
 confirm() {
     read -p "$1 (y/n): " response  # Prompt the user with the message and (y/n) options
     case "$response" in
@@ -80,6 +95,7 @@ check_if_remote_git_branch_exists() {
     git ls-remote "$repo" "refs/heads/$branch" | grep -q "refs/heads/$branch" && return 0 || return 1
 }
 
+#check_if_connected_to_internet || exit 1
 check_if_connected_to_internet() {
     ping -c 1 -W 5 "8.8.8.8" > /dev/null 2>&1 && return 0 || return 1
 }
@@ -88,7 +104,7 @@ text_files_are_different() {
     cmp -s "$1" "$2" && return 1 || return 0
 }
 
-check_if_connected_to_internet || exit 1
+
 
 ensure_dir_does_not_exist() {
     local dir=$1

@@ -9,6 +9,7 @@
 # Source script libraries as needed.
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
 source "$DIR/lib/common.sh"
+source "$DIR/lib/nfsconfig.sh"
 
 script_ended_ok=false
 trap 'cleanup' EXIT
@@ -25,6 +26,21 @@ http://docs.cloudstack.apache.org/en/4.19.0.0/installguide/management-server/ind
 -------------------------------------------------------------------------------
 EOF
 script_ended_ok=true
+}
+
+check_mysql_configuration() {
+echo "Please ensure that /etc/mysql/mysql.conf.d/mysqld.cnf contains:"
+cat << EOF
+[mysqld]
+server-id=source-01
+innodb_rollback_on_timeout=1
+innodb_lock_wait_timeout=600
+max_connections=350
+log-bin=mysql-bin
+binlog-format = 'ROW'
+EOF
+confirm "Please confirm" || exit 1
+
 }
 
 prepare_os() {
@@ -53,9 +69,6 @@ prepare_os() {
     do_cmd "$SUDO apt install chrony" "Installed chrony"
     do_cmd "install_java.sh"
 
-
-
-
     logMessage "--- End of preparing OS"
 }
 
@@ -69,13 +82,17 @@ install_management_server() {
 install_and_configure_mysql_database() {
     logMessage "--- Start to install and configure mysql"
     do_cmd "$SUDO apt install mysql-server" "mysql-server installed."
+    check_mysql_configuration
+    do_cmd "$SUDO systemctl restart mysql" "mysql server was started" "failed to start mysql server"
+    # cloudstack-setup-databases cloud:<dbpassword>@localhost [ --deploy-as=root:<password> | --schema-only ] -e <encryption_type> -m <management_server_key> -k <database_key> -i <management_server_ip>
+    do_cmd "$SUDO cloudstack-setup-databases cloud:cloud@localhost --deploy-as=root"
     logMessage "--- End of installing and configuring mysql"
-
 }
 
-prepqare_nfs_shares() {
-    logMessage "--- Start to prepare NFS shares"
-    logMessage "--- End of preparing NFS shares"
+check_if_running_kvm_here() {
+    if confirm "Are you running KVM hypervisor on this machine as well?"; then
+        confirm "Ensure the line: Defaults:cloud !requiretty is in your /etc/sudoers" || exit 1
+    fi
 }
 
 prepare_system_vm_template() {
@@ -86,12 +103,13 @@ prepare_system_vm_template() {
 main() {
     # Replace logon and template with your own values
     init_vars "logon" "install_cloudstack_server_and_agent"
-    parse_command_line_arguments "$@"
     start_logging
     prepare_os
     install_management_server
     install_and_configure_mysql_database
-    prepqare_nfs_shares
+    check_if_running_kvm_here
+    do_cmd "$SUDO cloudstack-setup-management"
+    a_configure_nfs.sh
     prepare_system_vm_template
     script_ended_ok=true
 }
@@ -101,13 +119,6 @@ init_vars() {
 }
 
 
-parse_command_line_arguments() {
-    # if [[ $# -lt 1 || $# -gt 2 ]]; then
-    #     usage
-    #     exit
-    # fi
-    temp=1
-}
 
 cleanup() {
     if $script_ended_ok; then 
