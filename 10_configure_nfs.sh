@@ -38,11 +38,20 @@ prepare_nfs_shares() {
     logMessage "--- End of preparing NFS shares"
 }
 
+mount_nfs() {
+    logMessage "Mounting /mnt/export"
+    sudo mkdir -p "/mnt/primary"
+    sudo mkdir -p "/mnt/secondary"
+    do_cmd "sudo mount -t nfs localhost:/export/secondary /mnt/secondary" "/mnt/secondary was mounted."
+    do_cmd "sudo mount -t nfs localhost:/export/primary /mnt/primary" "/mnt/primary was mounted."
+}
+
 main() {
     # Replace logon and template with your own values
     init_vars "logon" "configure_nfs"
     start_logging
     prepare_nfs_shares
+    mount_nfs
     script_ended_ok=true
 }
 

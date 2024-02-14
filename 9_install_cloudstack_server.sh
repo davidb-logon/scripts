@@ -28,19 +28,26 @@ EOF
 script_ended_ok=true
 }
 
-check_mysql_configuration() {
-echo "Please ensure that /etc/mysql/mysql.conf.d/mysqld.cnf contains:"
-cat << EOF
-[mysqld]
-server-id=source-01
-innodb_rollback_on_timeout=1
-innodb_lock_wait_timeout=600
-max_connections=350
-log-bin=mysql-bin
-binlog-format = 'ROW'
-EOF
-confirm "Please confirm" || exit 1
+main() {
+    # Replace logon and template with your own values
+    init_vars "logon" "install_cloudstack_server_and_agent"
+    start_logging
+    prepare_os
+    install_management_server
+    install_and_configure_mysql_database
+    check_if_running_kvm_here
+    do_cmd "$SUDO cloudstack-setup-management"
+    10_configure_nfs.sh
+    11_configure_firewall.sh $HOME_NETWORK $SEFI_NETWORK $MAINFRAME_NETWORK
+    prepare_system_vm_template
+    script_ended_ok=true
+}
 
+init_vars() {
+    init_utils_vars $1 $2
+    HOME_NETWORK="10.0.0.0/24"
+    SEFI_NETWORK="80.178.85.20"
+    MAINFRAME_NETWORK="204.90.115.208"
 }
 
 prepare_os() {
@@ -89,6 +96,21 @@ install_and_configure_mysql_database() {
     logMessage "--- End of installing and configuring mysql"
 }
 
+check_mysql_configuration() {
+echo "Please ensure that /etc/mysql/mysql.conf.d/mysqld.cnf contains:"
+cat << EOF
+[mysqld]
+server-id=source-01
+innodb_rollback_on_timeout=1
+innodb_lock_wait_timeout=600
+max_connections=350
+log-bin=mysql-bin
+binlog-format = 'ROW'
+EOF
+confirm "Please confirm" || exit 1
+
+}
+
 check_if_running_kvm_here() {
     if confirm "Are you running KVM hypervisor on this machine as well?"; then
         confirm "Ensure the line: Defaults:cloud !requiretty is in your /etc/sudoers" || exit 1
@@ -97,42 +119,11 @@ check_if_running_kvm_here() {
 
 prepare_system_vm_template() {
     logMessage "--- Start to preparing system VM template"
+    do_cmd "sudo /usr/share/cloudstack-common/scripts/storage/secondary/cloud-install-sys-tmplt -m /mnt/secondary -u http://download.cloudstack.org/systemvm/4.19/systemvmtemplate-4.19.0-kvm.qcow2.bz2 -h kvm -F" \
+            "SystemVM template for KVM has been seeded in secondary storage" \
+            "Unable to seed secondary storage with SystemVM template"
+
     logMessage "--- End of preparing system VM template"
 }
-
-main() {
-    # Replace logon and template with your own values
-    init_vars "logon" "install_cloudstack_server_and_agent"
-    start_logging
-    prepare_os
-    install_management_server
-    install_and_configure_mysql_database
-    check_if_running_kvm_here
-    do_cmd "$SUDO cloudstack-setup-management"
-    a_configure_nfs.sh
-    prepare_system_vm_template
-    script_ended_ok=true
-}
-
-init_vars() {
-    init_utils_vars $1 $2
-}
-
-
-
-cleanup() {
-    if $script_ended_ok; then 
-        echo -e "$green"
-        echo 
-        echo "--- SCRIPT WAS SUCCESSFUL"
-    else
-        echo -e "$red"
-        echo 
-        echo "--- SCRIPT WAS UNSUCCESSFUL"
-    fi
-    echo "--- Logfile at: cat $LOGFILE"
-    echo "--- End Script"
-    echo -e "$reset"
-}
-    
+  
 main "$@"

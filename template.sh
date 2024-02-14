@@ -53,19 +53,4 @@ parse_command_line_arguments() {
     temp=1
 }
 
-cleanup() {
-    if $script_ended_ok; then 
-        echo -e "$green"
-        echo 
-        echo "--- SCRIPT WAS SUCCESSFUL"
-    else
-        echo -e "$red"
-        echo 
-        echo "--- SCRIPT WAS UNSUCCESSFUL"
-    fi
-    echo "--- Logfile at: cat $LOGFILE"
-    echo "--- End Script"
-    echo -e "$reset"
-}
-    
 main "$@"
