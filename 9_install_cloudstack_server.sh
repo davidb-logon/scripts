@@ -30,7 +30,7 @@ script_ended_ok=true
 
 main() {
     # Replace logon and template with your own values
-    init_vars "logon" "install_cloudstack_server_and_agent"
+    init_vars "logon" "install_cloudstack_server"
     start_logging
     prepare_os
     install_management_server

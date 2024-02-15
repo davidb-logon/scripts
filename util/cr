@@ -1,0 +1,7 @@
+#!/bin/bash
+if [ -z "$1" ]; then
+    echo "Usage: cr <brname>" 
+    echo "This will checkout locally the remote branch <brname> and link it to origin/<brname>."
+    exit 1  # Exit with a non-zero exit code to indicate an error
+fi
+git checkout -b  $1 origin/$1
