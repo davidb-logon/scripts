@@ -1,5 +1,3 @@
 #!/bin/bash
-virsh destroy 1
-virsh destroy 2
 
-sudo shutdown
+sudo shutdown -h now

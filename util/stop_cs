@@ -1,0 +1,5 @@
+sudo systemctl stop cloudstack-management.service
+for i in {1..50}; do
+  virsh destroy $i
+done
+sudo systemctl stop cloudstack-agent.service

@@ -3,7 +3,7 @@
 # Licensed Materials (c) Copyright Log-On 2024, All Rights Reserved.
 #------------------------------------------------------------------------------
 # functions to configure NFS on ubuntu
-
+echo "@@@@@@@@@@@@@@  Sourced nfsconfig.sh"
 # Function to create an override directory and file if they don't exist
 create_override_dir_and_file() {
     local service_name=$1
@@ -79,13 +79,17 @@ configure_nfs_ports_on_ubuntu() {
 
 set_nfs_exports_options() {
     # Define the line to add to /etc/exports
-    exports_line="/export  *(rw,async,no_root_squash,no_subtree_check)"
-    if ! sudo grep -qF -- "$exports_line" /etc/exports; then
-        # Line does not exist, append it to /etc/exports
-        echo "$exports_line" | sudo tee -a /etc/exports > /dev/null
-        logMessage "--- The line '$exports_line' was added to /etc/exports"
-    else
-        logMessage "--- The line:'$exports_line' already exists in /etc/exports, no changes made."
-    fi
+    export_dirs=("/export" "/data")
+
+    for dir in "${export_dirs[@]}"; do
+        exports_line="$dir  *(rw,async,no_root_squash,no_subtree_check)"
+        if ! sudo grep -qF -- "$exports_line" /etc/exports; then
+            # Line does not exist, append it to /etc/exports
+            echo "$exports_line" | sudo tee -a /etc/exports > /dev/null
+            logMessage "--- The line '$exports_line' was added to /etc/exports"
+        else
+            logMessage "--- The line:'$exports_line' already exists in /etc/exports, no changes made."
+        fi
+    done
     do_cmd "sudo exportfs -a" "exportfs -a was executed to apply changes"
 }

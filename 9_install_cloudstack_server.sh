@@ -17,7 +17,7 @@ trap 'cleanup' EXIT
 usage() {
 cat << EOF
 -------------------------------------------------------------------------------
-Install Cloudstack server from local repo at 10.0.0.20
+Install Cloudstack server from local repo 
 
 Following instructions at:
 http://docs.cloudstack.apache.org/en/4.19.0.0/installguide/management-server/index.html
@@ -45,7 +45,7 @@ main() {
 
 init_vars() {
     init_utils_vars $1 $2
-    HOME_NETWORK="10.0.0.0/24"
+    HOME_NETWORK="192.168.1.0/24"
     SEFI_NETWORK="80.178.85.20"
     MAINFRAME_NETWORK="204.90.115.208"
 }

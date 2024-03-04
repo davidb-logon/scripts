@@ -1,0 +1,1 @@
+mysqldump -u cloud -pcloud cloud > /home/davidb/logon/work/cs.sql

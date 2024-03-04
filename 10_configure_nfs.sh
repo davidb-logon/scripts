@@ -15,7 +15,7 @@ trap 'cleanup' EXIT
 usage() {
 cat << EOF
 -------------------------------------------------------------------------------
-Install Cloudstack server from local repo at 10.0.0.20
+Install Cloudstack server from local repo 
 
 Following instructions at:
 http://docs.cloudstack.apache.org/en/4.19.0.0/installguide/management-server/index.html
@@ -33,6 +33,9 @@ prepare_nfs_shares() {
     do_cmd "$SUDO apt install nfs-kernel-server"
     do_cmd "$SUDO mkdir -p /export/primary"
     do_cmd "$SUDO mkdir -p /export/secondary"
+    do_cmd "$SUDO mkdir -p /data/primary2"
+    
+    
     set_nfs_exports_options
     configure_nfs_ports_on_ubuntu
     logMessage "--- End of preparing NFS shares"
@@ -41,9 +44,13 @@ prepare_nfs_shares() {
 mount_nfs() {
     logMessage "Mounting /mnt/export"
     sudo mkdir -p "/mnt/primary"
+    sudo mkdir -p "/mnt/primary2"
     sudo mkdir -p "/mnt/secondary"
-    do_cmd "sudo mount -t nfs localhost:/export/secondary /mnt/secondary" "/mnt/secondary was mounted."
+    
+    do_cmd "sudo mount -t nfs localhost:/data/secondary /mnt/secondary" "/mnt/secondary was mounted."
+    
     do_cmd "sudo mount -t nfs localhost:/export/primary /mnt/primary" "/mnt/primary was mounted."
+    do_cmd "sudo mount -t nfs localhost:/data/primary2 /mnt/primary2" "/mnt/primary2 was mounted."
 }
 
 main() {

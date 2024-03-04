@@ -1,0 +1,4 @@
+virsh net-start default
+sudo systemctl restart cloudstack-management.service
+sudo systemctl restart cloudstack-agent.service
+virsh net-list

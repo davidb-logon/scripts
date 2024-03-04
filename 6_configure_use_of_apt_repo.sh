@@ -23,23 +23,23 @@ script_ended_ok=true
 
 init_vars() {
     init_utils_vars $1 $2
-    
+    REPO_URL="http://192.168.1.248:8090"
 }
 
 main() {
     init_vars "logon" "cloudstack_add_repo_to_apt"
     start_logging
 
-    REPO_LINE="deb [trusted=yes] http://10.0.0.20:8090/ ./" # Because temporarilt the repo is not signed
+    REPO_LINE="deb [trusted=yes] $REPO_URL ./" # Because temporarily the repo is not signed
     FILE_PATH="/etc/apt/sources.list.d/cloudstack.list"
 
     # Check if the line exists in the file
     if ! grep -qxF "$REPO_LINE" "$FILE_PATH"; then
         # If the line does not exist, append it to the file
         echo "$REPO_LINE" | sudo tee -a "$FILE_PATH" > /dev/null
-        logMessage "The repo 'http://10.0.0.20:8090/ ./' added to $FILE_PATH"
+        logMessage "The repo $REPO_URL ./' added to $FILE_PATH"
     else
-        logMessage "The repo 'http://10.0.0.20:8090/ ./' already exists in $FILE_PATH"
+        logMessage "The repo $REPO_URL ./' already exists in $FILE_PATH"
     fi
     do_cmd "sudo apt-get update"
     script_ended_ok=true

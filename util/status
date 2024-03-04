@@ -1,0 +1,2 @@
+sudo systemctl status cloudstack-management.service
+sudo systemctl status cloudstack-agent.service
