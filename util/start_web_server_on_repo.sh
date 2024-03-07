@@ -15,8 +15,10 @@ PACKAGES_OUTPUT_DIR="$HOME/logon/packages"
 DEBIAN_PACKAGES_OUTPUT_DIR="$PACKAGES_OUTPUT_DIR/debian"
 cd "$DEBIAN_PACKAGES_OUTPUT_DIR"
 
-if ! ps aux | grep "python3 -m http.server $port" | grep -v grep; then
-    python3 -m http.server $port &
+if ! ps aux | grep "python3 -m http.server" | grep -v grep; then
+    #python3 -m http.server $port &
+    python3 -m http.server $port > access.log 2> error.log &
+
     logMessage "Server started on port $port"
 else
     logMessage "Server is already running on port $port"

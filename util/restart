@@ -1,4 +1,14 @@
-virsh net-start default
+#!/bin/bash
+#------------------------------------------------------------------------------
+# Licensed Materials (c) Copyright Log-On 2024, All Rights Reserved.
+#------------------------------------------------------------------------------
+stop_cs
+sleep 5
+sudo truncate --size 0 /var/log/cloudstack/management/management-server.log
+sudo truncate --size 0 /var/log/cloudstack/agent/agent.log
+sudo virsh net-start default
+sudo virsh net-autostart default
+virsh net-list
+sleep 5
 sudo systemctl restart cloudstack-management.service
 sudo systemctl restart cloudstack-agent.service
-virsh net-list
