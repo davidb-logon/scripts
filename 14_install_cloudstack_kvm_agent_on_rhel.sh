@@ -42,12 +42,11 @@ init_vars() {
 
 prepare_os() {
     logMessage "--- Start to prepare OS"
-    #!/bin/bash
 
     # Check if the current user ID is 0 (root user)
     if [ "$(id -u)" -ne 0 ]; then
         logMessage "--- You are not root. Will prepend 'sudo' to all commands."
-        SUDO="sudo "
+        SUDO="sudo"
     else
         logMessage "--- Logged in as root."
         SUDO=""
@@ -60,20 +59,38 @@ prepare_os() {
         logMessage "--- Not connected to internet"
         exit 1
     fi
-    logMessage "Connected to the internet."
+    logMessage "--- Connected to the internet."
 
-    logMessage "Installing ntp"
-    do_cmd "$SUDO apt install chrony" "Installed chrony"
-    do_cmd "install_java.sh"
+    do_cmd "$SUDO yum -y install  bzip2  ipmitool qemu-guest-agent"
+    do_cmd "$SUDO yum -y install java-11-openjdk"
+    do_cmd "$SUDO yum -y install python36"
+    do_cmd "$SUDO yum -y install chrony"
 
     logMessage "--- End of preparing OS"
 }
 
 install_cloudstack_kvm_agent() {
     logMessage "--- Start to install Cloudstack Agent"
-    do_cmd "$SUDO apt-get update"  # Update apt's index, to ensure getting the latest version.
-    do_cmd "$SUDO apt install qemu-kvm libvirt-daemon-system libvirt-clients bridge-utils virt-manager"
-    do_cmd "$SUDO apt install cloudstack-agent"
+
+    mkdir -p /home/davidb/cloudstack-rpms
+    cd /home/davidb/cloudstack-rpms
+
+    # These are the packages needed for the cloudstack agent
+    packages=("cloudstack-common" "cloudstack-agent")
+
+    for package in "${packages[@]}"
+    do
+        do_cmd "wget http://download.cloudstack.org/el/9/4.19/${package}-4.19.0.0-1.x86_64.rpm"
+
+        if rpm -q "$package" >/dev/null; then
+            logMessage "$package package is installed. Removing it..."
+            do_cmd "sudo rpm -e $package"
+        else
+            logMessage "$package package is not currently installed."
+        fi
+        do_cmd "sudo rpm -ivh --ignorearch  --nodeps --nosignature ${package}-4.19.0.0-1.x86_64.rpm"
+    done
+
     logMessage "--- End of installing Cloudstack Agent"
 }
 
