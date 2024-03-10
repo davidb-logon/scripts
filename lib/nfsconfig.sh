@@ -3,7 +3,7 @@
 # Licensed Materials (c) Copyright Log-On 2024, All Rights Reserved.
 #------------------------------------------------------------------------------
 # functions to configure NFS on ubuntu
-echo "@@@@@@@@@@@@@@  Sourced nfsconfig.sh"
+echo "---  Sourced nfsconfig.sh"
 # Function to create an override directory and file if they don't exist
 create_override_dir_and_file() {
     local service_name=$1
@@ -77,11 +77,10 @@ configure_nfs_ports_on_ubuntu() {
     logMessage "NFS-related services have been configured on Ubuntu."
 }
 
+# example: set_nfs_exports_options "/data/$PRIMARY" "/data/$SECONDARY"
 set_nfs_exports_options() {
     # Define the line to add to /etc/exports
-    export_dirs=("/export" "/data")
-
-    for dir in "${export_dirs[@]}"; do
+    for dir in "$@"; do
         exports_line="$dir  *(rw,async,no_root_squash,no_subtree_check)"
         if ! sudo grep -qF -- "$exports_line" /etc/exports; then
             # Line does not exist, append it to /etc/exports

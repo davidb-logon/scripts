@@ -31,26 +31,21 @@ prepare_nfs_shares() {
 
     logMessage "--- Start to prepare NFS shares"
     do_cmd "$SUDO apt install nfs-kernel-server"
-    do_cmd "$SUDO mkdir -p /export/primary"
-    do_cmd "$SUDO mkdir -p /export/secondary"
-    do_cmd "$SUDO mkdir -p /data/primary2"
+    do_cmd "$SUDO mkdir -p /data/$PRIMARY"
+    do_cmd "$SUDO mkdir -p /data/$SECONDARY"
     
-    
-    set_nfs_exports_options
+    set_nfs_exports_options "/data/$PRIMARY" "/data/$SECONDARY"
     configure_nfs_ports_on_ubuntu
     logMessage "--- End of preparing NFS shares"
 }
 
 mount_nfs() {
-    logMessage "Mounting /mnt/export"
-    sudo mkdir -p "/mnt/primary"
-    sudo mkdir -p "/mnt/primary2"
-    sudo mkdir -p "/mnt/secondary"
-    
-    do_cmd "sudo mount -t nfs localhost:/data/secondary /mnt/secondary" "/mnt/secondary was mounted."
-    
-    do_cmd "sudo mount -t nfs localhost:/export/primary /mnt/primary" "/mnt/primary was mounted."
-    do_cmd "sudo mount -t nfs localhost:/data/primary2 /mnt/primary2" "/mnt/primary2 was mounted."
+    logMessage "--- Starting to mount nfs"
+    do_cmd "sudo mkdir -p /mnt/$PRIMARY"
+    do_cmd "sudo mkdir -p /mnt/$SECONDARY"
+    do_cmd "sudo mount -t nfs localhost:/data/$PRIMARY /mnt/$PRIMARY" "/mnt/$PRIMARY was mounted."
+    do_cmd "sudo mount -t nfs localhost:/data/$SECONDARY /mnt/$SECONDARY" "/mnt/$SECONDARY was mounted."
+    logMessage "--- End mount nfs"
 }
 
 main() {
@@ -64,22 +59,9 @@ main() {
 
 init_vars() {
     init_utils_vars $1 $2
+    PRIMARY="ubuntu_primary"
+    SECONDARY="ubuntu_secondary"
     SUDO="sudo"
-}
-
-cleanup() {
-    if $script_ended_ok; then 
-        echo -e "$green"
-        echo 
-        echo "--- SCRIPT WAS SUCCESSFUL"
-    else
-        echo -e "$red"
-        echo 
-        echo "--- SCRIPT WAS UNSUCCESSFUL"
-    fi
-    echo "--- Logfile at: cat $LOGFILE"
-    echo "--- End Script"
-    echo -e "$reset"
 }
     
 main "$@"

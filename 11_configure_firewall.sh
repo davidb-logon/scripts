@@ -32,6 +32,7 @@ script_ended_ok=true
 
 init_vars() {
     init_utils_vars $1 $2
+    HOME_NETWORK="192.168.1.0/24"
 }
 
 enable_ufw() {
@@ -87,8 +88,6 @@ function update_idmapd_conf() {
 }
 
 set_ufw_rules() {
-    # Iterate over each provided network
-    do_cmd "sudo ufw allow from $HOME_NETWORK"
     for network in "$@"; do
         logMessage "--- Adding ufw rules for network: $network"
          # Loop through ports and protocols to add rules for each network
@@ -134,8 +133,8 @@ enable_ip_forwarding() {
 
 main() {
     init_vars "logon" "configure_firewall"
+
     if [ $# -eq 0 ]; then
-        HOME_NETWORK="192.168.1.0/24"
         SEFI_NETWORK="80.178.85.20"
         MAINFRAME_NETWORK="204.90.115.208"
         set -- "$SEFI_NETWORK" "$MAINFRAME_NETWORK" 
@@ -144,6 +143,7 @@ main() {
     start_logging
     enable_ufw
     reset_ufw_rules
+    do_cmd "sudo ufw allow from $HOME_NETWORK"
     set_ufw_rules "$@"
     enable_ip_forwarding
     # Ensure rules are up-todate
@@ -152,7 +152,5 @@ main() {
     update_idmapd_conf
     script_ended_ok=true
 }
-
-
 
 main "$@"
