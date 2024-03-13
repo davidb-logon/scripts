@@ -68,12 +68,14 @@ $cli add traffictype traffictype=Guest physicalnetworkid=$phy_id
 echo "Added guest traffic"
 $cli add traffictype traffictype=Management physicalnetworkid=$phy_id
 echo "Added mgmt traffic"
+
 $cli update physicalnetwork state=Enabled id=$phy_id
 echo "Enabled physicalnetwork"
- 
+
 nsp_id=`$cli list networkserviceproviders name=VirtualRouter physicalnetworkid=$phy_id | grep ^id\ = | awk '{print $3}'`
 vre_id=`$cli list virtualrouterelements nspid=$nsp_id | grep ^id\ = | awk '{print $3}'`
 $cli api configureVirtualRouterElement enabled=true id=$vre_id
+#------------------------------------------------------
 $cli update networkserviceprovider state=Enabled id=$nsp_id
 echo "Enabled virtual router element and network service provider"
  
