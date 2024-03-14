@@ -75,18 +75,22 @@ echo "Enabled physicalnetwork"
 nsp_id=`$cli list networkserviceproviders name=VirtualRouter physicalnetworkid=$phy_id | grep ^id\ = | awk '{print $3}'`
 vre_id=`$cli list virtualrouterelements nspid=$nsp_id | grep ^id\ = | awk '{print $3}'`
 $cli api configureVirtualRouterElement enabled=true id=$vre_id
-#------------------------------------------------------
+
 $cli update networkserviceprovider state=Enabled id=$nsp_id
 echo "Enabled virtual router element and network service provider"
  
+
 nsp_sg_id=`$cli list networkserviceproviders name=SecurityGroupProvider physicalnetworkid=$phy_id | grep ^id\ = | awk '{print $3}'`
 $cli update networkserviceprovider state=Enabled id=$nsp_sg_id
 echo "Enabled security group provider"
  
+
+
 netoff_id=`$cli list networkofferings name=DefaultSharedNetworkOfferingWithSGService | grep ^id\ = | awk '{print $3}'`
 net_id=`$cli create network zoneid=$zone_id name=guestNetworkForBasicZone displaytext=guestNetworkForBasicZone networkofferingid=$netoff_id | grep ^id\ = | awk '{print $3}'`
 echo "Created network $net_id for zone" $zone_id
  
+
 pod_id=`$cli create pod name=MyPod zoneid=$zone_id gateway=$gw netmask=$nmask startip=$pod_start endip=$pod_end | grep ^id\ = | awk '{print $3}'`
 echo "Created pod"
  
@@ -95,7 +99,7 @@ echo "Created IP ranges for instances"
  
 cluster_id=`$cli add cluster zoneid=$zone_id hypervisor=$hpvr clustertype=CloudManaged podid=$pod_id clustername=MyCluster | grep ^id\ = | awk '{print $3}'`
 echo "Created cluster" $cluster_id
- 
+
 #Put loop here if more than one
 for host_ip in $host_ips;
 do
@@ -103,6 +107,7 @@ do
   echo "Added host" $host_ip;
 done;
  
+#------------------------------------------------------
 #$cli create storagepool zoneid=$zone_id podid=$pod_id clusterid=$cluster_id name=MyNFSPrimary url=$prm_storage
 #echo "Added primary storage"
  
