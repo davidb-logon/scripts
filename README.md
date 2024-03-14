@@ -6,7 +6,7 @@ flowchart LR
   node_1["Israel - Kfar Veradim\nRouter\n\nAddress: 192.168.1.1\n\nPort forwared:\n22,8080,111,2049 -#gt; 192.168.1.248"]
 
   subgraph Dudi's Office
-    node_2["Ubuntu\nx86_64\n\naddress: 192.168.1.248"] --> primary1[(Primary)] & secondary[(Secondary)]
+    node_2["Ubuntu\nx86_64\n\naddress: 192.168.1.248"]
     node_4((("KVM")))
     node_6["SystemVM Router"]
     node_7["SystemVM Storage"]
@@ -14,16 +14,14 @@ flowchart LR
     node_15{{"CS Agent\n\nPort: 8250"}}
     node_8["Ubuntu\n\n192.168.122.3"]
     node_12["Rocky\n\n192.168.122.4"]
-    
-    
   end
+
   subgraph "Poughkeepsie, New York"
-    node_3["Dlinux\nS390x\n\nAddress: 204.90.115.208"] --> primary2[(Primary2)]
+    node_3["Dlinux\nS390x\n\nAddress: 204.90.115.208"]
     node_11["Redhat 9\n\n192.168.122.3"]
     node_13["Rocky\n\n192.168.122.4"]
     node_5((("KVM")))
     node_16{{"CS Agent\n\nPort: 8250"}}
-    
   end
     
   node_1 -.-> node_2
@@ -42,7 +40,6 @@ flowchart LR
   node_15 --> node_4
   node_3 --> node_16
   node_16 --> node_5
-  node_7 --> primary1 & secondary & primary2
   style node_1 fill:#86FFB5,color:#000,stroke:#fff,stroke-width:2px
   style node_2 fill:#86FFff,color:#000,stroke:#fff,stroke-width:2px
   style node_3 fill:#86FFff,color:#000,stroke:#fff,stroke-width:2px
@@ -62,6 +59,7 @@ flowchart LR
         Example of all kind of nodes
 ```mermaid
 graph TB
+subgraph example
   id1("This is the text in the box<br>(abc)<br>1") &  id2(["This is the text in the box<br>[abc]<br>2"]) -->   id3[["This is the text in the box<br>[[abc]]<br>3"]] &   id4[("Database<br>[(abc)]<br>4")]
   id5(("This is the text in the circle<br>((abc))<br>5"))
   id6>"This is the text in the box<br>>abc]<br>6"]   
@@ -72,6 +70,7 @@ graph TB
   id11[/"Christmas<br>[/abc\]<br>11"\]
   id12[\"Go shopping<br>[\abc/]<br>12"/]
   id13((("This is the text in the circle<br>(((abc)))<br>13")))
+end
 
   id1 -.-> id7
   id2 --x|Cross edge| id7
@@ -88,6 +87,3 @@ graph TB
   id7 -- This is the text! --- id13
 
 ```
-
-
-
