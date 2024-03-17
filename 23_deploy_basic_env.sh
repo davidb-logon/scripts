@@ -66,6 +66,7 @@ delete_everything() {
     delete_hosts
     delete_clusters
     delete_pods
+    delete_systemvms
     delete_networks
     delete_all_physicalnetworks
     delete_all_zones
@@ -75,52 +76,39 @@ delete_all_objects () {
     objects=$1
     object="${objects%?}"
     ids=$(cmk list $objects | grep "^id =" | awk '{print $3}')
+
     if [[ "$ids" =~ ^[[:space:]]*$ ]]; then
         logMessage "--- No $objects found to delete."
         return
     fi
+
     confirm "--- Delete existing $objects: ${ids} ?" || exit 1
 
-    # Loop through each zone ID and delete the zone
+    
     counter=0
-    [[ $object == "host" || $object == "storagepool" || $object == "imagestore" ]] && forced="forced=true" || forced=""
-
+    [[ $object == "host" ]] && forced="forced=true" || forced=""
+    
+    # Loop through each zone ID and delete the zone
     for id in $ids; do
-        do_cmd "cmk delete $object id=${id} $forced" "$object ${id} deleted." "Failed to delete $object ${id}"
+        if [[ $object == "storagepool" ]]; then
+            do_cmd 'cmk enable storagemaintenance id=${id}' "Storagepool placed in maintenance mode" "failed to place storagepool in maintenance mode"
+        fi
+        if [[ $object == "systemvm" ]]; then
+            do_cmd "cmk expunge systemvm id=${id}" "systemvm ${id} deleted." "Failed to delete systemvm ${id}"
+        else 
+            do_cmd "cmk delete $object id=${id} $forced" "$object ${id} deleted." "Failed to delete $object ${id}"
+        fi
     done
 
 }
 
 delete_all_zones() {
     delete_all_objects "zones"
-    # zone_ids=$(cmk list zones | grep "id =" | awk '{print $3}')
-    # if [[ "$zone_ids" =~ ^[[:space:]]*$ ]]; then
-    #     logMessage "--- No zones found to delete."
-    #     return
-    # fi
-    # confirm "--- Delete existing zones: ${zone_ids} ?" || exit 1
 
-    # # Loop through each zone ID and delete the zone
-    # counter=0
-    # for id in $zone_ids; do
-    #     do_cmd "cmk delete zone id=${id}" "Zone ${id} deleted." "Failed to delete zone ${id}"
-    # done
 }
 
 delete_all_physicalnetworks() {
     delete_all_objects "physicalnetworks"
-    # phy_ids=$(cmk list physicalnetworks | grep "^id =" | awk '{print $3}')
-    # if [[ "$phy_ids" =~ ^[[:space:]]*$ ]]; then
-    #     logMessage "--- No physicalnetworks found to delete."
-    #     return
-    # fi
-    # confirm "--- Delete existing physicalnetworks: ${phy_ids} ?" || exit 1
-
-    # # Loop through each physicalnetwork ID and delete the physicalnetwork
-    # counter=0
-    # for id in $phy_ids; do
-    #     do_cmd "cmk delete physicalnetwork id=${id}" "physicalnetwork ${id} deleted." "Failed to delete physicalnetwork ${id}"
-    # done
 }
 
 delete_hosts () {
@@ -133,6 +121,9 @@ delete_clusters () {
 
 delete_pods () {
     delete_all_objects "pods"
+}
+delete_systemvms () {
+    delete_all_objects "systemvms"
 }
 
 delete_networks () {
