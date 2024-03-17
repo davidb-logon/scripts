@@ -1,29 +1,33 @@
 Log-On CloudStack  Plan
 
 ```mermaid
-
 flowchart LR
   node_1["Israel - Kfar Veradim\nRouter\n\nAddress: 192.168.1.1\n\nPort forwared:\n22,8080,111,2049 -#gt; 192.168.1.248"]
 
   subgraph Dudi's Office
     node_2["Ubuntu\nx86_64\n\naddress: 192.168.1.248"]
     node_4((("KVM")))
-    node_6["SystemVM Router"]
-    node_7["SystemVM Storage"]
     node_14{{"CS Managment\n\nPorts: 8080\n8250"}}
     node_15{{"CS Agent\n\nPort: 8250"}}
-    node_8["Ubuntu\n\n192.168.122.3"]
-    node_12["Rocky\n\n192.168.122.4"]
+ 
+    subgraph VirtualMachines
+      node_6["SystemVM Router"]
+      node_7["SystemVM Storage"]
+      node_8["Ubuntu\n\n192.168.122.3"]
+      node_12["Rocky\n\n192.168.122.4"]
+    end
   end
 
-  subgraph "Poughkeepsie, New York"
+  subgraph Poughkeepsie
     node_3["Dlinux\nS390x\n\nAddress: 204.90.115.208"]
     node_11["Redhat 9\n\n192.168.122.3"]
     node_13["Rocky\n\n192.168.122.4"]
     node_5((("KVM")))
     node_16{{"CS Agent\n\nPort: 8250"}}
   end
-    
+ style Poughkeepsie fill:#bbf,stroke:#f66,stroke-width:2px,color:#fff,stroke-dasharray: 5 5    
+ style VirtualMachines fill:#bbf,stroke:#f66,stroke-width:2px,color:#fff,stroke-dasharray: 5 5    
+ 
   node_1 -.-> node_2
   node_1 --> node_3
   node_4 --> node_6
@@ -41,7 +45,7 @@ flowchart LR
   node_3 --> node_16
   node_16 --> node_5
   style node_1 fill:#86FFB5,color:#000,stroke:#fff,stroke-width:2px
-  style node_2 fill:#86FFff,color:#000,stroke:#fff,stroke-width:2px
+  style node_2 fill:#86FFff,color:#000,stroke:#fff,vstroke-width:2px
   style node_3 fill:#86FFff,color:#000,stroke:#fff,stroke-width:2px
   style node_4 fill:#ffaaaa,color:#000,stroke:#fff,stroke-width:2px
   style node_5 fill:#ffaaaa,color:#000,stroke:#fff,stroke-width:2px
@@ -85,5 +89,5 @@ end
   id7---|This is the text|id11
   id7 <-. This is the text! .-> id12
   id7 -- This is the text! --- id13
-
+  style id1  fill:#86FFB5,color:#000,stroke:#fff,stroke-width:2px
 ```
