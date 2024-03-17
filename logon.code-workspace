@@ -5,6 +5,9 @@
 		},
 		{
 			"path": "../../../../var/log/cloudstack"
+		},
+		{
+			"path": "../../../../var/log/logon"
 		}
 	],
 	"settings": {

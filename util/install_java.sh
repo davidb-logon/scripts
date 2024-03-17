@@ -5,7 +5,7 @@ source "$DIR/lib/common.sh"
 
 # Function to check if Java 11 is installed
 check_java11_installed() {
-    if java -version 2>&1 | grep -q 'openjdk version "11.0.21"'; then
+    if java -version 2>&1 | grep -q 'openjdk version "11.0'; then
         logMessage "Java 11 is already installed."
         return 0
     else

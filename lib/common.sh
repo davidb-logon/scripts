@@ -137,11 +137,16 @@ do_cmd() {
         return
     fi
 
+    echo "error processinf"
+    if [[ "${command:0:7}" == "result=" ]]; then
+        detailed_error=", $result"
+    fi
+
     if [[ $error_or_info_message == INFO:* ]]; then
-        logMessage "--- INFO: ${error_or_info_message#INFO: }"
+        logMessage "--- INFO: ${error_or_info_message#INFO: }${detailed_error}"
         return "$rc"
     else
-        logMessage "--- ERROR: $error_or_info_message"
+        logMessage "--- ERROR: $error_or_info_message${detailed_error}"
         exit 1
     fi
 }

@@ -1,0 +1,18 @@
+count = 1
+zone:
+securitygroupsenabled = true
+allocationstate = Disabled
+tags = []
+id = 574012c6-7859-4d3e-9541-9b8a6dbe01a0
+name = ubuntu_zone
+dns1 = 8.8.8.8
+internaldns1 = 192.168.1.1
+dhcpprovider = VirtualRouter
+type = Core
+allowuserspecifyvrmtu = false
+hasannotations = false
+networktype = Basic
+zonetoken = 152b08f5-227f-3c79-8f33-646f7c58c9b9
+localstorageenabled = false
+routerprivateinterfacemaxmtu = 1500
+routerpublicinterfacemaxmtu = 1500

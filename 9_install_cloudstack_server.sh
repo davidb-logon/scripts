@@ -34,12 +34,17 @@ main() {
     start_logging
     prepare_os
     install_management_server
+    
     install_and_configure_mysql_database
     check_if_running_kvm_here
     do_cmd "$SUDO cloudstack-setup-management"
     10_configure_nfs.sh
-    11_configure_firewall.sh $HOME_NETWORK $SEFI_NETWORK $MAINFRAME_NETWORK
+    11_configure_firewall.sh $SEFI_NETWORK $MAINFRAME_NETWORK
     prepare_system_vm_template
+    fix_cluster_node_ip_in_db_properties "$LOCAL_IP"
+    sleep 10
+    logMessage "--- Restarting CloudStack management server"
+    restart
     script_ended_ok=true
 }
 
@@ -48,6 +53,25 @@ init_vars() {
     HOME_NETWORK="192.168.1.0/24"
     SEFI_NETWORK="80.178.85.20"
     MAINFRAME_NETWORK="204.90.115.208"
+    LOCAL_IP="192.168.1.248"
+}
+
+fix_cluster_node_ip_in_db_properties() {
+    logMessage "--- Start to fix db.properties"
+    local NEW_IP="$1"
+    FILE_PATH="/etc/cloudstack/management/db.properties"
+
+    # Check if the file exists
+    if [ -f "$FILE_PATH" ]; then
+        # Use sed to change any IP address that follows 'cluster.node.IP=' to the new IP address
+        if sed -i "s/^cluster\.node\.IP=.*$/cluster.node.IP=$NEW_IP/" "$FILE_PATH"; then
+            logMessage "The IP address for cluster.node.IP has been successfully updated to $NEW_IP in $FILE_PATH."
+        else
+            logMessage "Failed to update the IP address for cluster.node.IP in $FILE_PATH."
+        fi
+    else
+        logMessage "Error: $FILE_PATH does not exist."
+    fi
 }
 
 prepare_os() {
@@ -56,8 +80,8 @@ prepare_os() {
 
     # Check if the current user ID is 0 (root user)
     if [ "$(id -u)" -ne 0 ]; then
-        logMessage "--- You are not root. Will prepend 'sudo' to all commands."
-        SUDO="sudo "
+        logMessage "--- You are not root. exiting."
+        exit 1
     else
         logMessage "--- Logged in as root."
         SUDO=""
@@ -74,7 +98,7 @@ prepare_os() {
 
     logMessage "Installing ntp"
     do_cmd "$SUDO apt install chrony" "Installed chrony"
-    do_cmd "install_java.sh"
+    install_java.sh
 
     logMessage "--- End of preparing OS"
 }
@@ -97,7 +121,7 @@ install_and_configure_mysql_database() {
 }
 
 check_mysql_configuration() {
-echo "Please ensure that /etc/mysql/mysql.conf.d/mysqld.cnf contains:"
+    echo "Please ensure that /etc/mysql/mysql.conf.d/mysqld.cnf contains:"
 cat << EOF
 [mysqld]
 server-id=source-01
@@ -107,7 +131,7 @@ max_connections=350
 log-bin=mysql-bin
 binlog-format = 'ROW'
 EOF
-confirm "Please confirm" || exit 1
+    confirm "Please confirm" || exit 1
 
 }
 
