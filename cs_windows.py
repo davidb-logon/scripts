@@ -3,24 +3,8 @@
 
 import os
 import sys
+import msvcrt
 import subprocess
-import tty
-import termios
-
-def getch():
-    fd = sys.stdin.fileno()
-    old_settings = termios.tcgetattr(fd)
-    ch2=''
-    try:
-        tty.setraw(sys.stdin.fileno())
-        ch = sys.stdin.read(1)
-    finally:
-        termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
-    if  ch == '[':
-        ch2 = getch()    
-    return ch+ch2
-
- 
 
 
 
@@ -64,13 +48,6 @@ def bashexec():
     On Linux and Mac, the executable is located at "/bin/bash".
     """
     return 'd:\\Program Files\\Git\\bin\\bash.exe' if os.name=='nt' else '/bin/bash'
-
-
-
-
-# Your main program loop here
-
-
 def showMenu():
     """
     Displays a menu of script options and runs the selected script.
@@ -97,21 +74,16 @@ def showMenu():
         The menu is closed if the user presses the Escape key.
         The selected option is changed if the user presses the Up or Down arrow keys.
         """
-        key = getch()
-        
-        
-        if key=='q' or key=='Q':
+        key = msvcrt.getch()
+        if key==b'q' or key==b'Q':
             exit(0)
-        #up    
-        if key=='\x1b[A' or key=='H':
+        if key==b'\x1b[A' or key==b'H':
             if selected>0:
                 selected-=1
-        elif key=='\x1b[B' or key=='P':
+        elif key==b'\x1b[B' or key==b'P':
             if selected<len(options)-1:
                 selected+=1
-
-
-        elif key=='[A\r' or key=='\n' or key=='\r':
+        elif key==b'\r' or key==b'\n':
             if options[selected][0]=='q':
                 exit(0)
             script=options[selected][1][1]            
@@ -119,7 +91,7 @@ def showMenu():
             print(f'Doing {options[selected][1][1]} : {bashexe} {script}')
             subprocess.Popen([bashexe, "-c", "./"+script])
             
-        elif key=='\x1b' or key=='[':
+        elif key==b'\x1b' or key==b'[':
             break
 
 def print_options(options, selected, width, keylength,separator):
@@ -145,4 +117,3 @@ def print_options(options, selected, width, keylength,separator):
     print('└' +  separator + '┘') # End of the bottom line
 
 showMenu()
-
