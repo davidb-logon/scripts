@@ -4,7 +4,11 @@
 #------------------------------------------------------------------------------
 # See usage for what this script does.
 # TODOs:
-
+#      - to work around issue with multiple ip addresses for cs management, add 
+#        1. set in the hypervisor config the ip to "csmanagement"
+#        2. In the agent install, add to the /etc/hosts file an entry with "csmangement" pointing
+#           to the local or public cs management server ip address (this can be added as a 
+#           parameter to agent install
 
 # Source script libraries as needed.
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
