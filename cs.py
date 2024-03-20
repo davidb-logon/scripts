@@ -3,8 +3,12 @@
 
 import os
 import sys
-import msvcrt
 import subprocess
+if os.name=='nt':
+  import msvcrt
+else:
+    from getkey import getkey, keys
+
 
 
 
@@ -51,7 +55,7 @@ def showMenu():
     The user can navigate the menu using the arrow keys and select an option with Enter.
     The selected script is run using the Bash executable.
     """
-    folders = get_folder_names("d:/app/IBM/log-on/cs/scripts")
+    folders = get_folder_names("d:/app/IBM/log-on/cs/scripts" if os.name=='nt' else "/home/sefi/app/logon/scripts")
     folders['q']=('Quit', 'q')
     keylength=3
     width = max(len(str(key)) + len(val[0]) for key, val in folders.items()) + keylength
@@ -69,16 +73,16 @@ def showMenu():
         The menu is closed if the user presses the Escape key.
         The selected option is changed if the user presses the Up or Down arrow keys.
         """
-        key = msvcrt.getch()
-        if key==b'q' or key==b'Q':
+        key = msvcrt.getch() if os.name=='nt' else  getkey()
+        if key==b'q' or key==b'Q' or key=='q' or key=='Q':
             exit(0)
-        if key==b'\x1b[A' or key==b'H':
+        if key==b'\x1b[A' or key==b'H' or key=='\x1b[A':
             if selected>0:
                 selected-=1
-        elif key==b'\x1b[B' or key==b'P':
+        elif key==b'\x1b[B' or key==b'P' or key=='\x1b[B':
             if selected<len(options)-1:
                 selected+=1
-        elif key==b'\r' or key==b'\n':
+        elif key==b'\r' or key==b'\n' or key=='\n':
             if options[selected][0]=='q':
                 exit(0)
             script=options[selected][1][1]            
