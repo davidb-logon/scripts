@@ -28,11 +28,6 @@ def get_folder_names(path):
 
     return {k: v for k, v in sorted(output_folder.items(), key=lambda item: item[0])}
 
-
-
-
-
-
 def cls():
     """
     Clears the terminal window, works on both Windows and Linux/Mac
