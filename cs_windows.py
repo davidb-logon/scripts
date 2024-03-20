@@ -3,12 +3,10 @@
 
 import os
 import sys
+import msvcrt
 import subprocess
 
-if os.name=='nt':
-  import msvcrt
-else:
-    from getkey import getkey, keys
+
 
 def get_folder_names(path):
     """
@@ -17,9 +15,6 @@ def get_folder_names(path):
     of (file name without the first part, file name)
     The dictionary is sorted by the keys in ascending order.
     """
-    path = os.path.dirname(os.path.abspath(__file__))
-
-
     files = os.listdir(path)
     output_folder = {}
     for f in files:
@@ -32,6 +27,11 @@ def get_folder_names(path):
             output_folder[int(f.split('_')[0])] = (val, f)  # add the key-value pair to the output dictionary
 
     return {k: v for k, v in sorted(output_folder.items(), key=lambda item: item[0])}
+
+
+
+
+
 
 def cls():
     """
@@ -48,13 +48,6 @@ def bashexec():
     On Linux and Mac, the executable is located at "/bin/bash".
     """
     return 'd:\\Program Files\\Git\\bin\\bash.exe' if os.name=='nt' else '/bin/bash'
-
-
-
-
-# Your main program loop here
-
-
 def showMenu():
     """
     Displays a menu of script options and runs the selected script.
@@ -63,9 +56,7 @@ def showMenu():
     The user can navigate the menu using the arrow keys and select an option with Enter.
     The selected script is run using the Bash executable.
     """
-
-    folders = get_folder_names("d:/app/IBM/log-on/cs/scripts" if os.name=='nt' else "~/logon/scripts")
-
+    folders = get_folder_names("./")
     folders['q']=('Quit', 'q')
     keylength=3
     width = max(len(str(key)) + len(val[0]) for key, val in folders.items()) + keylength
@@ -83,16 +74,16 @@ def showMenu():
         The menu is closed if the user presses the Escape key.
         The selected option is changed if the user presses the Up or Down arrow keys.
         """
-        key = msvcrt.getch() if os.name=='nt' else  getkey()
-        if key==b'q' or key==b'Q' or key=='q' or key=='Q':
+        key = msvcrt.getch()
+        if key==b'q' or key==b'Q':
             exit(0)
-        if key==b'\x1b[A' or key==b'H' or key=='\x1b[A':
+        if key==b'\x1b[A' or key==b'H':
             if selected>0:
                 selected-=1
-        elif key==b'\x1b[B' or key==b'P' or key=='\x1b[B':
+        elif key==b'\x1b[B' or key==b'P':
             if selected<len(options)-1:
                 selected+=1
-        elif key==b'\r' or key==b'\n' or key=='\n':
+        elif key==b'\r' or key==b'\n':
             if options[selected][0]=='q':
                 exit(0)
             script=options[selected][1][1]            
@@ -100,7 +91,7 @@ def showMenu():
             print(f'Doing {options[selected][1][1]} : {bashexe} {script}')
             subprocess.Popen([bashexe, "-c", "./"+script])
             
-        elif key=='\x1b' or key=='[':
+        elif key==b'\x1b' or key==b'[':
             break
 
 def print_options(options, selected, width, keylength,separator):
@@ -126,4 +117,3 @@ def print_options(options, selected, width, keylength,separator):
     print('└' +  separator + '┘') # End of the bottom line
 
 showMenu()
-
