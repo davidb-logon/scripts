@@ -6,7 +6,7 @@
 main() {
     start_time=$(date +%s)
     usage
-        init_vars "logon" "cloudstack"
+    init_vars "logon" "cloudstack"
     parse_command_line_arguments "$@"
     start_logging
 
@@ -17,13 +17,16 @@ main() {
     do_cmd "sudo apt install openvpn easy-rsa -y"
 
     # Set up Easy-RSA directory
-    do_cmd "make-cadir ~/openvpn-ca"
+    do_cmd "make-cadir ~/openvpn-ca" "Created cadir" "INFO: Unable to create ca_dir"
     cd ~/openvpn-ca
     init_RSA_vars
 
     # Initialize and build CA
     do_cmd "./easyrsa init-pki"
     do_cmd "echo 'CA' | ./easyrsa build-ca nopass"
+
+    # Copy the CA certificate to the OpenVPN directory
+    do_cmd "sudo cp pki/ca.crt /etc/openvpn/"
 
     # Generate server certificate and key
     do_cmd "./easyrsa gen-req server nopass"
@@ -42,14 +45,20 @@ EOF
 
     # Move them to the OpenVPN directory
     do_cmd "sudo cp ta.key /etc/openvpn/"
-    do_cmd "sudo cp pki/dh.pem /etc/openvpn/"
+    do_cmd "sudo cp pki/dh.pem /etc/openvpn/dh2048.pem"
 
     # Configure OpenVPN Server
-    do_cmd "sudo gunzip -c /usr/share/doc/openvpn/examples/sample-config-files/server.conf.gz | sudo tee /etc/openvpn/server.conf"
+    do_cmd "sudo cp -p /usr/share/doc/openvpn/examples/sample-config-files/server.conf /etc/openvpn/server.conf"
     do_cmd "sudo sed -i 's/;tls-auth ta.key 0/tls-auth ta.key 0/' /etc/openvpn/server.conf"
     do_cmd "sudo sed -i 's/;cipher AES-256-CBC/cipher AES-256-CBC/' /etc/openvpn/server.conf"
     do_cmd "sudo sed -i 's/;user nobody/user nobody/' /etc/openvpn/server.conf"
     do_cmd "sudo sed -i 's/;group nogroup/group nogroup/' /etc/openvpn/server.conf"
+
+    # To address the issues seen in "sudo journalctl -u openvpn@server", add the following to server.conf:
+    # topology subnet
+    # data-ciphers AES-256-GCM:AES-128-GCM:AES-256-CBC
+
+
 
     # Enable IP Forwarding
     do_cmd "sudo sed -i '/net.ipv4.ip_forward=1/s/^#//g' /etc/sysctl.conf"
@@ -94,6 +103,7 @@ set_var EASYRSA_SSL_CONF       "\${EASYRSA}/openssl-easyrsa.cnf"
 set_var EASYRSA_DIGEST         "sha256"
 EOF    
 }
+
 parse_command_line_arguments() {
     # if [[ $# -lt 1 || $# -gt 2 ]]; then
     #     usage

@@ -50,6 +50,7 @@ declare -A ports_protocols=(
     [53]="tcp udp"     # DNS
     [111]="tcp udp"    # Portmapper
     [2049]="tcp"       # NFS
+    [1194]="udp"       # VPN
     [32803]="tcp"      # NFS mountd (for NFSv3)
     [32769]="udp"      # NFS mountd (for NFSv3)
     [892]="tcp udp"    # NFSd and mountd (for NFSv4)
