@@ -4,25 +4,11 @@
 import os
 import sys
 import subprocess
-import tty
-import termios
 
-def getch():
-    fd = sys.stdin.fileno()
-    old_settings = termios.tcgetattr(fd)
-    ch2=''
-    try:
-        tty.setraw(sys.stdin.fileno())
-        ch = sys.stdin.read(1)
-    finally:
-        termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
-    if  ch == '[':
-        ch2 = getch()    
-    return ch+ch2
-
- 
-
-
+if os.name=='nt':
+  import msvcrt
+else:
+    from getkey import getkey, keys
 
 def get_folder_names(path):
     """
@@ -31,6 +17,9 @@ def get_folder_names(path):
     of (file name without the first part, file name)
     The dictionary is sorted by the keys in ascending order.
     """
+    path = os.path.dirname(os.path.abspath(__file__))
+
+
     files = os.listdir(path)
     output_folder = {}
     for f in files:
@@ -43,11 +32,6 @@ def get_folder_names(path):
             output_folder[int(f.split('_')[0])] = (val, f)  # add the key-value pair to the output dictionary
 
     return {k: v for k, v in sorted(output_folder.items(), key=lambda item: item[0])}
-
-
-
-
-
 
 def cls():
     """
@@ -79,7 +63,9 @@ def showMenu():
     The user can navigate the menu using the arrow keys and select an option with Enter.
     The selected script is run using the Bash executable.
     """
-    folders = get_folder_names("./")
+
+    folders = get_folder_names("d:/app/IBM/log-on/cs/scripts" if os.name=='nt' else "~/logon/scripts")
+
     folders['q']=('Quit', 'q')
     keylength=3
     width = max(len(str(key)) + len(val[0]) for key, val in folders.items()) + keylength
@@ -97,21 +83,16 @@ def showMenu():
         The menu is closed if the user presses the Escape key.
         The selected option is changed if the user presses the Up or Down arrow keys.
         """
-        key = getch()
-        
-        
-        if key=='q' or key=='Q':
+        key = msvcrt.getch() if os.name=='nt' else  getkey()
+        if key==b'q' or key==b'Q' or key=='q' or key=='Q':
             exit(0)
-        #up    
-        if key=='\x1b[A' or key=='H':
+        if key==b'\x1b[A' or key==b'H' or key=='\x1b[A':
             if selected>0:
                 selected-=1
-        elif key=='\x1b[B' or key=='P':
+        elif key==b'\x1b[B' or key==b'P' or key=='\x1b[B':
             if selected<len(options)-1:
                 selected+=1
-
-
-        elif key=='[A\r' or key=='\n' or key=='\r':
+        elif key==b'\r' or key==b'\n' or key=='\n':
             if options[selected][0]=='q':
                 exit(0)
             script=options[selected][1][1]            
