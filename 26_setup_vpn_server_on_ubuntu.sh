@@ -46,6 +46,8 @@ EOF
     # Move them to the OpenVPN directory
     do_cmd "sudo cp ta.key /etc/openvpn/"
     do_cmd "sudo cp pki/dh.pem /etc/openvpn/dh2048.pem"
+    do_cmd "sudo mkdir /etc/openvpn/ccd"
+
 
     # Configure OpenVPN Server
     do_cmd "sudo cp -p /usr/share/doc/openvpn/examples/sample-config-files/server.conf /etc/openvpn/server.conf"
@@ -53,6 +55,8 @@ EOF
     do_cmd "sudo sed -i 's/;cipher AES-256-CBC/cipher AES-256-CBC/' /etc/openvpn/server.conf"
     do_cmd "sudo sed -i 's/;user nobody/user nobody/' /etc/openvpn/server.conf"
     do_cmd "sudo sed -i 's/;group nogroup/group nogroup/' /etc/openvpn/server.conf"
+    do_cmd "sudo sed -i 's/;client-to-client/client-to-client/' /etc/openvpn/server.conf"
+
 
     # To address the issues seen in "sudo journalctl -u openvpn@server", add the following to server.conf:
     # topology subnet
