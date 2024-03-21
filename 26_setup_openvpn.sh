@@ -6,48 +6,17 @@
 main() {
     start_time=$(date +%s)
     usage
-    init_vars "logon" "cloudstack"
-    parse_command_line_arguments "$@"
+    init_vars "logon" "setup_openvpn"
     start_logging
 
-    # Update System
-    do_cmd "sudo apt update && sudo apt upgrade -y"
+    parse_command_line_arguments "$@" # Get the clients,
+    install_openvpn_and_easy_rsa
+    setup_CA_certificate
+    generate_server_certificate_and_key
+    generate_Diffie_Hellman_key_and_HMAC_signature
 
-    # Install OpenVPN and Easy-RSA
-    do_cmd "sudo apt install openvpn easy-rsa -y"
 
-    # Set up Easy-RSA directory
-    do_cmd "make-cadir ~/openvpn-ca" "Created cadir" "INFO: Unable to create ca_dir"
-    cd ~/openvpn-ca
-    init_RSA_vars
-
-    # Initialize and build CA
-    do_cmd "./easyrsa init-pki"
-    do_cmd "echo 'CA' | ./easyrsa build-ca nopass"
-
-    # Copy the CA certificate to the OpenVPN directory
-    do_cmd "sudo cp pki/ca.crt /etc/openvpn/"
-
-    # Generate server certificate and key
-    do_cmd "./easyrsa gen-req server nopass"
-    do_cmd "sudo cp pki/private/server.key /etc/openvpn/"
-
-./easyrsa sign-req server server <<EOF
-yes
-EOF
-
-    # Copy the server certificate to the OpenVPN directory
-    do_cmd "sudo cp pki/issued/server.crt /etc/openvpn/"
-
-    # Generate Diffie-Hellman key and HMAC signature
-    do_cmd "./easyrsa gen-dh"
-    do_cmd "openvpn --genkey --secret ta.key"
-
-    # Move them to the OpenVPN directory
-    do_cmd "sudo cp ta.key /etc/openvpn/"
-    do_cmd "sudo cp pki/dh.pem /etc/openvpn/dh2048.pem"
     do_cmd "sudo mkdir /etc/openvpn/ccd"
-
 
     # Configure OpenVPN Server
     do_cmd "sudo cp -p /usr/share/doc/openvpn/examples/sample-config-files/server.conf /etc/openvpn/server.conf"
@@ -83,7 +52,29 @@ EOF
 
 init_vars() {
     init_utils_vars $1 $2
+}
 
+install_openvpn_and_easy_rsa() {
+    logMessage "--- Start installing openvpn and easy-rsa"
+    do_cmd "sudo apt update && sudo apt upgrade -y"
+    do_cmd "sudo apt install openvpn easy-rsa -y"
+    logMessage "--- End installing openvpn and easy-rsa"
+}
+
+setup_CA_certificate() {
+    logMessage "--- Start setting up the CA certificate"
+    # Set up Easy-RSA directory
+    do_cmd "make-cadir ~/openvpn-ca" "Created cadir" "INFO: Unable to create ca_dir"
+    cd ~/openvpn-ca
+    init_RSA_vars
+
+    # Initialize and build CA
+    do_cmd "./easyrsa init-pki"
+    do_cmd "echo 'CA' | ./easyrsa build-ca nopass"
+
+    # Copy the CA certificate to the OpenVPN directory
+    do_cmd "sudo cp pki/ca.crt /etc/openvpn/"
+    logMessage "--- End setting up the CA certificate, at: /etc/openvpn/ca.crt"
 }
 
 init_RSA_vars() {
@@ -108,19 +99,58 @@ set_var EASYRSA_DIGEST         "sha256"
 EOF    
 }
 
+generate_server_certificate_and_key() {
+    logMessage "--- Start generating server certificate and key"
+    # Generate server certificate and key
+    do_cmd "./easyrsa gen-req server nopass"
+    do_cmd "sudo cp pki/private/server.key /etc/openvpn/"
+
+./easyrsa sign-req server server <<EOF
+yes
+EOF
+
+    # Copy the server certificate to the OpenVPN directory
+    do_cmd "sudo cp pki/issued/server.crt /etc/openvpn/"
+    logMessage "--- End generating server certificate and key, at: /etc/openvpn/server.crt"
+}
+
+
+generate_Diffie_Hellman_key_and_HMAC_signature() {
+    logMessage "--- Start generating Diffie Hellman key and HMAC signature"
+    
+    # Generate Diffie-Hellman key and HMAC signature
+    do_cmd "./easyrsa gen-dh"
+    do_cmd "openvpn --genkey --secret ta.key"
+
+    # Move them to the OpenVPN directory
+    do_cmd "sudo cp ta.key /etc/openvpn/"
+    do_cmd "sudo cp pki/dh.pem /etc/openvpn/dh2048.pem"
+    logMessage "--- End generating Diffie Hellman key and HMAC signature, at: /etc/openvpn/ta.key and dh2048.pem"
+}
+
+
 parse_command_line_arguments() {
-    # if [[ $# -lt 1 || $# -gt 2 ]]; then
-    #     usage
-    #     exit
-    # fi
-    temp=1
+    CLIENTS=("$@") # Get them as an array
+    NUM_CLIENTS=${#clients[@]}
+
+    if [ NUM_CLIENTS -eq 0 ]; then
+        message="No clients names provided on command line, none will be assigned fixed ips."
+        logMessage $message
+        confirm "${message} Continue?" || exit 1
+    else
+        logMessage "The following clients will be configured: ${clients[*]}"
+    fi
 }
 
 usage() {
 cat << EOF
--------------------------------------------------------------------------------
-This script 
--------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+This script sets up an openvpn server on ubuntu, and if given a list
+of client names it will prepare the necessary files for each client
+to setup the client side.
+Each client name has the format of ssss:nn.nn.nn.nn where the sss is the name
+and nn... is the desired ip address to be assigned.
+----------------------------------------------------------------------------------
 EOF
 script_ended_ok=true
 }
