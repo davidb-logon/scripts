@@ -138,7 +138,8 @@ main() {
     if [ $# -eq 0 ]; then
         SEFI_NETWORK="80.178.85.20"
         MAINFRAME_NETWORK="204.90.115.208"
-        set -- "$SEFI_NETWORK" "$MAINFRAME_NETWORK" 
+        VPN_NETWORK="10.8.0.0/24"
+        set -- "$SEFI_NETWORK" "$MAINFRAME_NETWORK" "$VPN_NETWORK"
     fi
 
     start_logging
