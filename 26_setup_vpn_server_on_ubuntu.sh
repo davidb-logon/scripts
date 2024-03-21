@@ -124,7 +124,33 @@ This script
 EOF
 script_ended_ok=true
 }
+function setup_ovpn_client_as_service(){
+#    
+#/etc/systemd/system/openvpn@client.service (replace client with your specific client name if needed). Use a text editor like nano to edit the file.
+#
+#Add the following content to the file, replacing placeholders with your actual details:
+#
+clientName="zvm"
+cat << EOF > /etc/systemd/system/openvpn@client.service
+[Unit]
+Description=OpenVPN Client Service - $clientName
+After=network.target
 
+[Service]
+Type=simple
+Restart=on-failure
+ExecStart=/usr/sbin/openvpn --config /root/openvpn/$clientName.ovpn
+User=nobody  # Adjust user privileges if needed
+Group=nogroup # Adjust group privileges if needed
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+do_cmd "sudo systemctl daemon-reload"
+do_cmd "sudo systemctl enable openvpn@client.service"
+
+}
 #-------------------------------------------------------#
 #                Start script execution                 #
 #-------------------------------------------------------#
