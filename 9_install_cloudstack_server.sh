@@ -34,7 +34,7 @@ script_ended_ok=true
 
 main() {
     # Replace logon and template with your own values
-    init_vars "logon" "install_cloudstack_server"
+    init_vars "logon" "install_cloudstack_server" "$@"
     start_logging
     prepare_os
     install_management_server
@@ -43,7 +43,7 @@ main() {
     check_if_running_kvm_here
     do_cmd "$SUDO cloudstack-setup-management"
     10_configure_nfs.sh
-    11_configure_firewall.sh $SEFI_NETWORK $MAINFRAME_NETWORK
+    11_configure_firewall.sh #$SEFI_NETWORK $MAINFRAME_NETWORK
     prepare_system_vm_template
     fix_cluster_node_ip_in_db_properties "$LOCAL_IP"
     sleep 10
@@ -54,6 +54,7 @@ main() {
 
 init_vars() {
     init_utils_vars $1 $2
+    
     HOME_NETWORK="192.168.1.0/24"
     SEFI_NETWORK="80.178.85.20"
     MAINFRAME_NETWORK="204.90.115.208"

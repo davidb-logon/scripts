@@ -154,6 +154,7 @@ and nn... is the desired ip address to be assigned.
 EOF
 script_ended_ok=true
 }
+
 function setup_ovpn_client_as_service(){
 #    
 #/etc/systemd/system/openvpn@client.service (replace client with your specific client name if needed). Use a text editor like nano to edit the file.
