@@ -16,24 +16,27 @@ main() {
     temp_dir=$(mktemp -d)
 
     # Copy the relevant log files and directories to the temporary directory
-    cp /var/log/syslog* "${temp_dir}/"
-    cp /var/log/kern.log* "${temp_dir}/"
-    cp /var/log/auth.log* "${temp_dir}/"
-    cp /var/log/boot.log* "${temp_dir}/"
-    cp /var/log/dmesg* "${temp_dir}/"
-    cp -r /var/log/apache2/ "${temp_dir}/apache2_logs" 2>/dev/null
-    cp -r /var/log/nginx/ "${temp_dir}/nginx_logs" 2>/dev/null
-    cp -r /var/log/mysql/ "${temp_dir}/mysql_logs" 2>/dev/null
-    cp -r /var/crash/ "${temp_dir}/crash_reports" 2>/dev/null
-    cp -r /var/log/apparmor/ "${temp_dir}/apparmor_logs" 2>/dev/null
+    sudo cp -p /var/log/syslog* "${temp_dir}/"
+    sudo cp -p /var/log/kern.log* "${temp_dir}/"
+    sudo cp -p /var/log/auth.log* "${temp_dir}/"
+    sudo cp -p /var/log/boot.log* "${temp_dir}/"
+    sudo cp -p /var/log/boot.log* "${temp_dir}/"
+    sudo cp -p /var/log/dmesg* "${temp_dir}/"
+    sudo cp -p -r /var/log/apache2/ "${temp_dir}/apache2_logs" 2>/dev/null
+    sudo cp -p -r /var/log/nginx/ "${temp_dir}/nginx_logs" 2>/dev/null
+    sudo cp -p -r /var/log/mysql/ "${temp_dir}/mysql_logs" 2>/dev/null
+    sudo cp -p -r /var/crash/ "${temp_dir}/crash_reports" 2>/dev/null
+    sudo cp -p -r /var/log/apparmor/ "${temp_dir}/apparmor_logs" 2>/dev/null
 
     # Use journalctl to dump logs into a file, if available
     if command -v journalctl &> /dev/null; then
-        journalctl -xb > "${temp_dir}/systemd_journal_current_boot.log"
+        sudo journalctl -xb > "${temp_dir}/systemd_journal_current_boot.log"
     fi
 
     # Change to the temporary directory
     cd "${temp_dir}"
+
+    # sudo chmod +R 777 "${temp_dir}"
 
     # Zip the contents of the temporary directory
     zip -r "${output_zip}" .

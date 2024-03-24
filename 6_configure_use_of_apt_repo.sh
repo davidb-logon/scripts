@@ -23,7 +23,7 @@ script_ended_ok=true
 
 init_vars() {
     init_utils_vars $1 $2
-    REPO_URL="http://192.168.1.248:8090"
+    REPO_URL="http://84.95.45.250:8090"
 }
 
 main() {

@@ -57,7 +57,8 @@ declare -A ports_protocols=(
     [875]="tcp udp"    # rquotad
     [662]="tcp udp"    # statd
     [22]="tcp"         # ssh
-    [3020]="tcp"       # ssh
+    [3020]="tcp"       # ssh from sefi
+    [3022]="tcp"       # ssh from dani
     [5050]="tcp"       # Cloudstack
     [8080]="tcp"
     [8090]="tcp"
@@ -139,7 +140,8 @@ main() {
         SEFI_NETWORK="80.178.85.20"
         MAINFRAME_NETWORK="204.90.115.208"
         VPN_NETWORK="10.8.0.0/24"
-        set -- "$SEFI_NETWORK" "$MAINFRAME_NETWORK" "$VPN_NETWORK"
+        DANI_NETWORK="185.253.72.155"
+        set -- "$SEFI_NETWORK" "$MAINFRAME_NETWORK" "$VPN_NETWORK" "$DANI_NETWORK"
     fi
 
     start_logging
