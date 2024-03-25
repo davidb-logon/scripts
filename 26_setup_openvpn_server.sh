@@ -10,6 +10,16 @@ main() {
     start_logging
 
     parse_command_line_arguments "$@" # Get the clients,
+    generate_certifiate_for_client  sefiw
+}    
+
+main2() {
+    start_time=$(date +%s)
+    usage
+    init_vars "logon" "setup_openvpn"
+    start_logging
+
+    parse_command_line_arguments "$@" # Get the clients,
     install_openvpn_and_easy_rsa
     setup_CA_certificate
     generate_server_certificate_and_key
@@ -155,7 +165,33 @@ EOF
 script_ended_ok=true
 }
 
-function setup_ovpn_client_as_service(){
+generate_certifiate_for_client() {
+    # This function in this snippet is a shell script function that generates a certificate for a client
+    # in an OpenVPN setup. It sets up the necessary directories, copies the required files, and updates 
+    # the OpenVPN configuration file with client-specific details before creating a zip file containing the 
+    # client's configuration.
+    client="$1"
+    vpnserver="84.95.45.250"
+    srcdir="/home/davidb/openvpn-ca"
+    logMessage "--- Start generating certificate for client: $client"
+    cd /home/davidb/openvpn-ca
+    do_cmd "path_easyrsa=$(sudo find /usr/share/easy-rsa/ | grep easyrsa | grep -v cnf)"
+    do_cmd "sudo $path_easyrsa gen-req $client nopass"
+    do_cmd "mkdir -p ~/ovpn-$client"
+    do_cmd "sudo cp ${srcdir}/pki/private/$client.key ~/ovpn-$client"
+    do_cmd "sudo cp ${srcdir}/pki/issued/$client.crt ~/ovpn-$client"
+    do_cmd "sudo cp ${srcdir}/ta.key ~/ovpn-$client/."
+    do_cmd "sudo cp ${srcdir}/pki/ca.crt ~/ovpn-$client/."
+    do_cmd "sudo cp /usr/share/doc/openvpn/examples/sample-config-files/client.conf ~/ovpn-$client/$client.ovpn"
+    cd ~/ovpn-$client
+    do_cmd "sudo chown $USER:$USER *"
+    do_cmd "sed -i 's/cert client.crt/cert $client.crt/g' $client.ovpn"
+    do_cmd "sed -i 's/key client.key/key $client.key/g' $client.ovpn"
+    do_cmd "sed -i 's/remote my-server-1/remote $vpnserver/g' $client.ovpn"
+    do_cmd "zip $client.ovpn.zip $client.ovpn $client.key $client.crt ca.crt ta.key"
+}
+
+setup_ovpn_client_as_service(){
 #    
 #/etc/systemd/system/openvpn@client.service (replace client with your specific client name if needed). Use a text editor like nano to edit the file.
 #
@@ -193,4 +229,4 @@ source "$DIR/lib/common.sh"
 script_ended_ok=false
 trap 'cleanup' EXIT
 
-main "$@"
+main2 "$@"
