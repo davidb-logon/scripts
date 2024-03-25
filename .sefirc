@@ -53,3 +53,4 @@ result=$(grep -c 'source /home/sefi/.sefirc' ~/.bashrc)
 if [[ "$result" -eq "0" ]]; then
    echo "source /home/sefi/.sefirc" >> ~/.bashrc
 fi
+ export PS1='[\u@\h \W]\$ '
