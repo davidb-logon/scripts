@@ -1,1 +1,3 @@
 .config.vim
+pki/openssl-easyrsa.cnf
+pki/safessl-easyrsa.cnf
