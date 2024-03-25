@@ -29,3 +29,27 @@ alias ahelp='colums=8;cn=0;alias | awk -F= "{print \$1}" | awk "{print \$2}" | w
 alias sst='while true; do clear;head -v -n 8 /proc/meminfo; head -v -n 2 /proc/stat /proc/version /proc/uptime /proc/loadavg /proc/sys/fs/file-nr /proc/sys/kernel/hostname; tail -v -n 32 /proc/net/dev;echo "==> /proc/df <==";df -l;echo "==> /proc/who <==";who;echo "==> /proc/end <==";echo "##Moba##"; sleep 1;done'
 alias psj='ps aux | grep java'
 alias sts="systemctl | grep -E 'openvpn|cloudstack-agent|cloudstack-management'"
+
+result=$(grep -c 'colorscheme blue' ~/.vimrc)
+if [[ "$result" -eq "0" ]]; then
+   echo "colorscheme blue" > ~/.vimrc
+   echo "set nu" >> ~/.vimrc
+   echo "set nocompatible" >> ~/.vimrc
+   echo "set viminfo='100,<1000,s100,h" >> ~/.vimrc
+   echo "syntax on" >> ~/.vimrc
+   echo "filetype plugin indent on" >> ~/.vimrc
+   echo "autocmd FileType sh setlocal filetype=sh" >> ~/.vimrc
+   echo "autocmd FileType yaml setlocal filetype=yaml" >> ~/.vimrc
+   echo "autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab" >> ~/.vimrc
+   echo "autocmd FileType sh setlocal ts=2 sts=2 sw=2 expandtab" >> ~/.vimrc
+   echo "autocmd FileType java setlocal ts=4 sts=4 sw=4 expandtab" >> ~/.vimrc
+   echo "autocmd FileType python setlocal ts=4 sts=4 sw=4 expandtab" >> ~/.vimrc
+fi
+
+if [[ ! "$PATH" =~ "logon/scripts" ]]; then
+    export PATH=$PATH:/home/sefi/logon/scripts:/home/sefi/logon/scripts/util
+fi
+result=$(grep -c 'source /home/sefi/.sefirc' ~/.bashrc)
+if [[ "$result" -eq "0" ]]; then
+   echo "source /home/sefi/.sefirc" >> ~/.bashrc
+fi
