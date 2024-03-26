@@ -83,8 +83,9 @@ generate_certifiate_for_client() {
     set -x
 
     cd /home/davidb/openvpn-ca
+    
     do_cmd "path_easyrsa=$(sudo find /usr/share/easy-rsa/ | grep easyrsa | grep -v cnf)"
-    do_cmd "sudo $path_easyrsa --batch build-client-full $client nopass"
+    do_cmd "sudo rm  ${srcdir}/pki/reqs/$client.req  $path_easyrsa --batch build-client-full $client nopass"
     do_cmd "mkdir -p ~/ovpn-$client"
     do_cmd "sudo cp ${srcdir}/pki/private/$client.key ~/ovpn-$client"
     do_cmd "sudo cp ${srcdir}/pki/issued/$client.crt ~/ovpn-$client"
