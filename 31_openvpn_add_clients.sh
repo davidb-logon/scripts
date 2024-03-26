@@ -79,8 +79,8 @@ generate_certifiate_for_client() {
     vpnserver=$VPNSERVER
     srcdir="/home/davidb/openvpn-ca"
     logMessage "--- Start generating certificate for client: $client"
-    PS4='${BASH_SOURCE}:$LINENO + '
-    set -x
+    # PS4='${BASH_SOURCE}:$LINENO + '
+    # set -x
 
     cd /home/davidb/openvpn-ca
     
