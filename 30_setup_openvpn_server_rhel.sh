@@ -152,6 +152,8 @@ setup_easyrsa_dir() {
             ;;
     esac
     cd "$CA_DIR"
+    do_cmd "path_easyrsa=$(sudo find /usr/share/easy-rsa/ | grep easyrsa | grep -v cnf)"
+    do_cmd "sudo $path_easyrsa init-pki"
     init_RSA_vars
     logMessage "--- End setting up Easy RSA directory"
 }
