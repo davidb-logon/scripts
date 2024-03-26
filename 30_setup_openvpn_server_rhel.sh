@@ -39,16 +39,17 @@ main() {
     generate_server_certificate_and_key
     generate_Diffie_Hellman_key_and_HMAC_signature
 
-    do_cmd "sudo mkdir -p /etc/openvpn/ccd"
+    do_cmd "sudo mkdir -p $SERVER_WORKING_DIR/ccd"
 
     # Configure OpenVPN Server
     do_cmd "SERVERCONF=$(find /usr/share/doc/openvpn | grep /server\.conf)"
-    do_cmd "sudo cp -p $SERVERCONF /etc/openvpn/server.conf"
-    do_cmd "sudo sed -i 's/;tls-auth ta.key 0/tls-auth ta.key 0/' /etc/openvpn/server.conf"
-    do_cmd "sudo sed -i 's/;cipher AES-256-CBC/cipher AES-256-CBC/' /etc/openvpn/server.conf"
-    do_cmd "sudo sed -i 's/;user nobody/user nobody/' /etc/openvpn/server.conf"
-    do_cmd "sudo sed -i 's/;group nogroup/group nogroup/' /etc/openvpn/server.conf"
-    do_cmd "sudo sed -i 's/;client-to-client/client-to-client/' /etc/openvpn/server.conf"
+    
+    do_cmd "sudo cp -p $SERVERCONF $SERVER_WORKING_DIR/server.conf"
+    do_cmd "sudo sed -i 's/;tls-auth ta.key 0/tls-auth ta.key 0/' $SERVER_WORKING_DIR/server.conf"
+    do_cmd "sudo sed -i 's/;cipher AES-256-CBC/cipher AES-256-CBC/' $SERVER_WORKING_DIR/server.conf"
+    do_cmd "sudo sed -i 's/;user nobody/user nobody/' $SERVER_WORKING_DIR/server.conf"
+    do_cmd "sudo sed -i 's/;group nogroup/group nogroup/' $SERVER_WORKING_DIR/server.conf"
+    do_cmd "sudo sed -i 's/;client-to-client/client-to-client/' $SERVER_WORKING_DIR/server.conf"
 
     # To address the issues seen in "sudo journalctl -u openvpn@server", add the following to server.conf:
     # topology subnet
@@ -59,8 +60,8 @@ main() {
     do_cmd "sudo sysctl -p"
 
     # Start and Enable OpenVPN
-    do_cmd "sudo systemctl start openvpn@server"
     do_cmd "sudo systemctl enable openvpn@server"
+    do_cmd "sudo systemctl start openvpn@server"
 
     logMessage "OpenVPN setup is complete. Review the configuration and adjust firewall settings accordingly."
     
@@ -75,9 +76,11 @@ init_vars() {
     case "$LINUX_DISTRIBUTION" in
         "UBUNTU")
             INSTALL_CMD="apt"
+            SERVER_WORKING_DIR="/etc/openvpn/"
             ;;
         "RHEL")
             INSTALL_CMD="yum"
+            SERVER_WORKING_DIR="/etc/openvpn/server/"
             ;;        
         *)
             logMessage "Unknown or unsupported LINUX_DISTRIBUTION: $LINUX_DISTRIBUTION, exiting"
@@ -123,8 +126,8 @@ setup_CA_certificate() {
     do_cmd "echo 'CA' | sudo ./easyrsa build-ca nopass"
 
     # Copy the CA certificate to the OpenVPN directory
-    do_cmd "sudo cp pki/ca.crt /etc/openvpn/"
-    logMessage "--- End setting up the CA certificate, at: /etc/openvpn/ca.crt"
+    do_cmd "sudo cp pki/ca.crt $SERVER_WORKING_DIR"
+    logMessage "--- End setting up the CA certificate, at: $SERVER_WORKING_DIR/ca.crt"
 }
 
 init_RSA_vars() {
@@ -155,15 +158,15 @@ generate_server_certificate_and_key() {
     logMessage "--- Start generating server certificate and key"
     # Generate server certificate and key
     do_cmd "echo yes\nyes | sudo ./easyrsa gen-req server nopass"
-    do_cmd "sudo cp pki/private/server.key /etc/openvpn/"
+    do_cmd "sudo cp pki/private/server.key $SERVER_WORKING_DIR"
 
 sudo ./easyrsa sign-req server server <<EOF
 yes
 EOF
 
     # Copy the server certificate to the OpenVPN directory
-    do_cmd "sudo cp pki/issued/server.crt /etc/openvpn/"
-    logMessage "--- End generating server certificate and key, at: /etc/openvpn/server.crt"
+    do_cmd "sudo cp pki/issued/server.crt $SERVER_WORKING_DIR/"
+    logMessage "--- End generating server certificate and key, at: $SERVER_WORKING_DIR/server.crt"
 }
 
 generate_Diffie_Hellman_key_and_HMAC_signature() {
@@ -174,9 +177,9 @@ generate_Diffie_Hellman_key_and_HMAC_signature() {
     do_cmd "sudo openvpn --genkey --secret ta.key"
 
     # Move them to the OpenVPN directory
-    do_cmd "sudo cp ta.key /etc/openvpn/"
-    do_cmd "sudo cp pki/dh.pem /etc/openvpn/dh2048.pem"
-    logMessage "--- End generating Diffie Hellman key and HMAC signature, at: /etc/openvpn/ta.key and dh2048.pem"
+    do_cmd "sudo cp ta.key $SERVER_WORKING_DIR/"
+    do_cmd "sudo cp pki/dh.pem $SERVER_WORKING_DIR/dh2048.pem"
+    logMessage "--- End generating Diffie Hellman key and HMAC signature, at: $SERVER_WORKING_DIR/ta.key and dh2048.pem"
 }
 
 
