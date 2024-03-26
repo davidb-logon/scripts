@@ -91,7 +91,7 @@ delete_all_objects () {
     # Loop through each zone ID and delete the zone
     for id in $ids; do
         if [[ $object == "storagepool" ]]; then
-            do_cmd 'cmk enable storagemaintenance id=${id}' "Storagepool placed in maintenance mode" "failed to place storagepool in maintenance mode"
+            place_storage_pool_in_maintenance $id
         fi
         if [[ $object == "systemvm" ]]; then
             do_cmd "cmk expunge systemvm id=${id}" "systemvm ${id} deleted." "Failed to delete systemvm ${id}"
@@ -100,6 +100,20 @@ delete_all_objects () {
         fi
     done
 
+}
+
+place_storage_pool_in_maintenance(){
+    local id=$1
+    #do_cmd 'result=$(cmk add cluster zoneid='$zone_id' hypervisor='$HYPERVISOR' clustertype=CloudManaged podid='$pod_id' clustername='$cluster_name')' 
+    #CLUSTER_ID=$(echo $result | grep -oP ' id = \K[^ ]+') # Special treatment of the result output here. It is not json, nor is it lines of text...
+
+    do_cmd 'result=$(cmk list storagepools id='$id')'
+    if [[ $(echo $result | grep -c "state = Maintenance") == "1" ]]; then 
+        logMessage "Storagepool $id already in maintenance mode"
+    else
+        logMessage "--- Placing Storagepool $id into maintenance mode"
+        do_cmd 'cmk enable storagemaintenance id=${id}' "Storagepool placed in maintenance mode" "failed to place storagepool in maintenance mode"
+    fi
 }
 
 delete_all_zones() {
