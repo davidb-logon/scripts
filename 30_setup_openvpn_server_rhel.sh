@@ -50,6 +50,7 @@ main() {
     do_cmd "sudo sed -i 's/;user nobody/user nobody/' $SERVER_WORKING_DIR/server.conf"
     do_cmd "sudo sed -i 's/;group nogroup/group nogroup/' $SERVER_WORKING_DIR/server.conf"
     do_cmd "sudo sed -i 's/;client-to-client/client-to-client/' $SERVER_WORKING_DIR/server.conf"
+    do_cmd "sudo sed -i 's/server 10.8.0.0/server $SUBNET_IP/' $SERVER_WORKING_DIR/server.conf"
 
     # To address the issues seen in "sudo journalctl -u openvpn@server", add the following to server.conf:
     # topology subnet
@@ -61,10 +62,9 @@ main() {
 
     # Start and Enable OpenVPN
 
-    do_cmd "sudo systemctl enable openvpn-server@server.service"
-    do_cmd "sudo systemctl start openvpn-server@server.service"
-    # on ubuntu it worked with do_cmd "sudo systemctl start openvpn@server"
-
+    do_cmd "sudo systemctl enable $SERVICE_NAME"
+    do_cmd "sudo systemctl start $SERVICE_NAME"
+    
     logMessage "OpenVPN setup is complete. Review the configuration and adjust firewall settings accordingly."
     
     end_time=$(date +%s)
@@ -79,10 +79,14 @@ init_vars() {
         "UBUNTU")
             INSTALL_CMD="apt"
             SERVER_WORKING_DIR="/etc/openvpn/"
+            SERVICE_NAME="openvpn@server.service"
+            SUBNET_IP="10.8.0.0"
             ;;
         "RHEL")
             INSTALL_CMD="yum"
             SERVER_WORKING_DIR="/etc/openvpn/server/"
+            SERVICE_NAME="openvpn-server@server.service"
+            SUBNET_IP="10.7.0.0"
             ;;        
         *)
             logMessage "Unknown or unsupported LINUX_DISTRIBUTION: $LINUX_DISTRIBUTION, exiting"
