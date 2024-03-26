@@ -4,6 +4,37 @@
 #------------------------------------------------------------------------------
 # functions to configure NFS on ubuntu
 echo "---  Sourced nfsconfig.sh"
+
+
+# Find file in a folder
+# $1: folder to search in
+# $2: filename to search for
+# Returns the full path of the file or "" if not found
+
+# Function to scan a subnet and list all connected machines
+# $1: subnet in CIDR notation (e.g. 192.168.1.0/24)
+# Returns a space separated list of ip addresses
+
+# Scan a subnet and return a space separated list of ip addresses
+#
+# @param subnet Subnet in CIDR notation (e.g. 192.168.1.0/24)
+# @return Space separated list of ip addresses
+scan_subnet() {
+    local subnet="$1"
+    local ips=""
+
+    for ip in $(ip addr show to "$subnet" | awk '/inet /{print $2}' | sed 's|/.*||'); do
+        ips+=" $ip"
+    done
+
+    echo "$ips"
+}
+
+
+
+
+
+
 # Function to create an override directory and file if they don't exist
 create_override_dir_and_file() {
     local service_name=$1
