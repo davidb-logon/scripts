@@ -4,6 +4,82 @@
 #------------------------------------------------------------------------------
 # Common bash functions to be reused in scripts
 
+# Function to detect the Linux distribution and set the LINUX_DISTRIBUTION variable
+detect_linux_distribution() {
+    logMessage "--- Start to detect Linux distribution..."
+  if grep -qEi 'ubuntu' /etc/*release; then
+    export LINUX_DISTRIBUTION="UBUNTU"
+  elif grep -qEi 'red hat|rhel' /etc/*release; then
+    export LINUX_DISTRIBUTION="RHEL"
+  else
+    # Attempt to get the pretty name from /etc/os-release, if it exists
+    if [ -f /etc/os-release ]; then
+      # Extract the pretty name using grep and awk, removing quotes
+      DISTRO_NAME=$(grep PRETTY_NAME /etc/os-release | awk -F= '{ print $2 }' | tr -d '"')
+      # If DISTRO_NAME is not empty, set it, otherwise default to "Unknown"
+      if [ ! -z "$DISTRO_NAME" ]; then
+        export LINUX_DISTRIBUTION="$DISTRO_NAME"
+      else
+        export LINUX_DISTRIBUTION="Unknown"
+      fi
+    else
+      export LINUX_DISTRIBUTION="Unknown"
+    fi
+  fi
+  logMessage "--- End of detecting Linux distribution, detected distribution: $LINUX_DISTRIBUTION"
+}
+
+exit_if_unsupported_distribution() {
+    if [[ "$LINUX_DISTRIBUTION" != "UBUNTU" && "$LINUX_DISTRIBUTION" != "RHEL" ]]; then
+        logMessage "Unsupported distribution: $LINUX_DISTRIBUTION. Exiting."
+        exit 1
+    fi
+}
+
+# Function using a case statement based on the LINUX_DISTRIBUTION variable
+example_use_case() {
+  case "$LINUX_DISTRIBUTION" in
+    "UBUNTU")
+      logMessage "--- Running Ubuntu specific commands..."
+      # Add Ubuntu specific commands here
+      ;;
+    "RHEL")
+      logMessage "--- Running RHEL specific commands..."
+      # Add RHEL specific commands here
+      ;;
+    "Unknown")
+      logMessage "--- Unknown Linux distribution, exiting"
+      exit 1
+      ;;    
+    *)
+      logMessage "UnknowUnsupported LINUX_DISTRIBUTION: $LINUX_DISTRIBUTION, exiting"
+      exit 1
+      ;;
+  esac
+}
+
+exit_if_unsupported_distribution() {
+  case "$LINUX_DISTRIBUTION" in
+    "UBUNTU")
+      logMessage "--- Running Ubuntu specific commands..."
+      # Add Ubuntu specific commands here
+      ;;
+    "RHEL")
+      logMessage "--- Running RHEL specific commands..."
+      # Add RHEL specific commands here
+      ;;
+    "Unknown")
+      logMessage "--- Unknown Linux distribution, exiting"
+      exit 1
+      ;;    
+    *)
+      logMessage "UnknowUnsupported LINUX_DISTRIBUTION: $LINUX_DISTRIBUTION, exiting"
+      exit 1
+      ;;
+  esac
+}
+
+
 #check_if_connected_to_internet || exit 1
 check_if_connected_to_internet() {
     ping -c 1 -W 5 "8.8.8.8" > /dev/null 2>&1 && return 0 || return 1

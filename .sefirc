@@ -1,0 +1,56 @@
+alias ipa='ip -c -br address'
+alias hg='history | grep  -i '
+alias al='sudo tail -f /var/log/cloudstack/agent/agent.log'
+alias ml='sudo tail -f /var/log/cloudstack/management/management-server.log'
+alias alc='sudo ail -f /var/log/cloudstack/agent/agent.log | GREP_COLOR='\''01;36'\'' egrep --color=always '\''DEBUG|$'\'' |  GREP_COLOR='\''01;31'\'' egrep --color=always '\''ERROR|$'\'' |  GREP_COLOR='\''01;32'\'' egrep --color=always '\''WARN|$'\'''
+alias ap='sudo i /etc/cloudstack/agent/agent.properties'
+alias cw='cd /home/davidb/cloudstack/tools/appliance_s390x'
+alias egrep='egrep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias fip='virsh net-dhcp-leases default '
+alias grep='grep --color=auto'
+alias ipa='ip -c -br address show'
+alias l='ls -CF'
+alias la='ls -A'
+alias ll='ls -alF'
+alias ls='ls --color=auto'
+alias snet='/data/primary/net9.sh'
+alias tm='ps -aux -o rss,command | awk "!/peruser/ {sum+=\$1} END {print sum/1024}"'
+alias vd='virsh dumpxml '
+alias vi='vim '
+alias vibash='vim /mnt/linuxu/workstation/.bashrc'
+alias vl='virsh list --all'
+alias vn='virsh list --state-running | grep  "running\|paused" | awk "{print \"virsh domifaddr  \"\$2} " | sh'
+alias astart='sudo systemctl start cloudstack-agent;sudo systemctl status cloudstack-agent;'
+alias arestart='sudo systemctl restart cloudstack-agent;sudo systemctl status cloudstack-agent;'
+alias astatus='sudo systemctl status cloudstack-agent;'
+alias s2='sudo systemctl status cloudstack-management;sudo systemctl status cloudstack-agent;'
+alias ahelp='colums=8;cn=0;alias | awk -F= "{print \$1}" | awk "{print \$2}" | while read -r sal; do  printf  "%-15s"  $sal;((cn++));if ((cn % colums == 0)); then echo ;fi;done;echo'
+alias sst='while true; do clear;head -v -n 8 /proc/meminfo; head -v -n 2 /proc/stat /proc/version /proc/uptime /proc/loadavg /proc/sys/fs/file-nr /proc/sys/kernel/hostname; tail -v -n 32 /proc/net/dev;echo "==> /proc/df <==";df -l;echo "==> /proc/who <==";who;echo "==> /proc/end <==";echo "##Moba##"; sleep 1;done'
+alias psj='ps aux | grep java'
+alias sts="systemctl | grep -E 'openvpn|cloudstack-agent|cloudstack-management'"
+
+result=$(grep -c 'colorscheme blue' ~/.vimrc)
+if [[ "$result" -eq "0" ]]; then
+   echo "colorscheme blue" > ~/.vimrc
+   echo "set nu" >> ~/.vimrc
+   echo "set nocompatible" >> ~/.vimrc
+   echo "set viminfo='100,<1000,s100,h" >> ~/.vimrc
+   echo "syntax on" >> ~/.vimrc
+   echo "filetype plugin indent on" >> ~/.vimrc
+   echo "autocmd FileType sh setlocal filetype=sh" >> ~/.vimrc
+   echo "autocmd FileType yaml setlocal filetype=yaml" >> ~/.vimrc
+   echo "autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab" >> ~/.vimrc
+   echo "autocmd FileType sh setlocal ts=2 sts=2 sw=2 expandtab" >> ~/.vimrc
+   echo "autocmd FileType java setlocal ts=4 sts=4 sw=4 expandtab" >> ~/.vimrc
+   echo "autocmd FileType python setlocal ts=4 sts=4 sw=4 expandtab" >> ~/.vimrc
+fi
+
+if [[ ! "$PATH" =~ "logon/scripts" ]]; then
+    export PATH=$PATH:/home/sefi/logon/scripts:/home/sefi/logon/scripts/util
+fi
+result=$(grep -c 'source /home/sefi/.sefirc' ~/.bashrc)
+if [[ "$result" -eq "0" ]]; then
+   echo "source /home/sefi/.sefirc" >> ~/.bashrc
+fi
+ export PS1=$'\\[\E]633;A\a\\]\\[\\e]0;\\u@\\h: \\w\\a\\]${debian_chroot:+($debian_chroot)}\\[\\033[01;32m\\]\\u@\\h\\[\\033[00m\\]:\\[\\033[01;34m\\]\\w\\[\\033[00m\\]\\$ \\[\E]633;B\a\\]'
