@@ -79,6 +79,9 @@ generate_certifiate_for_client() {
     vpnserver=$VPNSERVER
     srcdir="/home/davidb/openvpn-ca"
     logMessage "--- Start generating certificate for client: $client"
+    PS4='${BASH_SOURCE}:$LINENO + '
+    set -x
+
     cd /home/davidb/openvpn-ca
     do_cmd "path_easyrsa=$(sudo find /usr/share/easy-rsa/ | grep easyrsa | grep -v cnf)"
     do_cmd "sudo $path_easyrsa gen-req $client nopass"
@@ -176,6 +179,7 @@ setup_easyrsa_dir() {
             ;;
     esac
     cd "$CA_DIR"
+    
     init_RSA_vars
     logMessage "--- End setting up Easy RSA directory"
 }
