@@ -60,8 +60,10 @@ main() {
     do_cmd "sudo sysctl -p"
 
     # Start and Enable OpenVPN
-    do_cmd "sudo systemctl enable openvpn@server"
-    do_cmd "sudo systemctl start openvpn@server"
+
+    do_cmd "sudo systemctl enable openvpn-server@server.service"
+    do_cmd "sudo systemctl start openvpn-server@server.service"
+    # on ubuntu it worked with do_cmd "sudo systemctl start openvpn@server"
 
     logMessage "OpenVPN setup is complete. Review the configuration and adjust firewall settings accordingly."
     
