@@ -29,74 +29,38 @@ main() {
     usage
     init_utils_vars "logon" "setup_openvpn"
     start_logging
-    parse_command_line_arguments "$@" # Get the clients
+    #parse_command_line_arguments "$@" # Get the clients
     detect_linux_distribution # Sets a global: $LINUX_DISTRIBUTION
     exit_if_unsupported_distribution
     init_vars # Sets up linux specific variables according to distribution
     mount_repo # Mount the repository
-    install_openvpn_and_easy_rsa
-    setup_CA_certificate
-    generate_server_certificate_and_key
-    generate_Diffie_Hellman_key_and_HMAC_signature
-
-    do_cmd "sudo mkdir -p $SERVER_WORKING_DIR/ccd"
-
-    # Configure OpenVPN Server
-    do_cmd "SERVERCONF=$(find /usr/share/doc/openvpn | grep /server\.conf)"
     
-    do_cmd "sudo cp -p $SERVERCONF $SERVER_WORKING_DIR/server.conf"
-    do_cmd "sudo sed -i 's/;tls-auth ta.key 0/tls-auth ta.key 0/' $SERVER_WORKING_DIR/server.conf"
-    do_cmd "sudo sed -i 's/;cipher AES-256-CBC/cipher AES-256-CBC/' $SERVER_WORKING_DIR/server.conf"
-    do_cmd "sudo sed -i 's/;user nobody/user nobody/' $SERVER_WORKING_DIR/server.conf"
-    do_cmd "sudo sed -i 's/;group nogroup/group nogroup/' $SERVER_WORKING_DIR/server.conf"
-    do_cmd "sudo sed -i 's/;client-to-client/client-to-client/' $SERVER_WORKING_DIR/server.conf"
-    do_cmd "sudo sed -i 's/server 10.8.0.0/server $SUBNET_IP/' $SERVER_WORKING_DIR/server.conf"
+#     # Print the contents of the arrays
+#     echo "Array 1:"
+#     for item in "${array1[@]}"; do
+#     echo "$item"
+#     done
+# #PS4='${BASH_SOURCE}:$LINENO + '
+# #set -x
 
-    # To address the issues seen in "sudo journalctl -u openvpn@server", add the following to server.conf:
-    # topology subnet
-    # data-ciphers AES-256-GCM:AES-128-GCM:AES-256-CBC
+#     echo "Array 2:"
+#     for item in "${array2[@]}"; do
+#     echo "$item"
+#     done
 
-    # Enable IP Forwarding
-    do_cmd "sudo sed -i '/net.ipv4.ip_forward=1/s/^#//g' /etc/sysctl.conf"
-    do_cmd "sudo sysctl -p"
-
-    # Start and Enable OpenVPN
-
-    do_cmd "sudo systemctl enable $SERVICE_NAME"
-    do_cmd "sudo systemctl start $SERVICE_NAME"
-    do_cmd "sudo systemctl status $SERVICE_NAME"
-    do_cmd "ip -br -c a"
-
-    logMessage "OpenVPN setup is complete. Review the configuration and adjust firewall settings accordingly."
+# echo here: ${array1[0]} ${array2[0]}
 
 
-# Initialize two empty arrays
-array1=()
-array2=()
+# Length of the array
+length=${#array1[@]}
 
-# Read from a here-document
-while read -r element1 element2; do
-  array1+=("$element1")
-  array2+=("$element2")
-done << EOF
-sefimini 10.7.0.4
-sefiw    10.7.0.5
-ubdudi   10.7.0.6
-dudimac  10.7.0.3
-EOF
-
-# Print the contents of the arrays
-echo "Array 1:"
-for item in "${array1[@]}"; do
-  echo "$item"
+# Iterate from 0 to the length of the array
+for ((i = 0; i < length; i++)); do
+    echo "Client $i: ${array1[i]} ${array2[i]}"
+    
+    echo "ifconfig-push ${array2[i]} $GATEWAY_IP" | sudo tee $SERVER_WORKING_DIR/ccd/"${array1[i]}"
+    generate_certifiate_for_client "${array1[i]}"
 done
-
-echo "Array 2:"
-for item in "${array2[@]}"; do
-  echo "$item"
-done
-
-
 
 
 
@@ -106,6 +70,41 @@ done
     script_ended_ok=true
 }
 
+generate_certifiate_for_client() {
+    # This function in this snippet is a shell script function that generates a certificate for a client
+    # in an OpenVPN setup. It sets up the necessary directories, copies the required files, and updates 
+    # the OpenVPN configuration file with client-specific details before creating a zip file containing the 
+    # client's configuration.
+    client="$1"
+    vpnserver=$VPNSERVER
+    srcdir="/home/davidb/openvpn-ca"
+    logMessage "--- Start generating certificate for client: $client"
+    # PS4='${BASH_SOURCE}:$LINENO + '
+    # set -x
+
+    cd /home/davidb/openvpn-ca
+    
+    do_cmd "path_easyrsa=$(sudo find /usr/share/easy-rsa/ | grep easyrsa | grep -v cnf)"
+    do_cmd "sudo rm -f ${srcdir}/pki/reqs/$client.req"
+    do_cmd "sudo rm -f ${srcdir}/pki/private/$client.key"
+    do_cmd "sudo rm -f ${srcdir}/pki/issued/$client.crt"
+    do_cmd "sudo $path_easyrsa --batch build-client-full $client nopass"
+    do_cmd "mkdir -p ~/ovpn-$client"
+    do_cmd "sudo cp -f ${srcdir}/pki/private/$client.key ~/ovpn-$client"
+    do_cmd "sudo cp -f ${srcdir}/pki/issued/$client.crt ~/ovpn-$client"
+    do_cmd "sudo cp -f ${srcdir}/ta.key ~/ovpn-$client/."
+    do_cmd "sudo cp -f ${srcdir}/pki/ca.crt ~/ovpn-$client/."
+    do_cmd "CLIENT_CONF=$(sudo find /usr/share/doc/openvpn/ | grep /client.conf)"
+    do_cmd "sudo cp -f ${CLIENT_CONF} ~/ovpn-$client/$client.ovpn"
+    cd ~/ovpn-$client
+    do_cmd "sudo chown $USER:$USER *"
+    do_cmd "sed -i 's/cert client.crt/cert $client.crt/g' $client.ovpn"
+    do_cmd "sed -i 's/key client.key/key $client.key/g' $client.ovpn"
+    do_cmd "sed -i 's/remote my-server-1/remote $vpnserver/g' $client.ovpn"
+    do_cmd "zip $client.ovpn.zip $client.ovpn $client.key $client.crt ca.crt ta.key"
+}
+
+
 init_vars() {
     CA_DIR="/home/davidb/openvpn-ca"
     case "$LINUX_DISTRIBUTION" in
@@ -114,12 +113,45 @@ init_vars() {
             SERVER_WORKING_DIR="/etc/openvpn/"
             SERVICE_NAME="openvpn@server.service"
             SUBNET_IP="10.8.0.0"
+            GATEWAY_IP="10.8.0.1"
+            VPNSERVER="84.95.45.250"                     
+            array1=()
+            array2=()
+
+            # Read from a here-document
+            while read -r element1 element2; do
+            array1+=("$element1")
+            array2+=("$element2")
+            done << EOF
+sefimini 10.8.0.4
+sefiw    10.8.0.5
+ubdudi   10.8.0.6
+dudimac  10.8.0.3
+EOF
+
             ;;
         "RHEL")
             INSTALL_CMD="yum"
             SERVER_WORKING_DIR="/etc/openvpn/server/"
             SERVICE_NAME="openvpn-server@server.service"
             SUBNET_IP="10.7.0.0"
+            GATEWAY_IP="10.7.0.1"
+            VPNSERVER="204.90.115.208"                     
+                # Initialize two empty arrays
+            array1=()
+            array2=()
+
+            # Read from a here-document
+            while read -r element1 element2; do
+            array1+=("$element1")
+            array2+=("$element2")
+            done << EOF
+sefimini 10.7.0.4
+sefiw    10.7.0.5
+ubdudi   10.7.0.6
+dudimac  10.7.0.3
+EOF
+
             ;;        
         *)
             logMessage "Unknown or unsupported LINUX_DISTRIBUTION: $LINUX_DISTRIBUTION, exiting"
@@ -152,8 +184,7 @@ setup_easyrsa_dir() {
             ;;
     esac
     cd "$CA_DIR"
-    do_cmd "path_easyrsa=$(sudo find /usr/share/easy-rsa/ | grep easyrsa | grep -v cnf)"
-    do_cmd "sudo $path_easyrsa init-pki"
+    
     init_RSA_vars
     logMessage "--- End setting up Easy RSA directory"
 }
