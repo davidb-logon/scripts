@@ -59,6 +59,7 @@ for ((i = 0; i < length; i++)); do
     echo "Client $i: ${array1[i]} ${array2[i]}"
     
     echo "ifconfig-push ${array2[i]} $GATEWAY_IP" | sudo tee $SERVER_WORKING_DIR/ccd/"${array1[i]}"
+    generate_certifiate_for_client "${array1[i]}"
 done
 
 
@@ -69,6 +70,33 @@ done
     script_ended_ok=true
 }
 
+generate_certifiate_for_client() {
+    # This function in this snippet is a shell script function that generates a certificate for a client
+    # in an OpenVPN setup. It sets up the necessary directories, copies the required files, and updates 
+    # the OpenVPN configuration file with client-specific details before creating a zip file containing the 
+    # client's configuration.
+    client="$1"
+    vpnserver=$VPNSERVER
+    srcdir="/home/davidb/openvpn-ca"
+    logMessage "--- Start generating certificate for client: $client"
+    cd /home/davidb/openvpn-ca
+    do_cmd "path_easyrsa=$(sudo find /usr/share/easy-rsa/ | grep easyrsa | grep -v cnf)"
+    do_cmd "sudo $path_easyrsa gen-req $client nopass"
+    do_cmd "mkdir -p ~/ovpn-$client"
+    do_cmd "sudo cp ${srcdir}/pki/private/$client.key ~/ovpn-$client"
+    do_cmd "sudo cp ${srcdir}/pki/issued/$client.crt ~/ovpn-$client"
+    do_cmd "sudo cp ${srcdir}/ta.key ~/ovpn-$client/."
+    do_cmd "sudo cp ${srcdir}/pki/ca.crt ~/ovpn-$client/."
+    do_cmd "sudo cp /usr/share/doc/openvpn/examples/sample-config-files/client.conf ~/ovpn-$client/$client.ovpn"
+    cd ~/ovpn-$client
+    do_cmd "sudo chown $USER:$USER *"
+    do_cmd "sed -i 's/cert client.crt/cert $client.crt/g' $client.ovpn"
+    do_cmd "sed -i 's/key client.key/key $client.key/g' $client.ovpn"
+    do_cmd "sed -i 's/remote my-server-1/remote $vpnserver/g' $client.ovpn"
+    do_cmd "zip $client.ovpn.zip $client.ovpn $client.key $client.crt ca.crt ta.key"
+}
+
+
 init_vars() {
     CA_DIR="/home/davidb/openvpn-ca"
     case "$LINUX_DISTRIBUTION" in
@@ -78,7 +106,7 @@ init_vars() {
             SERVICE_NAME="openvpn@server.service"
             SUBNET_IP="10.8.0.0"
             GATEWAY_IP="10.8.0.1"
-                            # Initialize two empty arrays
+            VPNSERVER="84.95.45.250"                     
             array1=()
             array2=()
 
@@ -100,6 +128,7 @@ EOF
             SERVICE_NAME="openvpn-server@server.service"
             SUBNET_IP="10.7.0.0"
             GATEWAY_IP="10.7.0.1"
+            VPNSERVER="204.90.115.208"                     
                 # Initialize two empty arrays
             array1=()
             array2=()
