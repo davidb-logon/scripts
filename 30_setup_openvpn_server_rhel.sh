@@ -39,10 +39,11 @@ main() {
     generate_server_certificate_and_key
     generate_Diffie_Hellman_key_and_HMAC_signature
 
-    do_cmd "sudo mkdir /etc/openvpn/ccd"
+    do_cmd "sudo mkdir -p /etc/openvpn/ccd"
 
     # Configure OpenVPN Server
-    do_cmd "sudo cp -p /usr/share/doc/openvpn/examples/sample-config-files/server.conf /etc/openvpn/server.conf"
+    do_cmd "SERVERCONF=$(find /usr/share/doc/openvpn | grep /server\.conf)"
+    do_cmd "sudo cp -p $SERVERCONF /etc/openvpn/server.conf"
     do_cmd "sudo sed -i 's/;tls-auth ta.key 0/tls-auth ta.key 0/' /etc/openvpn/server.conf"
     do_cmd "sudo sed -i 's/;cipher AES-256-CBC/cipher AES-256-CBC/' /etc/openvpn/server.conf"
     do_cmd "sudo sed -i 's/;user nobody/user nobody/' /etc/openvpn/server.conf"
@@ -100,6 +101,7 @@ setup_easyrsa_dir() {
             ;;
         "RHEL")
             do_cmd "sudo mkdir -p $CA_DIR"
+            #TODO: need to change to ln -s
             do_cmd "sudo cp -r /usr/share/easy-rsa/3.1.6/* $CA_DIR/"
             ;;        
         *)
@@ -117,7 +119,7 @@ setup_CA_certificate() {
     setup_easyrsa_dir
     logMessage "--- Current dir is: $(pwd)"
     # Initialize and build CA
-    do_cmd "sudo ./easyrsa init-pki --vars=vars"
+    do_cmd "echo -e 'yes\nyes\n' | sudo ./easyrsa init-pki --vars=vars"
     do_cmd "echo 'CA' | sudo ./easyrsa build-ca nopass"
 
     # Copy the CA certificate to the OpenVPN directory
@@ -152,7 +154,7 @@ EOF
 generate_server_certificate_and_key() {
     logMessage "--- Start generating server certificate and key"
     # Generate server certificate and key
-    do_cmd "sudo ./easyrsa gen-req server nopass"
+    do_cmd "echo yes\nyes | sudo ./easyrsa gen-req server nopass"
     do_cmd "sudo cp pki/private/server.key /etc/openvpn/"
 
 sudo ./easyrsa sign-req server server <<EOF
@@ -180,7 +182,7 @@ generate_Diffie_Hellman_key_and_HMAC_signature() {
 
 parse_command_line_arguments() {
     CLIENTS=("$@") # Get them as an array
-    NUM_CLIENTS=${#clients[@]}
+    NUM_CLIENTS=${#CLIENTS[@]}
 
     if [[ NUM_CLIENTS -eq 0 ]]; then
         message="No clients names provided on command line, none will be assigned fixed ips."
