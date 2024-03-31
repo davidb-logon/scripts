@@ -106,7 +106,10 @@ setup_network_on_rhel() {
     delete_connection_if_exists_on_rhel "$INTERFACE_NAME"
 
     # Create the bridge interface
+
     do_cmd "sudo nmcli con add type bridge ifname $BRIDGE_NAME con-name $BRIDGE_NAME autoconnect yes"
+                 
+
 
     # Assign the external IP to the bridge
     do_cmd "sudo nmcli con mod $BRIDGE_NAME ipv4.addresses $EXTERNAL_IP ipv4.gateway $GATEWAY_IP ipv4.method manual ipv6.method ignore bridge.stp yes"
@@ -115,6 +118,7 @@ setup_network_on_rhel() {
     # Attach the interface to the bridge without an IP
     # do_cmd "sudo nmcli con add type bridge-slave ifname $INTERFACE_NAME con-name $INTERFACE_NAME master $BRIDGE_NAME autoconnect yes ipv4.method disabled ipv6.method ignore"
     # Attach the interface to the bridge without specifying ipv4 or ipv6 method
+    do_cmd "sudo nmcli con add type ethernet con-name $INTERFACE_NAME"
     do_cmd "sudo nmcli con add type bridge-slave ifname $INTERFACE_NAME con-name $INTERFACE_NAME master $BRIDGE_NAME autoconnect yes"
 
     # Reload and reapply configurations
@@ -123,6 +127,8 @@ setup_network_on_rhel() {
     do_cmd "sudo nmcli con up $BRIDGE_NAME" "up $BRIDGE_NAME"
     do_cmd "sudo nmcli con down $INTERFACE_NAME" "down $INTERFACE_NAME"
     do_cmd "sudo nmcli con up $INTERFACE_NAME" "up $INTERFACE_NAME"
+
+    do_cmd "sudo systemctl restart NetworkManager"
 
     logMessage "Network configuration has been updated. The bridge $BRIDGE_NAME now holds the external IP."
     logMessage "--- End definition of network configurations"
