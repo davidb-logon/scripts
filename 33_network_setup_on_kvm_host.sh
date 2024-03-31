@@ -128,6 +128,11 @@ setup_network_on_rhel() {
     logMessage "--- End definition of network configurations"
     logMessage "$(ip -br a)"
     logMessage "$(nmcli con show cloudbr0)"
+    logMessage "$(nmcli con show enc1c00)"
+    logMessage "$(ip route)"
+
+    # default via 204.90.115.1 dev enc1c00 proto static metric 100 
+    # default via 204.90.115.1 dev cloudbr0 proto static metric 425 linkdown
 }
 
 
