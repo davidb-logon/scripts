@@ -1,0 +1,56 @@
+-------------------------------------------------------------------------------
+This script sets up cloudstack network bridge on red hat
+-------------------------------------------------------------------------------
+
+[32m--- Logfile at: cat /var/log/logon/network_setup_20240331_064349.log [0m
+[32m--- Start Script in directory: /home/sefi/logon/scripts[0m
+[32m--- Start to detect Linux distribution...[0m
+[32m--- End of detecting Linux distribution, detected distribution: RHEL[0m
+[32m--- EXECUTE: sudo yum -y upgrade[0m
+Last metadata expiration check: 0:43:12 ago on Sun 31 Mar 2024 06:00:38 AM EDT.
+Dependencies resolved.
+Nothing to do.
+Complete!
+[32m--- SUCCESS: sudo yum[0m
+[32m--- EXECUTE: sudo yum install bridge-utils net-tools -y[0m
+Last metadata expiration check: 0:43:12 ago on Sun 31 Mar 2024 06:00:38 AM EDT.
+Package bridge-utils-1.7.1-3.el9.s390x is already installed.
+Package net-tools-2.0-0.62.20160912git.el9.s390x is already installed.
+Dependencies resolved.
+Nothing to do.
+Complete!
+[32m--- SUCCESS: sudo yum[0m
+[32m--- Starting to define network configurations[0m
+[32mDeleting existing connection: cloudbr0[0m
+[32m--- EXECUTE: sudo nmcli con del cloudbr0[0m
+Connection 'cloudbr0' (db5863eb-c6f2-4175-9af2-8966e4ac2fb0) successfully deleted.
+[32m--- SUCCESS: sudo nmcli[0m
+[32m--- EXECUTE: sudo nmcli con del enc1c00[0m
+Connection 'enc1c00' (dc370cfb-b8ed-4eb0-aa59-85e1f9fad870) successfully deleted.
+[32m--- SUCCESS: sudo nmcli[0m
+[32m--- EXECUTE: sudo nmcli con add type bridge ifname cloudbr0 con-name cloudbr0 autoconnect yes[0m
+Connection 'cloudbr0' (5ce2601a-623d-4f1a-bfe4-2396e5939f29) successfully added.
+[32m--- SUCCESS: sudo nmcli[0m
+[32m--- EXECUTE: sudo nmcli con mod cloudbr0 ipv4.addresses 204.90.115.208/24 ipv4.gateway 204.90.115.1 ipv4.method manual ipv6.method disabled bridge.stp yes[0m
+[32m--- SUCCESS: sudo nmcli[0m
+[32m--- EXECUTE: sudo nmcli con mod cloudbr0 ipv4.dns 8.8.8.8,8.8.4.4[0m
+[32m--- SUCCESS: sudo nmcli[0m
+lo               UNKNOWN        127.0.0.1/8 ::1/128 
+enc1c00          UP             
+tun0             UNKNOWN        10.7.0.1 peer 10.7.0.2/32 fe80::85d3:2747:7ff8:7d2f/64 
+cloud0           UNKNOWN        169.254.0.1/16 fe80::90a3:12ff:fe21:6cee/64 
+cloudbr0         DOWN           204.90.115.208/24 
+lo               UNKNOWN        127.0.0.1/8 ::1/128 
+enc1c00          UP             
+tun0             UNKNOWN        10.7.0.1 peer 10.7.0.2/32 fe80::85d3:2747:7ff8:7d2f/64 
+cloud0           UNKNOWN        169.254.0.1/16 fe80::90a3:12ff:fe21:6cee/64 
+cloudbr0         DOWN           204.90.115.208/24 
+[32mNetwork configuration has been updated. The bridge cloudbr0 now holds the external IP.[0m
+[32m--- End definition of network configurations[0m
+[32mThe script took 41 seconds to complete.[0m
+[32m
+
+--- SCRIPT WAS SUCCESSFUL
+--- Logfile at: cat /var/log/logon/network_setup_20240331_064349.log
+--- End Script
+[0m
