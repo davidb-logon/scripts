@@ -126,10 +126,16 @@ setup_network_on_rhel() {
 
     logMessage "Network configuration has been updated. The bridge $BRIDGE_NAME now holds the external IP."
     logMessage "--- End definition of network configurations"
+    logMessage "--- Doing: ip -br a"
     logMessage "$(ip -br a)"
+    logMessage "------------------ Doing: nmcli con show cloudbr0"
     logMessage "$(nmcli con show cloudbr0)"
+    logMessage "------------------ Doing: nmcli con show enc1c00"
     logMessage "$(nmcli con show enc1c00)"
+    logMessage "------------------ Doing: ip route"
     logMessage "$(ip route)"
+    logMessage "------------------ Doing: bridge link show"
+    logMessage "$(bridge link show)"
 
     # default via 204.90.115.1 dev enc1c00 proto static metric 100 
     # default via 204.90.115.1 dev cloudbr0 proto static metric 425 linkdown
