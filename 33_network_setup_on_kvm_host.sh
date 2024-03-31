@@ -65,8 +65,8 @@ setup_network() {
         exit 1
         ;;
     "RHEL")
-        do_cmd "yum -y upgrade"
-        do_cmd "yum install bridge-utils net-tools -y"
+        do_cmd "sudo yum -y upgrade"
+        do_cmd "sudo yum install bridge-utils net-tools -y"
         setup_network_on_rhel
         # Add RHEL specific commands here
         ;;
@@ -136,7 +136,7 @@ parse_command_line_arguments() {
 usage() {
 cat << EOF
 -------------------------------------------------------------------------------
-This script 
+This script sets up cloudstack network bridge on red hat
 -------------------------------------------------------------------------------
 EOF
 script_ended_ok=true
