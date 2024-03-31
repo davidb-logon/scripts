@@ -143,6 +143,12 @@ setup_network_on_rhel() {
     logMessage "------------------ Doing: bridge link show"
     logMessage "$(bridge link show)"
 
+    sleep 30
+    ping -c 1 8.8.8.8
+    if [[ $? = 1 ]]; then
+        sudo /data/primary/net1.sh
+    fi
+
     # default via 204.90.115.1 dev enc1c00 proto static metric 100 
     # default via 204.90.115.1 dev cloudbr0 proto static metric 425 linkdown
 }
