@@ -119,7 +119,7 @@ setup_network_on_rhel() {
     # do_cmd "sudo nmcli con add type bridge-slave ifname $INTERFACE_NAME con-name $INTERFACE_NAME master $BRIDGE_NAME autoconnect yes ipv4.method disabled ipv6.method ignore"
     # Attach the interface to the bridge without specifying ipv4 or ipv6 method
     # do_cmd "sudo nmcli con add type ethernet con-name $INTERFACE_NAME"
-    do_cmd "sudo nmcli con add type bridge-slave ifname $INTERFACE_NAME con-name $INTERFACE_NAME master $BRIDGE_NAME autoconnect yes"
+    do_cmd "sudo nmcli con add type bridge-slave ifname $INTERFACE_NAME con-name $INTERFACE_NAME master $BRIDGE_NAME ipv6.method ignore autoconnect yes"
 
     # Reload and reapply configurations
     do_cmd "sudo nmcli con reload" "Reload Network" "Unable to reload network"
