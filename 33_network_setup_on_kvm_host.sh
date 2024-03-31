@@ -126,6 +126,8 @@ setup_network_on_rhel() {
 
     logMessage "Network configuration has been updated. The bridge $BRIDGE_NAME now holds the external IP."
     logMessage "--- End definition of network configurations"
+    logMessage "$(ip -br a)"
+    logMessage "$(nmcli con show cloudbr0)"
 }
 
 
