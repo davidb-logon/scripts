@@ -69,36 +69,31 @@ main() {
 
     logMessage "OpenVPN setup is complete. Review the configuration and adjust firewall settings accordingly."
 
+    # Initialize two empty arrays
+    array1=()
+    array2=()
 
-# Initialize two empty arrays
-array1=()
-array2=()
-
-# Read from a here-document
-while read -r element1 element2; do
-  array1+=("$element1")
-  array2+=("$element2")
-done << EOF
+    # Read from a here-document
+    while read -r element1 element2; do
+    array1+=("$element1")
+    array2+=("$element2")
+    done << EOF
 sefimini 10.7.0.4
 sefiw    10.7.0.5
 ubdudi   10.7.0.6
 dudimac  10.7.0.3
 EOF
 
-# Print the contents of the arrays
-echo "Array 1:"
-for item in "${array1[@]}"; do
-  echo "$item"
-done
+    # Print the contents of the arrays
+    echo "Array 1:"
+    for item in "${array1[@]}"; do
+    echo "$item"
+    done
 
-echo "Array 2:"
-for item in "${array2[@]}"; do
-  echo "$item"
-done
-
-
-
-
+    echo "Array 2:"
+    for item in "${array2[@]}"; do
+    echo "$item"
+    done
 
     end_time=$(date +%s)
     elapsed_time=$((end_time - start_time))

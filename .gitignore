@@ -1,5 +1,6 @@
-.config.vim
+*.vim
 pki/openssl-easyrsa.cnf
 pki/safessl-easyrsa.cnf
 pki/private/sefiw.key
 pki/reqs/sefiw.req
+

@@ -18,8 +18,46 @@ main2() {
     usage
     init_vars "logon" "setup_openvpn"
     start_logging
+  # Insert script logic here
+    cat << EOF
+1. Create openvpn server
+2. Install openvpn service on server
+3. Install openvpn service on client
+4. Quit
+EOF
 
+    read -p "Please enter your choice: " choice
+    case $choice in
+        1)
+            create_ovpn_server
+            ;;
+        2)
+            list_backups
+            ;;
+        3)
+            setup_ovpn_client_as_service "$@"
+            ;;
+        4)
+            exit 0
+            ;;
+        *)
+            logMessage "Invalid choice. Exiting."
+            exit 1
+            ;;
+    esac
+    end_time=$(date +%s)
+    elapsed_time=$((end_time - start_time))
+    logMessage "The script took $elapsed_time seconds to complete."
+    script_ended_ok=true
+}
+
+create_ovpn_server(){
     parse_command_line_arguments "$@" # Get the clients,
+
+
+
+
+
     install_openvpn_and_easy_rsa
     setup_CA_certificate
     generate_server_certificate_and_key
@@ -46,17 +84,15 @@ main2() {
     do_cmd "sudo sysctl -p"
 
     # Start and Enable OpenVPN
-    do_cmd "sudo systemctl start openvpn@server"
     do_cmd "sudo systemctl enable openvpn@server"
+    do_cmd "sudo systemctl start openvpn@server"
+    
 
     logMessage "OpenVPN setup is complete. Review the configuration and adjust firewall settings accordingly."
 
-    
-    end_time=$(date +%s)
-    elapsed_time=$((end_time - start_time))
-    logMessage "The script took $elapsed_time seconds to complete."
-    script_ended_ok=true
+
 }
+
 
 init_vars() {
     init_utils_vars $1 $2
@@ -195,8 +231,13 @@ setup_ovpn_client_as_service(){
 #
 #Add the following content to the file, replacing placeholders with your actual details:
 #
-clientName="zvm"
-cat << EOF > /etc/systemd/system/openvpn@client.service
+# first, get the .ovpn file from the currnet dir
+if [[ $(ls *.ovpn | grep -c ".ovpn") == 1 ]]; then
+    # first
+    do_cmd "clientName=$(ls *.ovpn)"
+    logMessage "--- Start generating service for client: $clientName"
+    do_cmd "CLIENT_DIR=$(pwd)"
+    cat << EOF > /etc/systemd/system/openvpn@client.service
 [Unit]
 Description=OpenVPN Client Service - $clientName
 After=network.target
@@ -204,7 +245,7 @@ After=network.target
 [Service]
 Type=simple
 Restart=on-failure
-ExecStart=/usr/sbin/openvpn --config /root/openvpn/$clientName.ovpn
+ExecStart=/usr/sbin/openvpn --config $CLIENT_DIR/$clientName
 User=nobody  # Adjust user privileges if needed
 Group=nogroup # Adjust group privileges if needed
 
@@ -212,8 +253,10 @@ Group=nogroup # Adjust group privileges if needed
 WantedBy=multi-user.target
 EOF
 
-do_cmd "sudo systemctl daemon-reload"
-do_cmd "sudo systemctl enable openvpn@client.service"
+    do_cmd "sudo systemctl daemon-reload"
+    do_cmd "sudo systemctl enable openvpn@client.service"
+    do_cmd "sudo systemctl restart openvpn@client.service"
+fi
 
 }
 #-------------------------------------------------------#

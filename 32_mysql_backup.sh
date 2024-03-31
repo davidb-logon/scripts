@@ -3,6 +3,19 @@
 # Licensed Materials (c) Copyright Log-On 2024, All Rights Reserved.
 #------------------------------------------------------------------------------
 
+# This script takes a backup of the mysql database and allows the user to list,
+# restore, or delete the backups.
+#
+# Usage:
+#   ./32_mysql_backup.sh [OPTION]
+#
+# Options:
+#   -h, --help      Display this help and exit
+#   -v, --version   Output version information and exit
+#   -l, --list      List all backups
+#   -r, --restore   Restore the last backup
+#   -d, --delete    Delete the last backup
+#
 main() {
     start_time=$(date +%s)
     usage
@@ -12,9 +25,10 @@ main() {
 
     # Insert script logic here
     cat << EOF
-    1. Create a backup of the mysql database
-    2. List all backups
-    3. Restore the backup
+1. Create a backup of the mysql database
+2. List all backups
+3. Restore the backup
+4. Delete the last backup
 
 EOF
 
