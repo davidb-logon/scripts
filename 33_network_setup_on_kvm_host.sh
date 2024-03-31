@@ -143,12 +143,6 @@ setup_network_on_rhel() {
     logMessage "------------------ Doing: bridge link show"
     logMessage "$(bridge link show)"
 
-    sleep 30
-    ping -c 1 8.8.8.8
-    if [[ $? = 1 ]]; then
-        sudo /data/primary/net1.sh
-    fi
-
     # default via 204.90.115.1 dev enc1c00 proto static metric 100 
     # default via 204.90.115.1 dev cloudbr0 proto static metric 425 linkdown
 }
@@ -171,6 +165,26 @@ EOF
 script_ended_ok=true
 }
 
+cleanup1() {
+    sleep 30
+    ping -c 1 8.8.8.8
+    if [[ $? = 1 ]]; then
+        sudo /data/primary/net1.sh
+    fi
+    if $script_ended_ok; then 
+        echo -e "$green"
+        echo 
+        echo "--- SCRIPT WAS SUCCESSFUL"
+    else
+        echo -e "$red"
+        echo 
+        echo "--- SCRIPT WAS UNSUCCESSFUL"
+    fi
+    echo "--- Logfile at: cat $LOGFILE"
+    echo "--- End Script"
+    echo -e "$reset"
+}
+
 #-------------------------------------------------------#
 #                Start script execution                 #
 #-------------------------------------------------------#
@@ -180,6 +194,6 @@ DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
 source "$DIR/lib/common.sh"
 
 script_ended_ok=false
-trap 'cleanup' EXIT
+trap 'cleanup1' EXIT
 
 main "$@"
