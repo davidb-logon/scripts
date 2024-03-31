@@ -52,7 +52,7 @@ example_use_case() {
       exit 1
       ;;    
     *)
-      logMessage "UnknowUnsupported LINUX_DISTRIBUTION: $LINUX_DISTRIBUTION, exiting"
+      logMessage "Unknown Unsupported LINUX_DISTRIBUTION: $LINUX_DISTRIBUTION, exiting"
       exit 1
       ;;
   esac

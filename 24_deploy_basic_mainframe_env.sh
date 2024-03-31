@@ -7,7 +7,6 @@ main() {
     start_time=$(date +%s)
     usage
     init_vars "logon" "deploy_basic_Z_env"
-    parse_command_line_arguments "$@"
     start_logging
     check_if_ubuntu_deploy_completed # Creates globals needed for the rest:
                                      # ZONE_ID
@@ -43,13 +42,6 @@ init_vars() {
     init_utils_vars $1 $2
 }
 
-parse_command_line_arguments() {
-    # if [[ $# -lt 1 || $# -gt 2 ]]; then
-    #     usage
-    #     exit
-    # fi
-    temp=1
-}
 
 usage() {
 cat << EOF
