@@ -113,12 +113,16 @@ setup_network_on_rhel() {
     do_cmd "sudo nmcli con mod $BRIDGE_NAME ipv4.dns $DNS1,$DNS2"
 
     # Attach the interface to the bridge without an IP
-    do_cmd "sudo nmcli con add type bridge-slave ifname $INTERFACE_NAME con-name $INTERFACE_NAME master $BRIDGE_NAME autoconnect yes ipv4.method disabled ipv6.method ignore"
+    # do_cmd "sudo nmcli con add type bridge-slave ifname $INTERFACE_NAME con-name $INTERFACE_NAME master $BRIDGE_NAME autoconnect yes ipv4.method disabled ipv6.method ignore"
+    # Attach the interface to the bridge without specifying ipv4 or ipv6 method
+    do_cmd "sudo nmcli con add type bridge-slave ifname $INTERFACE_NAME con-name $INTERFACE_NAME master $BRIDGE_NAME autoconnect yes"
 
     # Reload and reapply configurations
-    do_cmd "sudo nmcli con reload"
-    do_cmd "sudo nmcli con down $BRIDGE_NAME && nmcli con up $BRIDGE_NAME"
-    do_cmd "sudo nmcli con down $INTERFACE_NAME && nmcli con up $INTERFACE_NAME"
+    do_cmd "sudo nmcli con reload" "Reload Network" "Unable to reload network"
+    do_cmd "sudo nmcli con down $BRIDGE_NAME" "down $BRIDGE_NAME" 
+    do_cmd "sudo nmcli con up $BRIDGE_NAME" "up $BRIDGE_NAME"
+    do_cmd "sudo nmcli con down $INTERFACE_NAME" "down $INTERFACE_NAME"
+    do_cmd "sudo nmcli con up $INTERFACE_NAME" "up $INTERFACE_NAME"
 
     logMessage "Network configuration has been updated. The bridge $BRIDGE_NAME now holds the external IP."
     logMessage "--- End definition of network configurations"
