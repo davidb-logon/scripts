@@ -119,11 +119,24 @@ setup_network_on_rhel() {
     do_cmd "sudo nmcli con reload"
     do_cmd "sudo nmcli con down $BRIDGE_NAME && nmcli con up $BRIDGE_NAME"
     do_cmd "sudo nmcli con down $INTERFACE_NAME && nmcli con up $INTERFACE_NAME"
-
+    change_default_gateway
     logMessage "Network configuration has been updated. The bridge $BRIDGE_NAME now holds the external IP."
     logMessage "--- End definition of network configurations"
 }
 
+change_default_gateway(){
+
+
+# BRIDGE_NAME="cloudbr0"
+# GATEWAY_IP="204.90.115.1"  # Replace with your actual gateway IP
+
+# Delete existing default gateway
+sudo ip route del default
+
+# Add new default gateway to bridge interface
+sudo ip route add default via $GATEWAY_IP dev $BRIDGE_NAME
+
+}
 
 parse_command_line_arguments() {
     # if [[ $# -lt 1 || $# -gt 2 ]]; then
