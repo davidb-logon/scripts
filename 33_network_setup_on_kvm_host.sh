@@ -106,37 +106,47 @@ setup_network_on_rhel() {
     delete_connection_if_exists_on_rhel "$INTERFACE_NAME"
 
     # Create the bridge interface
+
     do_cmd "sudo nmcli con add type bridge ifname $BRIDGE_NAME con-name $BRIDGE_NAME autoconnect yes"
+                 
+
 
     # Assign the external IP to the bridge
     do_cmd "sudo nmcli con mod $BRIDGE_NAME ipv4.addresses $EXTERNAL_IP ipv4.gateway $GATEWAY_IP ipv4.method manual ipv6.method ignore bridge.stp yes"
     do_cmd "sudo nmcli con mod $BRIDGE_NAME ipv4.dns $DNS1,$DNS2"
 
     # Attach the interface to the bridge without an IP
-    do_cmd "sudo nmcli con add type bridge-slave ifname $INTERFACE_NAME con-name $INTERFACE_NAME master $BRIDGE_NAME autoconnect yes ipv4.method disabled ipv6.method ignore"
-
+    # do_cmd "sudo nmcli con add type bridge-slave ifname $INTERFACE_NAME con-name $INTERFACE_NAME master $BRIDGE_NAME autoconnect yes ipv4.method disabled ipv6.method ignore"
+    # Attach the interface to the bridge without specifying ipv4 or ipv6 method
+    # do_cmd "sudo nmcli con add type ethernet con-name $INTERFACE_NAME"
+    do_cmd "sudo nmcli con add type bridge-slave ifname $INTERFACE_NAME con-name $INTERFACE_NAME master $BRIDGE_NAME autoconnect yes"
+    do_cmd "sudo nmcli con mod $INTERFACE_NAME ipv6.method ignore" "Ignore ipv6 on $INTERFACE_NAME"
     # Reload and reapply configurations
-    do_cmd "sudo nmcli con reload"
-    do_cmd "sudo nmcli con down $BRIDGE_NAME && nmcli con up $BRIDGE_NAME"
-    do_cmd "sudo nmcli con down $INTERFACE_NAME && nmcli con up $INTERFACE_NAME"
-    change_default_gateway
+    do_cmd "sudo nmcli con reload" "Reload Network" "Unable to reload network"
+    do_cmd "sudo nmcli con down $BRIDGE_NAME" "down $BRIDGE_NAME" 
+    do_cmd "sudo nmcli con up $BRIDGE_NAME" "up $BRIDGE_NAME"
+    do_cmd "sudo nmcli con down $INTERFACE_NAME" "down $INTERFACE_NAME"
+    do_cmd "sudo nmcli con up $INTERFACE_NAME" "up $INTERFACE_NAME"
+
+    do_cmd "sudo systemctl restart NetworkManager"
+
     logMessage "Network configuration has been updated. The bridge $BRIDGE_NAME now holds the external IP."
     logMessage "--- End definition of network configurations"
+    logMessage "--- Doing: ip -br a"
+    logMessage "$(ip -br a)"
+    logMessage "------------------ Doing: nmcli con show cloudbr0"
+    logMessage "$(nmcli con show cloudbr0)"
+    logMessage "------------------ Doing: nmcli con show enc1c00"
+    logMessage "$(nmcli con show enc1c00)"
+    logMessage "------------------ Doing: ip route"
+    logMessage "$(ip route)"
+    logMessage "------------------ Doing: bridge link show"
+    logMessage "$(bridge link show)"
+
+    # default via 204.90.115.1 dev enc1c00 proto static metric 100 
+    # default via 204.90.115.1 dev cloudbr0 proto static metric 425 linkdown
 }
 
-change_default_gateway(){
-
-
-# BRIDGE_NAME="cloudbr0"
-# GATEWAY_IP="204.90.115.1"  # Replace with your actual gateway IP
-
-# Delete existing default gateway
-sudo ip route del default
-
-# Add new default gateway to bridge interface
-sudo ip route add default via $GATEWAY_IP dev $BRIDGE_NAME
-
-}
 
 parse_command_line_arguments() {
     # if [[ $# -lt 1 || $# -gt 2 ]]; then
@@ -155,6 +165,26 @@ EOF
 script_ended_ok=true
 }
 
+cleanup1() {
+    sleep 30
+    ping -c 1 8.8.8.8
+    if [[ $? = 1 ]]; then
+        sudo /data/primary/net1.sh
+    fi
+    if $script_ended_ok; then 
+        echo -e "$green"
+        echo 
+        echo "--- SCRIPT WAS SUCCESSFUL"
+    else
+        echo -e "$red"
+        echo 
+        echo "--- SCRIPT WAS UNSUCCESSFUL"
+    fi
+    echo "--- Logfile at: cat $LOGFILE"
+    echo "--- End Script"
+    echo -e "$reset"
+}
+
 #-------------------------------------------------------#
 #                Start script execution                 #
 #-------------------------------------------------------#
@@ -164,6 +194,6 @@ DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
 source "$DIR/lib/common.sh"
 
 script_ended_ok=false
-trap 'cleanup' EXIT
+trap 'cleanup1' EXIT
 
 main "$@"
