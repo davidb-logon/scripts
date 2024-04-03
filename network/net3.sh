@@ -5,7 +5,7 @@ systemctl enable NetworkManager
 
 nmcli con show | awk '{if ($1!="NAME") print "nmcli con delete  '"$2"'"}' | sh
 nmcli con delete enc1c00
-gmcli con add type ethernet con-name enc1c00 ifname enc1c00 ip4 204.90.115.208/24 gw4 204.90.115.1
+nmcli con add type ethernet con-name enc1c00 ifname enc1c00 ip4 204.90.115.208/24 gw4 204.90.115.1
 nmcli con modify enc1c00 ipv4.dns 192.203.134.2
 nmcli con modify enc1c00 ipv4.dns-search dal-ebis.ihost.com
 nmcli con modify enc1c00 ipv4.dns-search wave.log-on.com
