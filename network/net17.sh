@@ -5,16 +5,16 @@ nmcli con show
 #$ sudo nmcli con mod 'Wired Connection 1' con-name eth0
 
 #So let's start out by creating the bridge itself:
-nmcli con add ifname br0 type bridge con-name cloudbr0
+nmcli con add ifname cloudbr0 type bridge con-name cloudbr0
 
 #Now add the physical interface as its slave:
 nmcli con add type bridge-slave ifname enc1c00 master cloudbr0
 
 # Disable STP:
 nmcli con mod cloudbr0 bridge.stp no
- 
+exit 
 # Now down the physical interface:
-nmcli con down enc1c00
+#nmcli con down enc1c00
  
 #For this machine I want a static address:
 nmcli con mod cloudbr0 ipv4.addresses 204.90.115.208/24
