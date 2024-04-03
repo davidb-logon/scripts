@@ -17,3 +17,509 @@ sudo /data/primary/net1.sh
 network is fine
 sudo /data/primary/net1.sh
 sudo /data/primary/net1.sh
+sudo /data/primary/net1.sh
+sudo /data/primary/net1.sh
+20240331-094408 sudo /data/primary/net1.sh
+sudo /data/primary/net1.sh
+sudo /data/primary/net1.sh
+sudo /data/primary/net1.sh
+sudo /data/primary/net1.sh
+sudo /data/primary/net1.sh
+sudo /data/primary/net1.sh
+sudo /data/primary/net1.sh
+sudo /data/primary/net1.sh
+sudo /data/primary/net1.sh
+sudo /data/primary/net1.sh
+sudo /data/primary/net1.sh
+sudo /data/primary/net1.sh
+sudo /data/primary/net1.sh
+sudo /data/primary/net1.sh
+sudo /data/primary/net1.sh
+sudo /data/primary/net1.sh
+sudo /data/primary/net1.sh
+sudo /data/primary/net1.sh
+sudo /data/primary/net1.sh
+sudo /data/primary/net1.sh
+sudo /data/primary/net1.sh
+sudo /data/primary/net1.sh
+sudo /data/primary/net1.sh
+sudo /data/primary/net1.sh
+sudo /data/primary/net1.sh
+sudo /data/primary/net1.sh
+sudo /data/primary/net1.sh
+sudo /data/primary/net1.sh
+sudo /data/primary/net1.sh
+sudo /data/primary/net1.sh
+sudo /data/primary/net1.sh
+sudo /data/primary/net1.sh
+sudo /data/primary/net1.sh
+sudo /data/primary/net1.sh
+sudo /data/primary/net1.sh
+sudo /data/primary/net1.sh
+sudo /data/primary/net1.sh
+sudo /data/primary/net1.sh
+sudo /data/primary/net1.sh
+sudo /data/primary/net1.sh
+sudo /data/primary/net1.sh
+sudo /data/primary/net1.sh
+sudo /data/primary/net1.sh
+sudo /data/primary/net1.sh
+sudo /data/primary/net1.sh
+sudo /data/primary/net1.sh
+20240331-103106 network is fine
+sudo /data/primary/net1.sh
+20240331-103206 network is fine
+sudo /data/primary/net1.sh
+20240331-103306 network is fine
+sudo /data/primary/net1.sh
+20240331-103406 network is fine
+sudo /data/primary/net1.sh
+20240331-103506 network is fine
+sudo /data/primary/net1.sh
+20240331-103606 network is fine
+20240331-103706 sudo /data/primary/net1.sh
+QETH device 0.0.1c00:0.0.1c01:0.0.1c02 already configured
+NAME      UUID                                  TYPE      DEVICE   
+cloudbr0  bb7a8b22-5a19-406d-8e28-025867d9cfe7  bridge    cloudbr0 
+enc1c00   283bb367-2322-4dd3-bc25-252dc3c01d3e  ethernet  enc1c00  
+cloud0    d49924ea-7620-48e5-bea7-02cf08f49688  bridge    cloud0   
+Connection 'enc1c00' (283bb367-2322-4dd3-bc25-252dc3c01d3e) successfully deleted.
+Connection 'enc1c00' (26b90636-0d78-4bc6-80fd-e1f182986c12) successfully added.
+NAME      UUID                                  TYPE      DEVICE   
+enc1c00   26b90636-0d78-4bc6-80fd-e1f182986c12  ethernet  enc1c00  
+cloud0    d49924ea-7620-48e5-bea7-02cf08f49688  bridge    cloud0   
+cloudbr0  bb7a8b22-5a19-406d-8e28-025867d9cfe7  bridge    cloudbr0 
+lo               UNKNOWN        127.0.0.1/8 
+enc1c00          UP             204.90.115.208/24 fe80::336d:199d:fcef:4989/64 
+cloud0           UNKNOWN        169.254.0.1/16 
+cloudbr0         DOWN           204.90.115.208/24 
+20240331-104138 network is fine
+20240331-104238 network is fine
+20240331-104338 network is fine
+20240331-104438 network is fine
+20240331-104538 network is fine
+20240331-104638 network is fine
+20240331-104738 network is fine
+20240331-104838 network is fine
+20240331-104938 network is fine
+20240331-105038 sudo /data/primary/net1.sh
+20240331-105139 sudo /data/primary/net1.sh
+20240331-105241 network is fine
+20240331-105341 network is fine
+20240331-105441 network is fine
+20240331-105541 network is fine
+20240331-105641 network is fine
+20240331-105741 network is fine
+20240331-105841 network is fine
+20240331-105941 network is fine
+20240331-110041 network is fine
+20240331-110141 network is fine
+20240331-110241 network is fine
+20240331-110341 network is fine
+20240331-110441 network is fine
+20240331-110541 network is fine
+20240331-110641 network is fine
+20240331-110741 network is fine
+20240331-110841 network is fine
+20240331-110941 network is fine
+20240331-111041 network is fine
+20240331-111141 network is fine
+20240331-111241 network is fine
+20240331-111341 network is fine
+20240331-111441 network is fine
+20240331-111541 network is fine
+20240331-111641 network is fine
+20240331-111741 network is fine
+20240331-111841 network is fine
+20240331-111941 network is fine
+20240331-112041 network is fine
+20240331-112141 network is fine
+20240331-112241 network is fine
+20240331-112341 network is fine
+20240331-112441 network is fine
+20240331-112541 network is fine
+20240331-112642 network is fine
+20240331-112742 network is fine
+20240331-112842 network is fine
+20240331-112942 network is fine
+20240331-113042 network is fine
+20240331-113142 network is fine
+20240331-113242 network is fine
+20240331-113342 network is fine
+20240331-113442 network is fine
+20240331-113542 network is fine
+20240331-113642 network is fine
+20240331-113742 network is fine
+20240331-113842 network is fine
+20240331-113942 network is fine
+20240331-114042 network is fine
+20240331-114142 network is fine
+20240331-114242 network is fine
+20240331-114342 network is fine
+20240331-114442 network is fine
+20240331-114542 network is fine
+20240331-114642 network is fine
+20240331-114742 network is fine
+20240331-114842 network is fine
+20240331-114942 network is fine
+20240331-115042 network is fine
+20240331-115142 network is fine
+20240331-115242 network is fine
+20240331-115342 network is fine
+20240331-115442 network is fine
+20240331-115542 network is fine
+20240331-115642 network is fine
+20240331-115742 network is fine
+20240331-115842 network is fine
+20240331-115942 network is fine
+20240331-120042 network is fine
+20240331-120142 network is fine
+20240331-120242 network is fine
+20240331-120342 network is fine
+20240331-120442 network is fine
+20240331-120542 network is fine
+20240331-120642 network is fine
+20240331-120742 network is fine
+20240331-120842 network is fine
+20240331-120942 network is fine
+20240331-121042 network is fine
+20240331-121142 network is fine
+20240331-121242 network is fine
+20240331-121342 network is fine
+20240331-121442 network is fine
+20240331-121542 network is fine
+20240331-121642 network is fine
+20240331-121742 network is fine
+20240331-121842 network is fine
+20240331-121942 network is fine
+20240331-122042 network is fine
+20240331-122142 network is fine
+20240331-122242 network is fine
+20240331-122342 network is fine
+20240331-122442 network is fine
+20240331-122542 network is fine
+20240331-122642 network is fine
+20240331-122742 network is fine
+20240331-122842 network is fine
+20240331-122942 network is fine
+20240331-123042 network is fine
+20240331-123142 network is fine
+20240331-123242 network is fine
+20240331-123342 network is fine
+20240331-123442 network is fine
+20240331-123542 network is fine
+20240331-123642 network is fine
+20240331-123742 network is fine
+20240331-123842 network is fine
+20240331-123942 network is fine
+20240331-124042 network is fine
+20240331-124142 network is fine
+20240331-124242 network is fine
+20240331-124342 network is fine
+20240331-124442 network is fine
+20240331-124542 network is fine
+20240331-124642 network is fine
+20240331-124742 network is fine
+20240331-124842 network is fine
+20240331-124942 network is fine
+20240331-125042 network is fine
+20240331-125142 network is fine
+20240331-125242 network is fine
+20240331-125342 network is fine
+20240331-125442 network is fine
+20240331-125542 network is fine
+20240331-125642 network is fine
+20240331-125742 network is fine
+20240331-125842 network is fine
+20240331-125942 network is fine
+20240331-130042 network is fine
+20240331-130142 network is fine
+20240331-130242 network is fine
+20240331-130342 network is fine
+20240331-130442 network is fine
+20240331-130542 network is fine
+20240331-130642 network is fine
+20240331-130742 network is fine
+20240331-130842 network is fine
+20240331-130942 network is fine
+20240331-131042 network is fine
+20240331-131142 network is fine
+20240331-131242 network is fine
+20240331-131342 network is fine
+20240331-131442 network is fine
+20240331-131542 network is fine
+20240331-131642 network is fine
+20240331-131743 network is fine
+20240331-131843 network is fine
+20240331-131943 network is fine
+20240331-132043 network is fine
+20240331-132143 network is fine
+20240331-132243 network is fine
+20240331-132343 network is fine
+20240331-132443 network is fine
+20240331-132543 network is fine
+20240331-132643 network is fine
+20240331-132743 network is fine
+20240331-132843 network is fine
+20240331-132943 network is fine
+20240331-133043 network is fine
+20240331-133143 network is fine
+20240331-133243 network is fine
+20240331-133343 network is fine
+20240331-133443 network is fine
+20240331-133543 network is fine
+20240331-133643 network is fine
+20240331-133743 network is fine
+20240331-133843 network is fine
+20240331-133943 network is fine
+20240331-134043 network is fine
+20240331-134143 network is fine
+20240331-134243 network is fine
+20240331-134343 network is fine
+20240331-134443 network is fine
+20240331-134543 network is fine
+20240331-134643 network is fine
+20240331-134743 network is fine
+20240331-134843 network is fine
+20240331-134943 network is fine
+20240331-135043 network is fine
+20240331-135143 network is fine
+20240331-135243 network is fine
+20240331-135343 network is fine
+20240331-135443 network is fine
+20240331-135543 network is fine
+20240331-135643 network is fine
+20240331-135743 network is fine
+20240331-135843 network is fine
+20240331-135943 network is fine
+20240331-140043 network is fine
+20240331-140143 network is fine
+20240331-140243 network is fine
+20240331-140343 network is fine
+20240331-140443 network is fine
+20240331-140543 network is fine
+20240331-140643 network is fine
+20240331-140743 network is fine
+20240331-140843 network is fine
+20240331-140943 network is fine
+20240331-141043 network is fine
+20240331-141143 network is fine
+20240331-141243 network is fine
+20240331-141343 network is fine
+20240331-141443 network is fine
+20240331-141543 network is fine
+20240331-141643 network is fine
+20240331-141743 network is fine
+20240331-141843 network is fine
+20240331-141943 network is fine
+20240331-142043 network is fine
+20240331-142143 network is fine
+20240331-142243 network is fine
+20240331-142343 network is fine
+20240331-142443 network is fine
+20240331-142543 network is fine
+20240331-142643 network is fine
+20240331-142743 network is fine
+20240331-142843 network is fine
+20240331-142943 network is fine
+20240331-143043 network is fine
+20240331-143143 network is fine
+20240331-143243 network is fine
+20240331-143343 network is fine
+20240331-143443 network is fine
+20240331-143543 network is fine
+20240331-143643 network is fine
+20240331-143743 network is fine
+20240331-143843 network is fine
+20240331-143943 network is fine
+20240331-144043 network is fine
+20240331-144143 network is fine
+20240331-144243 network is fine
+20240331-144343 network is fine
+20240331-144443 network is fine
+20240331-144543 network is fine
+20240331-144643 network is fine
+20240331-144743 network is fine
+20240331-144843 network is fine
+20240331-144943 network is fine
+20240331-145043 network is fine
+20240331-145143 network is fine
+20240331-145243 network is fine
+20240331-145343 network is fine
+20240331-145443 network is fine
+20240331-145543 network is fine
+20240331-145643 network is fine
+20240331-145743 network is fine
+20240331-145843 network is fine
+20240331-145943 network is fine
+20240331-150043 network is fine
+20240331-150143 network is fine
+20240331-150243 network is fine
+20240331-150343 network is fine
+20240331-150443 network is fine
+20240331-150543 network is fine
+20240331-150643 network is fine
+20240331-150743 network is fine
+20240331-150843 network is fine
+20240331-150943 network is fine
+20240331-151043 network is fine
+20240331-151144 network is fine
+20240331-151244 network is fine
+20240331-151344 network is fine
+20240331-151444 network is fine
+20240331-151544 network is fine
+20240331-151644 network is fine
+20240331-151744 network is fine
+20240331-151844 network is fine
+20240331-151944 network is fine
+20240331-152044 network is fine
+20240331-152144 network is fine
+20240331-152244 network is fine
+20240331-152344 network is fine
+20240331-152444 network is fine
+20240331-152544 network is fine
+20240331-152644 network is fine
+20240331-152744 network is fine
+20240331-152844 network is fine
+20240331-152944 network is fine
+20240331-153044 network is fine
+20240331-153144 network is fine
+20240331-153244 network is fine
+20240331-153344 network is fine
+20240331-153444 network is fine
+20240331-153544 network is fine
+20240331-153644 network is fine
+20240331-153744 network is fine
+20240331-153844 network is fine
+20240331-153944 network is fine
+20240331-154044 network is fine
+20240331-154144 network is fine
+20240331-154244 network is fine
+20240331-154344 network is fine
+20240331-154444 network is fine
+20240331-154544 network is fine
+20240331-154644 network is fine
+20240331-154744 network is fine
+20240331-154844 network is fine
+20240331-154944 network is fine
+20240331-155044 network is fine
+20240331-155144 network is fine
+20240331-155244 network is fine
+20240331-155344 network is fine
+20240331-155444 network is fine
+20240331-155544 network is fine
+20240331-155644 network is fine
+20240331-155744 network is fine
+20240331-155844 network is fine
+20240331-155944 network is fine
+20240331-160044 network is fine
+20240331-160144 network is fine
+20240331-160244 network is fine
+20240331-160344 network is fine
+20240331-160444 network is fine
+20240331-160544 network is fine
+20240331-160644 network is fine
+20240331-160744 network is fine
+20240331-160844 network is fine
+20240331-160944 network is fine
+20240331-161044 network is fine
+20240331-161144 network is fine
+20240331-161244 network is fine
+20240331-161344 network is fine
+20240331-161444 network is fine
+20240331-161544 network is fine
+20240331-161644 network is fine
+20240331-161744 network is fine
+20240331-161844 network is fine
+20240331-161944 network is fine
+20240331-162044 network is fine
+20240331-162144 network is fine
+20240331-162244 network is fine
+20240331-162344 network is fine
+20240331-162444 network is fine
+20240331-162544 network is fine
+20240331-162644 network is fine
+20240331-162744 network is fine
+20240331-162844 network is fine
+20240331-162944 network is fine
+20240331-163044 network is fine
+20240331-163144 network is fine
+20240331-163244 network is fine
+20240331-163344 network is fine
+20240331-163444 network is fine
+20240331-163544 network is fine
+20240331-163644 network is fine
+20240331-163744 network is fine
+20240331-163844 network is fine
+20240331-163944 network is fine
+20240331-164044 network is fine
+20240331-164144 network is fine
+20240331-164244 network is fine
+20240331-164344 network is fine
+20240331-164444 network is fine
+20240331-164544 network is fine
+20240331-164644 network is fine
+20240331-164744 network is fine
+20240331-164844 network is fine
+20240331-164944 network is fine
+20240331-165044 network is fine
+20240331-165144 network is fine
+20240331-165244 network is fine
+20240331-165344 network is fine
+20240331-165444 network is fine
+20240331-165544 network is fine
+20240331-165644 network is fine
+20240331-165744 network is fine
+20240331-165844 network is fine
+20240331-165944 network is fine
+20240331-170044 network is fine
+20240331-170144 network is fine
+20240331-170244 network is fine
+20240331-170345 network is fine
+20240331-170445 network is fine
+20240331-170545 network is fine
+20240331-170645 network is fine
+20240331-170745 network is fine
+20240331-170845 network is fine
+20240331-170945 network is fine
+20240331-171045 network is fine
+20240331-171145 network is fine
+20240331-171245 network is fine
+20240331-171345 network is fine
+20240331-171445 network is fine
+20240331-171545 network is fine
+20240331-171645 network is fine
+20240331-171745 network is fine
+20240331-171845 network is fine
+20240331-171945 network is fine
+20240331-172045 network is fine
+20240331-172145 network is fine
+20240331-172245 network is fine
+20240331-172345 network is fine
+20240331-172445 network is fine
+20240331-172545 network is fine
+20240331-172645 network is fine
+20240331-172745 network is fine
+20240331-172845 network is fine
+20240331-172945 network is fine
+20240331-173045 network is fine
+20240331-173145 network is fine
+20240331-173245 network is fine
+20240331-173345 network is fine
+20240331-173445 network is fine
+20240331-173545 network is fine
+20240331-173645 network is fine
+20240331-173745 network is fine
+20240331-173845 network is fine
+20240331-173945 network is fine
+20240331-174045 network is fine
+20240331-174145 network is fine
+20240331-174245 network is fine
+20240331-174345 network is fine
+20240331-174445 network is fine
+20240331-174545 network is fine
+20240331-174645 network is fine
+20240331-174745 network is fine
+20240331-174845 network is fine
+20240331-174945 network is fine
+20240331-175045 network is fine

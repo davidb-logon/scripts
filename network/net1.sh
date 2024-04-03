@@ -14,6 +14,6 @@ nmcli con add type ethernet con-name enc1c00 ifname enc1c00 ip4 204.90.115.208/2
 nmcli con modify enc1c00 ipv4.dns 8.8.8.8
 nmcli con modify enc1c00 ipv4.dns-search dal-ebis.ihost.com
 nmcli con modify enc1c00 ipv4.dns-search wave.log-on.com
-systemctl restart NetworkManager
+#systemctl restart NetworkManager
 nmcli con show
-
+ip -br a
