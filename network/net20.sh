@@ -35,7 +35,7 @@ nmcli connection modify cloudbr0 ipv4.addresses 204.90.115.208/24 gw4 204.90.115
 nmcli connection modify cloudbr0 ipv4.dns 8.8.8.8
 nmcli connection modify cloudbr0 bridge.stp no
 
-nmcli connection add type bridge-slave autoconnect yes con-name bridge-slave-enc1c00 ifname enc1c00 master cloudbr0
+nmcli connection add type bridge-slave autoconnect yes con-name bridge-slave-enc1c00 ifname bridge-slave-enc1c00 master cloudbr0
 nmcli connection up cloudbr0
 
 #Note: the following will disable and may break current ssh:
