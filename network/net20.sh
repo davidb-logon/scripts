@@ -5,11 +5,23 @@ echo +---------------------------+
 PS4='$LINENO : '
 set -x
 
+
+
 nmcli c delete bridge-slave-eth0
+nmcli c delete bridge-slave-enc1c00
 nmcli c delete cloudbr0
 nmcli c delete eth0
 nmcli c delete my-nic
+#nmcli c
+
+nmcli con del enc1c00
+nmcli con add con-name enc1c00 ifname enc1c00 type ethernet ip4 204.90.115.208/24 gw4 204.90.115.1
+nmcli con mod enc1c00 ipv4.dns 8.8.8.8
+nmcli con mod enc1c00 ipv4.method manual 
+nmcli con up enc1c00
+
 nmcli c
+read -p "Press [Enter] key to continue..."
 
 #nmcli connection show
 
