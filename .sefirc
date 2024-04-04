@@ -1,4 +1,4 @@
-alias ipa='ip -c -br address'
+alias ipa='if [[ "$TERM" != "vt220" ]]; then ip -c -br address; else ip -br a; fi'
 alias ipab='ip -br address'
 alias hg='history | grep  -i '
 alias al='sudo tail -f /var/log/cloudstack/agent/agent.log'
