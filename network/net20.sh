@@ -15,7 +15,7 @@ nmcli c delete my-nic
 
 ip link delete enc1c00
 ip -br a
-read -p "Press [Enter] key to continue..."
+#read -p "Press [Enter] key to continue..."
 #nmcli c
 
 nmcli con del enc1c00
@@ -25,7 +25,7 @@ nmcli con mod enc1c00 ipv4.method manual
 nmcli con up enc1c00
 ip -br -c a
 nmcli c
-read -p "Press [Enter] key to continue..."
+#read -p "Press [Enter] key to continue..."
 
 #nmcli connection show
 
