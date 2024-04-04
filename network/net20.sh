@@ -12,6 +12,10 @@ nmcli c delete bridge-slave-enc1c00
 nmcli c delete cloudbr0
 nmcli c delete eth0
 nmcli c delete my-nic
+
+ip link delete enc1c00
+ip -br a
+read -p "Press [Enter] key to continue..."
 #nmcli c
 
 nmcli con del enc1c00
@@ -19,7 +23,7 @@ nmcli con add con-name enc1c00 ifname enc1c00 type ethernet ip4 204.90.115.208/2
 nmcli con mod enc1c00 ipv4.dns 8.8.8.8
 nmcli con mod enc1c00 ipv4.method manual 
 nmcli con up enc1c00
-
+ip -br -c a
 nmcli c
 read -p "Press [Enter] key to continue..."
 
