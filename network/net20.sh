@@ -13,7 +13,7 @@ nmcli c delete cloudbr0
 nmcli c delete eth0
 nmcli c delete my-nic
 
-ip link delete enc1c00
+ip link set dev enc1c00 down
 ip -br a
 #read -p "Press [Enter] key to continue..."
 #nmcli c
@@ -40,5 +40,5 @@ nmcli connection up cloudbr0
 
 #Note: the following will disable and may break current ssh:
 
-nmcli connection down enc1c00
-nmcli connection del enc1c00
+#nmcli connection down enc1c00
+#nmcli connection del enc1c00
