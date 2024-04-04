@@ -15,7 +15,7 @@ nmcli c
 
 
 nmcli connection add type bridge autoconnect yes con-name cloudbr0 ifname cloudbr0
-nmcli connection modify cloudbr0 ipv4.addresses 204.90.115.208/24 gw4 204.90.115..1 ipv4.method manual
+nmcli connection modify cloudbr0 ipv4.addresses 204.90.115.208/24 gw4 204.90.115.1 ipv4.method manual
 nmcli connection modify cloudbr0 ipv4.dns 8.8.8.8
 nmcli connection modify cloudbr0 bridge.stp no
 
