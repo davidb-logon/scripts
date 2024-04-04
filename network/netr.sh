@@ -17,8 +17,10 @@ touch /etc/NetworkManager/conf.d/10-globally-managed-devices.conf
 systemctl start NetworkManager
 systemctl enable NetworkManager
 nmcli con show
-nmcli con delete 0ee225e7-a2e3-4279-aed0-04d120dfc09b
-nmcli con delete 2ea4d052-7bae-44cd-8dd0-3f2292c6032e
+nmcli c delete cloudbr0
+nmcli c delete enc1c00
+#nmcli con delete 0ee225e7-a2e3-4279-aed0-04d120dfc09b
+#nmcli con delete 2ea4d052-7bae-44cd-8dd0-3f2292c6032e
 nmcli con add type ethernet con-name enc1c00 ifname enc1c00 ip4 204.90.115.208/24 gw4 204.90.115.1
 nmcli con modify enc1c00 ipv4.dns 192.203.134.2
 nmcli con modify enc1c00 ipv4.dns-search dal-ebis.ihost.com
