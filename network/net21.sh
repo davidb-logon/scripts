@@ -1,7 +1,7 @@
 #!/bin/bash
 # 8. Configure a Network Bridge
 # All the virtual machines on the host are by default connected to the same NAT-type virtual network, named 'default'.
-
+seft -x
  sudo virsh net-list --all
 #  Name      State    Autostart   Persistent
 # --------------------------------------------
