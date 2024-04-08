@@ -33,15 +33,16 @@ script_ended_ok=true
 }
 
 main() {
-    # Replace logon and template with your own values
+    detect_linux_distribution # Sets global variable $LINUX_DISTRIBUTION
     init_vars "logon" "install_cloudstack_server" "$@"
     start_logging
+    
     prepare_os
     install_management_server
     
     install_and_configure_mysql_database
     check_if_running_kvm_here
-    do_cmd "$SUDO cloudstack-setup-management"
+    do_cmd "cloudstack-setup-management"
     10_configure_nfs.sh
     11_configure_firewall.sh #$SEFI_NETWORK $MAINFRAME_NETWORK
     prepare_system_vm_template
@@ -54,11 +55,26 @@ main() {
 
 init_vars() {
     init_utils_vars $1 $2
-    
-    HOME_NETWORK="192.168.1.0/24"
-    SEFI_NETWORK="80.178.85.20"
-    MAINFRAME_NETWORK="204.90.115.208"
-    LOCAL_IP="192.168.1.248"
+    case "$LINUX_DISTRIBUTION" in
+    "UBUNTU")
+        CMD="apt"
+        HOME_NETWORK="192.168.1.0/24"
+        SEFI_NETWORK="80.178.85.20"
+        MAINFRAME_NETWORK="204.90.115.208"
+        LOCAL_IP="192.168.1.248"
+      ;;
+    "RHEL")
+        CMD="yum"
+        HOME_NETWORK="192.168.1.0/24"
+        SEFI_NETWORK="80.178.85.20"
+        MAINFRAME_NETWORK="204.90.115.208"
+        LOCAL_IP="204.90.115.208"
+      ;;
+    *)
+      logMessage "Unknown or Unsupported LINUX_DISTRIBUTION: $LINUX_DISTRIBUTION, exiting"
+      exit 1
+      ;;
+    esac
 }
 
 fix_cluster_node_ip_in_db_properties() {
@@ -101,27 +117,35 @@ prepare_os() {
     fi
     logMessage "Connected to the internet."
 
-    logMessage "Installing ntp"
-    do_cmd "$SUDO apt install chrony" "Installed chrony"
+    install_ntp
     install_java.sh
 
     logMessage "--- End of preparing OS"
 }
 
+install_ntp() {
+    logMessage "--- Start Installing ntp"
+    do_cmd "$CMD install chrony" "Installed chrony" "Unable to install chrony"
+    do_cmd "systemctl start chronyd" "Started chronyd" "Unable to start chronyd"
+    do_cmd "systemctl enable chronyd" "Enabled chronyd" "Unable to enable chronyd"
+    logMessage "--- End of Installing and enabling ntp"
+
+}
+
 install_management_server() {
     logMessage "--- Start to install management server"
-    do_cmd "$SUDO apt-get update"  # Update apt's index, to ensure getting the latest version.
-    do_cmd "$SUDO apt install cloudstack-management"
+    do_cmd "$CMD update"  # Update apt's or yum's index, to ensure getting the latest version.
+    do_cmd "$CMD install cloudstack-management"
     logMessage "--- End of installing management server"
 }
 
 install_and_configure_mysql_database() {
     logMessage "--- Start to install and configure mysql"
-    do_cmd "$SUDO apt install mysql-server" "mysql-server installed."
+    do_cmd "$CMD install mysql-server" "mysql-server installed."
     check_mysql_configuration
-    do_cmd "$SUDO systemctl restart mysql" "mysql server was started" "failed to start mysql server"
+    do_cmd "systemctl restart mysql" "mysql server was started" "failed to start mysql server"
     # cloudstack-setup-databases cloud:<dbpassword>@localhost [ --deploy-as=root:<password> | --schema-only ] -e <encryption_type> -m <management_server_key> -k <database_key> -i <management_server_ip>
-    do_cmd "$SUDO cloudstack-setup-databases cloud:cloud@localhost --deploy-as=root"
+    do_cmd "cloudstack-setup-databases cloud:cloud@localhost --deploy-as=root"
     logMessage "--- End of installing and configuring mysql"
 }
 

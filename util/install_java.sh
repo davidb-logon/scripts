@@ -17,8 +17,12 @@ check_java11_installed() {
 # Function to install Java 11
 install_java11() {
     logMessage "Installing Java 11..."
-    do_cmd "sudo apt-get update"
-    do_cmd "sudo apt-get install -y openjdk-11-jdk"
+    CMD="yum"
+    if [[ $LINUX_DISTRIBUTION = "UBUNTU"]]; then
+        CMD="apt-get"
+    fi
+    do_cmd "sudo $CMD update"
+    do_cmd "sudo $CMD install -y openjdk-11-jdk"
     logMessage "Java 11 installation complete."
 }
 
@@ -52,8 +56,9 @@ update_bashrc() {
 
 # Main script starts here
 init_utils_vars "logon" "install_java"
-start_logging
+detect_linux_distribution
 
+start_logging
 # Check if Java 11 is installed
 if ! check_java11_installed; then
     install_java11
