@@ -6,7 +6,7 @@
 main() {
     start_time=$(date +%s)
     usage
-    init_vars "logon" "network_setup"
+    init_vars "logon" "network_bridge"
     parse_command_line_arguments "$@"
     start_logging
     detect_linux_distribution
@@ -106,11 +106,20 @@ setup_network_on_rhel() {
     delete_connection_if_exists_on_rhel "$INTERFACE_NAME"
 
     # Create the bridge interface
-
-    do_cmd "sudo nmcli con add type bridge ifname $BRIDGE_NAME con-name $BRIDGE_NAME autoconnect yes"
-                 
-
-
+    # do_cmd "sudo nmcli con add type bridge ifname $BRIDGE_NAME con-name $BRIDGE_NAME autoconnect yes"
+    # from: https://www.golinuxcloud.com/configure-network-bridge-nmcli-static-dhcp/#Assign_static_or_dhcp_IP_and_configure_network_bridge_using_nmcli
+    do_cmd "sudo nmcli connection add type bridge ifname $BRIDGE_NAME"
+    do_cmd "sudo nmcli connection add type ethernet con-name br-slave-1 ifname $INTERFACE_NAME master $BRIDGE_NAME"
+    do_cmd "sudo nmcli connection modify $BRIDGE_NAME bridge.stp no"
+    do_cmd "sudo nmcli -f bridge con show bridge-app-br0
+bridge.mac-address:                     --
+bridge.stp:                             no
+bridge.priority:                        32768
+bridge.forward-delay:                   15
+bridge.hello-time:                      2
+bridge.max-age:                         20
+bridge.ageing-time:                     300
+bridge.multicast-snooping:              yes
     # Assign the external IP to the bridge
     do_cmd "sudo nmcli con mod $BRIDGE_NAME ipv4.addresses $EXTERNAL_IP ipv4.gateway $GATEWAY_IP ipv4.method manual ipv6.method ignore bridge.stp yes"
     do_cmd "sudo nmcli con mod $BRIDGE_NAME ipv4.dns $DNS1,$DNS2"
