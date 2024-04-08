@@ -20,8 +20,5 @@ sudo ip link set dev enc1c00 master cloudbr0
 sudo ip link set dev tap0 master cloudbr0
 sudo ip link set dev cloudbr0 up
  
-sudo ip address delete 204.90.115.208 dev enc1c00
-sudo ip address add 204.90.115.208/24 dev cloudbr0
-sudo ip route add default via 204.90.115.1 dev cloudbr0
-sudo resolvectrl dns cloudbr0 8.8.8.8
+
 ip -br a
