@@ -43,8 +43,11 @@ main() {
     install_and_configure_mysql_database
     check_if_running_kvm_here
     do_cmd "cloudstack-setup-management"
-    10_configure_nfs.sh
-    11_configure_firewall.sh #$SEFI_NETWORK $MAINFRAME_NETWORK
+    
+    if [[ $LINUX_DISTRIBUTION = "UBUNTU" ]]; then
+        11_configure_firewall.sh #$SEFI_NETWORK $MAINFRAME_NETWORK
+    fi
+    
     prepare_system_vm_template
     fix_cluster_node_ip_in_db_properties "$LOCAL_IP"
     sleep 10
