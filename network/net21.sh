@@ -42,7 +42,7 @@ seft -x
     con-name 'Bridge connection 1' ifname enp2s0 master bridge0
 # The following step is optional. If you want to configure a static IP address, use the following commands; otherwise, skip this step. Change the IP address and other details to match your configuration.
 
-sudo nmcli connection modify bridge0 ipv4.addresses '204.90.115.208/24'
+sudo nmcli connection modify bridge0 ipv4.addresses '204.90.115.239/24'
 sudo nmcli connection modify bridge0 ipv4.gateway '204.90.115.1'
 sudo nmcli connection modify bridge0 ipv4.dns '8.8.8.8,8.8.4.4'
 sudo nmcli connection modify bridge0 ipv4.dns-search 'sysguides.com'
