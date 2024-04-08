@@ -145,12 +145,13 @@ install_management_server() {
     "RHEL")
         do_cmd "mkdir -p /home/davidb/logon/work/rpm"
         do_cmd "cd /home/davidb/logon/work/rpm"
-        do_cmd "wget http://download.cloudstack.org/el/9/4.19/cloudstack-common-4.19.0.0-1.x86_64.rpm"
-        #do_cmd "wget http://download.cloudstack.org/el/9/4.19/cloudstack-agent-4.19.0.0-1.x86_64.rpm"
-        do_cmd "wget http://download.cloudstack.org/el/9/4.19/cloudstack-management-4.19.0.0-1.x86_64.rpm"
-        do_cmd "rpm -i --ignorearch  --nodeps  cloudstack-common-4.18.0.0-1.x86_64.rpm"
-        #do_cmd "rpm -i --ignorearch  --nodeps  cloudstack-agent-4.18.0.0-1.x86_64.rpm"
-        do_cmd "rpm -i --ignorearch  --nodeps  cloudstack-management-4.19.0.0-1.x86_64.rpm"
+        files=("cloudstack-common-4.19.0.0-1.x86_64.rpm" "cloudstack-management-4.19.0.0-1.x86_64.rpm")  # cloudstack-agent-4.19.0.0-1.x86_64.rpm
+        for file in $files:
+            if [ ! -f "$file" ]; then 
+                do_cmd "wget http://download.cloudstack.org/el/9/4.19/$file"
+                do_cmd "rpm -i --ignorearch  --nodeps  $file"
+            fi
+        done
        ;;
     *)
       logMessage "Unknown or Unsupported LINUX_DISTRIBUTION: $LINUX_DISTRIBUTION, exiting"
