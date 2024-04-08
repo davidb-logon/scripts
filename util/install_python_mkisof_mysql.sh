@@ -44,7 +44,8 @@ fi
 check_and_install_package mysql-server
 
 # Install the mysql-connector-python
-do_cmd "sudo apt-get install python3-mysql.connector"
+#do_cmd "sudo apt-get install python3-mysql.connector"
+do_cmd "sudo apt-get install python3-mysqldb"
 
 
 logMessage "Installation process completed."
