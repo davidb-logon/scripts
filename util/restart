@@ -8,7 +8,7 @@ sudo truncate --size 0 /var/log/cloudstack/management/management-server.log
 sudo truncate --size 0 /var/log/cloudstack/management/apilog.log
 sudo truncate --size 0 /var/log/cloudstack/agent/agent.log
 sudo virsh net-start default
-sudo virsh net-autostart default
+sudo virsh net-autostart default 
 virsh net-list
 sleep 5
 sudo systemctl restart cloudstack-management.service

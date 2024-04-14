@@ -18,7 +18,7 @@ check_java11_installed() {
 install_java11() {
     logMessage "Installing Java 11..."
     CMD="yum"
-    if [[ $LINUX_DISTRIBUTION = "UBUNTU"]]; then
+    if [[ $LINUX_DISTRIBUTION = "UBUNTU" ]]; then
         CMD="apt-get"
     fi
     do_cmd "sudo $CMD update"

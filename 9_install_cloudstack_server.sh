@@ -43,8 +43,11 @@ main() {
     install_and_configure_mysql_database
     check_if_running_kvm_here
     do_cmd "cloudstack-setup-management"
-    10_configure_nfs.sh
-    11_configure_firewall.sh #$SEFI_NETWORK $MAINFRAME_NETWORK
+    
+    if [[ $LINUX_DISTRIBUTION = "UBUNTU" ]]; then
+        11_configure_firewall.sh #$SEFI_NETWORK $MAINFRAME_NETWORK
+    fi
+
     prepare_system_vm_template
     fix_cluster_node_ip_in_db_properties "$LOCAL_IP"
     sleep 10
@@ -124,7 +127,7 @@ prepare_os() {
 }
 
 install_ntp() {
-    logMessage "--- Start Installing ntp"
+    logMessage "--- Start Installing ntp" 
     do_cmd "$CMD install chrony" "Installed chrony" "Unable to install chrony"
     do_cmd "systemctl start chronyd" "Started chronyd" "Unable to start chronyd"
     do_cmd "systemctl enable chronyd" "Enabled chronyd" "Unable to enable chronyd"
@@ -134,8 +137,27 @@ install_ntp() {
 
 install_management_server() {
     logMessage "--- Start to install management server"
-    do_cmd "$CMD update"  # Update apt's or yum's index, to ensure getting the latest version.
-    do_cmd "$CMD install cloudstack-management"
+    case "$LINUX_DISTRIBUTION" in
+    "UBUNTU")
+        do_cmd "$CMD update"  # Update apt's or yum's index, to ensure getting the latest version.
+        do_cmd "$CMD install cloudstack-management"
+        ;;
+    "RHEL")
+        do_cmd "mkdir -p /home/davidb/logon/work/rpm"
+        do_cmd "cd /home/davidb/logon/work/rpm"
+        files=("cloudstack-common-4.19.0.0-1.x86_64.rpm" "cloudstack-management-4.19.0.0-1.x86_64.rpm")  # cloudstack-agent-4.19.0.0-1.x86_64.rpm
+        for file in $files:
+            if [ ! -f "$file" ]; then 
+                do_cmd "wget http://download.cloudstack.org/el/9/4.19/$file"
+                do_cmd "rpm -i --ignorearch  --nodeps  $file"
+            fi
+        done
+       ;;
+    *)
+      logMessage "Unknown or Unsupported LINUX_DISTRIBUTION: $LINUX_DISTRIBUTION, exiting"
+      exit 1
+      ;;
+    esac
     logMessage "--- End of installing management server"
 }
 
