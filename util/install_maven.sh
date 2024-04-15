@@ -25,8 +25,8 @@ check_maven3_installed() {
 # Function to install Maven 3
 install_maven3() {
     logMessage "Installing Maven 3..."
-    do_cmd "sudo apt-get update"
-    do_cmd "sudo apt-get install -y maven"
+    do_cmd "sudo apt update"
+    do_cmd "sudo apt install -y maven"
     logMessage "Maven 3 installation complete."
 }
 
