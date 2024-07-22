@@ -16,3 +16,4 @@ zonetoken = 152b08f5-227f-3c79-8f33-646f7c58c9b9
 localstorageenabled = false
 routerprivateinterfacemaxmtu = 1500
 routerpublicinterfacemaxmtu = 1500
+
