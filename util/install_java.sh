@@ -43,9 +43,11 @@ update_bashrc() {
     local JAVA_PATH_SET=$(grep -c 'export PATH=.*JAVA_HOME' "$BASHRC")
 
     local updated=0
+    path_for_java=$(echo "" | sudo update-alternatives --config java | grep java-11 |  sed -n 's/.*(\(.*\)).*/\1/p' | sed 's|/bin/.*||' )
     if [ $JAVA_HOME_SET -eq 0 ]; then
         logMessage "--- Setting JAVA_HOME in .bashrc..."
-        sudo echo 'export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64' >> "$BASHRC"
+        #sudo echo 'export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64' >> "$BASHRC"
+        sudo echo "export JAVA_HOME=${path_for_java}" >> "$BASHRC"
         updated=1
     else
         logMessage "--- JAVA_HOME is already set in .bashrc."
