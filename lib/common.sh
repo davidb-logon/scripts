@@ -72,7 +72,7 @@ check_and_install_package() {
         ;;
     esac
 
-    if not_installed; then
+    if $not_installed; then
         logMessage "$package is not installed. Installing..."
         do_cmd "sudo $INSTALL_CMD install -y $package"
     else
