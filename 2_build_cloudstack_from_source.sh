@@ -28,7 +28,7 @@ main() {
     install_maven.sh
     install_python_mkisof_mysql.sh
     install_java.sh
-    cd "$HOME/logon/cloudstack"
+    cd "/data/cloudstack"
     
     mvn clean install -P developer,systemvm,generate-sources -DskipTests | tee "$LOGFILE"
 
