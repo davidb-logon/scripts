@@ -8,12 +8,12 @@
 detect_linux_distribution() {
     logMessage "--- Start to detect Linux distribution..."
 
-    DIST=$(cat /etc/*release | grep ^ID= | awk -F= '{print $2}')
+    DIST=$(cat /etc/*release | grep ^ID= | awk -F= '{print $2}' | tr '[:lower:]' '[:upper:]')
     case "$DIST" in
-      "Ubuntu","mx","debian")
+      "UBUNTU","MX","DEBIAN")
         export LINUX_DISTRIBUTION="UBUNTU"
         ;;
-      "Red")
+      "RHEL")
         export LINUX_DISTRIBUTION="RHEL"
         ;;
       *)
