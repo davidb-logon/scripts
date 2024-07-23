@@ -65,7 +65,7 @@ check_and_install_package() {
             dpkg -l | grep -qw "$package" && not_installed=false || not_installed=true # remember 0 is true
         ;;
         "RHEL")
-            rpm -q mkisofs &> /dev/null && not_installed=false || not_installed=true # remember 0 is true
+            rpm -q "$package" &> /dev/null && not_installed=false || not_installed=true # remember 0 is true
         ;;
         *)
             error_exit "--- Unknown Linux distribution, unable to install $package"
