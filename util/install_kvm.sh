@@ -21,14 +21,14 @@ main() {
     detect_linux_distribution
     detect_architecture
 
-    if [[ $LINUX_DISTRIBUTION == *"Ubuntu"* ]]; then
+    if [[ $LINUX_DISTRIBUTION == *"UBUNTU"* ]]; then
         check_kvm_support
         if ! dpkg -l | grep -qw qemu-kvm; then
             install_kvm_ubuntu
         else
             logMessage "KVM is already installed."
         fi
-    elif [[ $LINUX_DISTRIBUTION == *"CentOS"* ]] || [[ $$LINUX_DISTRIBUTION == *"Red Hat"* ]]; then
+    elif [[ $LINUX_DISTRIBUTION == *"CENTOS"* ]] || [[ $$LINUX_DISTRIBUTION == *"RHEL"* ]]; then
         if [[ $MACHINE_ARCHITECTURE="x86_64" ]]; then
             check_kvm_support
         fi
