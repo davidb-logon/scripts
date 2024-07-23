@@ -12,11 +12,13 @@ main() {
     logMessage "Updating package list..."
     do_cmd "sudo $INSTALL_CMD update"
 
-    packages="$PKG_PYTHON_SETUPTOOLS $PKG_GENISOIMAGE $PKG_MYSQL_SERVER $PKG_PYTHON3_MYSQL_CONNECTOR $PKG_PYTHON3_MYSQLDB"
+    packages="$PKG_PYTHON_SETUPTOOLS $PKG_GENISOIMAGE $PKG_MYSQL_SERVER $PKG_PYTHON3_MYSQLDB"
     for package in $packages; do 
         check_and_install_package $package
     done
 
+    sudo pip3 install mysql-connector-python
+    
     logMessage "Installation process completed."
 }
 
@@ -25,6 +27,8 @@ init_vars() {
     init_utils_vars $1 $2
     detect_linux_distribution
     detect_install_cmd # exports INSTALL_CMD
+
+    
 
     # Assuming LINUX_DISTRIBUTION is already set
     if [ "$LINUX_DISTRIBUTION" == "RHEL" ]; then
