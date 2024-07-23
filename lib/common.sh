@@ -41,10 +41,42 @@ detect_architecture() {
     logMessage "--- End of detecting machine architecture, detected architecture: $MACHINE_ARCHITECTURE"
 }
 
+detect_install_cmd(){
+        if [[ $LINUX_DISTRIBUTION == "RHEL" ]]; then
+        export INSTALL_CMD="yum"
+    else
+        export INSTALL_CMD="apt"
+    fi
+}
+
 exit_if_unsupported_distribution() {
     if [[ "$LINUX_DISTRIBUTION" != "UBUNTU" && "$LINUX_DISTRIBUTION" != "RHEL" ]]; then
         logMessage "Unsupported distribution: $LINUX_DISTRIBUTION. Exiting."
         exit 1
+    fi
+}
+
+# Function uses the $LINUX_DISTRIBUTION and $INSTALL_CMD variables
+check_and_install_package() { 
+    local package=$1
+    logMessage "Checking if $package is installed..."
+    case "$LINUX_DISTRIBUTION" in
+        "UBUNTU")
+            dpkg -l | grep -qw "$package" && not_installed=1 || not_installed=0 # remember 0 is true
+        ;;
+        "RHEL")
+            rpm -q mkisofs &> /dev/null && not_installed=1 || not_installed=0 # remember 0 is true
+        ;;
+        *)
+            error_exit "--- Unknown Linux distribution, unable to install $package"
+        ;;
+    esac
+
+    if not_installed; then
+        logMessage "$package is not installed. Installing..."
+        do_cmd "sudo $INSTALL_CMD install -y $package"
+    else
+        logMessage "$package is already installed."
     fi
 }
 

@@ -4,48 +4,46 @@
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
 source "$DIR/lib/common.sh"
 
-# Function to check and install a package if not installed
-check_and_install_package() {
-    local package=$1
-    logMessage "Checking for $package..."
-    if ! dpkg -l | grep -qw $package; then
-        logMessage "$package is not installed. Installing..."
-        do_cmd "sudo apt-get install -y $package"
+# Main script starts here
+main() {
+    init_vars "logon" "install_python_mkisof_mysql"
+
+    start_logging
+    logMessage "Updating package list..."
+    do_cmd "sudo $INSTALL_CMD update"
+
+    packages="$PKG_PYTHON_SETUPTOOLS $PKG_GENISOIMAGE $PKG_MYSQL_SERVER $PKG_PYTHON3_MYSQL_CONNECTOR $PKG_PYTHON3_MYSQLDB"
+    for package in $packages; do 
+        check_and_install_package $package
+    done
+
+    logMessage "Installation process completed."
+}
+
+init_vars() {
+
+    init_utils_vars $1 $2
+    detect_linux_distribution
+    detect_install_cmd # exports INSTALL_CMD
+
+    # Assuming LINUX_DISTRIBUTION is already set
+    if [ "$LINUX_DISTRIBUTION" == "RHEL" ]; then
+        # Red Hat package names
+        PKG_PYTHON_SETUPTOOLS="python3-setuptools"
+        PKG_GENISOIMAGE="genisoimage"
+        PKG_MYSQL_SERVER="mariadb-server"
+        PKG_PYTHON3_MYSQL_CONNECTOR="mysql-connector-python3"
+        PKG_PYTHON3_MYSQLDB="python3-PyMySQL"
     else
-        logMessage "$package is already installed."
+        # Ubuntu package names
+        PKG_PYTHON_SETUPTOOLS="python-setuptools"
+        PKG_GENISOIMAGE="genisoimage"
+        PKG_MYSQL_SERVER="mysql-server"
+        PKG_PYTHON3_MYSQL_CONNECTOR="python3-mysql.connector"
+        PKG_PYTHON3_MYSQLDB="python3-mysqldb"
     fi
 }
 
-# Main script starts here
-init_utils_vars "logon" "install_python_mkisof_mysql"
-start_logging
+main
 
-# Update package list
-logMessage "Updating package list..."
-do_cmd "sudo apt-get update"
-
-# Check and install python-setuptools
-check_and_install_package python-setuptools
-
-# Check and install mkisofs
-# Note: The mkisofs package may be provided by genisoimage in some Ubuntu versions
-if ! dpkg -l | grep -qw mkisofs; then
-    if ! dpkg -l | grep -qw genisoimage; then
-        logMessage "mkisofs (provided by genisoimage) is not installed. Installing..."
-        do_cmd "sudo apt-get install -y genisoimage"
-    else
-        logMessage "mkisofs (provided by genisoimage) is already installed."
-    fi
-else
-    logMessage "mkisofs is already installed."
-fi
-
-# Check and install mysql-server
-check_and_install_package mysql-server
-
-# Install the mysql-connector-python
-#do_cmd "sudo apt-get install python3-mysql.connector"
-do_cmd "sudo apt-get install python3-mysqldb"
-
-
-logMessage "Installation process completed."
+ 
