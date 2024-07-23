@@ -29,7 +29,7 @@ main() {
             logMessage "KVM is already installed."
         fi
     elif [[ $LINUX_DISTRIBUTION == *"CENTOS"* ]] || [[ $LINUX_DISTRIBUTION == *"RHEL"* ]]; then
-        if [[ $MACHINE_ARCHITECTURE="x86_64" ]]; then
+        if [[ $MACHINE_ARCHITECTURE == "x86_64" ]]; then
             check_kvm_support
         fi
         if ! rpm -q qemu-kvm libvirt libvirt-python libguestfs-tools virt-install &>/dev/null; then
