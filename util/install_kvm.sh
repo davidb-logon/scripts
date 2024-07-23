@@ -28,7 +28,7 @@ main() {
         else
             logMessage "KVM is already installed."
         fi
-    elif [[ $LINUX_DISTRIBUTION == *"CENTOS"* ]] || [[ $$LINUX_DISTRIBUTION == *"RHEL"* ]]; then
+    elif [[ $LINUX_DISTRIBUTION == *"CENTOS"* ]] || [[ $LINUX_DISTRIBUTION == *"RHEL"* ]]; then
         if [[ $MACHINE_ARCHITECTURE="x86_64" ]]; then
             check_kvm_support
         fi
