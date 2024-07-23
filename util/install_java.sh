@@ -25,6 +25,14 @@ install_java11() {
     fi
     do_cmd "sudo $CMD update"
     do_cmd "sudo $CMD install -y $package"
+
+    #after the installation you need to run:
+    #sudo update-alternatives --install /usr/bin/java java /usr/lib/jvm/jre-11-openjdk-11.0.14.1.1-6.el8.s390x/bin/java 100
+    #sudo update-alternatives --config java
+    #and select the java u want to use by the number from the list
+    java_option=$(echo "" | sudo update-alternatives --config java | grep java-11 |  cut -c 4)
+    do_cmd "echo $java_option | sudo update-alternatives --config java"
+
     logMessage "Java 11 installation complete."
 }
 
