@@ -8,9 +8,11 @@
 detect_linux_distribution() {
     logMessage "--- Start to detect Linux distribution..."
 
-    DIST=$(cat /etc/*release | grep ^ID= | awk -F= '{print $2}' | tr '[:lower:]' '[:upper:]')
+    # Detect the distribution and convert it to uppercase
+    DIST=$(grep ^ID= /etc/*release | awk -F= '{gsub("\"",""); print toupper($2)}')
+
     case "$DIST" in
-      "UBUNTU","MX","DEBIAN")
+      "UBUNTU" | "MX" | "DEBIAN")
         export LINUX_DISTRIBUTION="UBUNTU"
         ;;
       "RHEL")
