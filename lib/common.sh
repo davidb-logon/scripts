@@ -62,10 +62,10 @@ check_and_install_package() {
     logMessage "Checking if $package is installed..."
     case "$LINUX_DISTRIBUTION" in
         "UBUNTU")
-            dpkg -l | grep -qw "$package" && not_installed=1 || not_installed=0 # remember 0 is true
+            dpkg -l | grep -qw "$package" && not_installed=false || not_installed=true # remember 0 is true
         ;;
         "RHEL")
-            rpm -q mkisofs &> /dev/null && not_installed=1 || not_installed=0 # remember 0 is true
+            rpm -q mkisofs &> /dev/null && not_installed=false || not_installed=true # remember 0 is true
         ;;
         *)
             error_exit "--- Unknown Linux distribution, unable to install $package"
