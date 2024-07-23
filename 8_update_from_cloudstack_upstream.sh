@@ -1,10 +1,9 @@
-#!/bin/bash
+#!/usr/bin
 #------------------------------------------------------------------------------
 # Licensed Materials (c) Copyright Log-On 2024, All Rights Reserved.
 #------------------------------------------------------------------------------
 # See usage for what this script does.
 # TODOs:
-
 
 # Source script libraries as needed.
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
@@ -27,12 +26,24 @@ main() {
     init_vars "logon" "cloudstack"
     parse_command_line_arguments "$@"
     start_logging
+    create_upstream_to_apache_cloudstack
     #print_final_messages_to_user
     script_ended_ok=true
 }
 
 init_vars() {
     init_utils_vars $1 $2
+    CLOUDSTACK_DIR="/Users/dbarta/wave_cs/git/cloudstack"
+    UPSTREAM_REPO="https://github.com/apache/cloudstack.git"
+    UPSTREAM_TAG="4.19.1.0"
+}
+
+create_upstream_to_apache_cloudstack() {
+    cd $CLOUDSTACK_DIR
+    git remote remove upstream
+    do_cmd "git remote add upstream $UPSTREAM_REPO"
+    do_cmd "git fetch upstream"
+    do_cmd "git checkout -b ${UPSTREAM_TAG}_original tags/${UPSTREAM_TAG}"
 }
 
 

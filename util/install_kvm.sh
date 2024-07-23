@@ -12,11 +12,51 @@
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
 source "$DIR/lib/common.sh"
 
+main() {
+    # Main script starts here
+    init_utils_vars "logon" "install_kvm"
+    start_logging
+
+    check_if_root
+    detect_linux_distribution
+    detect_architecture
+
+    if [[ $LINUX_DISTRIBUTION == *"Ubuntu"* ]]; then
+        check_kvm_support
+        if ! dpkg -l | grep -qw qemu-kvm; then
+            install_kvm_ubuntu
+        else
+            logMessage "KVM is already installed."
+        fi
+    elif [[ $LINUX_DISTRIBUTION == *"CentOS"* ]] || [[ $$LINUX_DISTRIBUTION == *"Red Hat"* ]]; then
+        if [[ $MACHINE_ARCHITECTURE="x86_64" ]]; then
+            check_kvm_support
+        fi
+        if ! rpm -q qemu-kvm libvirt libvirt-python libguestfs-tools virt-install &>/dev/null; then
+            install_kvm_centos
+        else
+            logMessage "KVM is already installed."
+        fi
+    else
+        error_exit "Unsupported OS. This script supports Ubuntu, CentOS, and Red Hat."
+    fi
+
+    # Verify KVM installation
+    verify_installation
+
+    logMessage "KVM setup is complete."
+}
+
+
 # Function to check if KVM can run on the system
 check_kvm_support() {
     logMessage "Checking for CPU virtualization support..."
     do_cmd  "egrep -c '(vmx|svm)' /proc/cpuinfo > /dev/null" \
             "CPU virtualization is supported" "CPU does not support virtualization. Exiting."
+}
+
+check_kvm_support_on_Z() {
+    logMessage "Checking for CPU virtualization support on Z"
 }
 
 # Function to install KVM on Ubuntu
@@ -42,47 +82,8 @@ verify_installation() {
     if lsmod | grep -i kvm > /dev/null; then
         logMessage "KVM is installed and loaded."
     else
-        logMessage "KVM installation failed or KVM modules are not loaded."
-        exit 1
+        error_exit "KVM installation failed or KVM modules are not loaded."
     fi
 }
 
-# Main script starts here
-init_utils_vars "logon" "install_kvm"
-start_logging
-
-# Check for root privileges
-# if [ "$(id -u)" -ne 0 ]; then
-#     logMessage "This script requires root privileges. Please run as root."
-#     exit 1
-# fi
-
-# Check OS type
-logMessage "Detecting OS type..."
-OS=$(awk -F= '/^NAME/{print $2}' /etc/os-release)
-
-if [[ $OS == *"Ubuntu"* ]]; then
-    logMessage "OS detected: Ubuntu"
-    check_kvm_support
-    if ! dpkg -l | grep -qw qemu-kvm; then
-        install_kvm_ubuntu
-    else
-        logMessage "KVM is already installed."
-    fi
-elif [[ $OS == *"CentOS"* ]] || [[ $OS == *"Red Hat"* ]]; then
-    logMessage "OS detected: CentOS/Red Hat"
-    check_kvm_support
-    if ! rpm -q qemu-kvm libvirt libvirt-python libguestfs-tools virt-install &>/dev/null; then
-        install_kvm_centos
-    else
-        logMessage "KVM is already installed."
-    fi
-else
-    logMessage "Unsupported OS. This script supports Ubuntu, CentOS, and Red Hat."
-    exit 1
-fi
-
-# Verify KVM installation
-verify_installation
-
-logMessage "KVM setup is complete."
+main

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/local/bin/bash
 #------------------------------------------------------------------------------
 # Licensed Materials (c) Copyright Log-On 2024, All Rights Reserved.
 #------------------------------------------------------------------------------
@@ -20,28 +20,23 @@ detect_linux_distribution() {
         export LINUX_DISTRIBUTION="Unknown"
         ;;
     esac
+    logMessage "--- End of detecting Linux distribution, detected distribution: $LINUX_DISTRIBUTION"
+}
 
-
-  # if grep -qEi 'ubuntu' /etc/*release; then
-  #   export LINUX_DISTRIBUTION="UBUNTU"
-  # elif grep -qEi 'red hat|rhel' /etc/*release; then
-  #   export LINUX_DISTRIBUTION="RHEL"
-  # else
-  #   # Attempt to get the pretty name from /etc/os-release, if it exists
-  #   if [ -f /etc/os-release ]; then
-  #     # Extract the pretty name using grep and awk, removing quotes
-  #     DISTRO_NAME=$(grep PRETTY_NAME /etc/os-release | awk -F= '{ print $2 }' | tr -d '"')
-  #     # If DISTRO_NAME is not empty, set it, otherwise default to "Unknown"
-  #     if [ ! -z "$DISTRO_NAME" ]; then
-  #       export LINUX_DISTRIBUTION="$DISTRO_NAME"
-  #     else
-  #       export LINUX_DISTRIBUTION="Unknown"
-  #     fi
-  #   else
-  #     export LINUX_DISTRIBUTION="Unknown"
-  #   fi
-  # fi
-  logMessage "--- End of detecting Linux distribution, detected distribution: $LINUX_DISTRIBUTION"
+detect_architecture() {
+    logMessage "--- Start to detect machine architecture..."
+    case $(uname -m) in
+        "s390x")
+            export MACHINE_ARCHITECTURE="s390x"
+            ;;
+        "x86_64")
+            export MACHINE_ARCHITECTURE="x86_64"
+            ;;
+        *)
+            export MACHINE_ARCHITECTURE=""
+            ;;
+    esac
+    logMessage "--- End of detecting machine architecture, detected architecture: $MACHINE_ARCHITECTURE"
 }
 
 exit_if_unsupported_distribution() {
@@ -146,7 +141,7 @@ logMessageToFile() {
 }
 
 logMessage() {
-    local msg=${*,,} # Convert input parameters to lower case for string comparison
+    local msg="${*,,}" # Convert input parameters to lower case for string comparison
     [[ $msg == *"error"* ]] && color=$red || color=$green
     echo -e "${color}${*}${reset}"
     logMessageToFile "$@"
