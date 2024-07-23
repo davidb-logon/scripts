@@ -4,6 +4,38 @@
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
 source "$DIR/lib/common.sh"
 
+main() {
+
+    # Main script starts here
+    init_vars "logon" "install_maven"
+    start_logging
+    # Check if Maven 3 is installed
+    if check_maven3_installed; then
+        logMessage "Maven 3 is already installed."
+        update_bashrc  # Call the function to update .bashrc
+    else
+        install_maven3
+        # Verify installation
+        if check_maven3_installed; then
+            logMessage "Maven 3 has been successfully installed."
+            update_bashrc  # Call the function to update .bashrc
+        else
+            logMessage "Failed to install Maven 3."
+            exit 1
+        fi
+    fi
+}
+
+init_vars() {
+    init_utils_vars $1 $2
+    detect_linux_distribution
+    if [[ $LINUX_DISTRIBUTION == "RHEL"]]
+        INSTALL_CMD="yum"
+    else
+        INSTALL_CMD="apt"
+    fi
+}
+
 # Function to check if Maven 3 is installed
 check_maven3_installed() {
     if command -v mvn &> /dev/null; then
@@ -25,8 +57,8 @@ check_maven3_installed() {
 # Function to install Maven 3
 install_maven3() {
     logMessage "Installing Maven 3..."
-    do_cmd "sudo apt update"
-    do_cmd "sudo apt install -y maven"
+    do_cmd "sudo $INSTALL_CMD update"
+    do_cmd "sudo $INSTALL_CMD install -y maven"
     logMessage "Maven 3 installation complete."
 }
 
@@ -43,21 +75,5 @@ update_bashrc() {
     fi
 }
 
-# Main script starts here
-init_utils_vars "logon" "install_maven"
-start_logging
-# Check if Maven 3 is installed
-if check_maven3_installed; then
-    logMessage "Maven 3 is already installed."
-    update_bashrc  # Call the function to update .bashrc
-else
-    install_maven3
-    # Verify installation
-    if check_maven3_installed; then
-        logMessage "Maven 3 has been successfully installed."
-        update_bashrc  # Call the function to update .bashrc
-    else
-        logMessage "Failed to install Maven 3."
-        exit 1
-    fi
-fi
+main
+
