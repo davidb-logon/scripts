@@ -29,7 +29,7 @@ main() {
 init_vars() {
     init_utils_vars $1 $2
     detect_linux_distribution
-    if [[ $LINUX_DISTRIBUTION == "RHEL"]]
+    if [[ $LINUX_DISTRIBUTION == "RHEL" ]]; then
         INSTALL_CMD="yum"
     else
         INSTALL_CMD="apt"
