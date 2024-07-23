@@ -18,11 +18,13 @@ check_java11_installed() {
 install_java11() {
     logMessage "Installing Java 11..."
     CMD="yum"
+    package="java-11-openjdk"
     if [[ $LINUX_DISTRIBUTION = "UBUNTU" ]]; then
         CMD="apt"
+        package="openjdk-11-jdk"
     fi
     do_cmd "sudo $CMD update"
-    do_cmd "sudo $CMD install -y openjdk-11-jdk"
+    do_cmd "sudo $CMD install -y $package"
     logMessage "Java 11 installation complete."
 }
 

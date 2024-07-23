@@ -17,7 +17,7 @@ main() {
         check_and_install_package $package
     done
 
-    sudo pip3 install mysql-connector-python
+    do_cmd "sudo pip3 install mysql-connector-python"
     
     logMessage "Installation process completed."
 }
