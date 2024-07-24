@@ -4,22 +4,30 @@
 #------------------------------------------------------------------------------
 # Common bash functions to be reused in scripts
 add_line_to_bashrc_if_not_exists() {
-  local user=$1
-  local line=$2
-  local bashrc="${user}/.bashrc"
+    local user=$1
+    local line=$2
+    local bashrc="/home/${user}/.bashrc"
 
-  # Check if the line already exists in the .bashrc file
-  if ! grep -Fxq "$line" ~$bashrc; then
-    # If the line does not exist, append it to the .bashrc file
-    echo "$line" >> ~$bashrc
-    echo "Added line to " ~$bashrc
-  else
-    echo "Line already exists in " ~$bashrc
-  fi
+    # Handle the root user's .bashrc location
+    if [ "$user" == "root" ]; then
+        bashrc="/root/.bashrc"
+    fi
+
+    # Check if the .bashrc file exists
+    if [ ! -f "$bashrc" ]; then
+        echo "The .bashrc file does not exist for user $user"
+        return 1
+    fi
+
+    # Check if the line already exists in the .bashrc file
+    if ! grep -Fxq "$line" "$bashrc"; then
+        # If the line does not exist, append it to the .bashrc file
+        echo "$line" >> "$bashrc"
+        echo "Added line to $bashrc for user $user"
+    else
+        echo "Line already exists in $bashrc for user $user"
+    fi
 }
-
-# Example usage
-add_line_to_bashrc_if_not_exists "username" "export PATH=/usr/local/nodejs/bin:\$PATH"
 
 # Function to detect the Linux distribution and set the LINUX_DISTRIBUTION variable
 detect_linux_distribution() {
