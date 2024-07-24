@@ -43,6 +43,7 @@ install_node() {
         # For IBM Z only
         mkdir -p /data/installation
         cd installation/
+        # for node 14:  https://nodejs.org/dist/v14.21.0/node-v14.21.0-linux-s390x.tar.xz
         curl https://nodejs.org/dist/v18.12.0/node-v18.12.0-linux-s390x.tar.xz -o node-v18.12.0-linux-s390x.tar.xz
         tar -xvf node-v18.12.0-linux-s390x.tar.xz
         yum remove nodejs -y
