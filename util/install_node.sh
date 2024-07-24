@@ -7,6 +7,7 @@ source "$DIR/lib/common.sh"
 main() {
     init_vars "logon" "install_node"
     start_logging
+    check_if_root
     node_version=$(node -v 2>/dev/null)
     case $node_version in
         v${NODE_VERSION}.*)
@@ -39,9 +40,17 @@ install_node() {
         sudo $INSTALL_CMD install -y nodejs
         ;;
     "RHEL")
-      curl -fsSL https://rpm.nodesource.com/setup_18.x | sudo bash -
-      sudo $INSTALL_CMD install -y nodejs
-      ;;
+        # For IBM Z only
+        mkdir -p /data/installation
+        cd installation/
+        curl https://nodejs.org/dist/v18.12.0/node-v18.12.0-linux-s390x.tar.xz -o node-v18.12.0-linux-s390x.tar.xz
+        tar -xvf node-v18.12.0-linux-s390x.tar.xz
+        yum remove nodejs -y
+        mv node-v18.12.0-linux-s390x /usr/local/nodejs
+        update_and_reload_bashrc
+        node -v
+        npm -v
+        ;;
     "Unknown")
       logMessage "--- Unknown Linux distribution, exiting"
       exit 1
@@ -51,6 +60,14 @@ install_node() {
       exit 1
       ;;
   esac
+}
+
+update_and_reload_bashrc() {
+    local line="export PATH=/usr/local/nodejs/bin:$PATH"
+    for user in "root sefi davidb"; do
+        add_line_to_bashrc_if_not_exists $user, $line
+    done
+    source ~/.bashrc
 }
 
 uninstall_node() {
