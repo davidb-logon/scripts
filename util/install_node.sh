@@ -46,7 +46,7 @@ install_node() {
         curl https://nodejs.org/dist/v18.12.0/node-v18.12.0-linux-s390x.tar.xz -o node-v18.12.0-linux-s390x.tar.xz
         tar -xvf node-v18.12.0-linux-s390x.tar.xz
         yum remove nodejs -y
-        mv node-v18.12.0-linux-s390x /usr/local/nodejs
+        mv -f node-v18.12.0-linux-s390x /usr/local/nodejs
         update_and_reload_bashrc
         node -v
         npm -v
