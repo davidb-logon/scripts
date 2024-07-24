@@ -6,15 +6,15 @@
 add_line_to_bashrc_if_not_exists() {
   local user=$1
   local line=$2
-  local bashrc="~${user}/.bashrc"
+  local bashrc="${user}/.bashrc"
 
   # Check if the line already exists in the .bashrc file
-  if ! grep -Fxq "$line" "$bashrc"; then
+  if ! grep -Fxq "$line" ~$bashrc; then
     # If the line does not exist, append it to the .bashrc file
-    echo "$line" >> "$bashrc"
-    echo "Added line to $bashrc"
+    echo "$line" >> ~$bashrc
+    echo "Added line to " ~$bashrc
   else
-    echo "Line already exists in $bashrc"
+    echo "Line already exists in " ~$bashrc
   fi
 }
 
