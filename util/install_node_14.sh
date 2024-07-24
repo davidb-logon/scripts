@@ -5,7 +5,7 @@ DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
 source "$DIR/lib/common.sh"
 
 main() {
-    init_utils_vars "logon" "install_node"
+    init_vars "logon" "install_node"
     start_logging
     node_version=$(node -v 2>/dev/null)
     case $node_version in
@@ -24,10 +24,17 @@ main() {
     esac
 }
 
+init_vars() {
+
+    init_utils_vars $1 $2
+    detect_linux_distribution
+    detect_install_cmd # exports INSTALL_CMD
+}
+
 install_node_14() {
     logMessage "Installing Node.js version 14..."
     curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
-    sudo apt-get install -y nodejs
+    sudo $INSTALL_CMD install -y nodejs
     logMessage "Node.js version 14 has been installed."
 }
 
@@ -35,10 +42,10 @@ uninstall_node() {
     logMessage "Uninstalling Node.js..."
 
     # Remove Node.js and npm packages
-    sudo apt-get remove -y nodejs npm
+    sudo $INSTALL_CMD remove -y nodejs npm
 
     # Autoremove to clean up unused packages
-    sudo apt-get autoremove -y
+    sudo $INSTALL_CMD autoremove -y
 
     logMessage "Node.js has been uninstalled."
 }
