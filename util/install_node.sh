@@ -64,8 +64,8 @@ install_node() {
 
 update_and_reload_bashrc() {
     local line="export PATH=/usr/local/nodejs/bin:$PATH"
-    for user in "root sefi davidb"; do
-        add_line_to_bashrc_if_not_exists $user, $line
+    for user in root sefi davidb; do
+        add_line_to_bashrc_if_not_exists $user "$line"
     done
     source ~/.bashrc
 }
