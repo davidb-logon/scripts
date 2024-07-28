@@ -113,7 +113,7 @@ install_openvpn_and_easy_rsa() {
         ;;
     "RHEL")
         do_cmd "sudo yum update && sudo yum upgrade -y"
-        do_cmd "sudo yum install epel-release -y"
+        do_cmd "sudo yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm"
         do_cmd "sudo yum install openvpn easy-rsa -y"
        ;;
     *)
