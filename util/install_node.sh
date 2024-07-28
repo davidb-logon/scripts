@@ -29,7 +29,7 @@ init_vars() {
     init_utils_vars $1 $2
     detect_linux_distribution
     detect_install_cmd # exports INSTALL_CMD
-    NODE_VERSION="18"
+    NODE_VERSION="16"
 }
 
 install_node() {
