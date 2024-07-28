@@ -44,11 +44,13 @@ install_node() {
         mkdir -p /data/installation
         cd installation/
         # for node 14:  https://nodejs.org/dist/v14.21.0/node-v14.21.0-linux-s390x.tar.xz
-        curl https://nodejs.org/dist/v18.12.0/node-v18.12.0-linux-s390x.tar.xz -o node-v18.12.0-linux-s390x.tar.xz
-        tar -xvf node-v18.12.0-linux-s390x.tar.xz
+        # for node 16:  https://nodejs.org/dist/latest-v16.x/node-v16.20.2-linux-s390x.tar.gz
+        NODE_FILE="node-v16.20.2-linux-s390x"
+        curl https://nodejs.org/dist/latest-v16.x/${NODE_FILE}.tar.xz -o ${NODE_FILE}.tar.xz
+        tar -xvf ${NODE_FILE}.tar.xz
         yum remove nodejs -y
         rm -rf /usr/local/nodejs
-        mv node-v18.12.0-linux-s390x /usr/local/nodejs
+        mv ${NODE_FILE} /usr/local/nodejs
         update_and_reload_bashrc
         node -v
         npm -v
