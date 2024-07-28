@@ -9,6 +9,8 @@ main() {
     init_vars "logon" "setup_openvpn"
     start_logging
 
+    check_if_root
+    detect_linux_distribution
     parse_command_line_arguments "$@" # Get the clients,
     generate_certifiate_for_client  sefiw
 }    
@@ -100,8 +102,20 @@ init_vars() {
 
 install_openvpn_and_easy_rsa() {
     logMessage "--- Start installing openvpn and easy-rsa"
-    do_cmd "sudo apt update && sudo apt upgrade -y"
-    do_cmd "sudo apt install openvpn easy-rsa -y"
+    case "$LINUX_DISTRIBUTION" in
+    "UBUNTU")
+        do_cmd "sudo apt update && sudo apt upgrade -y"
+        do_cmd "sudo apt install openvpn easy-rsa -y"
+        ;;
+    "RHEL")
+        do_cmd "sudo yum update && sudo yum upgrade -y"
+        do_cmd "sudo yum install openvpn easy-rsa -y"
+       ;;
+    *)
+      error_exit "Unknown or Unsupported LINUX_DISTRIBUTION: $LINUX_DISTRIBUTION, exiting"
+      ;;
+    esac
+  
     logMessage "--- End installing openvpn and easy-rsa"
 }
 
