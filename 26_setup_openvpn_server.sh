@@ -10,6 +10,7 @@ main() {
     start_logging
 
     check_if_root
+    set -x
     detect_linux_distribution
     parse_command_line_arguments "$@" # Get the clients,
     generate_certifiate_for_client  sefiw
