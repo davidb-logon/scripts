@@ -18,7 +18,7 @@ main2() {
     usage
 
     check_if_root
-    set -x
+    set +x
     detect_linux_distribution
 
 
