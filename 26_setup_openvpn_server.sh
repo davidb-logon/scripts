@@ -9,9 +9,6 @@ main() {
     init_vars "logon" "setup_openvpn"
     start_logging
 
-    check_if_root
-    set -x
-    detect_linux_distribution
     parse_command_line_arguments "$@" # Get the clients,
     generate_certifiate_for_client  sefiw
 }    
@@ -19,6 +16,12 @@ main() {
 main2() {
     start_time=$(date +%s)
     usage
+
+    check_if_root
+    set -x
+    detect_linux_distribution
+
+
     init_vars "logon" "setup_openvpn"
     start_logging
   # Insert script logic here
