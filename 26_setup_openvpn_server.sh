@@ -35,9 +35,11 @@ init_vars() {
     case "$LINUX_DISTRIBUTION" in
             "UBUNTU")
                 EASYRSA_CMD="./easyrsa"
+                SERVER_CONF="/usr/share/doc/openvpn/examples/sample-config-files/server.conf"
                 ;;
             "RHEL")
                 EASYRSA_CMD="easyrsa"
+                SERVER_CONF="/usr/share/doc/openvpn/sample/sample-config-files/server.conf"
                 ;;
             *)
                 error_exit "Unknown or Unsupported LINUX_DISTRIBUTION: $LINUX_DISTRIBUTION, exiting"
@@ -56,7 +58,7 @@ create_ovpn_server(){
     do_cmd "mkdir /etc/openvpn/ccd"
 
     # Configure OpenVPN Server
-    do_cmd "cp -p /usr/share/doc/openvpn/examples/sample-config-files/server.conf /etc/openvpn/server.conf"
+    do_cmd "cp -p $SERVER_CONF /etc/openvpn/server.conf"
     do_cmd "sed -i 's/;tls-auth ta.key 0/tls-auth ta.key 0/' /etc/openvpn/server.conf"
     do_cmd "sed -i 's/;cipher AES-256-CBC/cipher AES-256-CBC/' /etc/openvpn/server.conf"
     do_cmd "sed -i 's/;user nobody/user nobody/' /etc/openvpn/server.conf"
