@@ -134,7 +134,10 @@ parse_command_line_arguments() {
 usage() {
 cat << EOF
 -------------------------------------------------------------------------------
-This script 
+This script generate a client certificate for an OpenVPN server on Ubuntu and RHEL
+Each client name has the format of ssss:nn.nn.nn.nn where the sss is the name
+usage: 27_setup_openvpn_client.sh [client_name1 client_name2 client_name1]
+example:27_setup_openvpn_client.sh zvm sefi davidb
 -------------------------------------------------------------------------------
 EOF
 script_ended_ok=true
