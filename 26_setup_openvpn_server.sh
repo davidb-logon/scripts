@@ -31,6 +31,7 @@ init_vars() {
     detect_linux_distribution
     start_time=$(date +%s)
     vpnserver="204.90.115.226"
+    vpnnetwork="192.168.123.0"
     srcdir="/root/openvpn-ca"
     case "$LINUX_DISTRIBUTION" in
             "UBUNTU")
@@ -66,6 +67,8 @@ create_ovpn_server(){
     do_cmd "sed -i 's/;user nobody/user nobody/' /etc/openvpn/server.conf"
     do_cmd "sed -i 's/;group nogroup/group nogroup/' /etc/openvpn/server.conf"
     do_cmd "sed -i 's/;client-to-client/client-to-client/' /etc/openvpn/server.conf"
+    do_cmd "sed -i 's/server 10.8.0.0/server $vpnnetwork/' /etc/openvpn/server.conf"
+    
 
 
     # To address the issues seen in "journalctl -u openvpn@server", add the following to server.conf:
@@ -73,6 +76,7 @@ create_ovpn_server(){
     # data-ciphers AES-256-GCM:AES-128-GCM:AES-256-CBC
 
     # Enable IP Forwarding
+    do_cmd "sysctl -w net.ipv4.ip_forward=1"
     do_cmd "sed -i '/net.ipv4.ip_forward=1/s/^#//g' /etc/sysctl.conf"
     do_cmd "sysctl -p"
 
@@ -89,6 +93,7 @@ create_ovpn_server(){
         ;;
     "RHEL")
         do_cmd "firewall-cmd --permanent --add-port=1194/udp"
+        do_cmd "firewall-cmd --permanent --add-masquerade"
         do_cmd "firewall-cmd --reload"
         ;;
     esac
@@ -249,8 +254,8 @@ setup_CA_certificate() {
     cd /root/openvpn-ca
     init_RSA_vars
     # Initialize and build CA
-    do_cmd "${EASYRSA_CMD} init-pki"
-    do_cmd "echo 'CA' | ${EASYRSA_CMD} build-ca nopass"
+    do_cmd "${EASYRSA_CMD} --batch init-pki"
+    do_cmd "echo 'CA' | ${EASYRSA_CMD} --batch build-ca nopass"
 
     do_cmd "cp pki/ca.crt /etc/openvpn/"
     logMessage "--- End setting up the CA certificate, at: /etc/openvpn/ca.crt"
@@ -281,12 +286,10 @@ EOF
 generate_server_certificate_and_key() {
     logMessage "--- Start generating server certificate and key"
     # Generate server certificate and key
-    do_cmd "${EASYRSA_CMD} gen-req server nopass"
+    do_cmd "${EASYRSA_CMD} --batch gen-req server nopass"
     do_cmd "cp pki/private/server.key /etc/openvpn/"
 
-${EASYRSA_CMD} sign-req server server <<EOF
-yes
-EOF
+    do_cmd "${EASYRSA_CMD} --batch sign-req server server"
 
     # Copy the server certificate to the OpenVPN directory
     do_cmd "cp pki/issued/server.crt /etc/openvpn/"
@@ -298,7 +301,7 @@ generate_Diffie_Hellman_key_and_HMAC_signature() {
     logMessage "--- Start generating Diffie Hellman key and HMAC signature"
     
     # Generate Diffie-Hellman key and HMAC signature
-    do_cmd "${EASYRSA_CMD} gen-dh"
+    do_cmd "${EASYRSA_CMD} --batch gen-dh"
     do_cmd "openvpn --genkey --secret ta.key"
 
     # Move them to the OpenVPN directory
