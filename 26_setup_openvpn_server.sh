@@ -206,7 +206,7 @@ setup_CA_certificate() {
             ;;
         "RHEL")
             logMessage "For RHEL, use chatGPT created function"
-            setup_ca "~/openvpn-ca" "example.com" "US" "California" "Example Organization"
+            setup_ca "/root/openvpn-ca" "example.com" "US" "California" "Example Organization"
             ;;
         *)
             error_exit "Unknown or Unsupported LINUX_DISTRIBUTION: $LINUX_DISTRIBUTION, exiting"
