@@ -207,10 +207,23 @@ setup_CA_certificate() {
     case "$LINUX_DISTRIBUTION" in
         "UBUNTU")
             do_cmd "make-cadir ~/openvpn-ca" "Created cadir" "INFO: Unable to create ca_dir"
+            cd /root/openvpn-ca
+            init_RSA_vars
+
+            # Initialize and build CA
+            do_cmd "./easyrsa init-pki"
+            do_cmd "echo 'CA' | ./easyrsa build-ca nopass"
             ;;
         "RHEL")
             logMessage "For RHEL, use chatGPT created function"
             setup_ca "/root/openvpn-ca" "log-on.com" "US" "California" "Log-On Organization"
+
+            cd /root/openvpn-ca
+            init_RSA_vars
+
+            # Initialize and build CA
+            do_cmd "easyrsa init-pki"
+            do_cmd "echo 'CA' | easyrsa build-ca nopass"
             ;;
         *)
             error_exit "Unknown or Unsupported LINUX_DISTRIBUTION: $LINUX_DISTRIBUTION, exiting"
