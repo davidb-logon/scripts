@@ -39,7 +39,7 @@ main() {
                 ;;
         esac 
     logMessage ">>>Now generating for clients $CLIENTS"       
-    for i in $CLIENTS ;do
+    for i in  ${CLIENTS[*]} ;do
             echo "Now generating for client $i"
             generate_certifiate_for_client "$i"
     done
