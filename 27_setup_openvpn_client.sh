@@ -38,12 +38,16 @@ main() {
                 error_exit "Unknown or Unsupported LINUX_DISTRIBUTION: $LINUX_DISTRIBUTION, exiting"
                 ;;
         esac    
+    for i in $CLIENTS; do
+            echo "Now generating for client $i"
+            generate_certifiate_for_client $i    
+    done
+
     
-    
-    sed -i 's/cert client.crt/cert zvm.crt/g' zvm.ovpn
-    sed -i 's/key client.key/key zvm.key/g' zvm.ovpn
-    sed -i 's/remote my-server-1/remote 84.95.45.250/g' zvm.ovpn
-    zip zvm.ovpn.zip zvm.ovpn ta.key ca.crt zvm.key zvm.crt 
+    # sed -i 's/cert client.crt/cert zvm.crt/g' zvm.ovpn
+    # sed -i 's/key client.key/key zvm.key/g' zvm.ovpn
+    # sed -i 's/remote my-server-1/remote 84.95.45.250/g' zvm.ovpn
+    # zip zvm.ovpn.zip zvm.ovpn ta.key ca.crt zvm.key zvm.crt 
     
 
     #on the s390 machine
@@ -87,11 +91,12 @@ generate_certifiate_for_client() {
     do_cmd "sed -i 's/key client.key/key $client.key/g' $client.ovpn"
     do_cmd "sed -i 's/remote my-server-1/remote $vpnserver/g' $client.ovpn"
     do_cmd "zip $client.ovpn.zip $client.ovpn $client.key $client.crt ca.crt ta.key"
+    logMessage "$client.ovpn.zip"
 }
 
 
 init_vars() {
-     init_utils_vars $1 $2
+    init_utils_vars $1 $2
     detect_linux_distribution
     start_time=$(date +%s)
     vpnserver="204.90.115.226"
@@ -112,12 +117,19 @@ init_vars() {
 }
 
 parse_command_line_arguments() {
-    # if [[ $# -lt 1 || $# -gt 2 ]]; then
-    #     usage
-    #     exit
-    # fi
-    temp=1
+    CLIENTS=("$@") # Get them as an array
+    NUM_CLIENTS=${#clients[@]}
+
+    if [ NUM_CLIENTS -eq 0 ]; then
+        message="No clients names provided on command line, none will be assigned fixed ips."
+        logMessage $message
+        usage
+        confirm "${message} Continue?" || exit 1
+    else
+        logMessage "The following clients will be configured: ${clients[*]}"
+    fi
 }
+
 
 usage() {
 cat << EOF

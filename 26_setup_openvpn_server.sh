@@ -36,7 +36,7 @@ init_vars() {
             "UBUNTU")
                 EASYRSA_CMD="./easyrsa"
                 SERVER_CONF="/usr/share/doc/openvpn/examples/sample-config-files/server.conf"
-                SERVER_SERVICE="openvpn@server"
+                SERVER_SERVICE="openvpn@server.service"
                 ;;
             "RHEL")
                 EASYRSA_CMD="easyrsa"
@@ -328,7 +328,7 @@ script_ended_ok=true
 setup_ovpn_server_as_service(){
     logMessage "--- Start generating service"
 if ! [ -f /etc/systemd/system/multi-user.target.wants/openvpn-server@server.service ]; then
-cat << EOF > /etc/systemd/system/multi-user.target.wants/openvpn-server@server.service
+cat << EOF > /etc/systemd/system/multi-user.target.wants/$SERVER_SERVICE
 [Unit]
 Description=OpenVPN service for %I
 After=syslog.target network-online.target
