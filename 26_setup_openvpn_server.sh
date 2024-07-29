@@ -74,6 +74,7 @@ create_ovpn_server(){
     do_cmd "sed -i '/net.ipv4.ip_forward=1/s/^#//g' /etc/sysctl.conf"
     do_cmd "sysctl -p"
 
+    setup_ovpn_server_as_service 
     # Start and Enable OpenVPN
     do_cmd "systemctl enable openvpn@server"
     do_cmd "systemctl start openvpn@server"
@@ -321,30 +322,38 @@ EOF
 script_ended_ok=true
 }
 
-generate_certifiate_for_client() {
-    # This function in this snippet is a shell script function that generates a certificate for a client
-    # in an OpenVPN setup. It sets up the necessary directories, copies the required files, and updates 
-    # the OpenVPN configuration file with client-specific details before creating a zip file containing the 
-    # client's configuration.
-    client="$1"
+setup_ovpn_server_as_service(){
+    logMessage "--- Start generating service"
+if ! [ -f /etc/systemd/system/multi-user.target.wants/openvpn-server@server.service ]; then
+cat << EOF > /etc/systemd/system/multi-user.target.wants/openvpn-server@server.service
+[Unit]
+Description=OpenVPN service for %I
+After=syslog.target network-online.target
+Wants=network-online.target
+Documentation=man:openvpn(8)
+Documentation=https://community.openvpn.net/openvpn/wiki/Openvpn24ManPage
+Documentation=https://community.openvpn.net/openvpn/wiki/HOWTO
 
-    logMessage "--- Start generating certificate for client: $client"
-    do_cmd "mkdir -p $srcdir"
-    cd "$srcdir"
-    do_cmd "path_easyrsa=$(find /usr/share/easy-rsa/ | grep easyrsa | grep -v cnf)"
-    do_cmd "$path_easyrsa gen-req $client nopass"
-    do_cmd "mkdir -p ~/ovpn-$client"
-    do_cmd "cp ${srcdir}/pki/private/$client.key ~/ovpn-$client"
-    do_cmd "cp ${srcdir}/pki/issued/$client.crt ~/ovpn-$client"
-    do_cmd "cp ${srcdir}/ta.key ~/ovpn-$client/."
-    do_cmd "cp ${srcdir}/pki/ca.crt ~/ovpn-$client/."
-    do_cmd "cp /usr/share/doc/openvpn/examples/sample-config-files/client.conf ~/ovpn-$client/$client.ovpn"
-    cd ~/ovpn-$client
-    do_cmd "chown $USER:$USER *"
-    do_cmd "sed -i 's/cert client.crt/cert $client.crt/g' $client.ovpn"
-    do_cmd "sed -i 's/key client.key/key $client.key/g' $client.ovpn"
-    do_cmd "sed -i 's/remote my-server-1/remote $vpnserver/g' $client.ovpn"
-    do_cmd "zip $client.ovpn.zip $client.ovpn $client.key $client.crt ca.crt ta.key"
+[Service]
+Type=notify
+PrivateTmp=true
+WorkingDirectory=/etc/openvpn/
+ExecStart=/usr/sbin/openvpn --status %t/openvpn-server/status-%i.log --status-version 2 --suppress-timestamps --cipher AES-256-GCM --ncp-ciphers AES-256-GCM:AES-128-GCM:AES-256-CBC:AES-128-CBC:BF-CBC --config %i.conf 
+CapabilityBoundingSet=CAP_IPC_LOCK CAP_NET_ADMIN CAP_NET_BIND_SERVICE CAP_NET_RAW CAP_SETGID CAP_SETUID CAP_SYS_CHROOT CAP_DAC_OVERRIDE CAP_AUDIT_WRITE
+LimitNPROC=10
+DeviceAllow=/dev/null rw
+DeviceAllow=/dev/net/tun rw
+ProtectSystem=true
+ProtectHome=true
+KillMode=process
+RestartSec=5s
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+EOF
+fi
+do_cmd "systemctl daemon-reload"
 }
 
 setup_ovpn_client_as_service(){
