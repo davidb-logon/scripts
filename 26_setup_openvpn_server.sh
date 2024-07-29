@@ -11,12 +11,13 @@ script_ended_ok=false
 trap 'cleanup' EXIT
 
 main() {
+    
     init_vars "logon" "setup_openvpn"
     start_logging
 
     parse_command_line_arguments "$@" # Get the clients,
     check_if_root
-    detect_linux_distribution
+    
     create_ovpn_server
 
     end_time=$(date +%s)
@@ -27,6 +28,7 @@ main() {
 
 init_vars() {
     init_utils_vars $1 $2
+    detect_linux_distribution
     start_time=$(date +%s)
     vpnserver="204.90.115.226"
     srcdir="/root/openvpn-ca"
