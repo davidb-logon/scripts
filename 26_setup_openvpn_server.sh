@@ -36,10 +36,12 @@ init_vars() {
             "UBUNTU")
                 EASYRSA_CMD="./easyrsa"
                 SERVER_CONF="/usr/share/doc/openvpn/examples/sample-config-files/server.conf"
+                SERVER_SERVICE="openvpn@server"
                 ;;
             "RHEL")
                 EASYRSA_CMD="easyrsa"
                 SERVER_CONF="/usr/share/doc/openvpn/sample/sample-config-files/server.conf"
+                SERVER_SERVICE="openvpn-server@server.service"
                 ;;
             *)
                 error_exit "Unknown or Unsupported LINUX_DISTRIBUTION: $LINUX_DISTRIBUTION, exiting"
@@ -75,8 +77,9 @@ create_ovpn_server(){
     do_cmd "sysctl -p"
 
     # Start and Enable OpenVPN
-    do_cmd "systemctl enable openvpn@server"
-    do_cmd "systemctl start openvpn@server"
+    
+    do_cmd "systemctl enable $SERVER_SERVICE"
+    do_cmd "systemctl start $SERVER_SERVICE"
     
 
     logMessage "OpenVPN setup is complete. Review the configuration and adjust firewall settings accordingly."
