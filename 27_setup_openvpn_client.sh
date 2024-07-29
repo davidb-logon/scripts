@@ -38,9 +38,9 @@ main() {
                 error_exit "Unknown or Unsupported LINUX_DISTRIBUTION: $LINUX_DISTRIBUTION, exiting"
                 ;;
         esac    
-    for i in $CLIENTS; do
+    for i in "$CLIENTS"; do
             echo "Now generating for client $i"
-            generate_certifiate_for_client $i    
+            generate_certifiate_for_client "$i"
     done
 
     
