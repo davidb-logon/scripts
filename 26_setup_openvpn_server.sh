@@ -30,6 +30,17 @@ init_vars() {
     start_time=$(date +%s)
     vpnserver="204.90.115.226"
     srcdir="/root/openvpn-ca"
+    case "$LINUX_DISTRIBUTION" in
+            "UBUNTU")
+                EASYRSA_CMD="./easyrsa"
+                ;;
+            "RHEL")
+                EASYRSA_CMD="easyrsa"
+                ;;
+            *)
+                error_exit "Unknown or Unsupported LINUX_DISTRIBUTION: $LINUX_DISTRIBUTION, exiting"
+                ;;
+        esac    
 }
 
 create_ovpn_server(){
@@ -207,30 +218,22 @@ setup_CA_certificate() {
     case "$LINUX_DISTRIBUTION" in
         "UBUNTU")
             do_cmd "make-cadir ~/openvpn-ca" "Created cadir" "INFO: Unable to create ca_dir"
-            cd /root/openvpn-ca
-            init_RSA_vars
-
-            # Initialize and build CA
-            do_cmd "./easyrsa init-pki"
-            do_cmd "echo 'CA' | ./easyrsa build-ca nopass"
             ;;
         "RHEL")
             logMessage "For RHEL, use chatGPT created function"
             setup_ca "/root/openvpn-ca" "log-on.com" "US" "California" "Log-On Organization"
-
-            cd /root/openvpn-ca
-            init_RSA_vars
-
-            # Initialize and build CA
-            do_cmd "easyrsa init-pki"
-            do_cmd "echo 'CA' | easyrsa build-ca nopass"
             ;;
         *)
             error_exit "Unknown or Unsupported LINUX_DISTRIBUTION: $LINUX_DISTRIBUTION, exiting"
             ;;
     esac
 
-    # Copy the CA certificate to the OpenVPN directory
+    cd /root/openvpn-ca
+    init_RSA_vars
+    # Initialize and build CA
+    do_cmd "${EASYRSA_CMD} init-pki"
+    do_cmd "echo 'CA' | ${EASYRSA_CMD} build-ca nopass"
+
     do_cmd "cp pki/ca.crt /etc/openvpn/"
     logMessage "--- End setting up the CA certificate, at: /etc/openvpn/ca.crt"
 }
@@ -260,10 +263,10 @@ EOF
 generate_server_certificate_and_key() {
     logMessage "--- Start generating server certificate and key"
     # Generate server certificate and key
-    do_cmd "./easyrsa gen-req server nopass"
+    do_cmd "${EASYRSA_CMD} gen-req server nopass"
     do_cmd "cp pki/private/server.key /etc/openvpn/"
 
-./easyrsa sign-req server server <<EOF
+${EASYRSA_CMD} sign-req server server <<EOF
 yes
 EOF
 
@@ -277,7 +280,7 @@ generate_Diffie_Hellman_key_and_HMAC_signature() {
     logMessage "--- Start generating Diffie Hellman key and HMAC signature"
     
     # Generate Diffie-Hellman key and HMAC signature
-    do_cmd "./easyrsa gen-dh"
+    do_cmd "${EASYRSA_CMD} gen-dh"
     do_cmd "openvpn --genkey --secret ta.key"
 
     # Move them to the OpenVPN directory
