@@ -121,6 +121,7 @@ init_vars() {
 
 parse_command_line_arguments() {
     CLIENTS=("$@") # Get them as an array
+    logMessage "The following clients will be configured: ${CLIENTS[*]}"
     NUM_CLIENTS=${#CLIENTS[@]}
 
     if [ NUM_CLIENTS -eq 0 ]; then
