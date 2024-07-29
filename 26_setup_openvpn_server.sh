@@ -2,119 +2,84 @@
 #------------------------------------------------------------------------------
 # Licensed Materials (c) Copyright Log-On 2024, All Rights Reserved.
 #------------------------------------------------------------------------------
+# Source script libraries as needed.
+
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
+source "$DIR/lib/common.sh"
+
+script_ended_ok=false
+trap 'cleanup' EXIT
 
 main() {
-    start_time=$(date +%s)
-    usage
     init_vars "logon" "setup_openvpn"
     start_logging
 
     parse_command_line_arguments "$@" # Get the clients,
-    generate_certifiate_for_client  sefiw
-}    
-
-main2() {
-    start_time=$(date +%s)
-    usage
-
     check_if_root
-    set +x
     detect_linux_distribution
+    create_ovpn_server
 
-
-    init_vars "logon" "setup_openvpn"
-    start_logging
-  # Insert script logic here
-    cat << EOF
-1. Create openvpn server
-2. Install openvpn service on server
-3. Install openvpn service on client
-4. Quit
-EOF
-
-    read -p "Please enter your choice: " choice
-    case $choice in
-        1)
-            create_ovpn_server
-            ;;
-        2)
-            list_backups
-            ;;
-        3)
-            setup_ovpn_client_as_service "$@"
-            ;;
-        4)
-            exit 0
-            ;;
-        *)
-            logMessage "Invalid choice. Exiting."
-            exit 1
-            ;;
-    esac
     end_time=$(date +%s)
     elapsed_time=$((end_time - start_time))
     logMessage "The script took $elapsed_time seconds to complete."
     script_ended_ok=true
 }
 
+init_vars() {
+    init_utils_vars $1 $2
+    start_time=$(date +%s)
+    vpnserver="204.90.115.226"
+    srcdir="/root/openvpn-ca"
+}
+
 create_ovpn_server(){
-    parse_command_line_arguments "$@" # Get the clients,
-
-
-
-
-
+    logMessage "Starting to create Open VPN server"
     install_openvpn_and_easy_rsa
     setup_CA_certificate
     generate_server_certificate_and_key
     generate_Diffie_Hellman_key_and_HMAC_signature
  
 
-    do_cmd "sudo mkdir /etc/openvpn/ccd"
+    do_cmd "mkdir /etc/openvpn/ccd"
 
     # Configure OpenVPN Server
-    do_cmd "sudo cp -p /usr/share/doc/openvpn/examples/sample-config-files/server.conf /etc/openvpn/server.conf"
-    do_cmd "sudo sed -i 's/;tls-auth ta.key 0/tls-auth ta.key 0/' /etc/openvpn/server.conf"
-    do_cmd "sudo sed -i 's/;cipher AES-256-CBC/cipher AES-256-CBC/' /etc/openvpn/server.conf"
-    do_cmd "sudo sed -i 's/;user nobody/user nobody/' /etc/openvpn/server.conf"
-    do_cmd "sudo sed -i 's/;group nogroup/group nogroup/' /etc/openvpn/server.conf"
-    do_cmd "sudo sed -i 's/;client-to-client/client-to-client/' /etc/openvpn/server.conf"
+    do_cmd "cp -p /usr/share/doc/openvpn/examples/sample-config-files/server.conf /etc/openvpn/server.conf"
+    do_cmd "sed -i 's/;tls-auth ta.key 0/tls-auth ta.key 0/' /etc/openvpn/server.conf"
+    do_cmd "sed -i 's/;cipher AES-256-CBC/cipher AES-256-CBC/' /etc/openvpn/server.conf"
+    do_cmd "sed -i 's/;user nobody/user nobody/' /etc/openvpn/server.conf"
+    do_cmd "sed -i 's/;group nogroup/group nogroup/' /etc/openvpn/server.conf"
+    do_cmd "sed -i 's/;client-to-client/client-to-client/' /etc/openvpn/server.conf"
 
 
-    # To address the issues seen in "sudo journalctl -u openvpn@server", add the following to server.conf:
+    # To address the issues seen in "journalctl -u openvpn@server", add the following to server.conf:
     # topology subnet
     # data-ciphers AES-256-GCM:AES-128-GCM:AES-256-CBC
 
     # Enable IP Forwarding
-    do_cmd "sudo sed -i '/net.ipv4.ip_forward=1/s/^#//g' /etc/sysctl.conf"
-    do_cmd "sudo sysctl -p"
+    do_cmd "sed -i '/net.ipv4.ip_forward=1/s/^#//g' /etc/sysctl.conf"
+    do_cmd "sysctl -p"
 
     # Start and Enable OpenVPN
-    do_cmd "sudo systemctl enable openvpn@server"
-    do_cmd "sudo systemctl start openvpn@server"
+    do_cmd "systemctl enable openvpn@server"
+    do_cmd "systemctl start openvpn@server"
     
 
     logMessage "OpenVPN setup is complete. Review the configuration and adjust firewall settings accordingly."
-
-
 }
 
 
-init_vars() {
-    init_utils_vars $1 $2
-}
 
 install_openvpn_and_easy_rsa() {
     logMessage "--- Start installing openvpn and easy-rsa"
     case "$LINUX_DISTRIBUTION" in
     "UBUNTU")
-        do_cmd "sudo apt update && sudo apt upgrade -y"
-        do_cmd "sudo apt install openvpn easy-rsa -y"
+        do_cmd "apt update && apt upgrade -y"
+        do_cmd "apt install openvpn easy-rsa -y"
         ;;
     "RHEL")
-        do_cmd "sudo yum update && sudo yum upgrade -y"
-        do_cmd "sudo yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm"
-        do_cmd "sudo yum install openvpn easy-rsa -y"
+        do_cmd "yum update && yum upgrade -y"
+        do_cmd "yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm"
+        do_cmd "yum install openvpn easy-rsa -y"
        ;;
     *)
       error_exit "Unknown or Unsupported LINUX_DISTRIBUTION: $LINUX_DISTRIBUTION, exiting"
@@ -136,7 +101,7 @@ setup_CA_certificate() {
     do_cmd "echo 'CA' | ./easyrsa build-ca nopass"
 
     # Copy the CA certificate to the OpenVPN directory
-    do_cmd "sudo cp pki/ca.crt /etc/openvpn/"
+    do_cmd "cp pki/ca.crt /etc/openvpn/"
     logMessage "--- End setting up the CA certificate, at: /etc/openvpn/ca.crt"
 }
 
@@ -166,14 +131,14 @@ generate_server_certificate_and_key() {
     logMessage "--- Start generating server certificate and key"
     # Generate server certificate and key
     do_cmd "./easyrsa gen-req server nopass"
-    do_cmd "sudo cp pki/private/server.key /etc/openvpn/"
+    do_cmd "cp pki/private/server.key /etc/openvpn/"
 
 ./easyrsa sign-req server server <<EOF
 yes
 EOF
 
     # Copy the server certificate to the OpenVPN directory
-    do_cmd "sudo cp pki/issued/server.crt /etc/openvpn/"
+    do_cmd "cp pki/issued/server.crt /etc/openvpn/"
     logMessage "--- End generating server certificate and key, at: /etc/openvpn/server.crt"
 }
 
@@ -186,8 +151,8 @@ generate_Diffie_Hellman_key_and_HMAC_signature() {
     do_cmd "openvpn --genkey --secret ta.key"
 
     # Move them to the OpenVPN directory
-    do_cmd "sudo cp ta.key /etc/openvpn/"
-    do_cmd "sudo cp pki/dh.pem /etc/openvpn/dh2048.pem"
+    do_cmd "cp ta.key /etc/openvpn/"
+    do_cmd "cp pki/dh.pem /etc/openvpn/dh2048.pem"
     logMessage "--- End generating Diffie Hellman key and HMAC signature, at: /etc/openvpn/ta.key and dh2048.pem"
 }
 
@@ -199,6 +164,7 @@ parse_command_line_arguments() {
     if [ NUM_CLIENTS -eq 0 ]; then
         message="No clients names provided on command line, none will be assigned fixed ips."
         logMessage $message
+        usage
         confirm "${message} Continue?" || exit 1
     else
         logMessage "The following clients will be configured: ${clients[*]}"
@@ -224,20 +190,20 @@ generate_certifiate_for_client() {
     # the OpenVPN configuration file with client-specific details before creating a zip file containing the 
     # client's configuration.
     client="$1"
-    vpnserver="84.95.45.250"
-    srcdir="/home/davidb/openvpn-ca"
+
     logMessage "--- Start generating certificate for client: $client"
-    cd /home/davidb/openvpn-ca
-    do_cmd "path_easyrsa=$(sudo find /usr/share/easy-rsa/ | grep easyrsa | grep -v cnf)"
-    do_cmd "sudo $path_easyrsa gen-req $client nopass"
+    do_cmd "mkdir -p $srcdir"
+    cd "$srcdir"
+    do_cmd "path_easyrsa=$(find /usr/share/easy-rsa/ | grep easyrsa | grep -v cnf)"
+    do_cmd "$path_easyrsa gen-req $client nopass"
     do_cmd "mkdir -p ~/ovpn-$client"
-    do_cmd "sudo cp ${srcdir}/pki/private/$client.key ~/ovpn-$client"
-    do_cmd "sudo cp ${srcdir}/pki/issued/$client.crt ~/ovpn-$client"
-    do_cmd "sudo cp ${srcdir}/ta.key ~/ovpn-$client/."
-    do_cmd "sudo cp ${srcdir}/pki/ca.crt ~/ovpn-$client/."
-    do_cmd "sudo cp /usr/share/doc/openvpn/examples/sample-config-files/client.conf ~/ovpn-$client/$client.ovpn"
+    do_cmd "cp ${srcdir}/pki/private/$client.key ~/ovpn-$client"
+    do_cmd "cp ${srcdir}/pki/issued/$client.crt ~/ovpn-$client"
+    do_cmd "cp ${srcdir}/ta.key ~/ovpn-$client/."
+    do_cmd "cp ${srcdir}/pki/ca.crt ~/ovpn-$client/."
+    do_cmd "cp /usr/share/doc/openvpn/examples/sample-config-files/client.conf ~/ovpn-$client/$client.ovpn"
     cd ~/ovpn-$client
-    do_cmd "sudo chown $USER:$USER *"
+    do_cmd "chown $USER:$USER *"
     do_cmd "sed -i 's/cert client.crt/cert $client.crt/g' $client.ovpn"
     do_cmd "sed -i 's/key client.key/key $client.key/g' $client.ovpn"
     do_cmd "sed -i 's/remote my-server-1/remote $vpnserver/g' $client.ovpn"
@@ -272,9 +238,9 @@ Group=nogroup # Adjust group privileges if needed
 WantedBy=multi-user.target
 EOF
 
-    do_cmd "sudo systemctl daemon-reload"
-    do_cmd "sudo systemctl enable openvpn@client.service"
-    do_cmd "sudo systemctl restart openvpn@client.service"
+    do_cmd "systemctl daemon-reload"
+    do_cmd "systemctl enable openvpn@client.service"
+    do_cmd "systemctl restart openvpn@client.service"
 fi
 
 }
@@ -282,11 +248,6 @@ fi
 #                Start script execution                 #
 #-------------------------------------------------------#
 
-# Source script libraries as needed.
-DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
-source "$DIR/lib/common.sh"
 
-script_ended_ok=false
-trap 'cleanup' EXIT
 
-main2 "$@"
+main "$@"
