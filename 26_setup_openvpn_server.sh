@@ -81,7 +81,7 @@ install_openvpn_and_easy_rsa() {
         do_cmd "yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm"
         do_cmd "yum install openvpn easy-rsa -y"
         # This needs to be changed if rpm installs easyrsa somewhere else
-        if ! [ -f usr/local/sbin/easyrsa ]; then
+        if ! [ -f /usr/local/sbin/easyrsa ]; then
             do_cmd "ln -s /usr/share/easy-rsa/3.0.8/easyrsa /usr/local/sbin/easyrsa"
         fi
        ;;
