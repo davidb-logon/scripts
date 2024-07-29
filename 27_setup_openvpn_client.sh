@@ -122,7 +122,7 @@ init_vars() {
 parse_command_line_arguments() {
     CLIENTS=("$@") # Get them as an array
     logMessage "The following clients will be configured: ${CLIENTS[*]}"
-    NUM_CLIENTS=${#CLIENTS[@]}
+    NUM_CLIENTS=${#CLIENTS[*]}
 
     if [ NUM_CLIENTS -eq 0 ]; then
         message="No clients names provided on command line, none will be assigned fixed ips."
