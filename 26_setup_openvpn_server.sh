@@ -89,10 +89,130 @@ install_openvpn_and_easy_rsa() {
     logMessage "--- End installing openvpn and easy-rsa"
 }
 
+
+# Function to set up a Certificate Authority (CA)
+setup_ca() {
+  local CA_DIR=$1
+  local COMMON_NAME=$2
+  local COUNTRY=$3
+  local STATE=$4
+  local ORGANIZATION=$5
+
+  # Exit immediately if a command exits with a non-zero status.
+  set -e
+
+  # Install OpenSSL if not already installed
+  sudo yum install -y openssl
+
+  # Create the CA directory structure
+  sudo mkdir -p ${CA_DIR}/{certs,crl,newcerts,private}
+  sudo chmod 700 ${CA_DIR}/private
+  sudo touch ${CA_DIR}/index.txt
+  echo 1000 | sudo tee ${CA_DIR}/serial
+
+  # Create the OpenSSL configuration file
+  sudo tee ${CA_DIR}/openssl.cnf > /dev/null << EOF
+[ ca ]
+default_ca = CA_default
+
+[ CA_default ]
+dir               = ${CA_DIR}
+certs             = \$dir/certs
+crl_dir           = \$dir/crl
+new_certs_dir     = \$dir/newcerts
+database          = \$dir/index.txt
+serial            = \$dir/serial
+RANDFILE          = \$dir/private/.rand
+
+private_key       = \$dir/private/ca.key.pem
+certificate       = \$dir/certs/ca.cert.pem
+
+crlnumber         = \$dir/crlnumber
+crl               = \$dir/crl.pem
+crl_extensions    = crl_ext
+default_crl_days  = 30
+
+default_md        = sha256
+
+name_opt          = ca_default
+cert_opt          = ca_default
+default_days      = 375
+preserve          = no
+policy            = policy_strict
+
+[ policy_strict ]
+countryName             = match
+stateOrProvinceName     = match
+organizationName        = match
+organizationalUnitName  = optional
+commonName              = supplied
+emailAddress            = optional
+
+[ req ]
+default_bits        = 2048
+default_md          = sha256
+default_keyfile     = privkey.pem
+distinguished_name  = req_distinguished_name
+string_mask         = utf8only
+
+[ req_distinguished_name ]
+countryName                     = Country Name (2 letter code)
+stateOrProvinceName             = State or Province Name
+localityName                    = Locality Name
+0.organizationName              = Organization Name
+organizationalUnitName          = Organizational Unit Name
+commonName                      = Common Name
+emailAddress                    = Email Address
+
+[ v3_ca ]
+subjectKeyIdentifier = hash
+authorityKeyIdentifier = keyid:always,issuer
+basicConstraints = CA:TRUE
+keyUsage = critical, digitalSignature, cRLSign, keyCertSign
+
+[ v3_req ]
+basicConstraints = CA:FALSE
+keyUsage = critical, nonRepudiation, digitalSignature, keyEncipherment
+subjectAltName = @alt_names
+
+[ alt_names ]
+DNS.1 = ${COMMON_NAME}
+
+[ crl_ext ]
+authorityKeyIdentifier=keyid:always
+EOF
+
+  # Generate the CA private key
+  sudo openssl genpkey -algorithm RSA -out ${CA_DIR}/private/ca.key.pem
+  sudo chmod 400 ${CA_DIR}/private/ca.key.pem
+
+  # Generate the CA certificate
+  sudo openssl req -config ${CA_DIR}/openssl.cnf -key ${CA_DIR}/private/ca.key.pem -new -x509 -days 7300 -sha256 -extensions v3_ca -out ${CA_DIR}/certs/ca.cert.pem -subj "/C=${COUNTRY}/ST=${STATE}/O=${ORGANIZATION}/CN=${COMMON_NAME}"
+  sudo chmod 444 ${CA_DIR}/certs/ca.cert.pem
+
+  # Verify the CA certificate
+  sudo openssl x509 -noout -text -in ${CA_DIR}/certs/ca.cert.pem
+
+  echo "CA setup complete. CA certificate and key have been generated and stored in ${CA_DIR}."
+}
+
 setup_CA_certificate() {
     logMessage "--- Start setting up the CA certificate"
     # Set up Easy-RSA directory
-    do_cmd "make-cadir ~/openvpn-ca" "Created cadir" "INFO: Unable to create ca_dir"
+
+    case "$LINUX_DISTRIBUTION" in
+        "UBUNTU")
+            do_cmd "make-cadir ~/openvpn-ca" "Created cadir" "INFO: Unable to create ca_dir"
+            ;;
+        "RHEL")
+            logMessage "For RHEL, use chatGPT created function"
+            setup_ca "~/openvpn-ca" "example.com" "US" "California" "Example Organization"
+            ;;
+        *)
+            error_exit "Unknown or Unsupported LINUX_DISTRIBUTION: $LINUX_DISTRIBUTION, exiting"
+            ;;
+    esac
+    
     cd ~/openvpn-ca
     init_RSA_vars
 
