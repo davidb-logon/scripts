@@ -55,7 +55,7 @@ create_ovpn_server(){
     generate_Diffie_Hellman_key_and_HMAC_signature
  
 
-    do_cmd "mkdir /etc/openvpn/ccd"
+    do_cmd "mkdir -p /etc/openvpn/ccd"
 
     # Configure OpenVPN Server
     do_cmd "cp -p $SERVER_CONF /etc/openvpn/server.conf"
