@@ -84,7 +84,7 @@ generate_certifiate_for_client() {
     do_cmd "cp ${srcdir}/pki/issued/$client.crt ~/ovpn-$client"
     do_cmd "cp ${srcdir}/ta.key ~/ovpn-$client/."
     do_cmd "cp ${srcdir}/pki/ca.crt ~/ovpn-$client/."
-    do_cmd "cp /usr/share/doc/openvpn/examples/sample-config-files/client.conf ~/ovpn-$client/$client.ovpn"
+    do_cmd "cp $CLIENT_CONF ~/ovpn-$client/$client.ovpn"
     cd ~/ovpn-$client
     do_cmd "chown $USER:$USER *"
     do_cmd "sed -i 's/cert client.crt/cert $client.crt/g' $client.ovpn"
@@ -105,10 +105,12 @@ init_vars() {
             "UBUNTU")
                 EASYRSA_CMD="./easyrsa"
                 SERVER_CONF="/usr/share/doc/openvpn/examples/sample-config-files/server.conf"
+                CLIENT_CONF="/usr/share/doc/openvpn/examples/sample-config-files/client.conf"
                 ;;
             "RHEL")
                 EASYRSA_CMD="easyrsa"
                 SERVER_CONF="/usr/share/doc/openvpn/sample/sample-config-files/server.conf"
+                CLIENT_CONF="/usr/share/doc/openvpn/sample/sample-config-files/client.conf"
                 ;;
             *)
                 error_exit "Unknown or Unsupported LINUX_DISTRIBUTION: $LINUX_DISTRIBUTION, exiting"
