@@ -82,7 +82,17 @@ create_ovpn_server(){
     do_cmd "systemctl enable $SERVER_SERVICE"
     do_cmd "systemctl start $SERVER_SERVICE"
     
-
+    #last thing is to open the firewall for openvpn
+    case "$LINUX_DISTRIBUTION" in
+    "UBUNTU")
+        do_cmd "ufw allow 1194/udp"
+        ;;
+    "RHEL")
+        do_cmd "firewall-cmd --permanent --add-port=1194/udp"
+        do_cmd "firewall-cmd --reload"
+        ;;
+    esac
+    
     logMessage "OpenVPN setup is complete. Review the configuration and adjust firewall settings accordingly."
 }
 
