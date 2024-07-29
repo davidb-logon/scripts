@@ -206,14 +206,14 @@ setup_CA_certificate() {
             ;;
         "RHEL")
             logMessage "For RHEL, use chatGPT created function"
-            setup_ca "/root/openvpn-ca" "example.com" "US" "California" "Example Organization"
+            setup_ca "/root/openvpn-ca" "log-on.com" "US" "California" "Log-On Organization"
             ;;
         *)
             error_exit "Unknown or Unsupported LINUX_DISTRIBUTION: $LINUX_DISTRIBUTION, exiting"
             ;;
     esac
     
-    cd ~/openvpn-ca
+    cd /root/openvpn-ca
     init_RSA_vars
 
     # Initialize and build CA
@@ -244,7 +244,7 @@ set_var EASYRSA_NS_COMMENT     "OpenVPN Certificate"
 set_var EASYRSA_EXT_DIR        "\${EASYRSA}/x509-types"
 set_var EASYRSA_SSL_CONF       "\${EASYRSA}/openssl-easyrsa.cnf"
 set_var EASYRSA_DIGEST         "sha256"
-EOF    
+EOF
 }
 
 generate_server_certificate_and_key() {
