@@ -229,13 +229,6 @@ setup_CA_certificate() {
             error_exit "Unknown or Unsupported LINUX_DISTRIBUTION: $LINUX_DISTRIBUTION, exiting"
             ;;
     esac
-    
-    cd /root/openvpn-ca
-    init_RSA_vars
-
-    # Initialize and build CA
-    do_cmd "./easyrsa init-pki"
-    do_cmd "echo 'CA' | ./easyrsa build-ca nopass"
 
     # Copy the CA certificate to the OpenVPN directory
     do_cmd "cp pki/ca.crt /etc/openvpn/"
