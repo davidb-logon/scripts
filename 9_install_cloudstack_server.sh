@@ -142,7 +142,7 @@ install_management_server() {
         ;;
     "RHEL")
         do_cmd "$CMD update"  # Update apt's or yum's index, to ensure getting the latest version.
-        do_cmd "$CMD install cloudstack-management"
+        do_cmd "$CMD install cloudstack-management --allowerasing"
         # do_cmd "mkdir -p /home/davidb/logon/work/rpm"
         # do_cmd "cd /home/davidb/logon/work/rpm"
         # files=("cloudstack-common-4.19.0.0-1.x86_64.rpm" "cloudstack-management-4.19.0.0-1.x86_64.rpm")  # cloudstack-agent-4.19.0.0-1.x86_64.rpm
