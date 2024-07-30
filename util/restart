@@ -7,8 +7,10 @@ sleep 5
 for logfile in /var/log/cloudstack/management/management-server.log \
                /var/log/cloudstack/management/apilog.log \
                /var/log/cloudstack/agent/agent.log; do
-    sudo touch $logfile
-    sudo truncate --size 0 $logfile
+    if [ -f "$logfile" ]; then
+        sudo touch $logfile
+        sudo truncate --size 0 $logfile
+    fi
 done
 
 sudo virsh net-start default
