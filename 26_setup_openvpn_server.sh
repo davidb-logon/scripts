@@ -31,12 +31,13 @@ init_vars() {
     detect_linux_distribution
     start_time=$(date +%s)
     vpnserver="204.90.115.226"
+    vpnnetwork="192.168.123.0"
     srcdir="/root/openvpn-ca"
     case "$LINUX_DISTRIBUTION" in
             "UBUNTU")
                 EASYRSA_CMD="./easyrsa"
                 SERVER_CONF="/usr/share/doc/openvpn/examples/sample-config-files/server.conf"
-                SERVER_SERVICE="openvpn@server"
+                SERVER_SERVICE="openvpn@server.service"
                 ;;
             "RHEL")
                 EASYRSA_CMD="easyrsa"
@@ -66,6 +67,8 @@ create_ovpn_server(){
     do_cmd "sed -i 's/;user nobody/user nobody/' /etc/openvpn/server.conf"
     do_cmd "sed -i 's/;group nogroup/group nogroup/' /etc/openvpn/server.conf"
     do_cmd "sed -i 's/;client-to-client/client-to-client/' /etc/openvpn/server.conf"
+    do_cmd "sed -i 's/server 10.8.0.0/server $vpnnetwork/' /etc/openvpn/server.conf"
+    
 
 
     # To address the issues seen in "journalctl -u openvpn@server", add the following to server.conf:
@@ -73,15 +76,28 @@ create_ovpn_server(){
     # data-ciphers AES-256-GCM:AES-128-GCM:AES-256-CBC
 
     # Enable IP Forwarding
+    do_cmd "sysctl -w net.ipv4.ip_forward=1"
     do_cmd "sed -i '/net.ipv4.ip_forward=1/s/^#//g' /etc/sysctl.conf"
     do_cmd "sysctl -p"
 
+    setup_ovpn_server_as_service 
     # Start and Enable OpenVPN
     
     do_cmd "systemctl enable $SERVER_SERVICE"
     do_cmd "systemctl start $SERVER_SERVICE"
     
-
+    #last thing is to open the firewall for openvpn
+    case "$LINUX_DISTRIBUTION" in
+    "UBUNTU")
+        do_cmd "ufw allow 1194/udp"
+        ;;
+    "RHEL")
+        do_cmd "firewall-cmd --permanent --add-port=1194/udp"
+        do_cmd "firewall-cmd --permanent --add-masquerade"
+        do_cmd "firewall-cmd --reload"
+        ;;
+    esac
+    
     logMessage "OpenVPN setup is complete. Review the configuration and adjust firewall settings accordingly."
 }
 
@@ -238,8 +254,8 @@ setup_CA_certificate() {
     cd /root/openvpn-ca
     init_RSA_vars
     # Initialize and build CA
-    do_cmd "${EASYRSA_CMD} init-pki"
-    do_cmd "echo 'CA' | ${EASYRSA_CMD} build-ca nopass"
+    do_cmd "${EASYRSA_CMD} --batch init-pki"
+    do_cmd "echo 'CA' | ${EASYRSA_CMD} --batch build-ca nopass"
 
     do_cmd "cp pki/ca.crt /etc/openvpn/"
     logMessage "--- End setting up the CA certificate, at: /etc/openvpn/ca.crt"
@@ -270,12 +286,10 @@ EOF
 generate_server_certificate_and_key() {
     logMessage "--- Start generating server certificate and key"
     # Generate server certificate and key
-    do_cmd "${EASYRSA_CMD} gen-req server nopass"
+    do_cmd "${EASYRSA_CMD} --batch gen-req server nopass"
     do_cmd "cp pki/private/server.key /etc/openvpn/"
 
-${EASYRSA_CMD} sign-req server server <<EOF
-yes
-EOF
+    do_cmd "${EASYRSA_CMD} --batch sign-req server server"
 
     # Copy the server certificate to the OpenVPN directory
     do_cmd "cp pki/issued/server.crt /etc/openvpn/"
@@ -287,7 +301,7 @@ generate_Diffie_Hellman_key_and_HMAC_signature() {
     logMessage "--- Start generating Diffie Hellman key and HMAC signature"
     
     # Generate Diffie-Hellman key and HMAC signature
-    do_cmd "${EASYRSA_CMD} gen-dh"
+    do_cmd "${EASYRSA_CMD} --batch gen-dh"
     do_cmd "openvpn --genkey --secret ta.key"
 
     # Move them to the OpenVPN directory
@@ -324,30 +338,38 @@ EOF
 script_ended_ok=true
 }
 
-generate_certifiate_for_client() {
-    # This function in this snippet is a shell script function that generates a certificate for a client
-    # in an OpenVPN setup. It sets up the necessary directories, copies the required files, and updates 
-    # the OpenVPN configuration file with client-specific details before creating a zip file containing the 
-    # client's configuration.
-    client="$1"
+setup_ovpn_server_as_service(){
+    logMessage "--- Start generating service"
+if ! [ -f /etc/systemd/system/multi-user.target.wants/openvpn-server@server.service ]; then
+cat << EOF > /etc/systemd/system/multi-user.target.wants/$SERVER_SERVICE
+[Unit]
+Description=OpenVPN service for %I
+After=syslog.target network-online.target
+Wants=network-online.target
+Documentation=man:openvpn(8)
+Documentation=https://community.openvpn.net/openvpn/wiki/Openvpn24ManPage
+Documentation=https://community.openvpn.net/openvpn/wiki/HOWTO
 
-    logMessage "--- Start generating certificate for client: $client"
-    do_cmd "mkdir -p $srcdir"
-    cd "$srcdir"
-    do_cmd "path_easyrsa=$(find /usr/share/easy-rsa/ | grep easyrsa | grep -v cnf)"
-    do_cmd "$path_easyrsa gen-req $client nopass"
-    do_cmd "mkdir -p ~/ovpn-$client"
-    do_cmd "cp ${srcdir}/pki/private/$client.key ~/ovpn-$client"
-    do_cmd "cp ${srcdir}/pki/issued/$client.crt ~/ovpn-$client"
-    do_cmd "cp ${srcdir}/ta.key ~/ovpn-$client/."
-    do_cmd "cp ${srcdir}/pki/ca.crt ~/ovpn-$client/."
-    do_cmd "cp /usr/share/doc/openvpn/examples/sample-config-files/client.conf ~/ovpn-$client/$client.ovpn"
-    cd ~/ovpn-$client
-    do_cmd "chown $USER:$USER *"
-    do_cmd "sed -i 's/cert client.crt/cert $client.crt/g' $client.ovpn"
-    do_cmd "sed -i 's/key client.key/key $client.key/g' $client.ovpn"
-    do_cmd "sed -i 's/remote my-server-1/remote $vpnserver/g' $client.ovpn"
-    do_cmd "zip $client.ovpn.zip $client.ovpn $client.key $client.crt ca.crt ta.key"
+[Service]
+Type=notify
+PrivateTmp=true
+WorkingDirectory=/etc/openvpn/
+ExecStart=/usr/sbin/openvpn --status %t/openvpn-server/status-%i.log --status-version 2 --suppress-timestamps --cipher AES-256-GCM --ncp-ciphers AES-256-GCM:AES-128-GCM:AES-256-CBC:AES-128-CBC:BF-CBC --config %i.conf 
+CapabilityBoundingSet=CAP_IPC_LOCK CAP_NET_ADMIN CAP_NET_BIND_SERVICE CAP_NET_RAW CAP_SETGID CAP_SETUID CAP_SYS_CHROOT CAP_DAC_OVERRIDE CAP_AUDIT_WRITE
+LimitNPROC=10
+DeviceAllow=/dev/null rw
+DeviceAllow=/dev/net/tun rw
+ProtectSystem=true
+ProtectHome=true
+KillMode=process
+RestartSec=5s
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+EOF
+fi
+do_cmd "systemctl daemon-reload"
 }
 
 setup_ovpn_client_as_service(){
