@@ -61,17 +61,15 @@ init_vars() {
     case "$LINUX_DISTRIBUTION" in
     "UBUNTU")
         CMD="apt"
-        HOME_NETWORK="192.168.1.0/24"
         SEFI_NETWORK="80.178.85.20"
-        MAINFRAME_NETWORK="204.90.115.208"
+        MAINFRAME_NETWORK="204.90.115.226"
         LOCAL_IP="192.168.1.248"
       ;;
     "RHEL")
         CMD="yum"
-        HOME_NETWORK="192.168.1.0/24"
         SEFI_NETWORK="80.178.85.20"
-        MAINFRAME_NETWORK="204.90.115.208"
-        LOCAL_IP="204.90.115.208"
+        MAINFRAME_NETWORK="204.90.115.226"
+        LOCAL_IP="204.90.115.226"
       ;;
     *)
       logMessage "Unknown or Unsupported LINUX_DISTRIBUTION: $LINUX_DISTRIBUTION, exiting"
@@ -143,15 +141,17 @@ install_management_server() {
         do_cmd "$CMD install cloudstack-management"
         ;;
     "RHEL")
-        do_cmd "mkdir -p /home/davidb/logon/work/rpm"
-        do_cmd "cd /home/davidb/logon/work/rpm"
-        files=("cloudstack-common-4.19.0.0-1.x86_64.rpm" "cloudstack-management-4.19.0.0-1.x86_64.rpm")  # cloudstack-agent-4.19.0.0-1.x86_64.rpm
-        for file in $files:
-            if [ ! -f "$file" ]; then 
-                do_cmd "wget http://download.cloudstack.org/el/9/4.19/$file"
-                do_cmd "rpm -i --ignorearch  --nodeps  $file"
-            fi
-        done
+        do_cmd "$CMD update"  # Update apt's or yum's index, to ensure getting the latest version.
+        do_cmd "$CMD install cloudstack-management"
+        # do_cmd "mkdir -p /home/davidb/logon/work/rpm"
+        # do_cmd "cd /home/davidb/logon/work/rpm"
+        # files=("cloudstack-common-4.19.0.0-1.x86_64.rpm" "cloudstack-management-4.19.0.0-1.x86_64.rpm")  # cloudstack-agent-4.19.0.0-1.x86_64.rpm
+        # for file in $files:
+        #     if [ ! -f "$file" ]; then 
+        #         do_cmd "wget http://download.cloudstack.org/el/9/4.19/$file"
+        #         do_cmd "rpm -i --ignorearch  --nodeps  $file"
+        #     fi
+        # done
        ;;
     *)
       logMessage "Unknown or Unsupported LINUX_DISTRIBUTION: $LINUX_DISTRIBUTION, exiting"
