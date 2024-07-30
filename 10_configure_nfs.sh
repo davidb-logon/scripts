@@ -35,7 +35,10 @@ prepare_nfs_shares() {
     do_cmd "$SUDO mkdir -p /data/$SECONDARY"
     
     set_nfs_exports_options "/data/$PRIMARY" "/data/$SECONDARY"
-    configure_nfs_ports_on_ubuntu
+    if [[ $LINUX_DISTRIBUTION = "UBUNTU" ]]; then
+        configure_nfs_ports_on_ubuntu
+    fi
+    
     logMessage "--- End of preparing NFS shares"
 }
 
