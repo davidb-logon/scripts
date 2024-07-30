@@ -205,10 +205,7 @@ check_if_running_kvm_here() {
 
 prepare_system_vm_template() {
     logMessage "--- Start to preparing system VM template"
-    do_cmd "sudo /usr/share/cloudstack-common/scripts/storage/secondary/cloud-install-sys-tmplt -m /mnt/secondary -u http://download.cloudstack.org/systemvm/4.19/systemvmtemplate-4.19.0-kvm.qcow2.bz2 -h kvm -F" \
-            "SystemVM template for KVM has been seeded in secondary storage" \
-            "Unable to seed secondary storage with SystemVM template"
-
+    12_install_systemvm_for_kvm.sh
     logMessage "--- End of preparing system VM template"
 }
   
