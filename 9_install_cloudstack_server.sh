@@ -61,12 +61,14 @@ init_vars() {
     case "$LINUX_DISTRIBUTION" in
     "UBUNTU")
         CMD="apt"
+        MYSQL_SERVICE="mysql"
         SEFI_NETWORK="80.178.85.20"
         MAINFRAME_NETWORK="204.90.115.226"
         LOCAL_IP="192.168.1.248"
       ;;
     "RHEL")
         CMD="yum"
+        MYSQL_SERVICE="mysqld"
         SEFI_NETWORK="80.178.85.20"
         MAINFRAME_NETWORK="204.90.115.226"
         LOCAL_IP="204.90.115.226"
@@ -139,6 +141,7 @@ install_management_server() {
     "UBUNTU")
         do_cmd "$CMD update"  # Update apt's or yum's index, to ensure getting the latest version.
         do_cmd "$CMD install cloudstack-management"
+
         ;;
     "RHEL")
         do_cmd "$CMD update"  # Update apt's or yum's index, to ensure getting the latest version.
@@ -165,7 +168,7 @@ install_and_configure_mysql_database() {
     logMessage "--- Start to install and configure mysql"
     do_cmd "$CMD install mysql-server" "mysql-server installed."
     check_mysql_configuration
-    do_cmd "systemctl restart mysql" "mysql server was started" "failed to start mysql server"
+    do_cmd "systemctl restart $MYSQL_SERVICE" "mysql server was started" "failed to start mysql server"
     # cloudstack-setup-databases cloud:<dbpassword>@localhost [ --deploy-as=root:<password> | --schema-only ] -e <encryption_type> -m <management_server_key> -k <database_key> -i <management_server_ip>
     do_cmd "cloudstack-setup-databases cloud:cloud@localhost --deploy-as=root"
     logMessage "--- End of installing and configuring mysql"
