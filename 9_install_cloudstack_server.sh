@@ -46,6 +46,15 @@ main() {
     
     if [[ $LINUX_DISTRIBUTION = "UBUNTU" ]]; then
         11_configure_firewall.sh #$SEFI_NETWORK $MAINFRAME_NETWORK
+    else
+        logMessage "Start to Configure firewall for Red Hat"
+        do_cmd "firewall-cmd --permanent --add-port=8080/tcp"
+        do_cmd "firewall-cmd --permanent --add-port=8250/tcp"
+        do_cmd "firewall-cmd --permanent --add-port=8443/tcp"
+        do_cmd "firewall-cmd --permanent --add-port=9090/tcp"
+        do_cmd "firewall-cmd --permanent --add-port=5000/tcp"
+        do_cmd "firewall-cmd --reload"
+        logMessage "End of Configure firewall for Red Hat"
     fi
 
     prepare_system_vm_template
@@ -141,7 +150,6 @@ install_management_server() {
     "UBUNTU")
         do_cmd "$CMD update"  # Update apt's or yum's index, to ensure getting the latest version.
         do_cmd "$CMD install cloudstack-management"
-
         ;;
     "RHEL")
         do_cmd "$CMD update"  # Update apt's or yum's index, to ensure getting the latest version.
