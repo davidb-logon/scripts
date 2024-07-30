@@ -92,6 +92,7 @@ generate_certifiate_for_client() {
     do_cmd "sed -i 's/cert client.crt/cert $client.crt/g' $client.ovpn"
     do_cmd "sed -i 's/key client.key/key $client.key/g' $client.ovpn"
     do_cmd "sed -i 's/remote my-server-1/remote $vpnserver/g' $client.ovpn"
+    do_cmd "echo 'route 192.168.122.0 255.255.255.0' >> $client.ovpn"
     do_cmd "zip $client.ovpn.zip $client.ovpn $client.key $client.crt ca.crt ta.key"
     logMessage "$client.ovpn.zip"
 }
