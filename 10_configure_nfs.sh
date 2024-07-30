@@ -41,7 +41,7 @@ prepare_nfs_shares() {
 
 prepare_os() {
     if [[ $LINUX_DISTRIBUTION = "RHEL" ]]; then
-        do_cmd "sudo mount_iso_for_mainframe.sh"
+        do_cmd "mount_iso_for_mainframe.sh"
     fi
 }
 
