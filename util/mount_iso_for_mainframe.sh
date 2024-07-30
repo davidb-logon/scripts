@@ -1,5 +1,9 @@
 mkdir -p /mnt/iso
 mkdir -p /mnt/linuxu
+mkdir -p /mnt/rhel86/baseos
+mkdir -p /mnt/rhel86/supp/
+mkdir -p /mnt/rhel91/BaseOs
+
 mount -t nfs 54.227.191.101:/iso /mnt/iso
 mount -t nfs 54.227.191.101:/linuxu /mnt/linuxu
 mount -o loop /mnt/iso/rhel/rhel-8.6-s390x-dvd.iso /mnt/rhel86/baseos
