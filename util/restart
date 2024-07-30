@@ -7,7 +7,6 @@ sleep 5
 for logfile in /var/log/cloudstack/management/management-server.log \
                /var/log/cloudstack/management/apilog.log \
                /var/log/cloudstack/agent/agent.log; do
-
     sudo touch $logfile
     sudo truncate --size 0 $logfile
 done
@@ -17,4 +16,6 @@ sudo virsh net-autostart default
 virsh net-list
 sleep 5
 sudo systemctl restart cloudstack-management.service
-sudo systemctl restart cloudstack-agent.service
+if systemctl list-unit-files | grep -q 'cloudstack-agent.service'; then
+    sudo systemctl restart cloudstack-agent.service
+fi
