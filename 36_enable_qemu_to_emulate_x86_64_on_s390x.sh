@@ -41,15 +41,54 @@ parse_command_line_arguments() {
 
 install_qemu_prerequisites() {
     logMessage "Start installing qemu prerequisites"
+    do_cmd "yum update -y"
     do_cmd "yum install cmake -y"
     do_cmd "yum install sparse -y"
     do_cmd "yum install glib2-devel -y"
     do_cmd "yum install flex -y"
-    do_cmd "pip3 install tomli"
-
-    # had to compile the utility ninja
-    # git clone https://github.com/ninja-build/ninja.git
+    logMessage "Installing python qemu prerequisites"
+    do_cmd "python3.8 -m pip install tomli sphinx sphinx_rtd_theme"
+    logMessage "Installing ninja"
+    cd /data
+    do_cmd "git clone https://github.com/ninja-build/ninja.git"
+    cd ninja
+    do_cmd "./configure.py --bootstrap"
+    do_cmd "ln -fs /data/ninja/ninja /usr/bin/ninja"
+    logMessage "Installing glib2 version 2.66.0"
+    install_glib2
     logMessage "End installing qemu prerequisites"
+}
+
+install_glib2() {
+    # Variables
+    GLIB_VERSION="2.66.0"
+    GLIB_URL="https://download.gnome.org/sources/glib/2.66/glib-${GLIB_VERSION}.tar.xz"
+
+    do_cmd "yum groupinstall -y 'Development Tools'"
+    do_cmd "yum install -y wget gettext-devel libffi-devel zlib-devel"
+    cd /data
+    do_cmd "wget ${GLIB_URL} -O glib-${GLIB_VERSION}.tar.xz"
+    do_cmd "tar -xf glib-${GLIB_VERSION}.tar.xz"
+    do_cmd "cd glib-${GLIB_VERSION}"
+
+    # Configure, compile, and install glib2
+    do_cmd "./configure"
+    do_cmd "make"
+    do_cmd "make install"
+
+    # Update library cache
+    do_cmd "ldconfig"
+
+    # Verify the installation
+    if pkg-config --modversion glib-2.0; then
+        logMessage "glib2 version ${GLIB_VERSION} installed successfully."
+    else
+        logMessage "Failed to install glib2 version ${GLIB_VERSION}."
+    fi
+
+    # Cleanup
+    cd ..
+    rm -rf glib-${GLIB_VERSION} glib-${GLIB_VERSION}.tar.xz
 }
 
 compile_qemu() {
@@ -60,7 +99,7 @@ compile_qemu() {
         do_cmd "git clone https://git.qemu.org/git/qemu.git"
     fi
     cd qemu
-    do_cmd "./configure --target-list='x86_64-softmmu' --enable-kvm"
+    do_cmd "./configure --target-list='x86_64-softmmu' --enable-kvm --python=python3.8"
     do_cmd "make"           
     do_cmd "make install"
     logMessage "End compiling qemu"
