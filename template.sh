@@ -1,7 +1,14 @@
 #!/bin/bash
+
 #------------------------------------------------------------------------------
 # Licensed Materials (c) Copyright Log-On 2024, All Rights Reserved.
 #------------------------------------------------------------------------------
+
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
+source "$DIR/lib/common.sh"
+
+script_ended_ok=false
+trap 'cleanup' EXIT
 
 main() {
     start_time=$(date +%s)
@@ -38,16 +45,5 @@ This script
 EOF
 script_ended_ok=true
 }
-
-#-------------------------------------------------------#
-#                Start script execution                 #
-#-------------------------------------------------------#
-
-# Source script libraries as needed.
-DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
-source "$DIR/lib/common.sh"
-
-script_ended_ok=false
-trap 'cleanup' EXIT
 
 main "$@"
