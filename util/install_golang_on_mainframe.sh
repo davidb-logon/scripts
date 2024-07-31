@@ -39,8 +39,9 @@ init_vars() {
     init_utils_vars $1 $2
     GO_VERSION="1.22.5"
     GO_TAR_URL="https://go.dev/dl/go${GO_VERSION}.linux-s390x.tar.gz"
-    GO_PATH_LINE="export PATH=\$PATH:${INSTALL_DIR}/go/bin"
     INSTALL_DIR="/usr/local"
+    GO_PATH_LINE="export PATH=${INSTALL_DIR}/go/bin:${PATH}"
+    
 }
 
 download_golang_for_mainframe() {
