@@ -55,7 +55,10 @@ install_qemu_prerequisites() {
 compile_qemu() {
     logMessage "Start compiling qemu"
     cd /data
-    do_cmd "git clone https://git.qemu.org/git/qemu.git"
+    if ! [ -d qemu ]; then  
+        logMessage "qemu dir does not exists. cloning."
+        do_cmd "git clone https://git.qemu.org/git/qemu.git"
+    fi
     cd qemu
     do_cmd "./configure --target-list="x86_64-softmmu" --enable-kvm"
     do_cmd "make"           
