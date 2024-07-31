@@ -7,7 +7,7 @@ main() {
     init_vars "logon" "install_cloudmonkey_and_jq"
     parse_command_line_arguments "$@"
     start_logging
-    do_cmd "sudo wget -O /usr/bin/cmk https://github.com/apache/cloudstack-cloudmonkey/releases/download/6.3.0/cmk.linux.x86-64" "Got cloudmonkey x86-64 binary into /usr/bin"
+    do_cmd "sudo wget -O /usr/bin/cmk https://github.com/apache/cloudstack-cloudmonkey/releases/download/6.4.0/cmk.linux.x86-64" "Got cloudmonkey x86-64 binary into /usr/bin"
     do_cmd "sudo chmod +x /usr/bin/cmk" "Made cmk executable"
     do_cmd "hash -d cmk" "Refreshed bash's cache"
     do_cmd "sudo apt-get install jq" "Installed jq, for json processing in bash"
