@@ -403,6 +403,9 @@ EOF
     do_cmd "systemctl daemon-reload"
     do_cmd "systemctl enable openvpn@client.service"
     do_cmd "systemctl restart openvpn@client.service"
+else
+    logMessage "--- No .ovpn file found in current directory"
+    logMessage "--- Need to run it ar the same directory as the .ovpn file"
 fi
 
 }
@@ -459,5 +462,5 @@ install_openvpn() {
 #                Start script execution                 #
 #-------------------------------------------------------#
 
-main "$@"
-#main_setup_client "$@"
+#main "$@"
+main_setup_client "$@"
