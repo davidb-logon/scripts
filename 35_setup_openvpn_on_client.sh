@@ -384,6 +384,7 @@ if [[ $(ls *.ovpn | grep -c ".ovpn") == 1 ]]; then
     do_cmd "clientName=$(ls *.ovpn)"
     logMessage "--- Start generating service for client: $clientName"
     do_cmd "CLIENT_DIR=$(pwd)"
+    do_cmd "cp * /etc/openvpn/client/"
     cat << EOF > /etc/systemd/system/openvpn@client.service
 [Unit]
 Description=OpenVPN Client Service - $clientName
