@@ -384,7 +384,14 @@ if [[ $(ls *.ovpn | grep -c ".ovpn") == 1 ]]; then
     do_cmd "clientName=$(ls *.ovpn)"
     logMessage "--- Start generating service for client: $clientName"
     do_cmd "CLIENT_DIR=$(pwd)"
-    do_cmd "cp * /etc/openvpn/client/"
+    do_cmd "export OVPNCLIENT='/etc/openvpn/client/'"
+    do_cmd "cp * $OVPNCLIENT"
+    #for linux we need to add full path for the keys
+    sed -i s/ca ca.crt/ca \/etc\/openvpn\/client\/ca.crt/g $OVPNCLIENT$clientName.ovpn
+    sed -i s/cert $clientName.crt/cert \/etc\/openvpn\/client\/$clientName.crt/g $OVPNCLIENT$clientName.ovpn
+    sed -i s/key $clientName.key/key \/etc\/openvpn\/client\/$clientName.key/g $OVPNCLIENT$clientName.ovpn
+    sed -i s/key $clientName.key/key \/etc\/openvpn\/client\/$clientName.key/g $OVPNCLIENT$clientName.ovpn
+    sed -i s/tls-auth ta.key 1/tls-auth \/etc\/openvpn\/client\/ta.key 1/g $OVPNCLIENT$clientName.ovpn
     cat << EOF > /etc/systemd/system/openvpn@client.service
 [Unit]
 Description=OpenVPN Client Service - $clientName
