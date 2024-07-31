@@ -364,11 +364,15 @@ ProtectHome=true
 KillMode=process
 RestartSec=5s
 Restart=on-failure
+ExecStartPost=/etc/openvpn/fwovpn.sh
 
 [Install]
 WantedBy=multi-user.target
 EOF
 fi
+do_cmd "cp $SCRIPT_DIR/fwovpn.sh /etc/openvpn/fwovpn.sh"
+do_cmd "chmod +x /etc/openvpn/fwovpn.sh"
+do_cmd "chcon -t bin_t /etc/openvpn/fwovpn.sh"
 do_cmd "systemctl daemon-reload"
 }
 
