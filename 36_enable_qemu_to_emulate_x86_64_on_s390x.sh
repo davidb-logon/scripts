@@ -14,8 +14,8 @@ main() {
     start_time=$(date +%s)
     usage
     init_vars "logon" "cloudstack"
-    parse_command_line_arguments "$@"
     start_logging
+    check_if_root
 
     install_qemu_prerequisites
     compile_qemu
@@ -45,6 +45,8 @@ install_qemu_prerequisites() {
     do_cmd "yum install sparse -y"
     do_cmd "yum install glib2-devel -y"
     do_cmd "yum install flex -y"
+    do_cmd "pip3 install tomli"
+
     # had to compile the utility ninja
     # git clone https://github.com/ninja-build/ninja.git
     logMessage "End installing qemu prerequisites"
