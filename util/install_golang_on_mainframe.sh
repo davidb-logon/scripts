@@ -65,7 +65,7 @@ add_go_to_path() {
     local bashrc_file="${user_home}/.bashrc"
 
     if ! grep -q "${INSTALL_DIR}/go/bin" "$bashrc_file"; then
-        logMessage "Adding Go to PATH in ${bashrc_file}..."
+        logMessage "Adding $GO_PATH_LINE to ${bashrc_file}..."
         echo "$GO_PATH_LINE" >> "$bashrc_file"
     else
         logMessage "Go path already present in ${bashrc_file}"
