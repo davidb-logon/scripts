@@ -50,7 +50,9 @@ install_qemu_prerequisites() {
     do_cmd "python3.8 -m pip install tomli sphinx sphinx_rtd_theme"
     logMessage "Installing ninja"
     cd /data
-    do_cmd "git clone https://github.com/ninja-build/ninja.git"
+    if ! [ -d ninja ]; then
+        do_cmd "git clone https://github.com/ninja-build/ninja.git"
+    fi
     cd ninja
     do_cmd "./configure.py --bootstrap"
     do_cmd "ln -fs /data/ninja/ninja /usr/bin/ninja"
