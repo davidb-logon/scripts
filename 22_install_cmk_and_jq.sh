@@ -11,6 +11,7 @@ main() {
     do_cmd "sudo chmod +x /usr/bin/cmk" "Made cmk executable"
     do_cmd "hash -d cmk" "Refreshed bash's cache"
     do_cmd "sudo apt-get install jq" "Installed jq, for json processing in bash"
+    #sudo ln -s /data/cloudstack-cloudmonkey/bin/cmk /usr/bin/cmk
     script_ended_ok=true
 }
 
