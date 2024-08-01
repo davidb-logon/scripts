@@ -50,7 +50,7 @@ install_qemu_prerequisites() {
     do_cmd "python3.8 -m pip install tomli sphinx sphinx_rtd_theme meson ninja"
     ln -fs /usr/local/bin/meson /usr/bin/meson
     logMessage "Installing ninja"
-    do_cmd "yum install re2c" # Needed for warnings in ninja compile
+    
     cd /data
     if ! [ -d ninja ]; then
         do_cmd "git clone https://github.com/ninja-build/ninja.git"
@@ -63,6 +63,31 @@ install_qemu_prerequisites() {
     logMessage "End installing qemu prerequisites"
 }
 
+install_re2c() {
+    logMessage "Start installing re2c"
+    local version="2.2"
+    local workdir="/data"
+
+    # Ensure the working directory exists
+    do_cmd "cd ${workdir}"
+
+    # Download the source code
+    do_cmd "wget https://github.com/skvadrik/re2c/releases/download/${version}/re2c-${version}.tar.gz"
+
+    # Extract the tarball
+    do_cmd "tar -xzvf re2c-${version}.tar.gz"
+
+    # Change to the source directory
+    do_cmd "cd re2c-${version}"
+
+    # Build and install
+    do_cmd "./configure"
+    do_cmd "make"
+    do_cmd "make install"
+    cd ..
+    logMessage "End installing re2c"
+}
+
 install_glib2() {
     # Variables
     GLIB_VERSION="2.66.0"
@@ -72,6 +97,7 @@ install_glib2() {
     do_cmd "yum install -y wget gettext-devel libffi-devel zlib-devel"
     do_cmd "yum install -y ibmount-devel libselinux-devel"
     cd /data
+    install_re2c
     do_cmd "rm -rf glib-${GLIB_VERSION}"
     do_cmd "wget ${GLIB_URL} -O glib-${GLIB_VERSION}.tar.xz"
     do_cmd "tar -xf glib-${GLIB_VERSION}.tar.xz"
