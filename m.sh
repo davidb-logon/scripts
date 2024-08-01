@@ -1,5 +1,7 @@
 #!/bin/bash
-
+#------------------------------------------------------------------------------
+# Licensed Materials (c) Copyright Log-On 2024, All Rights Reserved.
+#------------------------------------------------------------------------------
 # Function to display the menu
 display_menu() {
   local files=("$@")
