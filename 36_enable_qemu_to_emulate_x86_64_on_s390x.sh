@@ -13,7 +13,7 @@ trap 'cleanup' EXIT
 main() {
     start_time=$(date +%s)
     usage
-    init_vars "logon" "cloudstack"
+    init_vars "logon" "install_qemu_for_x86_64_on_Z"
     start_logging
     check_if_root
 
@@ -47,7 +47,8 @@ install_qemu_prerequisites() {
     do_cmd "yum install glib2-devel -y"
     do_cmd "yum install flex -y"
     logMessage "Installing python qemu prerequisites"
-    do_cmd "python3.8 -m pip install tomli sphinx sphinx_rtd_theme"
+    do_cmd "python3.8 -m pip install tomli sphinx sphinx_rtd_theme meson ninja"
+    ln -fs /usr/local/bin/meson /usr/bin/meson
     logMessage "Installing ninja"
     cd /data
     if ! [ -d ninja ]; then
