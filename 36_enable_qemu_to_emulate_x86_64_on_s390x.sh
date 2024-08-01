@@ -50,6 +50,7 @@ install_qemu_prerequisites() {
     do_cmd "python3.8 -m pip install tomli sphinx sphinx_rtd_theme meson ninja"
     ln -fs /usr/local/bin/meson /usr/bin/meson
     logMessage "Installing ninja"
+    do_cmd "yum install re2c" # Needed for warnings in ninja compile
     cd /data
     if ! [ -d ninja ]; then
         do_cmd "git clone https://github.com/ninja-build/ninja.git"

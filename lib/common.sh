@@ -269,7 +269,7 @@ ensure_dir_does_not_exist() {
 
 do_cmd() {
     local command="$1"
-    local command_prefix=$(set -- $command; echo "$1 $2")
+    local command_prefix=$(set -- $command; echo "$1 $2 $3 $4")
     local success_message="${2:-$command_prefix}"
     local error_or_info_message="${3:-$command_prefix}"
 
@@ -282,7 +282,6 @@ do_cmd() {
         return
     fi
 
-    echo "error processinf"
     if [[ "${command:0:7}" == "result=" ]]; then
         detailed_error=", $result"
     fi
