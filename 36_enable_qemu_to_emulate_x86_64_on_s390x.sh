@@ -46,6 +46,7 @@ install_qemu_prerequisites() {
     do_cmd "yum install sparse -y"
     do_cmd "yum install glib2-devel -y"
     do_cmd "yum install flex -y"
+    install_re2c
     logMessage "Installing python qemu prerequisites"
     do_cmd "python3.8 -m pip install tomli sphinx sphinx_rtd_theme meson ninja"
     ln -fs /usr/local/bin/meson /usr/bin/meson
@@ -95,9 +96,9 @@ install_glib2() {
 
     do_cmd "yum groupinstall -y 'Development Tools'"
     do_cmd "yum install -y wget gettext-devel libffi-devel zlib-devel"
-    do_cmd "yum install -y ibmount-devel libselinux-devel"
+    do_cmd "yum install -y libmount-devel libselinux-devel"
     cd /data
-    install_re2c
+    
     do_cmd "rm -rf glib-${GLIB_VERSION}"
     do_cmd "wget ${GLIB_URL} -O glib-${GLIB_VERSION}.tar.xz"
     do_cmd "tar -xf glib-${GLIB_VERSION}.tar.xz"
