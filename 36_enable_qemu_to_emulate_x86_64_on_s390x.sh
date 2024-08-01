@@ -76,7 +76,7 @@ install_re2c() {
     do_cmd "wget https://github.com/skvadrik/re2c/releases/download/${version}/re2c-${version}.tar.xz"
 
     # Extract the tarball
-    do_cmd "tar -xzvf re2c-${version}.tar.xz"
+    do_cmd "tar -xvf re2c-${version}.tar.xz"
 
     # Change to the source directory
     do_cmd "cd re2c-${version}"
