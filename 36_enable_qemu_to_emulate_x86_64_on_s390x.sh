@@ -96,7 +96,7 @@ install_glib2() {
 
     do_cmd "yum groupinstall -y 'Development Tools'"
     do_cmd "yum install -y wget gettext-devel libffi-devel zlib-devel"
-    do_cmd "yum install -y libmount-devel libselinux-devel"
+    do_cmd "yum install -y libmount libselinux"
     cd /data
     
     do_cmd "rm -rf glib-${GLIB_VERSION}"
