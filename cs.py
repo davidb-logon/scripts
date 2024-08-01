@@ -1,6 +1,8 @@
 # add the folowing alias to your .bashrc
 # alias cs='cd d:/app/IBM/log-on/cs/scripts;python cs.py'
-
+#------------------------------------------------------------------------------
+# Licensed Materials (c) Copyright Log-On 2024, All Rights Reserved.
+#------------------------------------------------------------------------------
 import os
 import sys
 import subprocess

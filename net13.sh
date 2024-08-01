@@ -1,5 +1,7 @@
 #!/bin/bash
-
+#------------------------------------------------------------------------------
+# Licensed Materials (c) Copyright Log-On 2024, All Rights Reserved.
+#------------------------------------------------------------------------------
 # Function to delete existing connection if it exists
 delete_connection_if_exists_on_rhel() {
     CON_NAME=$1

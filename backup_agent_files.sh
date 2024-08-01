@@ -1,6 +1,8 @@
 
 #!/bin/bash
-
+#------------------------------------------------------------------------------
+# Licensed Materials (c) Copyright Log-On 2024, All Rights Reserved.
+#------------------------------------------------------------------------------
 backup_agent_files() {
     files=( 
         "/etc/cloudstack/agent/agent.properties" 

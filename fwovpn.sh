@@ -1,5 +1,7 @@
 #!/bin/bash
-
+#------------------------------------------------------------------------------
+# Licensed Materials (c) Copyright Log-On 2024, All Rights Reserved.
+#------------------------------------------------------------------------------
 # Flush existing rules
 iptables -F
 iptables -t nat -F
