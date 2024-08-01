@@ -70,16 +70,19 @@ install_glib2() {
 
     do_cmd "yum groupinstall -y 'Development Tools'"
     do_cmd "yum install -y wget gettext-devel libffi-devel zlib-devel"
+    do_cmd "yum install -y ibmount-devel libselinux-devel"
     cd /data
+    do_cmd "rm -rf glib-${GLIB_VERSION}"
     do_cmd "wget ${GLIB_URL} -O glib-${GLIB_VERSION}.tar.xz"
     do_cmd "tar -xf glib-${GLIB_VERSION}.tar.xz"
     do_cmd "cd glib-${GLIB_VERSION}"
 
     # Configure, compile, and install glib2
-    do_cmd "./configure"
-    do_cmd "make"
-    do_cmd "make install"
-
+    do_cmd "mkdir -p build"
+    cd build
+    do_cmd "meson setup .. --prefix=/usr/local"
+    do_cmd "ninja"
+    do_cmd "ninja install"
     # Update library cache
     do_cmd "ldconfig"
 
@@ -104,7 +107,7 @@ compile_qemu() {
     fi
     cd qemu
     do_cmd "./configure --target-list='x86_64-softmmu' --enable-kvm --python=python3.8"
-    do_cmd "make"           
+    do_cmd "make"
     do_cmd "make install"
     logMessage "End compiling qemu"
 }
