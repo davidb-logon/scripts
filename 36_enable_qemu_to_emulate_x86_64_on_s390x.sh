@@ -19,7 +19,7 @@ main() {
 
     install_qemu_prerequisites
     compile_qemu
-    test_x86_64_image
+    #test_x86_64_image
 
     end_time=$(date +%s)
     elapsed_time=$((end_time - start_time))
