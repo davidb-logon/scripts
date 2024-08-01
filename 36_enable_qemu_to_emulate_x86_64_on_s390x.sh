@@ -66,17 +66,17 @@ install_qemu_prerequisites() {
 
 install_re2c() {
     logMessage "Start installing re2c"
-    local version="2.2"
+    local version="3.1"
     local workdir="/data"
 
     # Ensure the working directory exists
     do_cmd "cd ${workdir}"
 
     # Download the source code
-    do_cmd "wget https://github.com/skvadrik/re2c/releases/download/${version}/re2c-${version}.tar.gz"
+    do_cmd "wget https://github.com/skvadrik/re2c/releases/download/${version}/re2c-${version}.tar.xz"
 
     # Extract the tarball
-    do_cmd "tar -xzvf re2c-${version}.tar.gz"
+    do_cmd "tar -xzvf re2c-${version}.tar.xz"
 
     # Change to the source directory
     do_cmd "cd re2c-${version}"
