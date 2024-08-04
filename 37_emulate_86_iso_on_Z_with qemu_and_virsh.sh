@@ -45,15 +45,7 @@ starting_qemu_to_install_the_os(){
     # Install the OS using QEMU
     logMessage "Starting QEMU to install the OS..."
     
-    do_cmd "qemu-system-x86_64 \
-        -m $MEMORY \
-        -cdrom $ISO_FILE \
-        -drive file=$DISK_IMAGE,format=qcow2,if=virtio \
-        -boot d \
-        -enable-kvm \
-        -cpu host \
-        -net nic -net user \
-        -vnc :0 &"
+    do_cmd "qemu-system-x86_64 -m $MEMORY -cdrom $ISO_FILE -drive file=$DISK_IMAGE,format=qcow2,if=virtio -boot d -enable-kvm -cpu host -net nic -net user -vnc :0 &"
     logMessage "End QEMU to install the OS..."
 }
 
