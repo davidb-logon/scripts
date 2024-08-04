@@ -132,6 +132,7 @@ compile_qemu() {
     if ! [ -d qemu ]; then  
         logMessage "qemu dir does not exists. cloning."
         do_cmd "git clone https://git.qemu.org/git/qemu.git"
+        do_cmd "git fetch; git checkout -b stable-8.2 origin/stable-8.2" # version 9 is not compatible with our virsh
     fi
     cd qemu
     do_cmd "./configure --target-list='x86_64-softmmu' --enable-kvm --python=python3.8"
