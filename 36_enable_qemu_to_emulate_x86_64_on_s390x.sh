@@ -134,7 +134,7 @@ compile_qemu() {
         do_cmd "git clone https://git.qemu.org/git/qemu.git"
     fi
     cd qemu
-    do_cmd "./configure --target-list='x86_64-softmmu' --enable-kvm --python=python3.8"
+    do_cmd "./configure --target-list='x86_64-softmmu' --enable-kvm --python=python3.8 --enable-acpi"
     do_cmd "make"
     do_cmd "make install"
     logMessage "End compiling qemu"
