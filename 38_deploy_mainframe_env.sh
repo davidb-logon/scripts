@@ -75,7 +75,8 @@ delete_everything() {
 delete_all_objects () {
     objects=$1
     object="${objects%?}"
-    ids=$(cmk list $objects | grep "^id =" | awk '{print $3}')
+    #ids=$(cmk list $objects | grep "^id =" | awk '{print $3}')
+    ids=$(cmk list $objects | jq -r ".${object}[].id")
 
     if [[ "$ids" =~ ^[[:space:]]*$ ]]; then
         logMessage "--- No $objects found to delete."
