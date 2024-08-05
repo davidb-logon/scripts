@@ -153,14 +153,15 @@ create_zone() {
     local zone_name="$1"
     #cmd="cmk create zone dns1=$IP_EXTERNAL_DNS internaldns1=$IP_HOME_DNS name=ubuntu_zone1 networktype=Basic"
     do_cmd 'result=$(cmk create zone dns1=8.8.8.8 internaldns1=192.168.122.1 name='$zone_name' networktype=Basic)' "Zone created." "Zone creation failed."
-    ZONE_ID=$(echo $result | sed 's/zone = //g' | jq -r '.id')
+    #ZONE_ID=$(echo $result | sed 's/zone = //g' | jq -r '.id')
+    ZONE_ID=$(echo "$result" | jq -r '.zone.id')
     logMessage "Zone: $ZONE_ID created."
 }
 
 create_physical_network() {
   local zone_id=$1
   do_cmd 'result=$(cmk create physicalnetwork name=phy-network zoneid='$zone_id')' "Network created." "Network creation failed."
-  PHY_ID=$(echo $result | sed 's/physicalnetwork = //g' | jq -r '.id')
+  PHY_ID=$(echo $result | jq -r '.physicalnetwork.id')
   logMessage "--- Physical Network: $PHY_ID created."
 }
 
@@ -168,7 +169,7 @@ add_traffic_type() {
     local phy_id="$1"
     local traffic_type="$2"
     do_cmd 'result=$(cmk add traffictype traffictype='$traffic_type' physicalnetworkid='$phy_id')'   "Traffic type $traffic_type added."  "Failed to add Traffic type $traffic_type"  
-    TRAFFIC_TYPE_ID=$(echo $result | sed 's/traffictype = //g' | jq -r '.id')
+    TRAFFIC_TYPE_ID=$(echo $result | jq -r '.traffictype.id')
     logMessage "--- Traffic type $traffic_type: $TRAFFIC_TYPE_ID added"
 }
 
@@ -201,7 +202,7 @@ create_network() {
     logMessage "--- Found Network Offering for Shared with Security Groups: $netoff_id"
     do_cmd 'result=$(cmk create network zoneid='$zone_id' name=guestNetworkForBasicZone displaytext=guestNetworkForBasicZone networkofferingid='$netoff_id')' \
         "Network created." "Network creation failed."
-    NETWORK_ID=$(echo $result | sed 's/network = //g' | jq -r '.id')
+    NETWORK_ID=$(echo $result | jq -r '.network.id')
     logMessage "--- Network: $NETWORK_ID created."
 }
 
@@ -210,7 +211,7 @@ create_pod() {
     local pod_name="$2"
     do_cmd 'result=$(cmk create pod name='$pod_name' zoneid='$zone_id' gateway='$IP_HOME_GATEWAY' netmask='$NETMASK' startip='$POD_START_IP' endip='$POD_END_IP')' \
         "Pod $pod_name created." "Pod $pod_name creation failed."
-    POD_ID=$(echo $result | sed 's/pod = //g' | jq -r '.id')
+    POD_ID=$(echo $result | jq -r '.pod.id')
     logMessage "--- Pod: $POD_ID created."
 }
 
@@ -218,7 +219,7 @@ create_vlan_ip_range() {
     local pod_id="$1"
     local network_id="$2"
     do_cmd 'result=$(cmk create vlaniprange podid='$pod_id' networkid='$network_id' gateway='$IP_HOME_GATEWAY' netmask='$NETMASK' startip='$VLAN_START_IP' endip='$VLAN_END_IP' forvirtualnetwork=false)' 
-    VLAN_RANGE_ID=$(echo $result | sed 's/vlan = //g' | jq -r '.id')
+    VLAN_RANGE_ID=$(echo $result | jq -r '.vlan.id')
     logMessage "--- VLAN Range for instances: $VLAN_RANGE_ID created."    
 
 } 
