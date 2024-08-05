@@ -182,13 +182,16 @@ enable_physical_network() {
 enable_virtual_router_element() {
     local phy_id="$1"
     
-    local nsp_id=$(cmk list networkserviceproviders name=VirtualRouter physicalnetworkid=$phy_id | grep "^id =" | awk '{print $3}')
+    #local nsp_id=$(cmk list networkserviceproviders name=VirtualRouter physicalnetworkid=$phy_id | grep "^id =" | awk '{print $3}')
+    local nsp_id=$(cmk list networkserviceproviders name=VirtualRouter physicalnetworkid=$phy_id |  jq -r ".networkserviceprovider[].id")
     logMessage "--- Found Network Service Provider for physical network: $nsp_id"
     
-    local vre_id=$(cmk list virtualrouterelements nspid=$nsp_id | grep "^id =" | awk '{print $3}')
+    #local vre_id=$(cmk list virtualrouterelements nspid=$nsp_id | grep "^id =" | awk '{print $3}')
+    local vre_id=$(cmk list virtualrouterelements nspid=$nsp_id | jq -r ".virtualrouterelement[].id")
     logMessage "--- Found Virtual Router Element for Virtual Router: $vre_id"
     
-    local nsp_sg_id=$(cmk list networkserviceproviders name=SecurityGroupProvider physicalnetworkid=$phy_id | grep "^id =" | awk '{print $3}')
+    #local nsp_sg_id=$(cmk list networkserviceproviders name=SecurityGroupProvider physicalnetworkid=$phy_id | grep "^id =" | awk '{print $3}')
+    local nsp_sg_id=$(cmk list networkserviceproviders name=SecurityGroupProvider physicalnetworkid=$phy_id | jq -r ".networkserviceprovider[].id")
     logMessage "--- Found Security Group Provider for physical network: $nsp_sg_id"
     
     do_cmd 'result=$(cmk configure virtualrouterelement enabled=true id='$vre_id')' "Virtual Router Element $vre_id enabled." "Virtual Router Element $vre_id not enabled."        
@@ -199,7 +202,8 @@ enable_virtual_router_element() {
 
 create_network() {
     local zone_id="$1"
-    local netoff_id=$(cmk list networkofferings name=DefaultSharedNetworkOfferingWithSGService | grep "^id =" | awk '{print $3}')
+    #local netoff_id=$(cmk list networkofferings name=DefaultSharedNetworkOfferingWithSGService | grep "^id =" | awk '{print $3}')
+    local netoff_id=$(cmk list networkofferings name=DefaultSharedNetworkOfferingWithSGService | jq -r ".networkoffering[].id")
     logMessage "--- Found Network Offering for Shared with Security Groups: $netoff_id"
     do_cmd 'result=$(cmk create network zoneid='$zone_id' name=guestNetworkForBasicZone displaytext=guestNetworkForBasicZone networkofferingid='$netoff_id')' \
         "Network created." "Network creation failed."
