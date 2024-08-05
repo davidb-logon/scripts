@@ -113,7 +113,7 @@ configure_libvirt() {
     #     logMessage "--- AppArmor is not installed. No action required for security policies."
     # fi
 
-    configure_libvirtd_listen
+    # configure_libvirtd_listen
 
     logMessage "--- Restarting libvirtd service..."
     systemctl restart libvirtd
@@ -129,12 +129,12 @@ configure_libvirtd_listen() {
     # Create or edit the override file to ensure libvirtd starts with the --listen parameter
     bash -c 'cat > /etc/systemd/system/libvirtd.service.d/10-listen.conf << EOF
 [Service]
-ExecStart=
-ExecStart=/usr/sbin/libvirtd --listen
+Environment="LIBVIRTD_ARGS=--listen"
+ExecStart=/usr/sbin/libvirtd
 EOF'
     
     # Reload systemd to apply the changes
-    systemctl daemon-reload
+
 
     # Enable and restart the libvirtd service
     systemctl enable libvirtd

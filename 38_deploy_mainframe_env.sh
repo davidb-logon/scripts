@@ -20,6 +20,7 @@ main() {
     create_vlan_ip_range "$POD_ID" "$NETWORK_ID"
     create_cluster "$ZONE_ID" "$POD_ID" "dlinux_cluster"
     update_hyprvisor_host_ip "$DLINUX_IP"
+    add_ssh_key_to_cloudstack
     add_host "$DLINUX_IP" "$DLINUX_USER" "$DLINUX_PASSWORD" "$ZONE_ID" "$POD_ID" "$CLUSTER_ID"
     
     add_primary_storage "$ZONE_ID" "$POD_ID" "$CLUSTER_ID" "dlinux_primary" 
@@ -31,6 +32,11 @@ main() {
     elapsed_time=$((end_time - start_time))
     logMessage "The script took $elapsed_time seconds to complete."
     script_ended_ok=true
+}
+
+add_ssh_key_to_cloudstack() {
+    do_cmd "cmk delete sshkeypair name=host_key" "successfully deleted keypair host_key" "INFO: keypair does not exist"
+    do_cmd 'cmk create sshkeypair name=host_key publickey=\"'$(cat /root/.ssh/id_rsa.pub)'\"' "Successfully added key pair" "failed to add keypair"
 }
 
 init_vars() {
@@ -48,7 +54,7 @@ init_vars() {
     VLAN_END_IP="${IP_PREFIX}.179"
 
     DLINUX_IP="192.168.122.1"
-    DLINUX_USER=root
+    DLINUX_USER=sefi
     DLINUX_PASSWORD=logon1vm
     DLINUX_PRIMARY_STORAGE="nfs://192.168.122.1/data/mainframe_primary"
     DLINUX_SECONDARY_STORAGE="nfs://192.168.122.1/data/mainframe_secondary"
@@ -247,7 +253,9 @@ add_host() {
     local zone_id="$4"
     local pod_id="$5"
     local cluster_id="$6"
-    do_cmd 'result=$(cmk add host zoneid='$zone_id' podid='$pod_id' clusterid='$cluster_id' hypervisor='$HYPERVISOR' username='$host_user' password='$host_password' url=http://'$host_ip')' 
+    #hostname=192.168.1.100 username=cloudstackuser sshkeypair="my-ssh-keypair"
+
+    do_cmd 'result=$(cmk add host zoneid='$zone_id' podid='$pod_id' clusterid='$cluster_id' hypervisor='$HYPERVISOR' username='$host_user' sshkeypair=host_key url=http://'$host_ip')' 
     #HOST_ID=$(echo $result | grep -oP ' id = \K[^ ]+') # Special treatment of the result output here. It is not json, nor is it lines of text...
     HOST_ID=$(echo $result | jq -r ".host[].id") # Special treatment of the result output here. It is not json, nor is it lines of text...
     logMessage "--- Host: $HOST_ID created."
