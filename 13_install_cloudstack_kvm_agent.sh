@@ -55,7 +55,7 @@ update_libvirt_config_file() {
         fi
     else
         logMessage "--- Adding $setting to $file."
-        logMessage "--- $setting = $value" >> "$file"
+        echo "$setting = $value" >> "$file"
     fi
 }
 

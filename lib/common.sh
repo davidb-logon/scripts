@@ -267,6 +267,24 @@ ensure_dir_does_not_exist() {
     fi
 } 
 
+# Function to update configuration file thanks chatGpt.
+update_config_file() {
+    local file=$1
+    local setting=$2
+    local value=$3
+    if grep -q "^#*$setting" "$file"; then
+        if grep -q "^$setting\s*=\s*$value" "$file"; then
+            logMessage "--- No change needed for $setting in $file."
+        else
+            logMessage "--- Updating $setting in $file."
+            sed -i "s/^#*$setting\s*=.*/$setting = $value/" "$file"
+        fi
+    else
+        logMessage "--- Adding $setting to $file."
+        echo "$setting = $value" >> "$file"
+    fi
+}
+
 do_cmd() {
     local command="$1"
     local command_prefix=$(set -- $command; echo "$1 $2 $3 $4")
