@@ -234,7 +234,8 @@ create_cluster () {
     local pod_id="$2"
     local cluster_name="$3"
     do_cmd 'result=$(cmk add cluster zoneid='$zone_id' hypervisor='$HYPERVISOR' clustertype=CloudManaged podid='$pod_id' clustername='$cluster_name')' 
-    CLUSTER_ID=$(echo $result | grep -oP ' id = \K[^ ]+') # Special treatment of the result output here. It is not json, nor is it lines of text...
+    #CLUSTER_ID=$(echo $result | grep -oP ' id = \K[^ ]+') # Special treatment of the result output here. It is not json, nor is it lines of text...
+    CLUSTER_ID=$(echo $result | jq -r ".cluster[].id")
     logMessage "--- Cluster: $CLUSTER_ID created."     
 }
 
@@ -246,7 +247,8 @@ add_host() {
     local pod_id="$5"
     local cluster_id="$6"
     do_cmd 'result=$(cmk add host zoneid='$zone_id' podid='$pod_id' clusterid='$cluster_id' hypervisor='$HYPERVISOR' username='$host_user' password='$host_password' url=http://'$host_ip')' 
-    HOST_ID=$(echo $result | grep -oP ' id = \K[^ ]+') # Special treatment of the result output here. It is not json, nor is it lines of text...
+    #HOST_ID=$(echo $result | grep -oP ' id = \K[^ ]+') # Special treatment of the result output here. It is not json, nor is it lines of text...
+    HOST_ID=$(echo $result | jq -r ".host[].id") # Special treatment of the result output here. It is not json, nor is it lines of text...
     logMessage "--- Host: $HOST_ID created."
 }
 
@@ -257,7 +259,8 @@ add_primary_storage() {
     local cluster_id="$3"
     local primary_storage_name="$4"
     do_cmd 'result=$(cmk create storagepool zoneid='$zone_id' podid='$pod_id' clusterid='$cluster_id' name='$primary_storage_name' url='$DLINUX_PRIMARY_STORAGE')'
-    PRIMARY_STORAGE_ID=$(echo $result | grep -oP ' id = \K[^ ]+') # Special treatment of the result output here. It is not json, nor is it lines of text...
+    #PRIMARY_STORAGE_ID=$(echo $result | grep -oP ' id = \K[^ ]+') # Special treatment of the result output here. It is not json, nor is it lines of text...
+    PRIMARY_STORAGE_ID=$(echo $result | jq -r ".storagepool[].id") # Special treatment of the result output here. It is not json, nor is it lines of text...
     logMessage "--- Primary Storage: $PRIMARY_STORAGE_ID created."
 }
 
@@ -266,7 +269,8 @@ add_secondary_storage () {
     local zone_id="$1"
     local secondary_storage_name="$2"
     do_cmd 'result=$(cmk add secondarystorage zoneid='$zone_id' url='$DLINUX_SECONDARY_STORAGE')'
-    SECONDARY_STORAGE_ID=$(echo $result | grep -oP ' id = \K[^ ]+') # Special treatment of the result output here. It is not json, nor is it lines of text...
+    #SECONDARY_STORAGE_ID=$(echo $result | grep -oP ' id = \K[^ ]+') # Special treatment of the result output here. It is not json, nor is it lines of text...
+    SECONDARY_STORAGE_ID=$(echo $result | jq -r ".secondarystorage[].id") # Special treatment of the result output here. It is not json, nor is it lines of text...
     logMessage "--- Secondary Storage: $SECONDARY_STORAGE_ID created."
 }
 
