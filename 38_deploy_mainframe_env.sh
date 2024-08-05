@@ -19,6 +19,7 @@ main() {
     create_pod "$ZONE_ID" "dlinux_pod" # Creates global $POD_ID
     create_vlan_ip_range "$POD_ID" "$NETWORK_ID"
     create_cluster "$ZONE_ID" "$POD_ID" "dlinux_cluster"
+    update_hyprvisor_host_ip "$DLINUX_IP"
     add_host "$DLINUX_IP" "$DLINUX_USER" "$DLINUX_PASSWORD" "$ZONE_ID" "$POD_ID" "$CLUSTER_ID"
     
     add_primary_storage "$ZONE_ID" "$POD_ID" "$CLUSTER_ID" "dlinux_primary" 
@@ -279,6 +280,14 @@ enable_zone() {
     do_cmd 'result=$(cmk update zone allocationstate=Enabled id='$zone_id')'
     logMessage "--- Zone allocation state enabled for zone: $zone_id"    
 }
+
+update_hyprvisor_host_ip() {
+    local host_ip="$1"
+    do_cmd 'result=$(cmk update configuration name=host value=$host_ip)'
+    logMessage "--- update hyprvisor host ip: $host_ip"    
+}
+
+
 
 usage() {
 cat << EOF
