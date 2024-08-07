@@ -4,6 +4,7 @@
 #------------------------------------------------------------------------------
 # See usage for what this script does.
 # TODOs:
+# 1. Add installation of groovy, needed for agent hooks
 
 
 # Source script libraries as needed.
@@ -17,7 +18,7 @@ trap 'cleanup' EXIT
 usage() {
 cat << EOF
 -------------------------------------------------------------------------------
-Install Cloudstack KVM Agent from local repo 
+Install Cloudstack KVM Agent from a local RPM repo, built from source 
 
 Following instructions at:
 http://docs.cloudstack.apache.org/en/4.19.0.0/installguide/hypervisor/kvm.html
@@ -28,9 +29,9 @@ script_ended_ok=true
 }
 
 main() {
-    # Replace logon and template with your own values
-    init_vars "logon" "install_cloudstack_kvm_agent"
+    init_vars "logon" "install_cloudstack_kvm_agent_rhel_z"
     start_logging
+    check_if_root
     prepare_os
     configure_libvirt
     install_cloudstack_kvm_agent
@@ -44,73 +45,53 @@ init_vars() {
 prepare_os() {
     logMessage "--- Start to prepare OS"
 
-    # Check if the current user ID is 0 (root user)
-    if [ "$(id -u)" -ne 0 ]; then
-        logMessage "--- You are not root. Will prepend 'sudo' to all commands."
-        SUDO="sudo"
-    else
-        logMessage "--- Logged in as root."
-        SUDO=""
-    fi
     HOSTNAME=$(hostname --fqdn)
     confirm "--- hostname: $HOSTNAME, confirm " || exit 1
     
-
-    if ! check_if_connected_to_internet; then
-        logMessage "--- Not connected to internet"
-        exit 1
-    fi
-    logMessage "--- Connected to the internet."
-
-    do_cmd "yum -y install  ipmitool qemu-guest-agent"
-    #do_cmd "$SUDO yum -y install java-11-openjdk"
-    #do_cmd "$SUDO yum -y install python36"
-    #do_cmd "$SUDO yum -y install chrony"
-
-    do_cmd "yum update"  # Update apt's index, to ensure getting the latest version.
-    do_cmd "yum install -y libvirt libvirt-daemon libvirt-daemon-driver-qemu libvirt-client virt-install virt-manager bridge-utils"
-
+    check_if_connected_to_internet || { error_exit "--- Not connected to internet"; }
+    install_java.sh
+    do_cmd "yum update"
+    do_cmd "yum install ipmitool qemu-guest-agent -y"
+    do_cmd "yum install python38 -y"
+    do_cmd "yum install chrony -y"
+    do_cmd "yum install libvirt libvirt-daemon libvirt-daemon-driver-qemu libvirt-client virt-install virt-manager bridge-utils -y"
     logMessage "--- End of preparing OS"
 }
 
 config_visudo() {
-    #!/bin/bash
+    set -e
 
-# Exit immediately if a command exits with a non-zero status
-set -e
+    # Temporary file for storing the updated sudoers file
+    TEMP_SUDOERS=$(mktemp)
 
-# Temporary file for storing the updated sudoers file
-TEMP_SUDOERS=$(mktemp)
+    # Backup the original sudoers file
+    cp /etc/sudoers /etc/sudoers.bak
 
-# Backup the original sudoers file
-sudo cp /etc/sudoers /etc/sudoers.bak
-
-# Use visudo to safely add the line to the sudoers file
-sudo visudo -c -f /etc/sudoers.bak && {
-    # Add the desired line to the temporary file
-    sudo sh -c "echo 'Defaults    env_keep += \"PATH\"' >> $TEMP_SUDOERS"
+    # Use visudo to safely add the line to the sudoers file
+    visudo -c -f /etc/sudoers.bak && {
+        # Add the desired line to the temporary file
+        sh -c "echo 'Defaults    env_keep += \"PATH\"' >> $TEMP_SUDOERS"
     
-    # Concatenate the original sudoers file and the temporary file
-    sudo cat /etc/sudoers.bak $TEMP_SUDOERS > /etc/sudoers.new
+        # Concatenate the original sudoers file and the temporary file
+        cat /etc/sudoers.bak $TEMP_SUDOERS > /etc/sudoers.new
 
-    # Validate the new sudoers file
-    sudo visudo -c -f /etc/sudoers.new && {
-        # If validation is successful, move the new file to /etc/sudoers
-        sudo mv /etc/sudoers.new /etc/sudoers
-        echo "The line 'Defaults    env_keep += \"PATH\"' has been added to the sudoers file."
+        # Validate the new sudoers file
+        visudo -c -f /etc/sudoers.new && {
+            # If validation is successful, move the new file to /etc/sudoers
+            mv /etc/sudoers.new /etc/sudoers
+            echo "The line 'Defaults    env_keep += \"PATH\"' has been added to the sudoers file."
+        } || {
+            # If validation fails, restore the original sudoers file
+            echo "Validation failed. Restoring the original sudoers file."
+            mv /etc/sudoers.bak /etc/sudoers
+        }
     } || {
-        # If validation fails, restore the original sudoers file
-        echo "Validation failed. Restoring the original sudoers file."
-        sudo mv /etc/sudoers.bak /etc/sudoers
+        echo "The original sudoers file contains syntax errors. Aborting."
     }
-} || {
-    echo "The original sudoers file contains syntax errors. Aborting."
+    # Clean up the temporary file
+    rm -f $TEMP_SUDOERS
 }
 
-# Clean up the temporary file
-rm -f $TEMP_SUDOERS
-
-}
 configure_libvirt() {
     # Check if the OS is Ubuntu
     logMessage "-- Starting to configure libvirt"
@@ -122,36 +103,13 @@ configure_libvirt() {
     # Ensure /etc/libvirt/libvirtd.conf has the specified settings
     logMessage "--- Configuring /etc/libvirt/libvirtd.conf..."
     update_config_file "/etc/libvirt/libvirtd.conf" "listen_tls" "0"
-    update_config_file "/etc/libvirt/libvirtd.conf" "listen_tcp" "0"
+    update_config_file "/etc/libvirt/libvirtd.conf" "listen_tcp" "1"
     update_config_file "/etc/libvirt/libvirtd.conf" "tls_port" "\"16514\""
     update_config_file "/etc/libvirt/libvirtd.conf" "tcp_port" "\"16509\""
     update_config_file "/etc/libvirt/libvirtd.conf" "auth_tcp" "\"none\""
     update_config_file "/etc/libvirt/libvirtd.conf" "mdns_adv" "0"
-    
-    # # Ensure /etc/default/libvirtd has the specified line
-    # logMessage "--- Configuring /etc/sysconfig/libvirtd..."
-    # if grep -q "^LIBVIRTD_ARGS=\"--listen\"" "/etc/sysconfig/libvirtd"; then
-    #     logMessage "--- No change needed in /etc/default/libvirtd."
-    # else
-    #     logMessage "--- Updating /etc/sysconfig/libvirtd."
-    #     echo "LIBVIRTD_ARGS=\"--listen\"" >> "/etc/sysconfig/libvirtd"
-    # fi
 
     adjust_SELinux_policies_for_libvirt
-    # logMessage "--- Configuring security policies..."
-    # if dpkg --list 'apparmor' &> /dev/null; then
-    #     logMessage "--- AppArmor is installed. Configuring AppArmor profiles for Libvirt."
-
-    #     # Disable AppArmor profiles for Libvirt
-    #     ln -sf /etc/apparmor.d/usr.sbin.libvirtd /etc/apparmor.d/disable/
-    #     ln -sf /etc/apparmor.d/usr.lib.libvirt.virt-aa-helper /etc/apparmor.d/disable/
-    #     apparmor_parser -R /etc/apparmor.d/usr.sbin.libvirtd && logMessage "--- Disabled AppArmor profile for usr.sbin.libvirtd" || logMessage "--- Failed to disable AppArmor profile for usr.sbin.libvirtd"
-    #     apparmor_parser -R /etc/apparmor.d/usr.lib.libvirt.virt-aa-helper && logMessage "--- Disabled AppArmor profile for usr.lib.libvirt.virt-aa-helper" || logMessage "--- Failed to disable AppArmor profile for usr.lib.libvirt.virt-aa-helper"
-    # else
-    #     logMessage "--- AppArmor is not installed. No action required for security policies."
-    # fi
-
-    # configure_libvirtd_listen
 
     logMessage "--- Restarting libvirtd service..."
     systemctl restart libvirtd
@@ -159,6 +117,7 @@ configure_libvirt() {
 
 }
 
+# This function is not used -- libvritd will not start if the --listen flag is mentioned anywhere
 configure_libvirtd_listen() {
     logMessage "--- Start configuring libvird listen"
     # Create the systemd drop-in directory for libvirtd service overrides
@@ -170,15 +129,11 @@ configure_libvirtd_listen() {
 Environment="LIBVIRTD_ARGS=--listen"
 ExecStart=/usr/sbin/libvirtd
 EOF'
-    
-    # Reload systemd to apply the changes
-
 
     # Enable and restart the libvirtd service
     systemctl enable libvirtd
     logMessage "libvirtd has been configured to start with the --listen parameter "
 }
-
 
 adjust_SELinux_policies_for_libvirt() {
     # Check if SELinux is installed and enabled
