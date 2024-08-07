@@ -73,6 +73,44 @@ prepare_os() {
     logMessage "--- End of preparing OS"
 }
 
+config_visudo() {
+    #!/bin/bash
+
+# Exit immediately if a command exits with a non-zero status
+set -e
+
+# Temporary file for storing the updated sudoers file
+TEMP_SUDOERS=$(mktemp)
+
+# Backup the original sudoers file
+sudo cp /etc/sudoers /etc/sudoers.bak
+
+# Use visudo to safely add the line to the sudoers file
+sudo visudo -c -f /etc/sudoers.bak && {
+    # Add the desired line to the temporary file
+    sudo sh -c "echo 'Defaults    env_keep += \"PATH\"' >> $TEMP_SUDOERS"
+    
+    # Concatenate the original sudoers file and the temporary file
+    sudo cat /etc/sudoers.bak $TEMP_SUDOERS > /etc/sudoers.new
+
+    # Validate the new sudoers file
+    sudo visudo -c -f /etc/sudoers.new && {
+        # If validation is successful, move the new file to /etc/sudoers
+        sudo mv /etc/sudoers.new /etc/sudoers
+        echo "The line 'Defaults    env_keep += \"PATH\"' has been added to the sudoers file."
+    } || {
+        # If validation fails, restore the original sudoers file
+        echo "Validation failed. Restoring the original sudoers file."
+        sudo mv /etc/sudoers.bak /etc/sudoers
+    }
+} || {
+    echo "The original sudoers file contains syntax errors. Aborting."
+}
+
+# Clean up the temporary file
+rm -f $TEMP_SUDOERS
+
+}
 configure_libvirt() {
     # Check if the OS is Ubuntu
     logMessage "-- Starting to configure libvirt"
