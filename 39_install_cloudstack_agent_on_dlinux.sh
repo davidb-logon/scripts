@@ -142,9 +142,6 @@ EOF'
 }
 
 
-
-
-
 adjust_SELinux_policies_for_libvirt() {
     # Check if SELinux is installed and enabled
     if command -v sestatus &> /dev/null && sestatus | grep 'SELinux status' | grep -q 'enabled'; then
