@@ -1,4 +1,9 @@
 sudo ip link add eth0 type dummy
+sudo ip addr add 192.168.122.1/24 dev eth0
+sudo ip link set dev eth0 up
+ip addr show eth0
+
+exit
 
 sudo ip add add 192.168.122.1/24 dev cloudbr0 brd 192.168.122.255 
 #ip route add default via 204.90.115.1 dev cloudbr0
