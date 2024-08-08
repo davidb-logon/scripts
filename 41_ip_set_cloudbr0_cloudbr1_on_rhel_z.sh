@@ -1,4 +1,33 @@
 #!/bin/bash
+#!/bin/bash
+
+# Delete any existing configurations
+sudo ip link set eth0 down || true
+sudo ip link delete cloudbr0 || true
+
+# Create the bridge
+sudo ip link add name cloudbr0 type bridge
+
+# Configure the IP address and bring up the bridge
+sudo ip addr add 192.168.122.1/24 dev cloudbr0
+sudo ip link set cloudbr0 up
+
+# Attach eth0 to the bridge and bring it up
+sudo ip link set eth0 master cloudbr0
+sudo ip link set eth0 up
+
+# Add a route via cloudbr0 without overriding the existing default route
+sudo ip route add 0.0.0.0/1 via 204.90.115.1 dev cloudbr0
+sudo ip route add 128.0.0.0/1 via 204.90.115.1 dev cloudbr0
+
+# Disable NetworkManager for cloudbr0 to avoid conflicts
+sudo nmcli device set cloudbr0 managed no
+
+# Check status of the interfaces
+ip -br link show cloudbr0 eth0
+
+
+exit
 #------------------------------------------------------------------------------
 # Licensed Materials (c) Copyright Log-On 2024, All Rights Reserved.
 #------------------------------------------------------------------------------
