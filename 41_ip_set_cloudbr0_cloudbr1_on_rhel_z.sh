@@ -1,40 +1,54 @@
 #!/bin/bash
-set +x
-sudo ip link set eth0 down || true
-sudo ip link set cloudbr0 down || true
-sudo ip link delete cloudbr0 || true
 
-# Clean up routes if needed
-sudo ip route flush dev cloudbr0 || true
-sudo ip route flush dev eth0 || true
-# Ensure interfaces are down before making changes
-sudo ip link set eth0 down || true
-sudo ip link set cloudbr0 down || true
+# Exit immediately if a command exits with a non-zero status
+set -e
 
-# Delete existing bridge if it exists
-sudo ip link delete cloudbr0 || true
+# Cleanup existing configurations
+echo "Cleaning up existing configurations..."
 
-# Create the bridge
-sudo ip link add name cloudbr0 type bridge
+# Bring down and delete any existing interfaces
+ip link set eth0 down || true
+ip link set cloudbr0 down || true
+ip link delete cloudbr0 || true
+ip route flush dev cloudbr0 || true
+ip addr flush dev cloudbr0 || true
 
-# Configure the IP address and bring up the bridge
-sudo ip addr add 192.168.122.1/24 dev cloudbr0
-sudo ip link set cloudbr0 up
+# Create and configure the bridge
+echo "Creating and configuring the bridge..."
+
+# Create the bridge interface
+ip link add name cloudbr0 type bridge
+
+# Add IP address to the bridge
+ip addr add 192.168.122.1/24 dev cloudbr0
+ip link set cloudbr0 up
 
 # Attach eth0 to the bridge
-sudo ip link set eth0 master cloudbr0
-sudo ip link set eth0 up
+ip link set eth0 master cloudbr0
+ip link set eth0 up
 
-# Add routes (make sure the routes are correct and the device is up)
-sudo ip route add default via 204.90.115.1 dev enc1c00 || true
-sudo ip route add 0.0.0.0/1 via 192.168.122.1 dev cloudbr0 || true
-sudo ip route add 128.0.0.0/1 via 192.168.122.1 dev cloudbr0 || true
+# Add routes via the bridge
+echo "Adding routes..."
 
-# Disable NetworkManager management for cloudbr0 to avoid conflicts
-sudo nmcli device set cloudbr0 managed no
+# Replace the following IP address with the appropriate gateway if needed
+ip route add 0.0.0.0/1 via 192.168.122.1 dev cloudbr0
+ip route add 128.0.0.0/1 via 192.168.122.1 dev cloudbr0
 
-# Check status of the interfaces
+# Disable NetworkManager management for cloudbr0
+echo "Configuring NetworkManager..."
+
+nmcli device set cloudbr0 managed no
+
+# Verify configuration
+echo "Verifying configuration..."
+
+# Display the status of interfaces
 ip -br link show cloudbr0 eth0
+
+# Display the routing table
+ip route show
+
+echo "Script completed successfully."
 
 
 exit
