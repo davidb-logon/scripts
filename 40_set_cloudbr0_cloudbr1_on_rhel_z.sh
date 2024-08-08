@@ -32,8 +32,8 @@ main() {
     create_eth0
     create_cloudbr0
     attach_eth0_to_cloudbr0
-    create_cloudbr1
-    create_vlan_eth0_200
+    # create_cloudbr1
+    # create_vlan_eth0_200
     
 
     nmcli connection show
@@ -57,9 +57,6 @@ remove_existing_connections() {
 
 create_eth0() {
     do_cmd "nmcli connection add type ethernet con-name eth0 ifname eth0 autoconnect yes"
-    # do_cmd "nmcli connection add type ethernet con-name eth0 ifname eth0 autoconnect yes"
-    # do_cmd "nmcli connection modify eth0 ipv4.method manual ipv4.addresses 192.168.122.1/24"
-    # do_cmd "nmcli connection up eth0"
 }
 
 create_cloudbr0() {
@@ -69,25 +66,25 @@ create_cloudbr0() {
     do_cmd "nmcli connection modify cloudbr0 bridge.stp yes"
     do_cmd "nmcli connection modify cloudbr0 ipv4.dns 8.8.8.8 ipv4.dns-search 'wave.log-on.com' ipv6.method disabled"
     nmcli connection modify cloudbr0 ipv4.routes "0.0.0.0/0 204.90.115.1"
-    do_cmd "nmcli connection up cloudbr0"
 }
 
-create_cloudbr1() {
-    do_cmd "nmcli connection add type bridge con-name cloudbr1 ifname cloudbr1"
-    do_cmd "nmcli connection modify cloudbr1 ipv4.method disabled"
-    do_cmd "nmcli connection modify cloudbr1 ipv6.method ignore"
-    do_cmd "nmcli connection modify cloudbr1 bridge.stp yes"
-    do_cmd "nmcli connection up cloudbr1"
-}
+# create_cloudbr1() {
+#     do_cmd "nmcli connection add type bridge con-name cloudbr1 ifname cloudbr1"
+#     do_cmd "nmcli connection modify cloudbr1 ipv4.method disabled"
+#     do_cmd "nmcli connection modify cloudbr1 ipv6.method ignore"
+#     do_cmd "nmcli connection modify cloudbr1 bridge.stp yes"
+#     do_cmd "nmcli connection up cloudbr1"
+# }
 
-create_vlan_eth0_200() {
-    do_cmd "nmcli connection add type vlan con-name eth0.200 dev eth0 id 200"
-    do_cmd "nmcli connection modify eth0.200 connection.slave-type bridge connection.master cloudbr1"
-    do_cmd "nmcli connection up eth0.200"
-}
+# create_vlan_eth0_200() {
+#     do_cmd "nmcli connection add type vlan con-name eth0.200 dev eth0 id 200"
+#     do_cmd "nmcli connection modify eth0.200 connection.slave-type bridge connection.master cloudbr1"
+#     do_cmd "nmcli connection up eth0.200"
+# }
 
 attach_eth0_to_cloudbr0() {
     do_cmd "nmcli connection modify eth0 connection.slave-type bridge connection.master cloudbr0"
+    do_cmd "nmcli connection up cloudbr0"
     do_cmd "nmcli connection up eth0"
 }
 
