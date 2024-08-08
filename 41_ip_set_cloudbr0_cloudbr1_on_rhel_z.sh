@@ -1,5 +1,6 @@
 #!/bin/bash
 set +x
+
 # Delete any existing configurations
 sudo ip link set eth0 down || true
 sudo ip link delete cloudbr0 || true
