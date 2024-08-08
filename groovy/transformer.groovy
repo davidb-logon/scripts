@@ -55,4 +55,4 @@ def transform(String xml) {
     return xmlOutput.toString()
 }
     
-transform("<domain type=qemu><name>systemvm-1</name></domain>")
+transform('<domain type="qemu"><name>systemvm-1</name></domain>')
