@@ -1,11 +1,17 @@
 #!/bin/bash
 set +x
+sudo ip link set eth0 down || true
+sudo ip link set cloudbr0 down || true
+sudo ip link delete cloudbr0 || true
 
-# Ensure the interfaces are down before making changes
+# Clean up routes if needed
+sudo ip route flush dev cloudbr0 || true
+sudo ip route flush dev eth0 || true
+# Ensure interfaces are down before making changes
 sudo ip link set eth0 down || true
 sudo ip link set cloudbr0 down || true
 
-# Delete any existing bridge configuration
+# Delete existing bridge if it exists
 sudo ip link delete cloudbr0 || true
 
 # Create the bridge
@@ -19,18 +25,17 @@ sudo ip link set cloudbr0 up
 sudo ip link set eth0 master cloudbr0
 sudo ip link set eth0 up
 
-# Set default route to use enc1c00 (make sure enc1c00 is up and properly configured)
+# Add routes (make sure the routes are correct and the device is up)
 sudo ip route add default via 204.90.115.1 dev enc1c00 || true
-
-# Add specific routes for cloudbr0 if needed
 sudo ip route add 0.0.0.0/1 via 192.168.122.1 dev cloudbr0 || true
 sudo ip route add 128.0.0.0/1 via 192.168.122.1 dev cloudbr0 || true
 
-# Disable NetworkManager for cloudbr0 to avoid conflicts
+# Disable NetworkManager management for cloudbr0 to avoid conflicts
 sudo nmcli device set cloudbr0 managed no
 
 # Check status of the interfaces
 ip -br link show cloudbr0 eth0
+
 
 exit
 #------------------------------------------------------------------------------
