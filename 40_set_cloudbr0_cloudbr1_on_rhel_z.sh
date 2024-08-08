@@ -64,6 +64,9 @@ remove_existing_connections() {
     do_cmd "ip link delete cloud0 || true"
     do_cmd "ip link delete cloudbr1 || true"
     do_cmd "ip link delete eth0.200 || true"
+    do_cmd "rm -f /etc/sysconfig/network-scripts/ifcfg-cloudbr0*"
+    do_cmd "rm -f /etc/sysconfig/network-scripts/route-cloudbr0*"
+
 }
 
 create_eth0() {
