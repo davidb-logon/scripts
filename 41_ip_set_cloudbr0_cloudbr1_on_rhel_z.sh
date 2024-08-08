@@ -1,26 +1,26 @@
 #!/bin/bash
 
 # Exit immediately if a command exits with a non-zero status
-set -e
+set -x
 
 cleanup() {
     echo "Cleaning up existing configurations..."
 
-    # Bring down and delete any existing interfaces
+    # Ensure any previous instances of cloudbr0 and eth0 are properly removed
     sudo ip link set eth0 down || true
     sudo ip link set cloudbr0 down || true
     sudo ip link delete cloudbr0 || true
-    sudo ip route flush dev cloudbr0 || true
-    sudo ip addr flush dev cloudbr0 || true
 
-    # Remove any lingering IP address assignments
+    # Remove IP addresses and routes that might conflict
     sudo ip addr flush dev eth0 || true
+    sudo ip addr flush dev cloudbr0 || true
+    sudo ip route flush dev cloudbr0 || true
 }
 
 create_and_configure_bridge() {
     echo "Creating and configuring the bridge..."
 
-    # Check if the bridge already exists
+    # Create the bridge if it doesn't exist
     if ! ip link show cloudbr0 > /dev/null 2>&1; then
         echo "Creating bridge cloudbr0..."
         sudo ip link add name cloudbr0 type bridge
@@ -28,7 +28,7 @@ create_and_configure_bridge() {
         echo "Bridge cloudbr0 already exists."
     fi
 
-    # Ensure the IP address isn't already assigned
+    # Check if IP address is already assigned
     if ip addr show dev cloudbr0 | grep -q "192.168.122.1/24"; then
         echo "IP address 192.168.122.1/24 already assigned to cloudbr0."
     else
@@ -43,13 +43,14 @@ create_and_configure_bridge() {
 attach_eth0_to_bridge() {
     echo "Attaching eth0 to the bridge..."
 
-    # Bring down eth0 if it's up
-    echo "Bringing down eth0..."
+    # Bring down eth0 if it is up
     sudo ip link set eth0 down || true
 
-    # Attach eth0 to the bridge and bring it up
+    # Attach eth0 to the bridge
     echo "Attaching eth0 to cloudbr0..."
     sudo ip link set eth0 master cloudbr0
+
+    # Bring eth0 back up
     echo "Bringing up eth0..."
     sudo ip link set eth0 up
 }
@@ -57,27 +58,15 @@ attach_eth0_to_bridge() {
 add_routes() {
     echo "Adding routes..."
 
-    # Check if routes already exist
-    if ip route show | grep -q "0.0.0.0/1 via 192.168.122.1"; then
-        echo "Route 0.0.0.0/1 via 192.168.122.1 already exists."
-    else
-        echo "Adding route 0.0.0.0/1 via 192.168.122.1..."
-        sudo ip route add 0.0.0.0/1 via 192.168.122.1 dev cloudbr0
-    fi
-
-    if ip route show | grep -q "128.0.0.0/1 via 192.168.122.1"; then
-        echo "Route 128.0.0.0/1 via 192.168.122.1 already exists."
-    else
-        echo "Adding route 128.0.0.0/1 via 192.168.122.1..."
-        sudo ip route add 128.0.0.0/1 via 192.168.122.1 dev cloudbr0
-    fi
+    # Add routes
+    sudo ip route add 0.0.0.0/1 via 192.168.122.1 dev cloudbr0 || true
+    sudo ip route add 128.0.0.0/1 via 192.168.122.1 dev cloudbr0 || true
 }
 
 configure_network_manager() {
     echo "Configuring NetworkManager..."
 
     # Disable NetworkManager management for cloudbr0
-    echo "Disabling NetworkManager management for cloudbr0..."
     sudo nmcli device set cloudbr0 managed no || true
 }
 
