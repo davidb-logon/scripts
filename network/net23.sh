@@ -1,3 +1,4 @@
+set -x
 # Delete existing connections if they exist
 sudo nmcli connection delete eth0
 sudo nmcli connection delete cloudbr0
