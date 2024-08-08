@@ -5,7 +5,7 @@ import java.util.Date
 // Define the log file path
 def logFilePath = "/data/vm.log"  
 
-writeLog(String msg) {
+def writeLog(String msg) {
     // Get the current date and time
     def currentDate = new Date()
     def dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
@@ -54,3 +54,5 @@ def transform(String xml) {
 
     return xmlOutput.toString()
 }
+    
+transform("@@@@@@@@@@@")
