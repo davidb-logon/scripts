@@ -14,6 +14,10 @@ sudo nmcli connection modify cloudbr0 ipv4.method manual
 sudo nmcli connection modify cloudbr0 ipv6.method ignore
 sudo nmcli connection modify cloudbr0 bridge.stp yes
 sudo nmcli connection modify cloudbr0 bridge.forward-delay 5
+sudo nmcli connection modify cloudbr0 ipv4.dns 8.8.8.8 ipv4.dns-search 'wave.log-on.com' ipv6.method disabled
+sudo nmcli connection modify cloudbr0 ipv4.routes "0.0.0.0/0 204.90.115.1"
+sudo nmcli connection down cloudbr0
+sudo nmcli connection up cloudbr0
 
 # Create the bridge slave (eth0) and link it to the bridge
 sudo nmcli connection add type bridge-slave autoconnect yes con-name eth0 ifname eth0 master cloudbr0
