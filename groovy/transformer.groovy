@@ -3,7 +3,7 @@ import java.text.SimpleDateFormat
 import java.util.Date
 
 // Define the log file path
-def logFilePath = "/data/vm.log"  
+
 
 def writeLog(String msg) {
     // Get the current date and time
@@ -12,6 +12,7 @@ def writeLog(String msg) {
     def formattedDate = dateFormat.format(currentDate)
     def logMessage = "${formattedDate} -- ${msg}\n"
     // Create the log file object
+    def logFilePath = "/data/vm.log"  
     def logFile = new File(logFilePath)
 
     // Append the log message to the file, creating the file if it does not exist
