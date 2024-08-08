@@ -17,13 +17,18 @@ cleanup() {
 create_and_configure_bridge() {
     echo "Creating and configuring the bridge..."
 
-    # Create the bridge interface
+    # Check if the bridge already exists
     if ! ip link show cloudbr0 > /dev/null 2>&1; then
+        echo "Creating bridge cloudbr0..."
         sudo ip link add name cloudbr0 type bridge
+    else
+        echo "Bridge cloudbr0 already exists."
     fi
 
     # Add IP address to the bridge
+    echo "Adding IP address 192.168.122.1/24 to cloudbr0..."
     sudo ip addr add 192.168.122.1/24 dev cloudbr0
+    echo "Bringing up cloudbr0..."
     sudo ip link set cloudbr0 up
 }
 
@@ -31,10 +36,13 @@ attach_eth0_to_bridge() {
     echo "Attaching eth0 to the bridge..."
 
     # Bring down eth0 if it's up
+    echo "Bringing down eth0..."
     sudo ip link set eth0 down || true
 
     # Attach eth0 to the bridge and bring it up
+    echo "Attaching eth0 to cloudbr0..."
     sudo ip link set eth0 master cloudbr0
+    echo "Bringing up eth0..."
     sudo ip link set eth0 up
 }
 
@@ -42,7 +50,9 @@ add_routes() {
     echo "Adding routes..."
 
     # Add routes via the bridge
+    echo "Adding route 0.0.0.0/1 via 192.168.122.1..."
     sudo ip route add 0.0.0.0/1 via 192.168.122.1 dev cloudbr0 || true
+    echo "Adding route 128.0.0.0/1 via 192.168.122.1..."
     sudo ip route add 128.0.0.0/1 via 192.168.122.1 dev cloudbr0 || true
 }
 
@@ -50,6 +60,7 @@ configure_network_manager() {
     echo "Configuring NetworkManager..."
 
     # Disable NetworkManager management for cloudbr0
+    echo "Disabling NetworkManager management for cloudbr0..."
     sudo nmcli device set cloudbr0 managed no || true
 }
 
@@ -57,9 +68,11 @@ verify_configuration() {
     echo "Verifying configuration..."
 
     # Display the status of interfaces
+    echo "Interface status:"
     ip -br link show cloudbr0 eth0
 
     # Display the routing table
+    echo "Routing table:"
     ip route show
 }
 
@@ -75,7 +88,6 @@ main() {
 }
 
 main "$@"
-
 
 
 exit
