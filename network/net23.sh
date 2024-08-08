@@ -41,6 +41,9 @@ sudo nmcli connection up eth0
 # Bringing Up the Connections:
 # The final commands bring up the bridge and its slave interface.
 ip -br a
+nmcli connection show
+ip route show
+
 exit
 
 
