@@ -3,52 +3,79 @@
 # Exit immediately if a command exits with a non-zero status
 set -e
 
-# Cleanup existing configurations
-echo "Cleaning up existing configurations..."
+cleanup() {
+    echo "Cleaning up existing configurations..."
 
-# Bring down and delete any existing interfaces
-ip link set eth0 down || true
-ip link set cloudbr0 down || true
-ip link delete cloudbr0 || true
-ip route flush dev cloudbr0 || true
-ip addr flush dev cloudbr0 || true
+    # Bring down and delete any existing interfaces
+    sudo ip link set eth0 down || true
+    sudo ip link set cloudbr0 down || true
+    sudo ip link delete cloudbr0 || true
+    sudo ip route flush dev cloudbr0 || true
+    sudo ip addr flush dev cloudbr0 || true
+}
 
-# Create and configure the bridge
-echo "Creating and configuring the bridge..."
+create_and_configure_bridge() {
+    echo "Creating and configuring the bridge..."
 
-# Create the bridge interface
-ip link add name cloudbr0 type bridge
+    # Create the bridge interface
+    if ! ip link show cloudbr0 > /dev/null 2>&1; then
+        sudo ip link add name cloudbr0 type bridge
+    fi
 
-# Add IP address to the bridge
-ip addr add 192.168.122.1/24 dev cloudbr0
-ip link set cloudbr0 up
+    # Add IP address to the bridge
+    sudo ip addr add 192.168.122.1/24 dev cloudbr0
+    sudo ip link set cloudbr0 up
+}
 
-# Attach eth0 to the bridge
-ip link set eth0 master cloudbr0
-ip link set eth0 up
+attach_eth0_to_bridge() {
+    echo "Attaching eth0 to the bridge..."
 
-# Add routes via the bridge
-echo "Adding routes..."
+    # Bring down eth0 if it's up
+    sudo ip link set eth0 down || true
 
-# Replace the following IP address with the appropriate gateway if needed
-ip route add 0.0.0.0/1 via 192.168.122.1 dev cloudbr0
-ip route add 128.0.0.0/1 via 192.168.122.1 dev cloudbr0
+    # Attach eth0 to the bridge and bring it up
+    sudo ip link set eth0 master cloudbr0
+    sudo ip link set eth0 up
+}
 
-# Disable NetworkManager management for cloudbr0
-echo "Configuring NetworkManager..."
+add_routes() {
+    echo "Adding routes..."
 
-nmcli device set cloudbr0 managed no
+    # Add routes via the bridge
+    sudo ip route add 0.0.0.0/1 via 192.168.122.1 dev cloudbr0 || true
+    sudo ip route add 128.0.0.0/1 via 192.168.122.1 dev cloudbr0 || true
+}
 
-# Verify configuration
-echo "Verifying configuration..."
+configure_network_manager() {
+    echo "Configuring NetworkManager..."
 
-# Display the status of interfaces
-ip -br link show cloudbr0 eth0
+    # Disable NetworkManager management for cloudbr0
+    sudo nmcli device set cloudbr0 managed no || true
+}
 
-# Display the routing table
-ip route show
+verify_configuration() {
+    echo "Verifying configuration..."
 
-echo "Script completed successfully."
+    # Display the status of interfaces
+    ip -br link show cloudbr0 eth0
+
+    # Display the routing table
+    ip route show
+}
+
+main() {
+    cleanup
+    create_and_configure_bridge
+    attach_eth0_to_bridge
+    add_routes
+    configure_network_manager
+    verify_configuration
+
+    echo "Script completed successfully."
+}
+
+main "$@"
+
 
 
 exit
