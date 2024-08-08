@@ -51,8 +51,14 @@ remove_existing_connections() {
 
     do_cmd "nmcli connection delete eth0 || true"
     do_cmd "nmcli connection delete cloudbr0 || true"
+    do_cmd "nmcli connection delete cloud0 || true"
     do_cmd "nmcli connection delete cloudbr1 || true"
     do_cmd "nmcli connection delete eth0.200 || true"
+    do_cmd "nmcli device delete eth0 || true"
+    do_cmd "nmcli device delete cloudbr0 || true"
+    do_cmd "nmcli device delete cloud0 || true"
+    do_cmd "nmcli device delete cloudbr1 || true"
+    do_cmd "nmcli device delete eth0.200 || true"
 }
 
 create_eth0() {
