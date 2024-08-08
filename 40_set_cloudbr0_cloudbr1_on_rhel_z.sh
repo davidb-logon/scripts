@@ -31,9 +31,10 @@ main() {
     remove_existing_connections
     create_eth0
     create_cloudbr0
+    attach_eth0_to_cloudbr0
     create_cloudbr1
     create_vlan_eth0_200
-    attach_eth0_to_cloudbr0
+    
 
     nmcli connection show
     journalctl -u NetworkManager
