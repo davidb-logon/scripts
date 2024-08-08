@@ -1,4 +1,23 @@
 import groovy.xml.*
+import java.text.SimpleDateFormat
+import java.util.Date
+
+// Define the log file path
+def logFilePath = "/data/vm.log"  
+
+writeLog(String msg) {
+    // Get the current date and time
+    def currentDate = new Date()
+    def dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+    def formattedDate = dateFormat.format(currentDate)
+    def logMessage = "${formattedDate} -- ${msg}\n"
+    // Create the log file object
+    def logFile = new File(logFilePath)
+
+    // Append the log message to the file, creating the file if it does not exist
+    logFile << logMessage
+    println logMessage
+}
 
 def transform(String xml) {
     // Parse the existing XML
@@ -6,7 +25,7 @@ def transform(String xml) {
     def domain = xmlParser.parseText(xml)
 
     def vmName = domain.name.text()
-    println "@@@@ Inside trasformer.groovy -- VM Name: ${vmName}"
+    writeLog("@@@@ Inside trasformer.groovy -- VM Name: ${vmName}")
 
     return xml
 
