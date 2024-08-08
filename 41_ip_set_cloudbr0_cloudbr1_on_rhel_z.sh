@@ -1,5 +1,4 @@
 #!/bin/bash
-#!/bin/bash
 
 # Delete any existing configurations
 sudo ip link set eth0 down || true
