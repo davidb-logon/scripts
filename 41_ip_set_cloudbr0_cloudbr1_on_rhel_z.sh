@@ -1,7 +1,6 @@
 #!/bin/bash
 
 # Exit immediately if a command exits with a non-zero status
-set -e
 set -x
 
 cleanup() {
@@ -10,7 +9,11 @@ cleanup() {
     # Remove conflicting routes
     ip route del default via 192.168.122.1 dev cloudbr0 || true
     ip route del default via 204.90.115.1 dev cloudbr0 || true
-
+    ip route del default via 204.90.115.1 dev enc1c00 || true
+    ip route del 0.0.0.0/1 via 204.90.115.1 dev enc1c00 || true
+    ip route del 128.0.0.0/1 via 204.90.115.1 dev enc1c00 || true
+    ip route show
+    
     # Remove IP addresses and routes
     ip addr flush dev eth0 || true
     ip addr flush dev cloudbr0 || true
@@ -28,10 +31,17 @@ create_and_configure_bridge() {
     if ! ip link show cloudbr0 > /dev/null 2>&1; then
         echo "Creating bridge cloudbr0..."
         ip link add name cloudbr0 type bridge
+    else
+        echo "Bridge cloudbr0 already exists."
     fi
 
-    echo "Adding IP address 192.168.122.1/24 to cloudbr0..."
-    ip addr add 192.168.122.1/24 dev cloudbr0
+    # Check if IP address is already assigned
+    if ip addr show dev cloudbr0 | grep -q "192.168.122.1/24"; then
+        echo "IP address 192.168.122.1/24 already assigned to cloudbr0."
+    else
+        echo "Adding IP address 192.168.122.1/24 to cloudbr0..."
+        ip addr add 192.168.122.1/24 dev cloudbr0
+    fi
 
     echo "Bringing up cloudbr0..."
     ip link set cloudbr0 up
@@ -40,7 +50,7 @@ create_and_configure_bridge() {
 attach_eth0_to_bridge() {
     echo "Attaching eth0 to the bridge..."
 
-    # Ensure eth0 is down before attaching
+    # Bring down eth0 if it is up
     ip link set eth0 down || true
 
     # Attach eth0 to the bridge
@@ -55,10 +65,8 @@ attach_eth0_to_bridge() {
 add_routes() {
     echo "Adding routes..."
 
-    # Add default routes correctly
+    # Add the default route
     ip route add default via 204.90.115.1 dev enc1c00
-    ip route add 0.0.0.0/1 via 204.90.115.1 dev enc1c00
-    ip route add 128.0.0.0/1 via 204.90.115.1 dev enc1c00
 }
 
 configure_network_manager() {
@@ -92,6 +100,7 @@ main() {
 }
 
 main "$@"
+
 
 exit
 #------------------------------------------------------------------------------
