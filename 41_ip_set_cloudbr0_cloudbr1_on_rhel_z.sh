@@ -5,6 +5,14 @@ set -x
 
 cleanup() {
     echo "Cleaning up existing configurations..."
+sudo ip route del default via 192.168.122.1 dev cloudbr0
+sudo ip route del default via 204.90.115.1 dev cloudbr0
+sudo ip link set cloudbr0 up
+sudo ip addr add 192.168.122.1/24 dev cloudbr0
+sudo ip link set eth0 master cloudbr0
+sudo ip link set eth0 up
+sudo ip route add 0.0.0.0/1 via 204.90.115.1 dev enc1c00
+sudo ip route add 128.0.0.0/1 via 204.90.115.1 dev enc1c00
 
     # Ensure any previous instances of cloudbr0 and eth0 are properly removed
     sudo ip link set eth0 down || true
