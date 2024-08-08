@@ -12,6 +12,9 @@ cleanup() {
     sudo ip link delete cloudbr0 || true
     sudo ip route flush dev cloudbr0 || true
     sudo ip addr flush dev cloudbr0 || true
+
+    # Remove any lingering IP address assignments
+    sudo ip addr flush dev eth0 || true
 }
 
 create_and_configure_bridge() {
@@ -25,9 +28,14 @@ create_and_configure_bridge() {
         echo "Bridge cloudbr0 already exists."
     fi
 
-    # Add IP address to the bridge
-    echo "Adding IP address 192.168.122.1/24 to cloudbr0..."
-    sudo ip addr add 192.168.122.1/24 dev cloudbr0
+    # Ensure the IP address isn't already assigned
+    if ip addr show dev cloudbr0 | grep -q "192.168.122.1/24"; then
+        echo "IP address 192.168.122.1/24 already assigned to cloudbr0."
+    else
+        echo "Adding IP address 192.168.122.1/24 to cloudbr0..."
+        sudo ip addr add 192.168.122.1/24 dev cloudbr0
+    fi
+
     echo "Bringing up cloudbr0..."
     sudo ip link set cloudbr0 up
 }
@@ -49,11 +57,20 @@ attach_eth0_to_bridge() {
 add_routes() {
     echo "Adding routes..."
 
-    # Add routes via the bridge
-    echo "Adding route 0.0.0.0/1 via 192.168.122.1..."
-    sudo ip route add 0.0.0.0/1 via 192.168.122.1 dev cloudbr0 || true
-    echo "Adding route 128.0.0.0/1 via 192.168.122.1..."
-    sudo ip route add 128.0.0.0/1 via 192.168.122.1 dev cloudbr0 || true
+    # Check if routes already exist
+    if ip route show | grep -q "0.0.0.0/1 via 192.168.122.1"; then
+        echo "Route 0.0.0.0/1 via 192.168.122.1 already exists."
+    else
+        echo "Adding route 0.0.0.0/1 via 192.168.122.1..."
+        sudo ip route add 0.0.0.0/1 via 192.168.122.1 dev cloudbr0
+    fi
+
+    if ip route show | grep -q "128.0.0.0/1 via 192.168.122.1"; then
+        echo "Route 128.0.0.0/1 via 192.168.122.1 already exists."
+    else
+        echo "Adding route 128.0.0.0/1 via 192.168.122.1..."
+        sudo ip route add 128.0.0.0/1 via 192.168.122.1 dev cloudbr0
+    fi
 }
 
 configure_network_manager() {
@@ -88,7 +105,6 @@ main() {
 }
 
 main "$@"
-
 
 exit
 #------------------------------------------------------------------------------
