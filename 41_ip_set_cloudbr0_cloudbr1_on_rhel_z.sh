@@ -16,16 +16,19 @@ sudo ip link set cloudbr0 up
 sudo ip link set eth0 master cloudbr0
 sudo ip link set eth0 up
 
-# Add a route via cloudbr0 without overriding the existing default route
-sudo ip route add 0.0.0.0/1 via 204.90.115.1 dev cloudbr0
-sudo ip route add 128.0.0.0/1 via 204.90.115.1 dev cloudbr0
+# Set the default route to use enc1c00 for the gateway
+sudo ip route add default via 204.90.115.1 dev enc1c00
+
+# Add specific routes for cloudbr0 if needed
+# Note: Ensure these routes don't conflict with your existing routes
+sudo ip route add 0.0.0.0/1 via 192.168.122.1 dev cloudbr0
+sudo ip route add 128.0.0.0/1 via 192.168.122.1 dev cloudbr0
 
 # Disable NetworkManager for cloudbr0 to avoid conflicts
 sudo nmcli device set cloudbr0 managed no
 
 # Check status of the interfaces
 ip -br link show cloudbr0 eth0
-
 
 exit
 #------------------------------------------------------------------------------
