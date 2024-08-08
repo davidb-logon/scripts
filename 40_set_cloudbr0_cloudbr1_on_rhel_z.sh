@@ -71,6 +71,7 @@ remove_existing_connections() {
 
 create_eth0() {
     do_cmd "nmcli connection add type ethernet con-name eth0 ifname eth0 autoconnect yes"
+    do_cmd "ip link add eth0 type dummy"
 }
 
 create_cloudbr0() {
