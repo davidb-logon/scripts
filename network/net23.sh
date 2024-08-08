@@ -1,3 +1,4 @@
+sudo nmcli connection del eth0
 nmcli connection show
 nmcli con delete cloudbr0
 sudo nmcli connection add type bridge autoconnect yes con-name cloudbr0 ifname cloudbr0
