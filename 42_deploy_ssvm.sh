@@ -35,7 +35,7 @@ main() {
 
 
 deploy_ssvm(){
-   
+set -x   
 # Create the service offering
 SERVICE_OFFERING_ID=$(cmk create serviceoffering \
     name="$SERVICE_OFFERING_NAME" \
