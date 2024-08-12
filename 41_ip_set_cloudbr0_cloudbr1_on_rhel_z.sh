@@ -29,9 +29,9 @@ main() {
     check_if_root
 
     cleanup
-    define_main_nic
     create_and_configure_bridge
     attach_eth0_to_bridge
+    define_main_nic
     add_routes
     configure_network_manager
     verify_configuration
