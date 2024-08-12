@@ -110,7 +110,8 @@ install_glib2() {
     do_cmd "meson setup .. --prefix=/usr/local"
     do_cmd "ninja"
     do_cmd "ninja install"
-    do_cmd "export PKG_CONFIG_PATH=/usr/local/lib64/pkgconfig"
+    #do_cmd "export PKG_CONFIG_PATH=/usr/local/lib64/pkgconfig"
+    do_cmd "export PKG_CONFIG_PATH=/usr/local/glib-2.66.8/lib64/pkgconfig"
     # Update library cache
     do_cmd "ldconfig"
 
