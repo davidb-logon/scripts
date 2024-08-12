@@ -35,7 +35,7 @@ init_vars() {
     init_utils_vars $1 $2
     CLOUDSTACK_DIR="/Users/dbarta/wave_cs/git/cloudstack"
     UPSTREAM_REPO="https://github.com/apache/cloudstack.git"
-    UPSTREAM_TAG="4.19.1.0"
+    UPSTREAM_TAG="4.19.1.1"
 }
 
 create_upstream_to_apache_cloudstack() {
