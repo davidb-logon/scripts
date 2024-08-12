@@ -4,7 +4,7 @@
 #------------------------------------------------------------------------------
 # See usage for what this script does.
 # TODOs:
-
+set +x
 # Source script libraries as needed.
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
 source "$DIR/lib/common.sh"
@@ -29,9 +29,9 @@ main() {
     check_if_root
 
     cleanup
-    define_main_nic
     create_and_configure_bridge
     attach_eth0_to_bridge
+    define_main_nic
     add_routes
     configure_network_manager
     verify_configuration
@@ -44,8 +44,6 @@ main() {
 init_vars() {
     init_utils_vars $1 $2
 }
-set -x
-
 cleanup() {
     logMessage  "Cleaning up existing configurations..."
 
@@ -83,7 +81,7 @@ create_and_configure_bridge() {
         logMessage  "IP address 192.168.122.1/24 already assigned to cloudbr0."
     else
         logMessage  "Adding IP address 192.168.122.1/24 to cloudbr0..."
-        do_cmd "ip addr add 192.168.122.1/24 dev cloudbr0"
+        do_cmd "ip addr add 192.168.122.1/24 dev cloudbr0" "success" "INFO:failed:IP address not added"
     fi
 
     logMessage  "Bringing up cloudbr0..."
