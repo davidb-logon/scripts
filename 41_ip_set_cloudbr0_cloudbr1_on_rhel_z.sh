@@ -4,7 +4,7 @@
 #------------------------------------------------------------------------------
 # See usage for what this script does.
 # TODOs:
-
+set +x
 # Source script libraries as needed.
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
 source "$DIR/lib/common.sh"
