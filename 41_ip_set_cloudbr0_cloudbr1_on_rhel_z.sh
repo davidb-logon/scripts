@@ -44,8 +44,6 @@ main() {
 init_vars() {
     init_utils_vars $1 $2
 }
-set -x
-
 cleanup() {
     logMessage  "Cleaning up existing configurations..."
 
