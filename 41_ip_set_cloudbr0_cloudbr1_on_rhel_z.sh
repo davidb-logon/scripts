@@ -83,7 +83,7 @@ create_and_configure_bridge() {
         logMessage  "IP address 192.168.122.1/24 already assigned to cloudbr0."
     else
         logMessage  "Adding IP address 192.168.122.1/24 to cloudbr0..."
-        do_cmd "ip addr add 192.168.122.1/24 dev cloudbr0"
+        do_cmd "ip addr add 192.168.122.1/24 dev cloudbr0" "success" "INFO:failed:IP address not added"
     fi
 
     logMessage  "Bringing up cloudbr0..."
