@@ -26,7 +26,7 @@ main() {
     start_logging
     check_if_root
     disable_network_manager
-    cleanup
+    cleanup_existing_configuration
     remove_existing_connections
     create_eth0
     create_and_configure_bridge
@@ -78,7 +78,7 @@ disable_network_manager(){
     do_cmd "systemctl disable NetworkManager"
 }
 
-cleanup() {
+cleanup_existing_configuration() {
     logMessage "Start Cleaning up existing configurations..."
 
     # Remove conflicting routes
