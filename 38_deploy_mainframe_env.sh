@@ -54,14 +54,14 @@ init_vars() {
     VLAN_END_IP="${IP_PREFIX}.179"
 
     DLINUX_IP="192.168.122.1"
-    DLINUX_USER=sefi
-    DLINUX_PASSWORD=logon1vm
+    DLINUX_USER=root
+    DLINUX_PASSWORD=WaveZ123
     DLINUX_PRIMARY_STORAGE="nfs://192.168.122.1/data/mainframe_primary"
     DLINUX_SECONDARY_STORAGE="nfs://192.168.122.1/data/mainframe_secondary"
 
     MAINFRAME_IP="192.168.122.1"
     MAINFRAME_USER=root
-    MAINFRAME_PASSWORD=logon1vm
+    MAINFRAME_PASSWORD=WaveZ123
     MAINFRAME_PRIMARY_STORAGE="nfs://192.168.122.1/data/mainframe_primary"
     MAINFRAME_SECONDARY_STORAGE="nfs://192.168.122.1/data/mainframe_secondary"
 
