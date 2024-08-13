@@ -30,7 +30,7 @@ main() {
     remove_existing_connections
     create_and_configure_bridge
     attach_eth0_to_bridge
-    add_routes
+    #add_routes
     verify_configuration
 
     #create_eth0
@@ -80,9 +80,9 @@ cleanup() {
     # Remove conflicting routes
     do_cmd "ip route del default via 192.168.122.1 dev cloudbr0 || true"
     do_cmd "ip route del default via 204.90.115.1 dev cloudbr0 || true"
-    do_cmd "ip route del default via 204.90.115.1 dev enc1c00 || true"
-    do_cmd "ip route del 0.0.0.0/1 via 204.90.115.1 dev enc1c00 || true"
-    do_cmd "ip route del 128.0.0.0/1 via 204.90.115.1 dev enc1c00 || true"
+    #do_cmd "ip route del default via 204.90.115.1 dev enc1c00 || true"
+    #do_cmd "ip route del 0.0.0.0/1 via 204.90.115.1 dev enc1c00 || true"
+    #do_cmd "ip route del 128.0.0.0/1 via 204.90.115.1 dev enc1c00 || true"
     do_cmd "ip route show"
     
     # Remove IP addresses and routes
