@@ -28,9 +28,45 @@ main() {
     disable_network_manager
     cleanup
     remove_existing_connections
-    create_eth0
+    create_and_configure_bridge
+    attach_eth0_to_bridge
+    add_routes
+    verify_configuration
+
+    #create_eth0
     
     script_ended_ok=true
+}
+
+verify_configuration() {
+    logMessage "Verifying configuration..."
+
+    # Display the status of interfaces
+    logMessage "Interface status:"
+    ip -br link show cloudbr0 eth0
+
+    # Display the routing table
+    logMessage "Routing table:"
+    ip route show
+}
+
+
+attach_eth0_to_bridge() {
+    logMessage "Start Attaching eth0 to the bridge..."
+
+    do_cmd "ip link set eth0 down || true" "Bringing down eth0 if it is up"
+
+    # Attach eth0 to the bridge
+    do_cmd "ip link set eth0 master cloudbr0" "Attaching eth0 to cloudbr0..."
+
+    # Bring eth0 back up
+    do_cmd "ip link set eth0 up" "Bringing up eth0..."
+    logMessage "End of Attaching eth0 to the bridge..."
+}
+
+add_routes() {
+    # Add the default route
+    do_cmd "ip route add default via 204.90.115.1 dev enc1c00" "Adding default route."
 }
 
 disable_network_manager(){
@@ -58,6 +94,31 @@ cleanup() {
     do_cmd "ip link set cloudbr0 down || true"
     do_cmd "ip link delete cloudbr0 || true"
 }
+
+create_and_configure_bridge() {
+    logMessage "Start Creating and configuring the bridge..."
+
+    # Create the bridge if it doesn't exist
+    if ! ip link show cloudbr0 > /dev/null 2>&1; then
+        logMessage "Creating bridge cloudbr0..."
+        do_cmd "ip link add name cloudbr0 type bridge"
+    else
+        logMessage "Bridge cloudbr0 already exists."
+    fi
+
+    # Check if IP address is already assigned
+    if ip addr show dev cloudbr0 | grep -q "192.168.122.1/24"; then
+        logMessage "IP address 192.168.122.1/24 already assigned to cloudbr0."
+    else
+        logMessage "Adding IP address 192.168.122.1/24 to cloudbr0..."
+        do_cmd "ip addr add 192.168.122.1/24 dev cloudbr0"
+    fi
+
+    logMessage "Bringing up cloudbr0..."
+    do_cmd "ip link set cloudbr0 up"
+    logMessage "Ended Creating and configuring the bridge..."
+}
+
 
 remove_existing_connections() {
     logMessage "Removing existing network connections if they exist."
