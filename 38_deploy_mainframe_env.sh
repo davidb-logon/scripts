@@ -255,7 +255,8 @@ add_host() {
     local cluster_id="$6"
     #hostname=192.168.1.100 username=cloudstackuser sshkeypair="my-ssh-keypair"
 
-    do_cmd 'result=$(cmk add host zoneid='$zone_id' podid='$pod_id' clusterid='$cluster_id' hypervisor='$HYPERVISOR' username='$host_user' sshkeypair=host_key url=http://'$host_ip')' 
+    #do_cmd 'result=$(cmk add host zoneid='$zone_id' podid='$pod_id' clusterid='$cluster_id' hypervisor='$HYPERVISOR' username='$host_user' sshkeypair=host_key url=http://'$host_ip')' 
+    do_cmd 'result=$(cmk add host zoneid='$zone_id' podid='$pod_id' clusterid='$cluster_id' hypervisor='$HYPERVISOR' username='$host_user' password='$host_password'  url=http://'$host_ip')' 
     #HOST_ID=$(echo $result | grep -oP ' id = \K[^ ]+') # Special treatment of the result output here. It is not json, nor is it lines of text...
     HOST_ID=$(echo $result | jq -r ".host[].id") # Special treatment of the result output here. It is not json, nor is it lines of text...
     logMessage "--- Host: $HOST_ID created."
