@@ -38,6 +38,10 @@ main() {
     script_ended_ok=true
 }
 
+init_vars() {
+    init_utils_vars $1 $2
+}
+
 verify_configuration() {
     logMessage "Verifying configuration..."
 
