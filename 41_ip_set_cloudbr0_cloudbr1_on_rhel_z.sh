@@ -131,6 +131,8 @@ verify_configuration() {
 define_main_nic(){
     do_cmd "ifconfig enc1c00 204.90.115.226 netmask 255.255.255.0  up"
     do_cmd "ip route add default via 204.90.115.1 dev enc1c00 proto static metric 100"
+    do_cmd "echo -e 'nameserver 8.8.8.8\nnameserver 8.8.4.4' >> /etc/resolv.conf"
+
 }
 
 main "$@"
