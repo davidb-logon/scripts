@@ -20,7 +20,109 @@ def writeLog(String msg) {
     println logMessage
 }
 
-def transform(String xml) {
+
+def transform(String inputXml) {
+    // Parse the input XML
+    def parsedInputXml = new XmlParser().parseText(inputXml)
+    
+    // Extract the name and uuid from the input XML
+    def name = parsedInputXml.name.text()
+    def uuid = parsedInputXml.uuid.text()
+ 
+    writeLog("@@@@ Inside trasformer.groovy -- VM Name: ${name} uuid: ${uuid}")
+
+
+    // The template XML to be modified
+    def templateXml = '''<domain type='qemu'>
+      <name>systemvm-1</name>
+      <uuid>e4d4cb4b-2cec-4b6d-9549-cfa5cac9adfe</uuid>
+      <memory unit='KiB'>1048576</memory>
+      <currentMemory unit='KiB'>1048576</currentMemory>
+      <vcpu placement='static'>1</vcpu>
+      <os>
+        <type arch='x86_64' machine='pc-i440fx-5.1'>hvm</type>
+        <boot dev='hd'/>
+      </os>
+      <features>
+        <acpi/>
+        <apic/>
+        <pae/>
+      </features>
+      <cpu mode='custom' match='exact' check='none'>
+        <model fallback='forbid'>qemu64</model>
+      </cpu>
+      <clock offset='utc'/>
+      <on_poweroff>destroy</on_poweroff>
+      <on_reboot>restart</on_reboot>
+      <on_crash>destroy</on_crash>
+      <devices>
+        <emulator>/usr/local/bin/qemu-system-x86_64</emulator>
+        <disk type='file' device='disk'>
+          <driver name='qemu' type='qcow2'/>
+          <source file='/data/test_qemu/systemvmtemplate-4.19.1-kvm.qcow2'/>
+          <target dev='vda' bus='virtio'/>
+          <address type='pci' domain='0x0000' bus='0x00' slot='0x03' function='0x0'/>
+        </disk>
+        <controller type='usb' index='0' model='piix3-uhci'>
+          <address type='pci' domain='0x0000' bus='0x00' slot='0x01' function='0x2'/>
+        </controller>
+        <controller type='pci' index='0' model='pci-root'/>
+        <interface type='network'>
+          <mac address='52:54:00:ad:62:fd'/>
+          <source network='default'/>
+          <model type='rtl8139'/>
+          <address type='pci' domain='0x0000' bus='0x00' slot='0x02' function='0x0'/>
+        </interface>
+        <serial type='pty'>
+          <target type='isa-serial' port='0'>
+            <model name='isa-serial'/>
+          </target>
+        </serial>
+        <console type='pty'>
+          <target type='serial' port='0'/>
+        </console>
+        <input type='mouse' bus='ps2'/>
+        <input type='keyboard' bus='ps2'/>
+        <audio id='1' type='none'/>
+        <memballoon model='virtio'>
+          <address type='pci' domain='0x0000' bus='0x00' slot='0x04' function='0x0'/>
+        </memballoon>
+      </devices>
+    </domain>'''
+
+    // Parse the template XML
+    def parsedTemplateXml = new XmlParser().parseText(templateXml)
+
+    // Replace the name and uuid in the template XML
+    parsedTemplateXml.name[0].value = name
+    parsedTemplateXml.uuid[0].value = uuid
+
+    // Convert the updated template XML back to a string
+    def writer = new StringWriter()
+    new XmlNodePrinter(new PrintWriter(writer)).print(parsedTemplateXml)
+    def returnValue = writer.toString()
+    writeLog "Updated xml: ${returnValue}"
+    return returnValue
+}
+
+// // Example usage:
+// def inputXml = '''<domain type='kvm'>
+//     <name>s-2196-VM</name>
+//     <uuid>b6f51660-5651-49bf-b0d6-99cc03816ab9</uuid>
+//     <description>Debian GNU/Linux 5.0 (64-bit)</description>
+//     <!-- Rest of the XML omitted for brevity -->
+// </domain>'''
+
+// def updatedXml = transform(inputXml)
+// println updatedXml
+
+
+
+
+
+
+
+def transform1(String xml) {
     // Parse the existing XML
     def xmlParser = new XmlParser(false, false)
     def domain = xmlParser.parseText(xml)
