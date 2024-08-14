@@ -23,7 +23,7 @@ def writeLog(String msg) {
     println logMessage
 }
 
-def transform(Logger logger, String inputXml) {
+def transform(String inputXml) {
     // Parse the input XML
     def parsedInputXml = new XmlParser().parseText(inputXml)
     
@@ -162,9 +162,6 @@ def transform1(String xml) {
     return xmlOutput.toString()
 }
     
-transform('<domain type="qemu"><name>systemvm-1</name></domain>')
-
-
 /*
 <domain type='kvm'>
     <name>s-2196-VM</name>
