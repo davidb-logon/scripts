@@ -1,6 +1,9 @@
 import groovy.xml.*
 import java.text.SimpleDateFormat
 import java.util.Date
+import org.apache.log4j.Logger
+
+
 
 // Define the log file path
 
@@ -20,8 +23,7 @@ def writeLog(String msg) {
     println logMessage
 }
 
-
-def transform(String inputXml) {
+def transform(Logger logger, String inputXml) {
     // Parse the input XML
     def parsedInputXml = new XmlParser().parseText(inputXml)
     
