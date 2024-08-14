@@ -14,23 +14,23 @@ for logfile in /var/log/cloudstack/management/management-server.log \
 done
 
 # Check if the default network is active
-network_status=$(virsh net-list --all | grep -w default | awk '{print $2}')
+#network_status=$(virsh net-list --all | grep -w default | awk '{print $2}')
 
-if [ "$network_status" == "active" ]; then
-  echo "The default network is already active."
-else
-  echo "The default network is not active. Activating it..."
-  virsh net-start default
-  
-  if [ $? -eq 0 ]; then
-    echo "The default network has been successfully activated."
-    virsh net-autostart default 
-  else
-    echo "Failed to activate the default network."
-  fi
-fi
-virsh net-list
-sleep 5
+#if [ "$network_status" == "active" ]; then
+#  echo "The default network is already active."
+#else
+#  echo "The default network is not active. Activating it..."
+#  virsh net-start default
+#  
+#  if [ $? -eq 0 ]; then
+#    echo "The default network has been successfully activated."
+#    virsh net-autostart default 
+#  else
+#    echo "Failed to activate the default network."
+#  fi
+#fi
+#virsh net-list
+#sleep 5
 sudo systemctl restart cloudstack-management.service
 if systemctl list-unit-files | grep -q 'cloudstack-agent.service'; then
     sudo systemctl restart cloudstack-agent.service
