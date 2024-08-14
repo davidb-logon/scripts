@@ -104,7 +104,7 @@ def transform(String inputXml) {
     printer.print(parsedTemplateXml)
 
     writeLog "Updated XML: ${xmlOutput.toString()}"
-    return parsedTemplateXml // xmlOutput.toString()
+    return { parsedTemplateXml } // xmlOutput.toString()
 }
 
 // // Example usage:
