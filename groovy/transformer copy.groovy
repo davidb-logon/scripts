@@ -1,7 +1,7 @@
 import groovy.xml.*
 import java.text.SimpleDateFormat
 import java.util.Date
-//import org.apache.log4j.Logger
+import org.apache.log4j.Logger
 
 
 
@@ -33,7 +33,6 @@ def transform(String inputXml) {
  
     writeLog("@@@@ Inside trasformer.groovy -- VM Name: ${name} uuid: ${uuid}")
 
-    return inputXml
 
     // The template XML to be modified
     def templateXml = '''<domain type='qemu'>
@@ -163,12 +162,6 @@ def transform1(String xml) {
     return xmlOutput.toString()
 }
     
-transform('''<domain type='kvm'>
-    <name>s-2196-VM</name>
-    <uuid>b6f51660-5651-49bf-b0d6-99cc03816ab9</uuid>
-    </domain>
-    ''')
-
 /*
 <domain type='kvm'>
     <name>s-2196-VM</name>
