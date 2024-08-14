@@ -35,6 +35,7 @@ main() {
     prepare_os
     configure_libvirt
     install_cloudstack_kvm_agent
+    add_env_vars_to_cloudstack_agent
     script_ended_ok=true
 }
 
@@ -174,6 +175,27 @@ install_cloudstack_kvm_agent() {
     done
 
     logMessage "--- End of installing Cloudstack Agent"
+}
+add_env_vars_to_cloudstack_agent() {
+    #this function need to be executed after cloudstack agent is installed and when using the self compiled qemu and glib2
+    local file="/etc/default/cloudstack-agent"
+    
+    # Check if PKG_CONFIG_PATH is present in the file
+    if grep -qc 'PKG_CONFIG_PATH' "$file"; then
+        echo "PKG_CONFIG_PATH is already set in $file."
+    else
+        echo "PKG_CONFIG_PATH is not set in $file. Adding environment variables..."
+        
+        # Add the specified lines to the file
+        cat <<EOL >> "$file"
+PATH=/usr/local/glib-2.66.8/bin:/usr/local/bin:/usr/local/go/bin:/usr/local/nodejs/bin:/usr/lib/jvm/java-11-openjdk-11.0.14.1.1-6.el8.s390x/bin:/usr/bin/maven/bin:/data/scripts:/data/scripts/util:/usr/local/sbin:/sbin:/bin:/usr/sbin:/usr/bin:/root/bin:/opt/groovy/groovy-4.0.9/bin
+LD_LIBRARY_PATH=/usr/local/glib-2.66.8/lib64
+PKG_CONFIG_PATH=/usr/local/glib-2.66.8/lib64/pkgconfig
+EOL
+
+        echo "Environment variables added to $file."
+    fi
+    do_cmd "systemctl daemon-reload"    
 }
 
 main "$@"
