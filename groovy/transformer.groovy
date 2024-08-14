@@ -97,12 +97,14 @@ def transform(String inputXml) {
     parsedTemplateXml.name[0].value = name
     parsedTemplateXml.uuid[0].value = uuid
 
-    // Convert the updated template XML back to a string
-    def writer = new StringWriter()
-    new XmlNodePrinter(new PrintWriter(writer)).print(parsedTemplateXml)
-    def returnValue = writer.toString()
-    writeLog "Updated xml: ${returnValue}"
-    return returnValue
+    // Serialize the modified XML back to a string
+    def xmlOutput = new StringWriter()
+    def printer = new XmlNodePrinter(new PrintWriter(xmlOutput))
+    printer.setPreserveWhitespace(true)
+    printer.print(parsedTemplateXml)
+
+    writeLog "Updated XML: ${xmlOutput.toString()}"
+    return xmlOutput.toString()
 }
 
 // // Example usage:
