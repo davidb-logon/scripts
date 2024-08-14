@@ -1,7 +1,7 @@
 import groovy.xml.*
 import java.text.SimpleDateFormat
 import java.util.Date
-import org.apache.log4j.Logger
+//import org.apache.log4j.Logger
 
 
 
