@@ -176,7 +176,7 @@ create_physical_network() {
 add_traffic_type() {
     local phy_id="$1"
     local traffic_type="$2"
-    do_cmd 'result=$(cmk add traffictype traffictype='$traffic_type' physicalnetworkid='$phy_id')'   "Traffic type $traffic_type added."  "Failed to add Traffic type $traffic_type"  
+    do_cmd 'result=$(cmk add traffictype traffictype='$traffic_type' physicalnetworkid='$phy_id' kvmnetworklabel=cloudbr0 )'   "Traffic type $traffic_type added."  "Failed to add Traffic type $traffic_type"  
     TRAFFIC_TYPE_ID=$(echo $result | jq -r '.traffictype.id')
     logMessage "--- Traffic type $traffic_type: $TRAFFIC_TYPE_ID added"
 }
