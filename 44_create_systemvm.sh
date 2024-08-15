@@ -25,11 +25,11 @@ main() {
     init_vars "logon" "configure_network_wo_NM"
     start_logging
     check_if_root
-    install_systemve
+    install_systemvm
     script_ended_ok=true
 }
 
-install_systemve(){
+install_systemvm(){
 logMessage "Installing systemvm"
 do_cmd "virsh undefine debian10-1"
 if ! [ -f debian-10.8.0-s390x-netinst.iso ]; then
