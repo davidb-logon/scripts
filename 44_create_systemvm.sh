@@ -32,9 +32,12 @@ main() {
 install_systemvm(){
 logMessage "Installing systemvm"
 do_cmd "virsh undefine debian10-1"
+do_cmd "mkdir -p /data/vm"
+do_cmd "cd /data/vm"
 if ! [ -f debian-10.8.0-s390x-netinst.iso ]; then
   do_cmd "wget https://cdimage.debian.org/cdimage/archive/10.8.0/s390x/iso-cd/debian-10.8.0-s390x-netinst.iso"
 fi 
+do_cmd "mkdir -p /data/primary/vm/images"
 if ! [ -f /data/primary/vm/images/debiaen108-1.qcow2 ]; then
   do_cmd "qemu-img create -o preallocation=off -f qcow2 /data/primary/vm/images/debiaen108-1.qcow2 5242880000"
 fi
