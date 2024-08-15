@@ -12,44 +12,46 @@ trap 'cleanup' EXIT
 
 usage() {
 cat << EOF
--------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
 This script builds and installs cloudstack management server and a 
 KVM agent on either on an X86_64 Ubuntu 22.04 machine or a Red Hat machine on Z. 
--------------------------------------------------------------------------------
+Usage:
+    2_build_cloudstack_from_source.sh [cloudstack dir]
+
+if [cloudstack dir] not given, the script will a default /data/cloudstack
+----------------------------------------------------------------------------------
 EOF
 script_ended_ok=true
 }
 
 main() {
+    echo 
     init_vars "logon" "build_cloudstack"
-    parse_command_line_arguments "$@"
     start_logging
+    parse_command_line_arguments "$@"
     install_kvm.sh
     install_maven.sh
     install_python_mkisof_mysql.sh
     install_java.sh
-    cd "/data/cloudstack"
-    
-    mvn clean install -P developer,systemvm,generate-sources -DskipTests | tee "$LOGFILE"
-
-    #print_final_messages_to_user
+    cd "$CLOUDSTACK_DIR"
+    mvn clean install -P developer,systemvm -DskipTests | tee "$LOGFILE"
     script_ended_ok=true
 }
 
 init_vars() {
     init_utils_vars $1 $2
-
 }
 
 
 parse_command_line_arguments() {
     if [[ $# -lt 1 || $# -gt 2 ]]; then
         usage
-        exit
-    fi
-    CLOUDSTACK_DIR=$1
-    if ! [ -d "$CLOUDSTACK_DIR" ]; then
-        error_exit "Directory $CLOUDSTACK_DIR does not exist"
+        CLOUDSTACK_DIR="/data/cloudstack"
+    else
+        CLOUDSTACK_DIR=$1
+        if ! [ -d "$CLOUDSTACK_DIR" ]; then
+            error_exit "Directory $CLOUDSTACK_DIR does not exist"
+        fi
     fi
 }
 
