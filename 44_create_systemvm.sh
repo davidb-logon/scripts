@@ -35,8 +35,8 @@ virsh destroy debian10-1
 virsh undefine debian10-1
 do_cmd "mkdir -p /data/vm"
 do_cmd "cd /data/vm"
-if ! [ -f debian-10.8.0-s390x-xfce-CD-1.iso ]; then
-  do_cmd "wget https://cdimage.debian.org/cdimage/archive/10.8.0/s390x/iso-cd/debian-10.8.0-s390x-xfce-CD-1.iso"
+if ! [ -f debian-11.10.0-s390x-DVD-1.iso ]; then
+  do_cmd "wget https://cdimage.debian.org/cdimage/archive/11.10.0/s390x/iso-dvd/debian-11.10.0-s390x-DVD-1.iso"
 fi 
 do_cmd "mkdir -p /data/primary/vm/images"
 if ! [ -f /data/primary/vm/images/debiaen108-1.qcow2 ]; then
@@ -45,7 +45,7 @@ fi
 #!/bin/bash
 
 # Set variables
-ISO_PATH="/home/sefi/debian-10.8.0-s390x-netinst.iso"
+ISO_PATH="/data/vm/debian-11.10.0-s390x-DVD-1.iso"
 DISK_PATH="/data/primary/vm/images/debian108-1.qcow2"
 DISK_SIZE=6  # Specify as an integer for size in GB
 VM_NAME="debian10-1"
