@@ -12,6 +12,19 @@ source "$DIR/lib/common.sh"
 script_ended_ok=false
 trap 'cleanup' EXIT
 
+init_vars() {
+    init_utils_vars $1 $2
+    ISO_PATH="/data/vm/debian-11.10.0-s390x-DVD-1.iso"
+    DISK_PATH="/data/primary/vm/images/debian11-1.qcow2"
+    DISK_SIZE=6  # Specify as an integer for size in GB
+    VM_NAME="debian11-1"
+    MEMORY="2048"
+    VCPUS="2"
+    OS_VARIANT="debian11"
+    NETWORK="default"
+
+}
+
 usage() {
 cat << EOF
 -------------------------------------------------------------------------------
@@ -117,18 +130,6 @@ else
     error_exit "VM creation failed."
 fi
 
-
-}
-init_vars() {
-    init_utils_vars $1 $2
-    ISO_PATH="/data/vm/debian-11.10.0-s390x-DVD-1.iso"
-    DISK_PATH="/data/primary/vm/images/debian108-1.qcow2"
-    DISK_SIZE=6  # Specify as an integer for size in GB
-    VM_NAME="debian10-1"
-    MEMORY="2048"
-    VCPUS="2"
-    OS_VARIANT="debian10"
-    NETWORK="default"
 
 }
 
