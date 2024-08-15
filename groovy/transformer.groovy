@@ -5,16 +5,6 @@ import java.util.Date
 import groovy.lang.GroovyShell;
 import org.codehaus.groovy.runtime.GroovySystem;
 
-public class GroovyVersionCheck {
-    public static void main(String[] args) {
-        GroovyShell shell = new GroovyShell();
-        String groovyVersion = GroovySystem.getVersion();
-        System.out.println("Groovy Version: " + groovyVersion);
-
-        // // Alternatively, you can execute a Groovy script that prints the version
-        // shell.evaluate("println 'Groovy Version from script: ' + GroovySystem.version");
-    }
-}
 
 def writeLog(String msg) {
     // Get the current date and time
