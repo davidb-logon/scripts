@@ -31,8 +31,8 @@ main() {
 
 install_systemvm(){
 logMessage "Installing systemvm"
-do_cmd "virsh destroy debian10-1" "debian10-1 found" "debian10-1 not found"
-do_cmd "virsh undefine debian10-1" "debian10-1 found" "debian10-1 not found"
+virsh destroy debian10-1
+virsh undefine debian10-1
 do_cmd "mkdir -p /data/vm"
 do_cmd "cd /data/vm"
 if ! [ -f debian-10.8.0-s390x-netinst.iso ]; then
