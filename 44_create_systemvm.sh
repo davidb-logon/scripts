@@ -31,6 +31,7 @@ main() {
 
 install_systemvm(){
 logMessage "Installing systemvm"
+do_cmd "virsh destroy debian10-1"
 do_cmd "virsh undefine debian10-1"
 do_cmd "mkdir -p /data/vm"
 do_cmd "cd /data/vm"
