@@ -43,7 +43,8 @@ if ! [ -f /data/primary/vm/images/debiaen108-1.qcow2 ]; then
   do_cmd "qemu-img create -o preallocation=off -f qcow2 /data/primary/vm/images/debiaen108-1.qcow2 5242880000"
 fi
 #virt-install --name debian10-1 --memory 2048 --vcpus=2  --os-variant=debian10  --network network=default --graphics=none -v --disk path=/data/primary/vm/images/debiaen108-1.qcow2,size=6 --check disk_size=off --boot hd --location=/home/sefi/debian-10.8.0-s390x-netinst.iso
-virt-install --name debian10-1 --memory 2048 --vcpus=2  --os-variant=debian10  --network network=default --graphics=none -v --disk path=/data/primary/vm/images/debiaen108-1.qcow2,size=6 --check disk_size=off --boot hd --location=/home/sefi/debian-10.8.0-s390x-netinst.iso --extra-args ro 
+#virt-install --name debian10-1 --memory 2048 --vcpus=2  --os-variant=debian10  --network network=default --graphics=none -v --disk path=/data/primary/vm/images/debiaen108-1.qcow2,size=6 --check disk_size=off --boot hd --location=/home/sefi/debian-10.8.0-s390x-netinst.iso --extra-args ro 
+virt-install --name debian10-1 --memory 2048 --vcpus=2 --os-variant=debian10 --network network=default --graphics none --console pty,target_type=serial -v --disk path=/data/primary/vm/images/debiaen108-1.qcow2,size=6 --check disk_size=off --boot hd --location=/home/sefi/debian-10.8.0-s390x-netinst.iso --extra-args 'console=ttyS0,115200n8 serial'
 
 
 
