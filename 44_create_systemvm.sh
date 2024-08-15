@@ -35,8 +35,8 @@ virsh destroy debian10-1
 virsh undefine debian10-1
 do_cmd "mkdir -p /data/vm"
 do_cmd "cd /data/vm"
-if ! [ -f debian-10.8.0-s390x-netinst.iso ]; then
-  do_cmd "wget https://cdimage.debian.org/cdimage/archive/10.8.0/s390x/iso-cd/debian-10.8.0-s390x-netinst.iso"
+if ! [ -f debian-10.8.0-s390x-xfce-CD-1.iso ]; then
+  do_cmd "wget https://cdimage.debian.org/cdimage/archive/10.8.0/s390x/iso-cd/debian-10.8.0-s390x-xfce-CD-1.iso"
 fi 
 do_cmd "mkdir -p /data/primary/vm/images"
 if ! [ -f /data/primary/vm/images/debiaen108-1.qcow2 ]; then
@@ -48,7 +48,7 @@ fi
 #virt-install --name debian10-1 --memory 2048 --vcpus=2 --os-variant=debian10 --network network=default --graphics none --console pty,target_type=serial -v --disk path=/data/primary/vm/images/debiaen108-1.qcow2,size=6 --check disk_size=off --boot hd --location=/home/sefi/debian-10.8.0-s390x-netinst.iso --extra-args 'console=ttyS0,115200n8 console=tty0'
 #virt-install --name debian10-1 --memory 2048 --vcpus=2 --os-variant=debian10 --network network=default --graphics none --console pty,target_type=serial -v --disk path=/data/primary/vm/images/debiaen108-1.qcow2,size=6 --check disk_size=off --boot hd --location=/home/sefi/debian-10.8.0-s390x-netinst.iso --extra-args 'console=ttyS0,115200n8 console=tty0 noapic nomodeset'
 #virt-install --name debian10-1 --memory 2048 --vcpus=2 --os-variant=debian10 --network network=default --graphics none --console pty,target_type=serial -v --disk path=/data/primary/vm/images/debiaen108-1.qcow2,size=6,format=qcow2 --check disk_size=off --boot cdrom,hd,menu=on --location=/home/sefi/debian-10.8.0-s390x-netinst.iso --extra-args 'console=ttyS0,115200n8 console=tty0'
-virt-install --name debian10-1 --memory 2048 --vcpus=2 --os-variant=debian10 --network network=default --graphics none --console pty,target_type=serial -v --disk path=/data/primary/vm/images/debiaen108-1.qcow2,size=6 --check disk_size=off --boot hd --location=/home/sefi/debian-10.8.0-s390x-netinst.iso --extra-args 'console=ttyS0,115200n8 console=tty0 single'
+virt-install --name debian10-1 --memory 2048 --vcpus=2 --os-variant=debian10 --network network=default --graphics none --console pty,target_type=serial -v --disk path=/data/primary/vm/images/debiaen108-1.qcow2,size=6 --check disk_size=off --boot hd --location=/data/vm/debian-10.8.0-s390x-xfce-CD-1.iso --extra-args 'console=ttyS0,115200n8 console=tty0 single'
 
 
 
