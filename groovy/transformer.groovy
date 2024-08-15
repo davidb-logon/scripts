@@ -1,25 +1,25 @@
 import groovy.xml.*
-import java.text.SimpleDateFormat
-import java.util.Date
+// import java.text.SimpleDateFormat
+// import java.util.Date
 
-import groovy.lang.GroovyShell;
-//import org.codehaus.groovy.runtime.GroovySystem;
+// import groovy.lang.GroovyShell;
+// //import org.codehaus.groovy.runtime.GroovySystem;
 
 
-def writeLog(String msg) {
-    // Get the current date and time
-    def currentDate = new Date()
-    def dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-    def formattedDate = dateFormat.format(currentDate)
-    def logMessage = "${formattedDate} -- ${msg}\n"
-    // Create the log file object
-    def logFilePath = "/data/vm.log"  
-    def logFile = new File(logFilePath)
+// def writeLog(String msg) {
+//     // Get the current date and time
+//     def currentDate = new Date()
+//     def dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+//     def formattedDate = dateFormat.format(currentDate)
+//     def logMessage = "${formattedDate} -- ${msg}\n"
+//     // Create the log file object
+//     def logFilePath = "/data/vm.log"  
+//     def logFile = new File(logFilePath)
 
-    // Append the log message to the file, creating the file if it does not exist
-    logFile << logMessage
-    println logMessage
-}
+//     // Append the log message to the file, creating the file if it does not exist
+//     logFile << logMessage
+//     println logMessage
+// }
 
 // public class GroovyVersionCheck {
 //     public static void main(String[] args) {
@@ -37,12 +37,12 @@ def transform(String xml) {
 
     // Parse the existing XML
     //writeLog("@@@@ Inside trasformer.groovy -- first line")
-    def xmlParser = new XmlParser(false, false)
-    //writeLog("@@@@ Inside trasformer.groovy -- second line")
-    def domain = xmlParser.parseText(xml)
-    //writeLog("@@@@ Inside trasformer.groovy -- third line domain: ${domain}")
-    def vmName = domain.name.text()
-    writeLog("@@@@ Inside trasformer.groovy -- VM Name: ${vmName}")
+    // def xmlParser = new XmlParser(false, false)
+    // //writeLog("@@@@ Inside trasformer.groovy -- second line")
+    // def domain = xmlParser.parseText(xml)
+    // //writeLog("@@@@ Inside trasformer.groovy -- third line domain: ${domain}")
+    // def vmName = domain.name.text()
+    //writeLog("@@@@ Inside trasformer.groovy -- VM Name: ${vmName}")
 
     return xml
 
