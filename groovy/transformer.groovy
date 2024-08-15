@@ -2,7 +2,20 @@ import groovy.xml.*
 import java.text.SimpleDateFormat
 import java.util.Date
 
-// Define the log file path
+import groovy.lang.GroovyShell;
+import org.codehaus.groovy.runtime.GroovySystem;
+
+public class GroovyVersionCheck {
+    public static void main(String[] args) {
+        GroovyShell shell = new GroovyShell();
+        String groovyVersion = GroovySystem.getVersion();
+        System.out.println("Groovy Version: " + groovyVersion);
+
+        // // Alternatively, you can execute a Groovy script that prints the version
+        // shell.evaluate("println 'Groovy Version from script: ' + GroovySystem.version");
+    }
+}
+
 
 
 def writeLog(String msg) {
@@ -20,7 +33,20 @@ def writeLog(String msg) {
     println logMessage
 }
 
+public class GroovyVersionCheck {
+    public static void main(String[] args) {
+        GroovyShell shell = new GroovyShell();
+        String groovyVersion = GroovySystem.getVersion();
+        writeLog("@@@@ Groovy Version: " + groovyVersion);
+
+        // // Alternatively, you can execute a Groovy script that prints the version
+        // shell.evaluate("println 'Groovy Version from script: ' + GroovySystem.version");
+    }
+}
+
 def transform(String xml) {
+    GroovyVersionCheck
+
     // Parse the existing XML
     def xmlParser = new XmlParser(false, false)
     def domain = xmlParser.parseText(xml)
@@ -56,4 +82,4 @@ def transform(String xml) {
     return xmlOutput.toString()
 }
     
-transform('<domain type="qemu"><name>systemvm-1</name></domain>')
+// transform('<domain type="qemu"><name>systemvm-1</name></domain>')
