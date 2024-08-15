@@ -3,7 +3,7 @@ import java.text.SimpleDateFormat
 import java.util.Date
 
 import groovy.lang.GroovyShell;
-import org.codehaus.groovy.runtime.GroovySystem;
+//import org.codehaus.groovy.runtime.GroovySystem;
 
 
 def writeLog(String msg) {
@@ -21,19 +21,19 @@ def writeLog(String msg) {
     println logMessage
 }
 
-public class GroovyVersionCheck {
-    public static void main(String[] args) {
-        GroovyShell shell = new GroovyShell();
-        String groovyVersion = GroovySystem.getVersion();
-        writeLog("@@@@ Groovy Version: " + groovyVersion);
+// public class GroovyVersionCheck {
+//     public static void main(String[] args) {
+//         GroovyShell shell = new GroovyShell();
+//         String groovyVersion = GroovySystem.getVersion();
+//         writeLog("@@@@ Groovy Version: " + groovyVersion);
 
-        // // Alternatively, you can execute a Groovy script that prints the version
-        // shell.evaluate("println 'Groovy Version from script: ' + GroovySystem.version");
-    }
-}
+//         // // Alternatively, you can execute a Groovy script that prints the version
+//         // shell.evaluate("println 'Groovy Version from script: ' + GroovySystem.version");
+//     }
+// }
 
 def transform(String xml) {
-    GroovyVersionCheck
+    // GroovyVersionCheck
 
     // Parse the existing XML
     //writeLog("@@@@ Inside trasformer.groovy -- first line")
