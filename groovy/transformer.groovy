@@ -22,9 +22,11 @@ def writeLog(String msg) {
 
 def transform(String xml) {
     // Parse the existing XML
+    writeLog("@@@@ Inside trasformer.groovy -- first line")
     def xmlParser = new XmlParser(false, false)
+    writeLog("@@@@ Inside trasformer.groovy -- second line")
     def domain = xmlParser.parseText(xml)
-
+    writeLog("@@@@ Inside trasformer.groovy -- third line domain: ${domain}")
     def vmName = domain.name.text()
     writeLog("@@@@ Inside trasformer.groovy -- VM Name: ${vmName}")
 
@@ -56,4 +58,4 @@ def transform(String xml) {
     return xmlOutput.toString()
 }
     
-transform('<domain type="qemu"><name>systemvm-1</name></domain>')
+//transform('<domain type="qemu"><name>systemvm-1</name></domain>')
