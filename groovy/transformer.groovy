@@ -36,11 +36,11 @@ def transform(String xml) {
     GroovyVersionCheck
 
     // Parse the existing XML
-    writeLog("@@@@ Inside trasformer.groovy -- first line")
+    //writeLog("@@@@ Inside trasformer.groovy -- first line")
     def xmlParser = new XmlParser(false, false)
-    writeLog("@@@@ Inside trasformer.groovy -- second line")
+    //writeLog("@@@@ Inside trasformer.groovy -- second line")
     def domain = xmlParser.parseText(xml)
-    writeLog("@@@@ Inside trasformer.groovy -- third line domain: ${domain}")
+    //writeLog("@@@@ Inside trasformer.groovy -- third line domain: ${domain}")
     def vmName = domain.name.text()
     writeLog("@@@@ Inside trasformer.groovy -- VM Name: ${vmName}")
 
