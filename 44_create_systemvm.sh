@@ -42,13 +42,88 @@ do_cmd "mkdir -p /data/primary/vm/images"
 if ! [ -f /data/primary/vm/images/debiaen108-1.qcow2 ]; then
   do_cmd "qemu-img create -o preallocation=off -f qcow2 /data/primary/vm/images/debiaen108-1.qcow2 5242880000"
 fi
-virt-install --name debian10-1 --memory 2048 --vcpus=2  --os-variant=debian10  --network network=default --graphics=none -v --disk path=/data/primary/vm/images/debiaen108-1.qcow2,size=6 --check disk_size=off --boot cd --location=/data/vm/debian-10.8.0-s390x-xfce-CD-1.iso
-#virt-install --name debian10-1 --memory 2048 --vcpus=2  --os-variant=debian10  --network network=default --graphics=none -v --disk path=/data/primary/vm/images/debiaen108-1.qcow2,size=6 --check disk_size=off --boot hd --location=/home/sefi/debian-10.8.0-s390x-netinst.iso --extra-args ro 
-#virt-install --name debian10-1 --memory 2048 --vcpus=2 --os-variant=debian10 --network network=default --graphics none --console pty,target_type=serial -v --disk path=/data/primary/vm/images/debiaen108-1.qcow2,size=6 --check disk_size=off --boot hd --location=/home/sefi/debian-10.8.0-s390x-netinst.iso --extra-args 'console=ttyS0,115200n8 serial'
-#virt-install --name debian10-1 --memory 2048 --vcpus=2 --os-variant=debian10 --network network=default --graphics none --console pty,target_type=serial -v --disk path=/data/primary/vm/images/debiaen108-1.qcow2,size=6 --check disk_size=off --boot hd --location=/home/sefi/debian-10.8.0-s390x-netinst.iso --extra-args 'console=ttyS0,115200n8 console=tty0'
-#virt-install --name debian10-1 --memory 2048 --vcpus=2 --os-variant=debian10 --network network=default --graphics none --console pty,target_type=serial -v --disk path=/data/primary/vm/images/debiaen108-1.qcow2,size=6 --check disk_size=off --boot hd --location=/home/sefi/debian-10.8.0-s390x-netinst.iso --extra-args 'console=ttyS0,115200n8 console=tty0 noapic nomodeset'
-#virt-install --name debian10-1 --memory 2048 --vcpus=2 --os-variant=debian10 --network network=default --graphics none --console pty,target_type=serial -v --disk path=/data/primary/vm/images/debiaen108-1.qcow2,size=6,format=qcow2 --check disk_size=off --boot cdrom,hd,menu=on --location=/home/sefi/debian-10.8.0-s390x-netinst.iso --extra-args 'console=ttyS0,115200n8 console=tty0'
-#virt-install --name debian10-1 --memory 2048 --vcpus=2 --os-variant=debian10 --network network=default --graphics none --console pty,target_type=serial -v --disk path=/data/primary/vm/images/debiaen108-1.qcow2,size=6 --check disk_size=off --boot hd --location=/data/vm/debian-10.8.0-s390x-xfce-CD-1.iso --extra-args 'console=ttyS0,115200n8 console=tty0 single'
+#!/bin/bash
+
+# Set variables
+ISO_PATH="/home/sefi/debian-10.8.0-s390x-netinst.iso"
+DISK_PATH="/data/primary/vm/images/debiaen108-1.qcow2"
+DISK_SIZE="6G"
+VM_NAME="debian10-1"
+MEMORY="2048"
+VCPUS="2"
+OS_VARIANT="debian10"
+NETWORK="default"
+
+# Function to print error messages and exit
+function error_exit {
+    echo "[ERROR] $1"
+    exit 1
+}
+
+# Check if ISO file exists
+if [ ! -f "$ISO_PATH" ]; then
+    error_exit "ISO file not found at $ISO_PATH"
+fi
+
+# Check if disk directory exists
+DISK_DIR=$(dirname "$DISK_PATH")
+if [ ! -d "$DISK_DIR" ]; then
+    error_exit "Disk directory not found at $DISK_DIR"
+fi
+
+# Check if disk file exists or if we have enough space to create it
+if [ -f "$DISK_PATH" ]; then
+    echo "[INFO] Disk file already exists at $DISK_PATH"
+else
+    # Check for available disk space
+    AVAILABLE_SPACE=$(df "$DISK_DIR" | awk 'NR==2 {print $4}')
+    REQUIRED_SPACE=$(echo "$DISK_SIZE" | awk '{print $1 * 1024 * 1024}')  # Convert GB to KB
+    
+    if [ "$AVAILABLE_SPACE" -lt "$REQUIRED_SPACE" ]; then
+        error_exit "Not enough disk space to create $DISK_SIZE file in $DISK_DIR"
+    fi
+    echo "[INFO] Sufficient disk space available to create the disk image."
+fi
+
+# Check if `virt-install` command is available
+if ! command -v virt-install &> /dev/null; then
+    error_exit "virt-install command not found. Please install it before proceeding."
+fi
+
+# Check if libvirt service is running
+if ! systemctl is-active --quiet libvirtd; then
+    error_exit "libvirt service is not running. Please start it before proceeding."
+fi
+
+# Check if the specified network is available
+if ! virsh net-info "$NETWORK" &> /dev/null; then
+    error_exit "Network '$NETWORK' not found in libvirt. Please create or select a different network."
+fi
+
+echo "[INFO] All checks passed. Proceeding with the VM installation."
+
+# Run virt-install command
+virt-install \
+  --name "$VM_NAME" \
+  --memory "$MEMORY" \
+  --vcpus "$VCPUS" \
+  --os-variant "$OS_VARIANT" \
+  --network network="$NETWORK" \
+  --graphics none \
+  --console pty,target_type=serial \
+  -v \
+  --disk path="$DISK_PATH",size="$DISK_SIZE" \
+  --check disk_size=off \
+  --boot hd \
+  --location="$ISO_PATH" \
+  --extra-args 'console=ttyS0,115200n8 console=tty0 noapic nomodeset'
+
+# Check if the VM was successfully created
+if [ $? -eq 0 ]; then
+    echo "[INFO] VM '$VM_NAME' created successfully."
+else
+    error_exit "VM creation failed."
+fi
 
 
 
