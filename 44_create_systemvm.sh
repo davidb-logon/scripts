@@ -31,28 +31,20 @@ main() {
 
 install_systemvm(){
 logMessage "Installing systemvm"
-virsh destroy debian10-1
-virsh undefine debian10-1
+virsh destroy $VM_NAME
+virsh undefine $VM_NAME
 do_cmd "mkdir -p /data/vm"
 do_cmd "cd /data/vm"
-if ! [ -f debian-11.10.0-s390x-DVD-1.iso ]; then
+if ! [ -f $ISO_PATH ]; then
   do_cmd "wget https://cdimage.debian.org/cdimage/archive/11.10.0/s390x/iso-dvd/debian-11.10.0-s390x-DVD-1.iso"
 fi 
 do_cmd "mkdir -p /data/primary/vm/images"
-if ! [ -f /data/primary/vm/images/debiaen108-1.qcow2 ]; then
-  do_cmd "qemu-img create -o preallocation=off -f qcow2 /data/primary/vm/images/debiaen108-1.qcow2 5242880000"
+if ! [ -f $DISK_PATH ]; then
+  do_cmd "qemu-img create -o preallocation=off -f qcow2 $DISK_PATH 5242880000"
 fi
 #!/bin/bash
 
 # Set variables
-ISO_PATH="/data/vm/debian-11.10.0-s390x-DVD-1.iso"
-DISK_PATH="/data/primary/vm/images/debian108-1.qcow2"
-DISK_SIZE=6  # Specify as an integer for size in GB
-VM_NAME="debian10-1"
-MEMORY="2048"
-VCPUS="2"
-OS_VARIANT="debian10"
-NETWORK="default"
 
 # Function to print error messages and exit
 function error_exit {
@@ -129,6 +121,15 @@ fi
 }
 init_vars() {
     init_utils_vars $1 $2
+    ISO_PATH="/data/vm/debian-11.10.0-s390x-DVD-1.iso"
+    DISK_PATH="/data/primary/vm/images/debian108-1.qcow2"
+    DISK_SIZE=6  # Specify as an integer for size in GB
+    VM_NAME="debian10-1"
+    MEMORY="2048"
+    VCPUS="2"
+    OS_VARIANT="debian10"
+    NETWORK="default"
+
 }
 
 
