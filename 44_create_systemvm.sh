@@ -46,8 +46,8 @@ fi
 
 # Set variables
 ISO_PATH="/home/sefi/debian-10.8.0-s390x-netinst.iso"
-DISK_PATH="/data/primary/vm/images/debiaen108-1.qcow2"
-DISK_SIZE="6G"
+DISK_PATH="/data/primary/vm/images/debian108-1.qcow2"
+DISK_SIZE=6  # Specify as an integer for size in GB
 VM_NAME="debian10-1"
 MEMORY="2048"
 VCPUS="2"
@@ -77,10 +77,10 @@ if [ -f "$DISK_PATH" ]; then
 else
     # Check for available disk space
     AVAILABLE_SPACE=$(df "$DISK_DIR" | awk 'NR==2 {print $4}')
-    REQUIRED_SPACE=$(echo "$DISK_SIZE" | awk '{print $1 * 1024 * 1024}')  # Convert GB to KB
+    REQUIRED_SPACE=$((DISK_SIZE * 1024 * 1024))  # Convert GB to KB
     
     if [ "$AVAILABLE_SPACE" -lt "$REQUIRED_SPACE" ]; then
-        error_exit "Not enough disk space to create $DISK_SIZE file in $DISK_DIR"
+        error_exit "Not enough disk space to create $DISK_SIZE GB file in $DISK_DIR"
     fi
     echo "[INFO] Sufficient disk space available to create the disk image."
 fi
@@ -124,7 +124,6 @@ if [ $? -eq 0 ]; then
 else
     error_exit "VM creation failed."
 fi
-
 
 
 }
