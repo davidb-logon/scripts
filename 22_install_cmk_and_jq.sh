@@ -23,7 +23,7 @@ main() {
         make
         cp bin/cmk /usr/bin/cmk
         do_cmd "hash -d cmk" "Refreshed bash's cache" "INFO: /usr/bin/cmk is in the path"
-        do_cmd "suso yum install jq -y" "Installed jq, for json processing in bash" "INFO: jq is in the path"
+        do_cmd "sudo yum install jq -y" "Installed jq, for json processing in bash" "INFO: jq is in the path"
     ;;
     esac
 
