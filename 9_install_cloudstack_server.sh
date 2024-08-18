@@ -38,7 +38,7 @@ main() {
     start_logging
     
     prepare_os
-    start_web_server
+    start_web_server_on_repo.sh
     stop_cs # stop managment and agent
     uninstall_management_server
     install_management_server
