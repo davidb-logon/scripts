@@ -153,10 +153,10 @@ adjust_SELinux_policies_for_libvirt() {
 
 uninstall_cloudstack_kvm_agent() {
     logMessage "--- Start to uninstall Cloudstack Agent"
-    packages=( "cloudstack-agent")
+    packages=( "cloudstack-agent" "cloudstack-common")
     for package in "${packages[@]}"
     do
-        do_cmd "yum remove -y ${package}" "" ""
+        do_cmd "yum remove -y ${package}" "" "INFO:${package} package is not currently installed."
     done
 
     logMessage "--- End of uninstalling Cloudstack Agent"
