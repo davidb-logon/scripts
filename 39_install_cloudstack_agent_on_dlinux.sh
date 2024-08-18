@@ -34,6 +34,7 @@ main() {
     check_if_root
     prepare_os
     configure_libvirt
+    uninstall_cloudstack_kvm_agent    
     install_cloudstack_kvm_agent
     add_env_vars_to_cloudstack_agent
     script_ended_ok=true
