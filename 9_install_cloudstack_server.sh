@@ -38,6 +38,8 @@ main() {
     start_logging
     
     prepare_os
+    stop_cs # stop managment and agent
+    uninstall_management_server
     install_management_server
     
     install_and_configure_mysql_database
@@ -131,6 +133,7 @@ prepare_os() {
 
     install_ntp
     install_java.sh
+    
 
     logMessage "--- End of preparing OS"
 }
@@ -142,6 +145,25 @@ install_ntp() {
     do_cmd "systemctl enable chronyd" "Enabled chronyd" "Unable to enable chronyd"
     logMessage "--- End of Installing and enabling ntp"
 
+}
+
+uninstall_management_server() {
+    logMessage "--- Start to install management server"
+    case "$LINUX_DISTRIBUTION" in
+    "UBUNTU")
+        do_cmd "$CMD update"  # Update apt's or yum's index, to ensure getting the latest version.
+        do_cmd "$CMD remove cloudstack-management"
+        ;;
+    "RHEL")
+        do_cmd "$CMD update"  # Update apt's or yum's index, to ensure getting the latest version.
+        do_cmd "$CMD remove cloudstack-management --allowerasing"
+       ;;
+    *)
+      logMessage "Unknown or Unsupported LINUX_DISTRIBUTION: $LINUX_DISTRIBUTION, exiting"
+      exit 1
+      ;;
+    esac
+    logMessage "--- End of installing management server"
 }
 
 install_management_server() {
