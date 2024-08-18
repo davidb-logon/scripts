@@ -38,6 +38,7 @@ main() {
     start_logging
     
     prepare_os
+    start_web_server
     stop_cs # stop managment and agent
     uninstall_management_server
     install_management_server
@@ -152,11 +153,11 @@ uninstall_management_server() {
     case "$LINUX_DISTRIBUTION" in
     "UBUNTU")
         do_cmd "$CMD update"  # Update apt's or yum's index, to ensure getting the latest version.
-        do_cmd "$CMD remove cloudstack-management"
+        do_cmd "$CMD remove cloudstack-management "
         ;;
     "RHEL")
         do_cmd "$CMD update"  # Update apt's or yum's index, to ensure getting the latest version.
-        do_cmd "$CMD remove cloudstack-management --allowerasing"
+        do_cmd "$CMD remove cloudstack-management --allowerasing -y" "" "INFO: cloudstack-management is not installed"
        ;;
     *)
       logMessage "Unknown or Unsupported LINUX_DISTRIBUTION: $LINUX_DISTRIBUTION, exiting"
@@ -175,7 +176,7 @@ install_management_server() {
         ;;
     "RHEL")
         do_cmd "$CMD update"  # Update apt's or yum's index, to ensure getting the latest version.
-        do_cmd "$CMD install cloudstack-management --allowerasing"
+        do_cmd "$CMD install cloudstack-management --allowerasing -y"
         # do_cmd "mkdir -p /home/davidb/logon/work/rpm"
         # do_cmd "cd /home/davidb/logon/work/rpm"
         # files=("cloudstack-common-4.19.0.0-1.x86_64.rpm" "cloudstack-management-4.19.0.0-1.x86_64.rpm")  # cloudstack-agent-4.19.0.0-1.x86_64.rpm
