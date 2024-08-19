@@ -18,13 +18,7 @@ def update_xml(xml_string):
     # Change the 'type' attribute of the 'domain' element to 'qemu'
     root.set('type', 'qemu')
     
-    # Find all 'devices' elements
-    for devices in root.findall('devices'):
-        # Find and remove the 'graphics' element within each 'devices' element
-        graphics = devices.find('graphics')
-        if graphics is not None:
-            devices.remove(graphics)
-        
+    # remove_graphics(root)
     replace_os_node(root)
     replace_cpu_node(root)
     replace_memballoon_nodes(root)
@@ -35,6 +29,14 @@ def update_xml(xml_string):
     modified_xml_string = ET.tostring(root, encoding='unicode')
     
     return modified_xml_string
+
+def remove_graphics(root):
+    # Find all 'devices' elements
+    for devices in root.findall('devices'):
+        # Find and remove the 'graphics' element within each 'devices' element
+        graphics = devices.find('graphics')
+        if graphics is not None:
+            devices.remove(graphics)
 
 def replace_os_node(root):
     # Find the 'os' element
