@@ -63,6 +63,8 @@ prepare_os() {
 start_agent() {
     do_cmd "systemctl restart cloudstack-agent.service" "" "INFO:Failed to restart cloudstack-agent.service"
 }
+
+# Not used at the moment
 config_visudo() {
     set -e
 
@@ -205,6 +207,7 @@ add_env_vars_to_cloudstack_agent() {
 PATH=/usr/local/glib-2.66.8/bin:/usr/local/bin:/usr/local/go/bin:/usr/local/nodejs/bin:/usr/lib/jvm/java-11-openjdk-11.0.14.1.1-6.el8.s390x/bin:/usr/bin/maven/bin:/data/scripts:/data/scripts/util:/usr/local/sbin:/sbin:/bin:/usr/sbin:/usr/bin:/root/bin:/opt/groovy/groovy-4.0.9/bin
 LD_LIBRARY_PATH=/usr/local/glib-2.66.8/lib64
 PKG_CONFIG_PATH=/usr/local/glib-2.66.8/lib64/pkgconfig
+JAVA_DEBUG="-agentlib:jdwp=transport=dt_socket,address=*:8001,server=y,suspend=n"
 EOL
 
         echo "Environment variables added to $file."

@@ -38,21 +38,32 @@ init_vars() {
     
 }
 
-
-
 package_cloudstack() {
     cd "$PACKAGING_DIR"
-    export DEBUG=1 # To generate sources and skip tests. See debian/rules file.
-    ./build-deb.sh -o "$DEBIAN_PACKAGES_OUTPUT_DIR" 2>&1 | tee $LOGFILE  #W2 DB 3
-    # Note that the option -b "Log-On" for branding will change all pom files (> 100) in the project
+    case "$LINUX_DISTRIBUTION" in
+        "UBUNTU")
+            # Note that the option -b "Log-On" for branding will change all pom files (> 100) in the project
+            export DEBUG=1 # To generate sources and skip tests. See debian/rules file.
+            install_dch_and_debhelper.sh
+            install_node_14.sh
+            install_python_mkisof_mysql.sh
+            ./build-deb.sh -o "$DEBIAN_PACKAGES_OUTPUT_DIR" 2>&1 | tee $LOGFILE  #W2 DB 3
+            ;;
+        "RHEL")
+            ./package.sh -d centos8
+            do_cmd "\\cp -fv /data/cloudstack/dist/rpmbuild/RPMS/s390x/* /data/repo/" "Copied RPMs to /data/repo" "Failed copying"
+            ;;
+        *)
+            logMessage "Unknown or Unsupported LINUX_DISTRIBUTION: $LINUX_DISTRIBUTION, exiting"
+            exit 1
+            ;;
+    esac
 }
 
 main() {
+    detect_linux_distribution # Sets global variable $LINUX_DISTRIBUTION
     init_vars "logon" "cloudstack_packaging"
     start_logging
-    install_dch_and_debhelper.sh
-    install_node_14.sh
-    install_python_mkisof_mysql.sh
     package_cloudstack
     script_ended_ok=true
 }
