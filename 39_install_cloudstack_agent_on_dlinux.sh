@@ -38,6 +38,7 @@ main() {
     install_cloudstack_kvm_agent
     add_env_vars_to_cloudstack_agent
     update_agent_properties
+    fwovpn.sh # Add ip fowarding 
     start_agent
     script_ended_ok=true
 }

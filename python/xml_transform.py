@@ -52,6 +52,19 @@ def replace_os_node(root):
         root.remove(os_node)
         root.append(new_os_node)
 
+def replace_cpu_node(root):
+    # Create the new CPU node
+    new_cpu = ET.Element("cpu", mode="custom", match="exact", check="none")
+    model = ET.SubElement(new_cpu, "model", fallback="forbid")
+    model.text = "qemu64"
+    
+    # Find the existing CPU node and replace it
+    for child in root:
+        if child.tag == "cpu":
+            root.remove(child)
+            break
+    
+    root.append(new_cpu)
 
 def manipulate_xml(xml_input):
     logger.info("@@@@ Starting XML manipulation")
