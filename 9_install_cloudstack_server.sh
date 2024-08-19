@@ -38,6 +38,9 @@ main() {
     start_logging
     
     prepare_os
+    start_web_server_on_repo.sh
+    stop_cs # stop managment and agent
+    uninstall_management_server
     install_management_server
     
     install_and_configure_mysql_database
@@ -131,6 +134,7 @@ prepare_os() {
 
     install_ntp
     install_java.sh
+    
 
     logMessage "--- End of preparing OS"
 }
@@ -144,6 +148,26 @@ install_ntp() {
 
 }
 
+uninstall_management_server() {
+    logMessage "--- Start to install management server"
+    case "$LINUX_DISTRIBUTION" in
+    "UBUNTU")
+        do_cmd "$CMD update"  # Update apt's or yum's index, to ensure getting the latest version.
+        do_cmd "$CMD remove cloudstack-management "
+        ;;
+    "RHEL")
+        do_cmd "$CMD update"  # Update apt's or yum's index, to ensure getting the latest version.
+        do_cmd "$CMD remove cloudstack-management --allowerasing -y" "" "INFO: cloudstack-management is not installed"
+        do_cmd "$CMD remove cloudstack-common --allowerasing -y" "" "INFO: cloudstack-common is not installed"
+       ;;
+    *)
+      logMessage "Unknown or Unsupported LINUX_DISTRIBUTION: $LINUX_DISTRIBUTION, exiting"
+      exit 1
+      ;;
+    esac
+    logMessage "--- End of installing management server"
+}
+
 install_management_server() {
     logMessage "--- Start to install management server"
     case "$LINUX_DISTRIBUTION" in
@@ -153,7 +177,7 @@ install_management_server() {
         ;;
     "RHEL")
         do_cmd "$CMD update"  # Update apt's or yum's index, to ensure getting the latest version.
-        do_cmd "$CMD install cloudstack-management --allowerasing"
+        do_cmd "$CMD install cloudstack-management --allowerasing -y"
         # do_cmd "mkdir -p /home/davidb/logon/work/rpm"
         # do_cmd "cd /home/davidb/logon/work/rpm"
         # files=("cloudstack-common-4.19.0.0-1.x86_64.rpm" "cloudstack-management-4.19.0.0-1.x86_64.rpm")  # cloudstack-agent-4.19.0.0-1.x86_64.rpm

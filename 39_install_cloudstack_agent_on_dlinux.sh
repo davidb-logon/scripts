@@ -34,8 +34,10 @@ main() {
     check_if_root
     prepare_os
     configure_libvirt
+    uninstall_cloudstack_kvm_agent    
     install_cloudstack_kvm_agent
     add_env_vars_to_cloudstack_agent
+    start_agent
     script_ended_ok=true
 }
 
@@ -58,7 +60,9 @@ prepare_os() {
     do_cmd "yum install libvirt libvirt-daemon libvirt-daemon-driver-qemu libvirt-client virt-install virt-manager bridge-utils -y"
     logMessage "--- End of preparing OS"
 }
-
+start_agent() {
+    do_cmd "systemctl restart cloudstack-agent.service" "" "INFO:Failed to restart cloudstack-agent.service"
+}
 config_visudo() {
     set -e
 
@@ -150,6 +154,16 @@ adjust_SELinux_policies_for_libvirt() {
     fi
 }
 
+uninstall_cloudstack_kvm_agent() {
+    logMessage "--- Start to uninstall Cloudstack Agent"
+    packages=( "cloudstack-agent")
+    for package in "${packages[@]}"
+    do
+        do_cmd "yum remove -y ${package}" "" "INFO:${package} package is not currently installed."
+    done
+
+    logMessage "--- End of uninstalling Cloudstack Agent"
+}
 install_cloudstack_kvm_agent() {
     logMessage "--- Start to install Cloudstack Agent"
     
