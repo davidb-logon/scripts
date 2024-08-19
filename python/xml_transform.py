@@ -18,13 +18,12 @@ def update_xml(xml_string):
     # Change the 'type' attribute of the 'domain' element to 'qemu'
     root.set('type', 'qemu')
     
-    # Find the 'devices' element
-    devices = root.find('devices')
-    
-    # Find and remove the 'graphics' element within 'devices'
-    graphics = devices.find('graphics')
-    if graphics is not None:
-        devices.remove(graphics)
+    # Find all 'devices' elements
+    for devices in root.findall('devices'):
+        # Find and remove the 'graphics' element within each 'devices' element
+        graphics = devices.find('graphics')
+        if graphics is not None:
+            devices.remove(graphics)
         
     replace_os_node(root)
     
