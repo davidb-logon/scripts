@@ -29,6 +29,7 @@ def update_xml(xml_string):
     replace_cpu_node(root)
     replace_memballoon_nodes(root)
     replace_input_nodes(root)
+    replace_serial_node(root)
     
     # Convert the modified XML tree back to a string
     modified_xml_string = ET.tostring(root, encoding='unicode')
@@ -105,6 +106,26 @@ def replace_input_nodes(root):
     # Append the new input nodes to devices
     devices.append(new_input_mouse)
     devices.append(new_input_keyboard)
+    
+def replace_serial_node(root):
+    # Find the devices node
+    devices = root.find("devices")
+    if devices is None:
+        raise ValueError("No 'devices' node found in the XML structure")
+
+    # Remove all existing serial nodes
+    serial_nodes = devices.findall("serial")
+    for serial_node in serial_nodes:
+        devices.remove(serial_node)
+    
+    # Create the new serial node
+    new_serial = ET.Element("serial", type="pty")
+    target = ET.SubElement(new_serial, "target", type="isa-serial", port="0")
+    ET.SubElement(target, "model", name="isa-serial")
+    
+    # Append the new serial node to devices
+    devices.append(new_serial)
+        
 def manipulate_xml(xml_input):
     logger.info("@@@@ Starting XML manipulation")
     
