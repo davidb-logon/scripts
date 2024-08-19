@@ -46,6 +46,8 @@ install_qemu_prerequisites() {
     do_cmd "yum install sparse -y"
     do_cmd "yum install glib2-devel -y"
     do_cmd "yum install flex -y"
+    do_cmd "yum install gnutls-devel -y"
+
     install_re2c
     logMessage "Installing python qemu prerequisites"
     do_cmd "python3.8 -m pip install tomli sphinx sphinx_rtd_theme meson ninja"
@@ -137,7 +139,7 @@ compile_qemu() {
         do_cmd "git checkout -b stable-8.2 origin/stable-8.2" # version 9 is not compatible with our virsh
     fi
     cd qemu
-    do_cmd "./configure --target-list='x86_64-softmmu' --enable-kvm --python=python3.8"
+    do_cmd "./configure --target-list='x86_64-softmmu' --enable-kvm --python=python3.8 --enable-gnutls"
     do_cmd "make"
     do_cmd "make install"
     logMessage "End compiling qemu"
