@@ -26,6 +26,8 @@ def update_xml(xml_string):
             devices.remove(graphics)
         
     replace_os_node(root)
+    replace_cpu_node(root)
+    replace_memballoon_nodes(root)
     
     # Convert the modified XML tree back to a string
     modified_xml_string = ET.tostring(root, encoding='unicode')
@@ -65,6 +67,25 @@ def replace_cpu_node(root):
             break
     
     root.append(new_cpu)
+    
+def replace_memballoon_nodes(root):
+    # Find the devices node
+    devices = root.find("devices")
+    if devices is None:
+        raise ValueError("No 'devices' node found in the XML structure")
+
+    # Remove all existing memballoon nodes
+    memballoon_nodes = devices.findall("memballoon")
+    for memballoon_node in memballoon_nodes:
+        devices.remove(memballoon_node)
+    
+    # Create the new memballoon node
+    new_memballoon = ET.Element("memballoon", model="virtio")
+    ET.SubElement(new_memballoon, "address", type="pci", domain="0x0000", bus="0x00", slot="0x04", function="0x0")
+    
+    # Append the new memballoon node to devices
+    devices.append(new_memballoon)
+
 
 def manipulate_xml(xml_input):
     logger.info("@@@@ Starting XML manipulation")
