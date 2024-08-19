@@ -42,9 +42,10 @@ main() {
     stop_cs # stop managment and agent
     uninstall_management_server
     install_management_server
-    
+    22_install_cmk_and_jq.sh  # need to run this after managment instalation to reinstall cmk for s390x
     install_and_configure_mysql_database
     check_if_running_kvm_here
+
     do_cmd "cloudstack-setup-management"
     
     if [[ $LINUX_DISTRIBUTION = "UBUNTU" ]]; then
