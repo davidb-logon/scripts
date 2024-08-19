@@ -37,6 +37,7 @@ main() {
     uninstall_cloudstack_kvm_agent    
     install_cloudstack_kvm_agent
     add_env_vars_to_cloudstack_agent
+    update_agent_properties
     start_agent
     script_ended_ok=true
 }
@@ -213,6 +214,46 @@ EOL
         echo "Environment variables added to $file."
     fi
     do_cmd "systemctl daemon-reload"    
+}
+
+#!/bin/bash
+
+# Function to update the agent.properties file
+update_agent_properties() {
+    # Path to the agent.properties file
+    local properties_file="/etc/cloudstack/agent/agent.properties"
+
+    # Generate a new UUID
+    local new_uuid=$(uuidgen)
+
+    # Check if the properties file exists
+    if [ ! -f "$properties_file" ]; then
+        echo "Error: $properties_file does not exist."
+        return 1
+    fi
+
+    # Replace the line starting with uuid= with the new UUID
+    sed -i "s/^guid=.*/guid=$new_uuid/" "$properties_file"
+
+    # Replace the line host=localhost with host=192.168.122.1
+    sed -i "s/^host=localhost/host=192.168.122.1/" "$properties_file"
+
+    # Replace the line #private.network.device= with private.network.device=cloudbr0
+    sed -i "s/^#private.network.device=.*/private.network.device=cloudbr0/" "$properties_file"
+
+    # Replace the line #public.network.device= with public.network.device=cloudbr0
+    sed -i "s/^#public.network.device=.*/public.network.device=cloudbr0/" "$properties_file"
+
+    # Confirm the updates
+    if grep -q "^guid=$new_uuid" "$properties_file" &&
+       grep -q "^host=192.168.122.1" "$properties_file" &&
+       grep -q "^private.network.device=cloudbr0" "$properties_file" &&
+       grep -q "^public.network.device=cloudbr0" "$properties_file"; then
+        echo "Successfully updated $properties_file"
+    else
+        echo "Failed to update $properties_file"
+        return 1
+    fi
 }
 
 main "$@"

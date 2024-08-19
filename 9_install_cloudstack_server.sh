@@ -159,7 +159,7 @@ uninstall_management_server() {
     "RHEL")
         do_cmd "$CMD update"  # Update apt's or yum's index, to ensure getting the latest version.
         do_cmd "$CMD remove cloudstack-management --allowerasing -y" "" "INFO: cloudstack-management is not installed"
-        do_cmd "$CMD remove cloudstack-common --allowerasing -y" "" "INFO: cloudstack-common is not installed"
+        #do_cmd "$CMD remove cloudstack-common --allowerasing -y" "" "INFO: cloudstack-common is not installed"
        ;;
     *)
       logMessage "Unknown or Unsupported LINUX_DISTRIBUTION: $LINUX_DISTRIBUTION, exiting"
