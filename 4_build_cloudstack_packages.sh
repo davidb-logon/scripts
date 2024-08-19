@@ -52,6 +52,7 @@ package_cloudstack() {
         "RHEL")
             ./package.sh -d centos8
             do_cmd "\\cp -fv /data/cloudstack/dist/rpmbuild/RPMS/s390x/* /data/repo/" "Copied RPMs to /data/repo" "Failed copying"
+            do_cmd "createrepo /data/repo/" "Created RPMs signatures" "failed to create RPMS signatures"
             ;;
         *)
             logMessage "Unknown or Unsupported LINUX_DISTRIBUTION: $LINUX_DISTRIBUTION, exiting"
