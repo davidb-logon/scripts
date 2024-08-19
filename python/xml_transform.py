@@ -28,6 +28,7 @@ def update_xml(xml_string):
     replace_os_node(root)
     replace_cpu_node(root)
     replace_memballoon_nodes(root)
+    replace_input_nodes(root)
     
     # Convert the modified XML tree back to a string
     modified_xml_string = ET.tostring(root, encoding='unicode')
@@ -86,7 +87,24 @@ def replace_memballoon_nodes(root):
     # Append the new memballoon node to devices
     devices.append(new_memballoon)
 
+def replace_input_nodes(root):
+    # Find the devices node
+    devices = root.find("devices")
+    if devices is None:
+        raise ValueError("No 'devices' node found in the XML structure")
 
+    # Remove all existing input nodes
+    input_nodes = devices.findall("input")
+    for input_node in input_nodes:
+        devices.remove(input_node)
+    
+    # Create the new input nodes
+    new_input_mouse = ET.Element("input", type="mouse", bus="ps2")
+    new_input_keyboard = ET.Element("input", type="keyboard", bus="ps2")
+    
+    # Append the new input nodes to devices
+    devices.append(new_input_mouse)
+    devices.append(new_input_keyboard)
 def manipulate_xml(xml_input):
     logger.info("@@@@ Starting XML manipulation")
     
