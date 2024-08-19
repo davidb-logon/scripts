@@ -233,7 +233,7 @@ update_agent_properties() {
     fi
 
     # Replace the line starting with uuid= with the new UUID
-    sed -i "s/^uuid=.*/uuid=$new_uuid/" "$properties_file"
+    sed -i "s/^guid=.*/guid=$new_uuid/" "$properties_file"
 
     # Replace the line host=localhost with host=192.168.122.1
     sed -i "s/^host=localhost/host=192.168.122.1/" "$properties_file"
@@ -245,7 +245,7 @@ update_agent_properties() {
     sed -i "s/^#public.network.device=.*/public.network.device=cloudbr0/" "$properties_file"
 
     # Confirm the updates
-    if grep -q "^uuid=$new_uuid" "$properties_file" &&
+    if grep -q "^guid=$new_uuid" "$properties_file" &&
        grep -q "^host=192.168.122.1" "$properties_file" &&
        grep -q "^private.network.device=cloudbr0" "$properties_file" &&
        grep -q "^public.network.device=cloudbr0" "$properties_file"; then
