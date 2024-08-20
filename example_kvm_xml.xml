@@ -1,0 +1,91 @@
+<domain type='kvm'>
+    <name>s-70-VM</name>
+    <uuid>b40f8f4d-93b1-4c89-a614-d8798c1e0387</uuid>
+    <description>Debian GNU/Linux 5.0 (64-bit)</description>
+    <cpu></cpu>
+    <sysinfo type='smbios'>
+        <system>
+            <entry name='manufacturer'>Apache Software Foundation</entry>
+            <entry name='product'>CloudStack KVM Hypervisor</entry>
+            <entry name='uuid'>b40f8f4d-93b1-4c89-a614-d8798c1e0387</entry>
+        </system>
+    </sysinfo>
+    <os>
+        <type arch='x86_64' machine='pc'>hvm</type>
+        <boot dev='cdrom'/>
+        <boot dev='hd'/>
+        <smbios mode='sysinfo'/>
+    </os>
+    <on_reboot>restart</on_reboot>
+    <on_poweroff>destroy</on_poweroff>
+    <on_crash>destroy</on_crash>
+    <memory>524288</memory>
+    <currentMemory>524288</currentMemory>
+    <devices>
+        <memballoon model='virtio'>
+            <stats period='0'/>
+        </memballoon>
+    </devices>
+    <vcpu current="1">1</vcpu>
+    <features>
+        <pae/>
+        <apic/>
+        <acpi/>
+    </features>
+    <cputune>
+        <shares>500</shares>
+    </cputune>
+    <clock offset='utc'>
+        <timer name='kvmclock' >
+        </timer>
+    </clock>
+    <devices>
+        <emulator></emulator>
+        <watchdog model='i6300esb' action='none'/>
+        <console type='pty'>
+            <target port='0'/>
+        </console>
+        <disk device='disk' type='file'>
+            <driver name='qemu' type='qcow2' cache='none' />
+            <source file='/mnt/1eb22c9a-3d86-3b7e-b2e8-36f3978df707/e69a2944-77a4-4d30-82bd-0c93db597ce9'/>
+            <target dev='vda' bus='virtio'/>
+            <serial>e69a294477a44d3082bd</serial>
+        </disk>
+        <disk device='cdrom' type='file'>
+            <driver name='qemu' type='raw' />
+            <source file=''/>
+            <target dev='hdc' bus='ide'/>
+        </disk>
+        <serial type='pty'>
+            <target port='0'/>
+        </serial>
+        <graphics type='vnc' autoport='yes' listen='192.168.122.1' passwd='miEkd1tz'/>
+        <channel type='unix'>
+            <source mode='bind' path='/var/lib/libvirt/qemu/s-70-VM.org.qemu.guest_agent.0'/>
+            <address type='virtio-serial'/>
+            <target type='virtio' name='org.qemu.guest_agent.0'/>
+        </channel>
+        <input type='tablet' bus='usb'/>
+        <interface type='bridge'>
+            <source bridge='cloud0'/>
+            <mac address='0e:00:a9:fe:9d:c2'/>
+            <model type='virtio'/>
+            <rom bar='off' file=''/>
+            <link state='up'/>
+        </interface>
+        <interface type='bridge'>
+            <source bridge='cloudbr0'/>
+            <mac address='1e:00:7b:00:00:03'/>
+            <model type='virtio'/>
+            <rom bar='off' file=''/>
+            <link state='up'/>
+        </interface>
+        <interface type='bridge'>
+            <source bridge='cloudbr0'/>
+            <mac address='1e:00:de:00:00:0c'/>
+            <model type='virtio'/>
+            <rom bar='off' file=''/>
+            <link state='up'/>
+        </interface>
+    </devices>
+</domain>
