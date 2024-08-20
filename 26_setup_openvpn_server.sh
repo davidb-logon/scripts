@@ -94,6 +94,8 @@ create_ovpn_server(){
     "RHEL")
         do_cmd "firewall-cmd --permanent --add-port=1194/udp"
         do_cmd "firewall-cmd --permanent --add-masquerade"
+        sudo firewall-cmd --permanent --zone=public --add-rich-rule='rule family="ipv4" source address="192.168.123.0/24" destination address="192.168.122.0/24" accept'
+        sudo firewall-cmd --permanent --zone=public --add-rich-rule='rule family="ipv4" source address="192.168.122.0/24" destination address="192.168.123.0/24" accept'
         do_cmd "firewall-cmd --reload"
         ;;
     esac
