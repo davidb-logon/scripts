@@ -23,3 +23,17 @@ iptables -t nat -A POSTROUTING -s 192.168.122.0/24 -o tun0 -j MASQUERADE
 # Ensure VPN client traffic can reach `virsh` network
 iptables -A FORWARD -i tun0 -s 192.168.123.0/24 -d 192.168.122.0/24 -j ACCEPT
 iptables -A FORWARD -i cloudbr0 -s 192.168.122.0/24 -d 192.168.123.0/24 -j ACCEPT
+
+sudo firewall-cmd --permanent --zone=trusted --add-source=80.178.85.20 #sefi
+sudo firewall-cmd --permanent --zone=trusted --add-source=84.95.45.250 #dudi
+#Open port 22 for these IP addresses in the trusted zone:
+sudo firewall-cmd --permanent --zone=trusted --add-port=22/tcp
+sudo firewall-cmd --permanent --zone=public --add-port=111/tcp
+sudo firewall-cmd --permanent --zone=public --add-port=111/udp
+sudo firewall-cmd --permanent --zone=public --add-port=2049/tcp
+sudo firewall-cmd --permanent --zone=public --add-port=2049/udp
+sudo firewall-cmd --permanent --zone=public --add-port=892/tcp
+sudo firewall-cmd --permanent --zone=public --add-port=892/udp
+
+sudo firewall-cmd --reload
+firewall-cmd --list-all
