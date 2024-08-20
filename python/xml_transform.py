@@ -221,6 +221,7 @@ def replace_serial_node(root):
     devices.append(new_serial)
         
 def manipulate_xml(xml_input):
+    logger.info("@@@@ Started xml_tarnsform.py")
     root = ET.fromstring(xml_input)
     name_node = root.find("name")
     if name_node is not None:
@@ -235,7 +236,11 @@ def manipulate_xml(xml_input):
     
         # Convert the modified XML tree back to a string
         modified_xml_string = ET.tostring(root, encoding='unicode')
-        return modified_xml_string    
+        logger.info("@@@@ Ended xml_transform.py, returned modified xml")
+        return modified_xml_string   
+    else:
+        logger.info("@@@@ Ended xml_transform.py, returned original xml")
+        return xml_input 
 
 if __name__ == "__main__":
     xml_input = sys.stdin.read()
