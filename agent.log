@@ -6058,7 +6058,8 @@ java.lang.ArrayIndexOutOfBoundsException: Index 16777216 out of bounds for lengt
 </devices>
 </domain>
 
-2024-08-20 04:57:15,862 INFO  [kvm.resource.LibvirtKvmAgentHook] (agentRequest-Handler-4:null) (logid:818a75e9) END invokePythonScript, xml output:<domain type='kvm'>
+2024-08-20 04:57:15,862 INFO  [kvm.resource.LibvirtKvmAgentHook] (agentRequest-Handler-4:null) (logid:818a75e9) END invokePythonScript, xml output:
+<domain type='kvm'>
 <name>i-2-156-VM</name>
 <uuid>97b11145-922d-4c25-a26c-c59aa57ee3d4</uuid>
 <description>Ubuntu 22.04 LTS</description>

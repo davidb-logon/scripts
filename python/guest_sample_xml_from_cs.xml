@@ -1,0 +1,80 @@
+<domain type='kvm'>
+    <name>i-2-156-VM</name>
+    <uuid>97b11145-922d-4c25-a26c-c59aa57ee3d4</uuid>
+    <description>Ubuntu 22.04 LTS</description>
+    <cpu></cpu>
+    <sysinfo type='smbios'>
+        <system>
+            <entry name='manufacturer'>Apache Software Foundation</entry>
+            <entry name='product'>CloudStack KVM Hypervisor</entry>
+            <entry name='uuid'>97b11145-922d-4c25-a26c-c59aa57ee3d4</entry>
+        </system>
+    </sysinfo>
+    <os>
+        <type arch='x86_64' machine='pc'>hvm</type>
+        <boot dev='cdrom'/>
+        <boot dev='hd'/>
+        <smbios mode='sysinfo'/>
+    </os>
+    <on_reboot>restart</on_reboot>
+    <on_poweroff>destroy</on_poweroff>
+    <on_crash>destroy</on_crash>
+    <memory>1048576</memory>
+    <currentMemory>1048576</currentMemory>
+    <devices>
+        <memballoon model='virtio'>
+            <stats period='0'/>
+        </memballoon>
+    </devices>
+    <vcpu current="1">1</vcpu>
+    <features>
+        <pae/>
+        <apic/>
+        <acpi/>
+    </features>
+    <cputune>
+        <shares>1000</shares>
+    </cputune>
+    <clock offset='utc'>
+        <timer name='kvmclock' >
+        </timer>
+    </clock>
+    <devices>
+        <emulator></emulator>
+        <watchdog model='i6300esb' action='none'/>
+        <console type='pty'>
+            <target port='0'/>
+        </console>
+        <disk device='disk' type='file'>
+            <driver name='qemu' type='qcow2' cache='none' />
+            <source file='/mnt/1eb22c9a-3d86-3b7e-b2e8-36f3978df707/cb49355f-a768-458a-89db-f1fab43a714a'/>
+            <target dev='vda' bus='virtio'/>
+            <serial>cb49355fa768458a89db</serial>
+        </disk>
+        <disk device='cdrom' type='file'>
+            <driver name='qemu' type='raw' />
+            <source file='/mnt/93a72ada-13f1-3a8b-b81f-f9b4f1c0ecf8/203-2-a581d203-9286-337b-8d0a-4e1001a2f733.iso'/>
+            <target dev='hdc' bus='ide'/>
+        </disk>
+        <serial type='pty'>
+            <target port='0'/>
+        </serial>
+        <graphics type='vnc' autoport='yes' listen='192.168.122.1' passwd='ddIUgaJB'/>
+        <channel type='unix'>
+            <source mode='bind' path='/var/lib/libvirt/qemu/i-2-156-VM.org.qemu.guest_agent.0'/>
+            <address type='virtio-serial'/>
+            <target type='virtio' name='org.qemu.guest_agent.0'/>
+        </channel>
+        <input type='tablet' bus='usb'/>
+        <interface type='bridge'>
+            <source bridge='cloudbr0'/>
+            <mac address='1e:00:2d:00:00:0d'/>
+            <model type='virtio'/>
+            <bandwidth>
+                <inbound average='25600' peak='25600'/>
+                <outbound average='25600' peak='25600'/>
+            </bandwidth>
+            <link state='up'/>
+        </interface>
+    </devices>
+</domain>

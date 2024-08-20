@@ -12,29 +12,104 @@ logging.basicConfig(
 
 logger = logging.getLogger()
 
-def should_update(root):
-    # Find the name node
-    name_node = root.find("name")
-    
-    logger.info("@@@@ Domain name: " + name_value + " will be modified")
-    return true
-    if name_node is not None:
-        # Check if the name starts with 's', 'v', or 'r'
-        name_value = name_node.text.lower()
-        
-        if name_value.startswith(('s', 'v', 'r')):
-            logger.info("@@@@ Domain name: " + name_value + " will be modified for x86_64")
-            return True
-    logger.info("@@@@ Domain name: " + name_value + " will not be modified")
-    return False
 
-def update_xml(xml_string):
-    # Parse the XML string
-    root = ET.fromstring(xml_string)
+def update_xml_for_s390x(root):
+    # Change the 'type' attribute of the 'domain' element to 'kvm' for s390x
+    root.set('type', 'kvm')
     
-    if not should_update(root):
-        return xml_string
+    # Update the OS node to reflect s390x architecture and appropriate machine type
+    os_node = root.find('os')
+    if os_node is not None:
+        # Remove existing 'os' node
+        root.remove(os_node)
+        
+        # Create a new 'os' element
+        new_os_node = ET.Element('os')
+        
+        # Create and append the 'type' element
+        type_element = ET.SubElement(new_os_node, 'type', arch='s390x', machine='s390-ccw-virtio-rhel8.6.0')
+        type_element.text = 'hvm'
+        
+        # Create and append the 'boot' element
+        boot_element = ET.SubElement(new_os_node, 'boot', dev='hd')
+        
+        # Replace the old 'os' element with the new one
+        root.append(new_os_node)
+
+    # Replace CPU configuration with s390x specific configuration
+    new_cpu = ET.Element("cpu", mode="host-model", check="partial")
+    cpu_node = root.find('cpu')
+    if cpu_node is not None:
+        root.remove(cpu_node)
+    root.append(new_cpu)
     
+    # Use the memory size from the input template
+    memory_node = root.find('memory')
+    current_memory_node = root.find('currentMemory')
+    if memory_node is not None:
+        memory_node.set('unit', 'KiB')
+    if current_memory_node is not None:
+        current_memory_node.set('unit', 'KiB')
+    
+    # Update the emulator path for s390x
+    devices = root.find("devices")
+    if devices is not None:
+        emulator_node = devices.find('emulator')
+        if emulator_node is None:
+            emulator_node = ET.SubElement(devices, 'emulator')
+        emulator_node.text = '/usr/libexec/qemu-kvm'
+    
+    # Update disk and device addresses for s390x
+    for disk in devices.findall('disk'):
+        target = disk.find('target')
+        if target is not None and target.get('bus') == 'virtio':
+            disk.find('address')
+            disk.remove(disk.find('address'))  # Remove existing address if any
+            ET.SubElement(disk, 'address', type='ccw', cssid='0xfe', ssid='0x0', devno='0x0000')
+        if target is not None and target.get('dev') == 'sda':
+            target.set('bus', 'scsi')
+            disk.find('address')
+            disk.remove(disk.find('address'))  # Remove existing address if any
+            ET.SubElement(disk, 'address', type='drive', controller='0', bus='0', target='0', unit='0')
+    
+    # Add controllers specific to s390x, handling existing ones
+    if devices is not None:
+        # Remove existing controllers if necessary
+        for controller in devices.findall('controller'):
+            devices.remove(controller)
+
+        # Add a SCSI controller
+        scsi_controller = ET.SubElement(devices, 'controller', type='scsi', index='0', model='virtio-scsi')
+        ET.SubElement(scsi_controller, 'address', type='ccw', cssid='0xfe', ssid='0x0', devno='0x0002')
+        
+        # Add a PCI controller
+        pci_controller = ET.SubElement(devices, 'controller', type='pci', index='0', model='pci-root')
+        
+        # Add a Virtio-Serial controller
+        virtio_serial_controller = ET.SubElement(devices, 'controller', type='virtio-serial', index='0')
+        ET.SubElement(virtio_serial_controller, 'address', type='ccw', cssid='0xfe', ssid='0x0', devno='0x0003')
+
+        # Update the console type to sclp for s390x
+        for console in devices.findall('console'):
+            target = console.find('target')
+            if target is not None:
+                target.set('type', 'sclp')
+
+        # Add a RNG device, handling existing ones
+        for rng in devices.findall('rng'):
+            devices.remove(rng)
+        rng = ET.SubElement(devices, 'rng', model='virtio')
+        ET.SubElement(rng, 'backend', model='random').text = '/dev/urandom'
+        ET.SubElement(rng, 'address', type='ccw', cssid='0xfe', ssid='0x0', devno='0x0005')
+
+        # Add a panic device for s390, handling existing ones
+        for panic in devices.findall('panic'):
+            devices.remove(panic)
+        panic = ET.SubElement(devices, 'panic', model='s390')
+
+
+def update_xml_for_x86(root):
+   
     # Change the 'type' attribute of the 'domain' element to 'qemu'
     root.set('type', 'qemu')
     
@@ -45,10 +120,7 @@ def update_xml(xml_string):
     replace_input_nodes(root)
     replace_serial_node(root)
     
-    # Convert the modified XML tree back to a string
-    modified_xml_string = ET.tostring(root, encoding='unicode')
     
-    return modified_xml_string
 
 def remove_graphics(root):
     # Find all 'devices' elements
@@ -149,11 +221,21 @@ def replace_serial_node(root):
     devices.append(new_serial)
         
 def manipulate_xml(xml_input):
-    logger.info("@@@@ Starting XML manipulation")
+    root = ET.fromstring(xml_input)
+    name_node = root.find("name")
+    if name_node is not None:
+        # Check if the name starts with 's', 'v', or 'r', which means it is a systemVM
+        name_value = name_node.text.lower()
+        if name_value.startswith(('s', 'v', 'r')):
+            logger.info("@@@@ Domain name: " + name_value + " will be modified for x86_64")
+            update_xml_for_x86(root)
+        else:
+            logger.info("@@@@ Domain name: " + name_value + " will be modified for s390x")
+            update_xml_for_s390x(root)
     
-    modified_xml = update_xml(xml_input)
-    
-    return modified_xml
+        # Convert the modified XML tree back to a string
+        modified_xml_string = ET.tostring(root, encoding='unicode')
+        return modified_xml_string    
 
 if __name__ == "__main__":
     xml_input = sys.stdin.read()
