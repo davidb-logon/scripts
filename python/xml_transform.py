@@ -16,6 +16,8 @@ def should_update(root):
     # Find the name node
     name_node = root.find("name")
     
+    logger.info("@@@@ Domain name: " + name_value + " will be modified")
+    return true
     if name_node is not None:
         # Check if the name starts with 's', 'v', or 'r'
         name_value = name_node.text.lower()
