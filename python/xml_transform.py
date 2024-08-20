@@ -9,11 +9,25 @@ logging.basicConfig(
     level=logging.INFO,  # You can adjust the log level as needed (e.g., DEBUG, WARNING, ERROR)
     format='%(asctime)s - %(levelname)s - %(message)s'
 )
+
 logger = logging.getLogger()
+
+def should_update(root):
+    # Find the name node
+    name_node = root.find("name")
+    if name_node is not None:
+        # Check if the name starts with 's', 'v', or 'r'
+        name_value = name_node.text.lower()
+        if name_value.startswith(('s', 'v', 'r')):
+            return True
+    return False
 
 def update_xml(xml_string):
     # Parse the XML string
     root = ET.fromstring(xml_string)
+    
+    if not should_update(root):
+        return xml_string
     
     # Change the 'type' attribute of the 'domain' element to 'qemu'
     root.set('type', 'qemu')
