@@ -76,6 +76,10 @@ def update_xml_for_s390x(root):
         # Remove existing controllers if necessary
         for controller in devices.findall('controller'):
             devices.remove(controller)
+            
+        # Remove existing input devices if necessary
+        for input_device in devices.findall('input'):
+            devices.remove(input_device)
 
         # Add a SCSI controller
         scsi_controller = ET.SubElement(devices, 'controller', type='scsi', index='0', model='virtio-scsi')
