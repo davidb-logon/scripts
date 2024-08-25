@@ -12,7 +12,6 @@ logging.basicConfig(
 
 logger = logging.getLogger()
 
-
 def update_xml_for_s390x(root):
     # Change the 'type' attribute of the 'domain' element to 'kvm' for s390x
     root.set('type', 'kvm')
