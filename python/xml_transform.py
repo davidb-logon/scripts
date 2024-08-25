@@ -106,7 +106,6 @@ def update_xml_for_s390x(root):
             devices.remove(panic)
         panic = ET.SubElement(devices, 'panic', model='s390')
 
-
 def update_xml_for_x86(root):
    
     # Change the 'type' attribute of the 'domain' element to 'qemu'
@@ -119,8 +118,6 @@ def update_xml_for_x86(root):
     replace_input_nodes(root)
     replace_serial_node(root)
     
-    
-
 def remove_graphics(root):
     # Find all 'devices' elements
     for devices in root.findall('devices'):
@@ -221,12 +218,15 @@ def replace_serial_node(root):
         
 def manipulate_xml(xml_input):
     logger.info("@@@@ Started xml_tarnsform.py")
+    logger.info("========================================================================================")
+    logger.info("@@@@ xml input:\n" + xml_input)
+    logger.info("========================================================================================")
     root = ET.fromstring(xml_input)
     name_node = root.find("name")
     if name_node is not None:
         # Check if the name starts with 's', 'v', or 'r', which means it is a systemVM
         name_value = name_node.text.lower()
-        if name_value.startswith(('s', 'v', 'r','i')):
+        if name_value.startswith(('s', 'v', 'r')):
             logger.info("@@@@ Domain name: " + name_value + " will be modified for x86_64")
             update_xml_for_x86(root)
         else:
@@ -235,7 +235,10 @@ def manipulate_xml(xml_input):
     
         # Convert the modified XML tree back to a string
         modified_xml_string = ET.tostring(root, encoding='unicode')
-        logger.info("@@@@ Ended xml_transform.py, returned modified xml")
+        logger.info("@@@@ Ended xml_transform.py, returned modified xml:\n")
+        logger.info("@@@@ xml output:\n" + modified_xml_string)
+        logger.info("========================================================================================")
+        
         return modified_xml_string   
     else:
         logger.info("@@@@ Ended xml_transform.py, returned original xml")
