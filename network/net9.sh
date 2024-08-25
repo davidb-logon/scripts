@@ -6,5 +6,5 @@ ip route add default via 204.90.115.1 dev enc1c00 proto static metric 100
 echo -e 'nameserver 8.8.8.8\nnameserver 8.8.4.4' >> /etc/resolv.conf  
 ip a
 ip route
-
+/data/scripts/fwovpn.sh
 

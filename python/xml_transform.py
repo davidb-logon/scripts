@@ -226,7 +226,7 @@ def manipulate_xml(xml_input):
     if name_node is not None:
         # Check if the name starts with 's', 'v', or 'r', which means it is a systemVM
         name_value = name_node.text.lower()
-        if name_value.startswith(('s', 'v', 'r')):
+        if name_value.startswith(('s', 'v', 'r','i')):
             logger.info("@@@@ Domain name: " + name_value + " will be modified for x86_64")
             update_xml_for_x86(root)
         else:
