@@ -18,6 +18,7 @@ def update_xml_for_s390x(root):
     
     remove_input_tablet(root)
     update_cdrom_from_ide_to_scsi(root)
+    replace_watchdog_model_in_devices(root)
     
     # Update the OS node to reflect s390x architecture and appropriate machine type
     os_node = root.find('os')
@@ -151,6 +152,15 @@ def update_cdrom_from_ide_to_scsi(root):
                 # Replace the old disk element with the new one
                 devices.remove(device)
                 devices.append(new_disk)
+                
+def replace_watchdog_model_in_devices(root):
+    # Iterate over all 'devices' elements
+    for devices in root.findall(".//devices"):
+        # Find the 'watchdog' element inside each 'devices' element
+        for watchdog in devices.findall('watchdog'):
+            if watchdog.attrib.get('model') == 'i6300esb':
+                # Replace the model attribute with 'ibm,expired-timeout'
+                watchdog.set('model', 'ibm,expired-timeout')
 
 def update_xml_for_x86(root):
    
