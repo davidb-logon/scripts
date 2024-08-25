@@ -16,6 +16,8 @@ def update_xml_for_s390x(root):
     # Change the 'type' attribute of the 'domain' element to 'kvm' for s390x
     root.set('type', 'kvm')
     
+    remove_input_tablet(root)
+    
     # Update the OS node to reflect s390x architecture and appropriate machine type
     os_node = root.find('os')
     if os_node is not None:
@@ -109,6 +111,23 @@ def update_xml_for_s390x(root):
         for panic in devices.findall('panic'):
             devices.remove(panic)
         panic = ET.SubElement(devices, 'panic', model='s390')
+
+import xml.etree.ElementTree as ET
+
+def remove_input_tablet(root):
+
+    # Find all devices elements
+    devices_elements = root.findall('.//devices')
+
+    for devices in devices_elements:
+        # Find all input elements within each devices element
+        inputs = devices.findall('input')
+
+        for input_element in inputs:
+            # Check if the input element has the required attributes
+            if input_element.attrib.get('bus') == 'usb': # and input_element.attrib.get('type') == 'tablet':
+                # Remove the input element
+                devices.remove(input_element)
 
 def update_xml_for_x86(root):
    
