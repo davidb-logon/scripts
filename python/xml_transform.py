@@ -129,27 +129,28 @@ def remove_input_tablet(root):
                 devices.remove(input_element)
 
 def update_cdrom_from_ide_to_scsi(root):
-    for device in root.findall(".//devices/disk"):
-        if (device.attrib.get('device') == 'cdrom' and 
-            device.attrib.get('type') == 'file' and 
-            device.find('driver').attrib.get('name') == 'qemu' and 
-            device.find('driver').attrib.get('type') == 'raw' and 
-            device.find('target').attrib.get('bus') == 'ide' and 
-            device.find('target').attrib.get('dev') == 'hdc'):
-            
-            # Create the new disk element
-            new_disk = ET.Element('disk', type='file', device='cdrom')
-            ET.SubElement(new_disk, 'driver', name='qemu', type='raw')
-            ET.SubElement(new_disk, 'target', dev='sda', bus='scsi')
-            ET.SubElement(new_disk, 'readonly')
-            ET.SubElement(new_disk, 'address', 
-                        type='drive', controller='0', 
-                        bus='0', target='0', unit='0')
-            
-            # Replace the old disk element with the new one
-            parent = device.getparent()
-            parent.remove(device)
-            parent.append(new_disk)
+    # Iterate over all 'disk' elements in 'devices'
+    for devices in root.findall(".//devices"):
+        for device in devices.findall('disk'):
+            if (device.attrib.get('device') == 'cdrom' and 
+                device.attrib.get('type') == 'file' and 
+                device.find('driver').attrib.get('name') == 'qemu' and 
+                device.find('driver').attrib.get('type') == 'raw' and 
+                device.find('target').attrib.get('bus') == 'ide' and 
+                device.find('target').attrib.get('dev') == 'hdc'):
+                
+                # Create the new disk element
+                new_disk = ET.Element('disk', type='file', device='cdrom')
+                ET.SubElement(new_disk, 'driver', name='qemu', type='raw')
+                ET.SubElement(new_disk, 'target', dev='sda', bus='scsi')
+                ET.SubElement(new_disk, 'readonly')
+                ET.SubElement(new_disk, 'address', 
+                              type='drive', controller='0', 
+                              bus='0', target='0', unit='0')
+                
+                # Replace the old disk element with the new one
+                devices.remove(device)
+                devices.append(new_disk)
 
 def update_xml_for_x86(root):
    
