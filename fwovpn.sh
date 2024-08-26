@@ -1,4 +1,11 @@
 #!/bin/bash
+#first log the current environment of iptables for learning later
+IPTLOG=/data/ipt.log
+CD=$(date +%F-%H%M)
+echo "============== $CD =============" >> $IPTLOG
+iptables -L -t nat -v -n >> $IPTLOG
+firewall-cmd --list-all >> $IPTLOG
+ip -br a >> $IPTLOG
 #------------------------------------------------------------------------------
 # Licensed Materials (c) Copyright Log-On 2024, All Rights Reserved.
 #------------------------------------------------------------------------------
