@@ -1,0 +1,132 @@
+<domain type='kvm' id='6'>
+  <name>debnew125-1</name>
+  <uuid>35fb944f-3b89-45c1-96c1-b56552da4f71</uuid>
+  <metadata>
+    <libosinfo:libosinfo xmlns:libosinfo="http://libosinfo.org/xmlns/libvirt/domain/1.0">
+      <libosinfo:os id="http://debian.org/debian/11"/>
+    </libosinfo:libosinfo>
+  </metadata>
+  <memory unit='KiB'>2097152</memory>
+  <currentMemory unit='KiB'>2097152</currentMemory>
+  <vcpu placement='static'>2</vcpu>
+  <resource>
+    <partition>/machine</partition>
+  </resource>
+  <os>
+    <type arch='s390x' machine='s390-ccw-virtio-rhel8.6.0'>hvm</type>
+    <boot dev='hd'/>
+  </os>
+  <cpu mode='custom' match='exact' check='partial'>
+    <model fallback='forbid'>gen16a-base</model>
+    <feature policy='require' name='nnpa'/>
+    <feature policy='require' name='aen'/>
+    <feature policy='require' name='vxpdeh'/>
+    <feature policy='require' name='aefsi'/>
+    <feature policy='require' name='diag318'/>
+    <feature policy='require' name='csske'/>
+    <feature policy='require' name='msa9'/>
+    <feature policy='require' name='msa8'/>
+    <feature policy='require' name='msa7'/>
+    <feature policy='require' name='msa6'/>
+    <feature policy='require' name='msa5'/>
+    <feature policy='require' name='msa4'/>
+    <feature policy='require' name='msa3'/>
+    <feature policy='require' name='msa2'/>
+    <feature policy='require' name='msa1'/>
+    <feature policy='require' name='sthyi'/>
+    <feature policy='require' name='edat'/>
+    <feature policy='require' name='deflate'/>
+    <feature policy='require' name='etoken'/>
+    <feature policy='require' name='vx'/>
+    <feature policy='require' name='pai'/>
+    <feature policy='require' name='ap'/>
+    <feature policy='require' name='vxeh'/>
+    <feature policy='require' name='vxpd'/>
+    <feature policy='require' name='esop'/>
+    <feature policy='require' name='msa9_pckmo'/>
+    <feature policy='require' name='vxeh2'/>
+    <feature policy='require' name='esort'/>
+    <feature policy='require' name='apft'/>
+    <feature policy='require' name='els'/>
+    <feature policy='require' name='iep'/>
+    <feature policy='require' name='apqci'/>
+    <feature policy='require' name='cte'/>
+    <feature policy='require' name='ais'/>
+    <feature policy='require' name='bpb'/>
+    <feature policy='require' name='gs'/>
+    <feature policy='require' name='ppa15'/>
+    <feature policy='require' name='zpci'/>
+    <feature policy='require' name='rdp'/>
+    <feature policy='require' name='sea_esop2'/>
+    <feature policy='require' name='beareh'/>
+    <feature policy='require' name='te'/>
+    <feature policy='require' name='vxpdeh2'/>
+  </cpu>
+  <clock offset='utc'/>
+  <on_poweroff>destroy</on_poweroff>
+  <on_reboot>restart</on_reboot>
+  <on_crash>destroy</on_crash>
+  <devices>
+    <emulator>/usr/libexec/qemu-kvm</emulator>
+    <disk type='file' device='disk'>
+      <driver name='qemu' type='qcow2'/>
+      <source file='/data/primary/vm/images/debnew125-1.qcow2' index='2'/>
+      <backingStore/>
+      <target dev='vda' bus='virtio'/>
+      <alias name='virtio-disk0'/>
+      <address type='ccw' cssid='0xfe' ssid='0x0' devno='0x0000'/>
+    </disk>
+    <disk type='file' device='cdrom'>
+      <driver name='qemu'/>
+      <target dev='sda' bus='scsi'/>
+      <readonly/>
+      <alias name='scsi0-0-0-0'/>
+      <address type='drive' controller='0' bus='0' target='0' unit='0'/>
+    </disk>
+    <controller type='scsi' index='0' model='virtio-scsi'>
+      <alias name='scsi0'/>
+      <address type='ccw' cssid='0xfe' ssid='0x0' devno='0x0002'/>
+    </controller>
+    <controller type='pci' index='0' model='pci-root'>
+      <alias name='pci.0'/>
+    </controller>
+    <controller type='virtio-serial' index='0'>
+      <alias name='virtio-serial0'/>
+      <address type='ccw' cssid='0xfe' ssid='0x0' devno='0x0003'/>
+    </controller>
+    <interface type='network'>
+      <mac address='52:54:00:e6:e1:09'/>
+      <source network='default' portid='7e1dd73a-f590-40d2-a25e-528cc66693c0' bridge='virbr0'/>
+      <target dev='vnet9'/>
+      <model type='virtio'/>
+      <alias name='net0'/>
+      <address type='ccw' cssid='0xfe' ssid='0x0' devno='0x0001'/>
+    </interface>
+    <console type='pty' tty='/dev/pts/8'>
+      <source path='/dev/pts/8'/>
+      <target type='sclp' port='0'/>
+      <alias name='console0'/>
+    </console>
+    <channel type='unix'>
+      <source mode='bind' path='/var/lib/libvirt/qemu/channel/target/domain-6-debnew125-1/org.qemu.guest_agent.0'/>
+      <target type='virtio' name='org.qemu.guest_agent.0' state='connected'/>
+      <alias name='channel0'/>
+      <address type='virtio-serial' controller='0' bus='0' port='1'/>
+    </channel>
+    <audio id='1' type='none'/>
+    <memballoon model='virtio'>
+      <alias name='balloon0'/>
+      <address type='ccw' cssid='0xfe' ssid='0x0' devno='0x0004'/>
+    </memballoon>
+    <rng model='virtio'>
+      <backend model='random'>/dev/urandom</backend>
+      <alias name='rng0'/>
+      <address type='ccw' cssid='0xfe' ssid='0x0' devno='0x0005'/>
+    </rng>
+    <panic model='s390'/>
+  </devices>
+  <seclabel type='dynamic' model='dac' relabel='yes'>
+    <label>+0:+0</label>
+    <imagelabel>+0:+0</imagelabel>
+  </seclabel>
+</domain>
