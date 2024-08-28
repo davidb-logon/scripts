@@ -1,3 +1,10 @@
+#install packer - very long compilation time
+# cd /data
+# git clone https://github.com/hashicorp/packer.git
+# cd packer
+# make bin
+
+
 virsh net-start default
 virt-install --name deb390-12-1 \
      --memory 2048 \
