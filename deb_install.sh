@@ -8,6 +8,12 @@
 #   rm /sbin/packer
 #   ln -s /usr/local/bin/packer /sbin/packer
 
+                                                                                                         │ 
+#   │                                                                                                                                                                                                                           │ 
+#   │                                                                                   Virtual disk 1 (vda) - 6.4 GB Virtio Block Device                                                                                       │ 
+#   │                                                                                   >     #1  primary   99.6 MB    f  ext2    /boot                                                                                         │ 
+#   │                                                                                   >     #2  primary    6.0 GB    f  xfs     /                                                                                             │ 
+#   │                                                                                   >     #3  primary  340.8 MB    f  swap    swap   
 virsh net-start default
 virt-install --name deb390-12-1 \
      --memory 2048 \
