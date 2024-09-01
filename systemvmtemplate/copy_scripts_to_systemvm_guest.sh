@@ -56,9 +56,9 @@ parse_command_line_arguments() {
 
 copy_scripts() {
     # copy the files after running the create_shar_archive.sh script from the cloudstack source folder to the systemvm guest
-    do_cmd "scp /data/cloudstack/tools/appliance/systemvmtemplate/cloud_scripts_shar_archive.sh $USER_AT_HOST:."
-    do_cmd "scp /data/scripts/systemvmtemplate/scripts/*.sh $USER_AT_HOST:scripts"
-    do_cmd "scp /data/scripts/exec_scripts_for_svm.sh $USER_AT_HOST:."
+    do_cmd "scp $SCP_PARAMS /data/cloudstack/tools/appliance/systemvmtemplate/cloud_scripts_shar_archive.sh $USER_AT_HOST:."
+    do_cmd "scp $SCP_PARAMS /data/scripts/systemvmtemplate/scripts/*.sh $USER_AT_HOST:scripts"
+    do_cmd "scp $SCP_PARAMS /data/scripts/exec_scripts_for_svm.sh $USER_AT_HOST:."
 }
 
 main "$@"
