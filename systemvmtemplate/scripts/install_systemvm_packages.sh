@@ -63,7 +63,6 @@ function install_packages() {
     nfs-common \
     samba-common cifs-utils \
     xl2tpd bcrelay ppp tdb-tools \
-    xenstore-utils libxenstore4 \
     ipvsadm conntrackd libnetfilter-conntrack3 \
     keepalived irqbalance \
     openjdk-17-jre-headless \
@@ -75,7 +74,7 @@ function install_packages() {
     radvd \
     sharutils genisoimage \
     strongswan libcharon-extra-plugins libstrongswan-extra-plugins strongswan-charon strongswan-starter \
-    virt-what qemu-guest-agent hyperv-daemons cloud-guest-utils \
+    virt-what qemu-guest-agent cloud-guest-utils \
     conntrack apt-transport-https ca-certificates curl gnupg  gnupg-agent software-properties-common
 
   apt-get install -y python3-json-pointer python3-jsonschema cloud-init
