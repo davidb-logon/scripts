@@ -17,7 +17,7 @@ cat << EOF
 -------------------------------------------------------------------------------
 run like that:
 example:
-    copy_scripts_to_systemvm_guest.sh sefi@192.168.124.3
+    copy_scripts_to_systemvm_guest.sh "-P 3922 -i /root/.ssh/systemvm.rsa"  sefi@192.168.124.171
 -------------------------------------------------------------------------------
 EOF
 script_ended_ok=true
@@ -45,7 +45,10 @@ parse_command_line_arguments() {
         usage
         exit
     fi
-    USER_AT_HOST="$1"
+
+    SCP_PARAMS="$1"
+    #SCP_PARAMS="-P 3922 -i /root/.ssh/systemvm.rsa"
+    USER_AT_HOST="$2"
     #USER_AT_HOST="sefi@192.168.124.3"
 
     #temp=1

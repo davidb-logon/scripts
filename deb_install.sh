@@ -60,6 +60,9 @@ E: Package 'open-vm-tools' has no installation candidate
 E: Unable to locate package hyperv-daemons                                                                               │ 
 
 ssh -p 3922 -i /root/.ssh/systemvm.rsa sefi@192.168.124.171
+scp /data/scripts/exec_scripts_for_svm.sh -P 3922 -i /root/.ssh/systemvm.rsa $USER_AT_HOST:.
+scp /data/scripts/exec_scripts_for_svm.sh -P 3922 -i /root/.ssh/systemvm.rsa sefi@192.168.124.171:.
+scp  -P 3922 -i /root/.ssh/systemvm.rsa /data/cloudstack/tools/appliance/cloud_scripts_shar_archive.sh sefi@192.168.124.171:.
 iptables -A INPUT -p tcp --dport 3922 -j ACCEPT   #need to open ssh port in firewall in a persistent way
 
 
