@@ -17,6 +17,7 @@
 #   │                                                                                   >     #2  primary    6.0 GB    f  xfs     /                                                                                             │ 
 #   │                                                                                   >     #3  primary  340.8 MB    f  swap    swap   
 virsh net-start default
+virsh undefine deb390-12-1
 virt-install --name deb390-12-1 \
      --memory 2048 \
      --vcpus=2  \
