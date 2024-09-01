@@ -50,7 +50,7 @@ function install_packages() {
 
   local apt_get="apt-get --no-install-recommends -q -y"
 
-  ${apt_get} install grub-legacy \
+  ${apt_get} install  \
     rsyslog logrotate cron net-tools ifupdown tmux vim-tiny htop netbase iptables nftables \
     openssh-server e2fsprogs tcpdump iftop socat wget coreutils systemd \
     python-is-python3 python3 python3-flask python3-netaddr ieee-data \
