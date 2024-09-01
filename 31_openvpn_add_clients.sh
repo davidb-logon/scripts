@@ -112,8 +112,8 @@ init_vars() {
             INSTALL_CMD="apt"
             SERVER_WORKING_DIR="/etc/openvpn/"
             SERVICE_NAME="openvpn@server.service"
-            SUBNET_IP="10.8.0.0"
-            GATEWAY_IP="10.8.0.1"
+            SUBNET_IP="192.168.123.0"
+            GATEWAY_IP="192.168.123.1"
             VPNSERVER="84.95.45.250"                     
             array1=()
             array2=()
@@ -123,21 +123,22 @@ init_vars() {
             array1+=("$element1")
             array2+=("$element2")
             done << EOF
-sefimini 10.8.0.4
-sefiw    10.8.0.5
-ubdudi   10.8.0.6
-dudimac  10.8.0.3
+sefimini 192.168.123.4
+sefiw    192.168.123.5
+ubdudi   192.168.123.6
+dudimac  192.168.123.3
+sharon   192.168.123.7
+davidb   192.168.123.8
 EOF
 
             ;;
         "RHEL")
             INSTALL_CMD="yum"
             SERVER_WORKING_DIR="/etc/openvpn/server/"
-            SERVICE_NAME="openvpn-server@server.service"
-            SUBNET_IP="10.7.0.0"
-            GATEWAY_IP="10.7.0.1"
-            VPNSERVER="204.90.115.208"                     
-                # Initialize two empty arrays
+            SERVICE_NAME="openvpn@server.service"
+            SUBNET_IP="192.168.123.0"
+            GATEWAY_IP="192.168.123.1"
+            VPNSERVER="84.95.45.250"                     
             array1=()
             array2=()
 
@@ -146,10 +147,12 @@ EOF
             array1+=("$element1")
             array2+=("$element2")
             done << EOF
-sefimini 10.7.0.4
-sefiw    10.7.0.5
-ubdudi   10.7.0.6
-dudimac  10.7.0.3
+sefimini 192.168.123.4
+sefiw    192.168.123.5
+ubdudi   192.168.123.6
+dudimac  192.168.123.3
+sharon   192.168.123.7
+davidb   192.168.123.8
 EOF
 
             ;;        
