@@ -35,20 +35,20 @@ main() {
     init_vars # Sets up linux specific variables according to distribution
     mount_repo # Mount the repository
     
-#     # Print the contents of the arrays
-#     echo "Array 1:"
-#     for item in "${array1[@]}"; do
-#     echo "$item"
-#     done
-# #PS4='${BASH_SOURCE}:$LINENO + '
-# #set -x
+    # Print the contents of the arrays
+    echo "Array 1:"
+    for item in "${array1[@]}"; do
+    echo "$item"
+    done
+#PS4='${BASH_SOURCE}:$LINENO + '
+#set -x
 
-#     echo "Array 2:"
-#     for item in "${array2[@]}"; do
-#     echo "$item"
-#     done
+    echo "Array 2:"
+    for item in "${array2[@]}"; do
+    echo "$item"
+    done
 
-# echo here: ${array1[0]} ${array2[0]}
+echo here: ${array1[0]} ${array2[0]}
 
 
 # Length of the array
