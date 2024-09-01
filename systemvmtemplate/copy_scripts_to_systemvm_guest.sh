@@ -7,7 +7,7 @@
 
 # Source script libraries as needed.
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
-source "$DIR/lib/common.sh"
+source "$DIR/../lib/common.sh"
 
 script_ended_ok=false
 trap 'cleanup' EXIT
