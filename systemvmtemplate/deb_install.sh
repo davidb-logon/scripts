@@ -64,6 +64,17 @@ scp /data/scripts/exec_scripts_for_svm.sh -P 3922 -i /root/.ssh/systemvm.rsa $US
 scp /data/scripts/exec_scripts_for_svm.sh -P 3922 -i /root/.ssh/systemvm.rsa sefi@192.168.124.171:.
 scp  -P 3922 -i /root/.ssh/systemvm.rsa /data/cloudstack/tools/appliance/cloud_scripts_shar_archive.sh sefi@192.168.124.171:.
 iptables -A INPUT -p tcp --dport 3922 -j ACCEPT   #need to open ssh port in firewall in a persistent way
+vi /run/dnsmasq/resolv.conf  #need to update dns resolve to 8.8.8.8
+
+systemctl disable cloud-init-local
+systemctl disable cloud-init
+systemctl disable cloud-config
+systemctl disable cloud-final
+
+systemctl stop cloud-init-local
+systemctl stop cloud-init
+systemctl stop cloud-config
+systemctl stop cloud-final
 
 
 + apt-get --no-install-recommends -q -y --no-install-recommends -q -y install rsyslog logrotate cron net-tools ifupdown tmux vim-tiny htop netbase iptables nftables openssh-server e2fsprogs tcpdump iftop socat wget coreutils systemd python-is-python3 python3 python3-flask python3-netaddr ieee-data bzip2 sed gawk diffutils grep gzip less tar telnet ftp rsync traceroute psmisc lsof procps inetutils-ping iputils-arping httping curl dnsutils zip unzip ethtool uuid file iproute2 acpid sudo sysstat apache2 ssl-cert dnsmasq dnsmasq-utils nfs-common samba-common cifs-utils ipvsadm conntrackd libnetfilter-conntrack3 keepalived irqbalance openjdk-17-jre-headless ipcalc ipset iptables-persistent libssl-dev libapr1-dev haproxy haveged radvd sharutils genisoimage strongswan libcharon-extra-plugins libstrongswan-extra-plugins strongswan-charon strongswan-starter virt-what qemu-guest-agent cloud-guest-utils conntrack apt-transport-https ca-certificates curl gnupg gnupg-agent software-properties-common

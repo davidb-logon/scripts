@@ -55,7 +55,7 @@ function apt_upgrade() {
   apt-get -q -y update
 
   apt-get -q -y upgrade
-  apt-get -q -y dist-upgrade
+  # apt-get -q -y dist-upgrade
 
   apt-get -y autoremove --purge
   apt-get autoclean
