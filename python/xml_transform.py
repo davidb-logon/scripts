@@ -285,7 +285,8 @@ def manipulate_xml(xml_input):
         name_value = name_node.text.lower()
         if name_value.startswith(('s', 'v', 'r')):
             logger.info("@@@@ Domain name: " + name_value + " will be modified for x86_64")
-            update_xml_for_x86(root)
+            #update_xml_for_x86(root)
+            update_xml_for_s390x(root)
         else:
             logger.info("@@@@ Domain name: " + name_value + " will be modified for s390x")
             update_xml_for_s390x(root)
