@@ -31,6 +31,11 @@ iptables -t nat -A POSTROUTING -s 192.168.122.0/24 -o tun0 -j MASQUERADE
 iptables -A FORWARD -i tun0 -s 192.168.123.0/24 -d 192.168.122.0/24 -j ACCEPT
 iptables -A FORWARD -i cloudbr0 -s 192.168.122.0/24 -d 192.168.123.0/24 -j ACCEPT
 
+iptables -t nat -A POSTROUTING -o enc1c00 -j MASQUERADE
+iptables -A FORWARD -i enc1c00 -o virbr0 -j ACCEPT
+iptables -A FORWARD -i virbr0 -o enc1c00 -j ACCEPT
+
+
 sudo firewall-cmd --permanent --zone=trusted --add-source=80.178.85.20 #sefi
 sudo firewall-cmd --permanent --zone=trusted --add-source=84.95.45.250 #dudi
 #Open port 22 for these IP addresses in the trusted zone:
