@@ -63,7 +63,7 @@ copy_scripts() {
     do_cmd "scp $SCP_PARAMS /data/scripts/systemvmtemplate/scripts/*.sh $USER_AT_HOST:scripts"
     do_cmd "scp $SCP_PARAMS /data/scripts/systemvmtemplate/deb_install.sh $USER_AT_HOST:."
     do_cmd "scp $SCP_PARAMS /data/scripts/exec_scripts_for_svm.sh $USER_AT_HOST:."
-    do_cmd "ssh $SSH_PARAMS $USER_AT_HOST nohup ./exec_scripts_for_svm.sh"
+    do_cmd "ssh $SSH_PARAMS $USER_AT_HOST sudo bash -c 'nohup ./exec_scripts_for_svm.sh'"
     #hostnamectl --static set-hostname deb390-4
 }
 
