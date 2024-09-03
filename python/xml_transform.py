@@ -19,6 +19,7 @@ def update_xml_for_s390x(root):
     remove_input_tablet(root)
     update_cdrom_from_ide_to_scsi(root)
     remove_watchdog_model_in_devices(root)
+    update_interfaces(root)
     
     # Update the OS node to reflect s390x architecture and appropriate machine type
     os_node = root.find('os')
@@ -272,7 +273,16 @@ def replace_serial_node(root):
     
     # Append the new serial node to devices
     devices.append(new_serial)
-        
+
+def update_interfaces(root):
+     for interface in root.findall(".//interface"):
+        # Find the rom element within the interface
+        rom_element = interface.find("rom")
+        if rom_element is not None:
+            # Remove the rom element
+            interface.remove(rom_element)
+
+
 def manipulate_xml(xml_input):
     logger.info("@@@@ Started xml_tarnsform.py")
     logger.info("========================================================================================")
