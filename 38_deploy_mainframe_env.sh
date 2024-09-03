@@ -112,7 +112,7 @@ delete_all_objects () {
 
 place_storage_pool_in_maintenance(){
     local id=$1
-    do_cmd 'result=$(cmk list storagepools id='$id' | grep -c "state = Maintenance")'
+    do_cmd 'result=$(cmk list storagepools id='$id' | grep -c "Maintenance")' "" "INFO: not in maintenance"
     if [[ $result = "1" ]]; then
         logMessage "Storagepool $id already in maintenance mode"
     else
