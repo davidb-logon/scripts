@@ -8,5 +8,7 @@ SCRIPT_PATH="/usr/share/cloudstack-common/scripts/storage/secondary/cloud-instal
 SVM_PATH=http://localhost:8090/deb390-12-4-1.qcow2.bz2
 DOAMIN="deb390-12-4"
 virsh destroy $DOAMIN
+sleep 3
+bzip2 -kv $SVM_PATH
 SVM_PATH=$(virsh dumpxml deb390-12-4 | grep 'source file' |  grep -oP "file='\K[^']+")
-sudo $SCRIPT_PATH -m /data/mainframe_secondary -u $SVM_PATH -h kvm -F
+sudo $SCRIPT_PATH -m /data/mainframe_secondary -u ${SVM_PATH}.bz2 -h kvm -F
