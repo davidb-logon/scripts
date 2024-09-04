@@ -18,7 +18,7 @@ script_ended_ok=true
 }
 
 main() {
-    set -x
+    #set -x
     init_vars "logon" "install_systemvm"
     start_logging
     check_if_root
