@@ -10,5 +10,5 @@ DOAMIN="deb390-12-4"
 virsh destroy $DOAMIN
 sleep 3
 SVM_PATH=$(virsh dumpxml deb390-12-4 | grep 'source file' |  grep -oP "file='\K[^']+")
-bzip2 -kv $SVM_PATH
+bzip2 -kvv $SVM_PATH
 sudo $SCRIPT_PATH -m /data/mainframe_secondary -u ${SVM_PATH}.bz2 -h kvm -F
