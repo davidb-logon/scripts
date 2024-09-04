@@ -59,7 +59,17 @@ add_apparmor_rule_for_dhclient() {
     fi
 }
 
-
+change_name_online() {
+    OLD_NAME=$1
+    NEW_NAME=$2
+    ip link set dev $OLD_NAME down
+    #Replace <old_interface_name> with the current interface name (e.g., enc1).
+    #Rename the interfaces manually (if supported by the system):
+    ip link set dev $OLD_NAME name $NEW_NAME
+    #Replace <old_interface_name> with the current interface name (e.g., enc1), and <new_interface_name> with the desired new name (e.g., eth0).
+    #Bring the interfaces back up:
+    ip link set dev $NEW_NAME up
+}
 
 # Get all network interfaces
 interfaces=$(ip -br link show | awk '{print $1}')
@@ -67,10 +77,13 @@ interfaces=$(ip -br link show | awk '{print $1}')
 # Iterate over each interface and get IP and MAC addresses
 macs=""
 need_to_reboot=0
+i=0
 for iface in $interfaces; do
     mac=$(ip link show "$iface" | awk '/link\/ether/ {print $2}')
     ip=$(ip -br addr show "$iface" | awk '{print $3}')
     echo "$iface: MAC=$mac, IP=$ip"
+    change_name_online $iface eth$i
+    i=$((i+1))
     if ! [[ $iface == eth* ]]; then
     need_to_reboot=1
     fi
@@ -90,5 +103,5 @@ fi
 if [ "$need_to_reboot" -eq 1 ]; then
   init_interfaces_orderby_macs $macs
   cat $rule_file
-  reboot
+  # reboot
 fi    
