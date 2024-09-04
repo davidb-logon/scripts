@@ -41,7 +41,7 @@ extract_template_from_vm() {
     sleep 3
     FILE_PATH=$(virsh dumpxml $DOMAIN | grep 'source file' |  grep -oP "file='\K[^']+")
     logMessage "FILE PATH: $FILE_PATH"
-    do_cmd "bzip2 -kvv $FILE_PATH"
+    do_cmd "bzip2 -kvv --force $FILE_PATH"
     logMessage "End extract and zip template from vm $DOMAIN"
 }
 
