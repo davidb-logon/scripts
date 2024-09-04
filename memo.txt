@@ -1,0 +1,128 @@
+2024/09/02 - tomorrow we will create a cfg file for cloud-init to prepare the corect interfaces for the network in our systemvm
+
+
+less templates/ntp.conf.debian.tmpl
+
+      Starting systemd-journald.service - Journal Service...
+[   19.948162] kauditd_printk_skb: 5 callbacks suppressed
+[   19.948175] audit: type=1400 audit(1725364506.163:17): apparmor="DENIED" operation="exec" info="profile transition not found" error=-13 profile="/{,usr/}sbin/dhclient" name="/usr/bin/true" pid=525 comm="dhclient" requested_mask="x" denied_mask="x" fsuid=0 ouid=0 target="/usr/bin/true"
+[   19.993828] audit: type=1400 audit(1725364506.211:18): apparmor="DENIED" operation="exec" info="profile transition not found" error=-13 profile="/{,usr/}sbin/dhclient" name="/usr/bin/true" pid=526 comm="dhclient" requested_mask="x" denied_mask="x" fsuid=0 ouid=0 target="/usr/bin/true"
+[   20.142549] systemd
+
+
+root@systemvm:~# ip link show
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN mode DEFAULT group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP mode DEFAULT group default qlen 1000
+    link/ether 0e:00:a9:fe:f3:d0 brd ff:ff:ff:ff:ff:ff
+    altname enc1
+3: enc6: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN mode DEFAULT group default qlen 1000
+    link/ether 1e:00:9f:00:00:0b brd ff:ff:ff:ff:ff:ff
+4: enc4: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN mode DEFAULT group default qlen 1000
+    link/ether 1e:00:fe:00:00:04 brd ff:ff:ff:ff:ff:ff
+root@systemvm:~# cat /etc/network/interfaces
+auto lo eth0 eth1 eth2
+iface lo inet loopback
+
+iface  eth0 inet static
+  address 169.254.243.208
+  netmask 255.255.0.0
+iface  eth1 inet static
+  address 192.168.122.163
+  netmask 255.255.255.0
+iface  eth2 inet static
+  address 192.168.122.170
+  netmask 255.255.255.0
+root@systemvm:~#
+
+vi /etc/udev/rules.d/70-persistent-net.rules
+  134  udevadm control --reload-rules
+  135  udevadm trigger
+
+cat /etc/udev/rules.d/70-persistent-net.rules
+SUBSYSTEM=="net", ACTION=="add", DRIVERS=="?*", ATTR{address}=="0e:00:a9:fe:f3:d0", NAME="eth0"  
+
+/opt/cloud/bin/setup/init.sh
+/opt/cloud/bin/setup/init.sh >2&1 | tee /root/init.sh.log
+cat /var/cache/cloud/cmd_line.json
+
+ch_dev_names.sh
+#!/bin/bash
+
+PS4='${BASH_SOURCE}:$LINENO + '
+set -x
+
+init_interfaces_orderby_macs() {
+    macs=( $(echo $1 | sed "s/|/ /g") )
+    total_nics=${#macs[@]}
+    interface_file=${2:-"/etc/network/interfaces"}
+    rule_file=${3:-"/etc/udev/rules.d/70-persistent-net.rules"}
+
+    echo -n "auto lo" > $interface_file
+    for((i=0; i<total_nics; i++))
+    do
+        if [[ $i < 3 ]]
+        then
+           echo -n " eth$i" >> $interface_file
+        fi
+    done
+
+    cat >> $interface_file << EOF
+iface lo inet loopback
+EOF
+
+    echo "" > $rule_file
+
+    for((i=0; i < ${#macs[@]}; i++))
+    do
+        echo "SUBSYSTEM==\"net\", ACTION==\"add\", DRIVERS==\"?*\", ATTR{addresss
+}==\"${macs[$i]}\", NAME=\"eth$i\"" >> $rule_file
+    done
+    udevadm control --reload-rules
+    udevadm trigger
+
+}
+
+
+
+# Get all network interfaces
+interfaces=$(ip -br link show | awk '{print $1}')
+
+# Iterate over each interface and get IP and MAC addresses
+macs=""
+need_to_reboot=0
+for iface in $interfaces; do
+    mac=$(ip link show "$iface" | awk '/link\/ether/ {print $2}')
+    ip=$(ip -br addr show "$iface" | awk '{print $3}')
+    echo "$iface: MAC=$mac, IP=$ip"
+    if ! [[ $iface == eth* ]]; then
+    need_to_reboot=1
+    fi
+    macs=${macs}"|"${mac}
+done
+
+
+if [ "$need_to_reboot" -eq 1 ]; then
+  init_interfaces_orderby_macs $macs
+  echo reboot
+fi    
+
+cat /etc/network/interfaces
+# This file describes the network interfaces available on your system
+# and how to activate them. For more information, see interfaces(5).
+
+source /etc/network/interfaces.d/*
+
+# The loopback network interface
+auto lo
+iface lo inet loopback
+
+# The primary network interface
+auto enc1
+iface enc1 inet static
+        address 192.168.124.5/24
+        gateway 192.168.124.1
+        # dns-* options are implemented by the resolvconf package, if installed
+        dns-nameservers 8.8.8.8 8.8.4.4
+
+        
