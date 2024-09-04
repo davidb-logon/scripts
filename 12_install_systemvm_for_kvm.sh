@@ -2,13 +2,61 @@
 #------------------------------------------------------------------------------
 # Licensed Materials (c) Copyright Log-On 2024, All Rights Reserved.
 #------------------------------------------------------------------------------
-set -x
-SCRIPT_PATH="/usr/share/cloudstack-common/scripts/storage/secondary/cloud-install-sys-tmplt"
-#SVM_PATH=http://download.cloudstack.org/systemvm/4.19/systemvmtemplate-4.19.1-kvm.qcow2.bz2
-#SVM_PATH=http://localhost:8090/deb390-12-4-1.qcow2.bz2
-DOMAIN="deb390-12-4"
-virsh destroy $DOMAIN
-sleep 3
-SVM_PATH=$(virsh dumpxml $DOMAIN | grep 'source file' |  grep -oP "file='\K[^']+")
-bzip2 -kvv $SVM_PATH
-sudo $SCRIPT_PATH -m /data/mainframe_secondary -u ${SVM_PATH}.bz2 -h kvm -F
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
+source "$DIR/lib/common.sh"
+
+script_ended_ok=false
+trap 'cleanup' EXIT
+
+usage() {
+cat << EOF
+-------------------------------------------------------------------------------
+Prepare and register a system vm template for cloudstack
+-------------------------------------------------------------------------------
+EOF
+script_ended_ok=true
+}
+
+main() {
+    set -x
+    init_vars "logon" "install_systemvm"
+    start_logging
+    check_if_root
+    extract_template_from_vm
+    prepare_repo
+    register_template
+    script_ended_ok=true
+}
+
+init_vars() {
+    init_utils_vars $1 $2
+    SCRIPT_PATH="/usr/share/cloudstack-common/scripts/storage/secondary/cloud-install-sys-tmplt"
+    DOMAIN="deb390-12-4"
+    REPO_PATH="http://localhost:8090/" 
+}
+
+extract_template_from_vm() {
+    logMessage "Start extract and zip template from vm $DOMAIN"
+    do_cmd "virsh destroy $DOMAIN"
+    sleep 3
+    FILE_PATH=$(virsh dumpxml $DOMAIN | grep 'source file' |  grep -oP "file='\K[^']+")
+    logMessage "FILE PATH: $FILE_PATH"
+    do_cmd "bzip2 -kvv $FILE_PATH"
+    logMessage "End extract and zip template from vm $DOMAIN"
+}
+
+prepare_repo() {
+    logMessage "Start prepare repo"
+    do_cmd "mv ${FILE_PATH}.bz2 /data/repo/"
+    start_web_server_on_repo.sh
+     logMessage "End prepare repo"
+}
+register_template() {
+    logMessage "Start register template using"
+    SVM_PATH=${REPO_PATH}$(basename $FILE_PATH)
+    logMessage "SVM PATH: $SVM_PATH"
+    do_cmd "$SCRIPT_PATH -m /data/mainframe_secondary -u ${SVM_PATH}.bz2 -h kvm -F"
+    logMessage "End register template"
+}
+
+main $@
