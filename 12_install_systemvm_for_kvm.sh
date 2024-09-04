@@ -37,7 +37,7 @@ init_vars() {
 
 extract_template_from_vm() {
     logMessage "Start extract and zip template from vm $DOMAIN"
-    do_cmd "virsh destroy $DOMAIN"
+    do_cmd "virsh destroy $DOMAIN" "" "INFO: Vm with Domain is stopped"
     sleep 3
     FILE_PATH=$(virsh dumpxml $DOMAIN | grep 'source file' |  grep -oP "file='\K[^']+")
     logMessage "FILE PATH: $FILE_PATH"
