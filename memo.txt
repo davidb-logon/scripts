@@ -1,5 +1,6 @@
 2024/09/02 - tomorrow we will create a cfg file for cloud-init to prepare the corect interfaces for the network in our systemvm
 
+1. to empty the db, run script 45 it will create a new systemvmtemplate from deb390-12-4 , then 38 to add a host.
 
 less templates/ntp.conf.debian.tmpl
 
@@ -125,4 +126,12 @@ iface enc1 inet static
         # dns-* options are implemented by the resolvconf package, if installed
         dns-nameservers 8.8.8.8 8.8.4.4
 
-        
+[    4.345665] systemd[1]: Starting cloud-init-local.service - Initial cloud-init job (pre-networking)...
+/etc/systemd/system/cloud-init.target.wants/cloud-init-local.service
+/usr/bin/cloud-init
+ OK  ] Started systemd-journald.service - Journal Service.
+[   38.446671] cloud-init[625]: Cloud-init v. 22.4.2 running 'init-local' at Wed, 04 Sep 2024 14:56:55 +0000. Up 36.82 seconds.
+[  OK  ] Finished modprobe@loop.service - Load Kernel Module loop.
+[  100.627502] cloud-init[625]: 2024-09-04 14:57:59,201 - util.py[WARNING]: Getting data from <class 'cloudinit.sources.DataSourceOpenStack.DataSourceOpenStackLocal'> failed
+[  OK  ] Finished cloud-init-local.…l cloud-init job (pre-networking).
+[  OK  ] Reached target network-pre…get - Preparation for Network.

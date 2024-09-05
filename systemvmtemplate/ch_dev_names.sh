@@ -65,7 +65,7 @@ change_name_online() {
     ip link set dev $OLD_NAME down
     #Replace <old_interface_name> with the current interface name (e.g., enc1).
     #Rename the interfaces manually (if supported by the system):
-    ip link set dev $OLD_NAME name $NEW_NAME
+    ip link set dev $OLD_NAME $NEW_NAME
     #Replace <old_interface_name> with the current interface name (e.g., enc1), and <new_interface_name> with the desired new name (e.g., eth0).
     #Bring the interfaces back up:
     ip link set dev $NEW_NAME up
@@ -82,10 +82,12 @@ for iface in $interfaces; do
     mac=$(ip link show "$iface" | awk '/link\/ether/ {print $2}')
     ip=$(ip -br addr show "$iface" | awk '{print $3}')
     echo "$iface: MAC=$mac, IP=$ip"
-    change_name_online $iface eth$i
+    # change_name_online $iface eth$i
     i=$((i+1))
     if ! [[ $iface == eth* ]]; then
-    need_to_reboot=1
+      if ! [[ $iface == lo ]]; then
+       need_to_reboot=1
+      fi
     fi
     macs=${macs}"|"${mac}
 done
@@ -96,12 +98,21 @@ local profile="/etc/apparmor.d/sbin.dhclient"
 # Check if the rule is already present
 if ! grep -q "$rule" "$profile"; then
    add_apparmor_rule_for_dhclient
-else 
+else
    echo "Rule already exists in $profile"
 fi
 
 if [ "$need_to_reboot" -eq 1 ]; then
+   if ! [ -f /root/ch_dev_names.log ]; then
   init_interfaces_orderby_macs $macs
-  cat $rule_file
-  # reboot
-fi    
+  cat << EOF > /root/ch_dev_names.log
+==== Erase this file to enable reboot ================== $(date)
+$(ip a)
+$(cat $rule_file)
+======================================
+EOF
+
+  #cat $rule_file
+  reboot
+  fi
+fi
