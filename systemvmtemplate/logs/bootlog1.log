@@ -1,0 +1,710 @@
+
+sefim@tovmeod1 MINGW64 /d/app/IBM/log-on/git
+$ ssh dlinux
+ssh: connect to host 204.90.115.226 port 22: Connection refused
+
+sefim@tovmeod1 MINGW64 /d/app/IBM/log-on/git
+$ ssh dlinux
+ssh: connect to host 204.90.115.226 port 22: Connection refused
+
+sefim@tovmeod1 MINGW64 /d/app/IBM/log-on/git
+$ ssh dlinux
+ssh: connect to host 204.90.115.226 port 22: Connection refused
+
+sefim@tovmeod1 MINGW64 /d/app/IBM/log-on/git
+$ ssh dlinux
+Activate the web console with: systemctl enable --now cockpit.socket
+
+Register this system with Red Hat Insights: insights-client --register
+Create an account or view all your systems at https://red.ht/insights-dashboard
+Last login: Sun Sep  8 01:46:22 2024 from 80.178.85.20
+[sefi@lr86xga ~]$ sudo -i
+[root@lr86xga ~]# vl
+ Id   Name                  State
+--------------------------------------
+ -    deb390-12-1           shut off
+ -    deb390-12-2           shut off
+ -    deb390-12-3           shut off
+ -    deb390-12-4           shut off
+ -    debian10-1            shut off
+ -    debian11-1            shut off
+ -    debnew125-1           shut off
+ -    debnew125-1-backupt   shut off
+ -    debnew125-2           shut off
+ -    systemvm-1            shut off
+ -    ubuntu-241            shut off
+ -    ubuntu-242            shut off
+
+[root@lr86xga ~]# vl
+ Id   Name                  State
+--------------------------------------
+ 4    s-115-VM              running
+ -    deb390-12-1           shut off
+ -    deb390-12-2           shut off
+ -    deb390-12-3           shut off
+ -    deb390-12-4           shut off
+ -    debian10-1            shut off
+ -    debian11-1            shut off
+ -    debnew125-1           shut off
+ -    debnew125-1-backupt   shut off
+ -    debnew125-2           shut off
+ -    systemvm-1            shut off
+ -    ubuntu-241            shut off
+ -    ubuntu-242            shut off
+
+[root@lr86xga ~]# vc 4
+Connected to domain 's-115-VM'
+Escape character is ^] (Ctrl + ])
+
+systemvm login: root
+Password: 
+Linux systemvm 6.1.0-25-s390x #1 SMP Debian 6.1.106-3 (2024-08-26) s390x
+
+The programs included with the Debian GNU/Linux system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+Last login: Thu Sep  5 02:47:43 EDT 2024 on ttysclp0
+root@systemvm:~# w
+ 04:26:05 up 15 min,  1 user,  load average: 0.07, 0.16, 0.29
+USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHAT
+root     ttysclp0 -                04:25    4.00s  0.34s  0.16s w
+root@systemvm:~# ipa
+lo               UNKNOWN        127.0.0.1/8 
+eth0             UP
+eth2             DOWN
+eth1             DOWN
+root@systemvm:~# service restart cloud-init
+restart: unrecognized service
+root@systemvm:~# systemctl | grep cloud
+  cloud-config.service                                                                      loaded active exited    Apply the settings specified in cloud-config        
+  cloud-early-config.service                                                                loaded active exited    CloudStack post-boot patching service using cmdline 
+  cloud-final.service                                                                       loaded active exited    Execute cloud user/final scripts
+  cloud-init-local.service                                                                  loaded active exited    Initial cloud-init job (pre-networking)
+  cloud-init.service                                                                        loaded active exited    Initial cloud-init job (metadata service crawler)   
+  cloud-postinit.service                                                                    loaded active exited    CloudStack post-patching init script
+  cloud-preinit.service                                                                     loaded active exited    CloudStack service to initialize interfaces
+● cloud.service                                                                             loaded failed failed    CloudStack Agent service
+  cloud-init-hotplugd.socket                                                                loaded active listening cloud-init hotplug hook socket
+  cloud-config.target                                                                       loaded active active    Cloud-config availability
+  cloud-init.target                                                                         loaded active active    Cloud-init target
+root@systemvm:~# service restart cloud-final 
+restart: unrecognized service
+root@systemvm:~# systemctl restart cloud-final
+[ 1077.200179] cloud-init[2020]: Cloud-init v. 22.4.2 running 'modules:final' at Sun, 08 Sep 2024 08:28:04 +0000. Up 1074.52 seconds.
+[ 1080.380234] cloud-init[2020]: Cloud-init v. 22.4.2 finished at Sun, 08 Sep 2024 08:28:10 +0000. Datasource DataSourceNone.  Up 1080.01 seconds
+[ 1080.409016] cloud-init[2020]: 2024-09-08 08:28:10,737 - cc_final_message.py[WARNING]: Used fallback datasource
+root@systemvm:~#          Stopping session-4.scope - Session 4 of User root...
+[  OK  ] Removed slice system-modpr…lice - Slice /system/modprobe.
+[  OK  ] Stopped target cloud-init.target - Cloud-init target.
+[  OK  ] Stopped target graphical.target - Graphical Interface.
+[  OK  ] Stopped target rpc_pipefs.target.
+[  OK  ] Stopped target rpcbind.target - RPC Port Mapper.
+[  OK  ] Stopped target timers.target - Timer Units.
+[  OK  ] Stopped dpkg-db-backup.tim… Daily dpkg database backup timer.
+[  OK  ] Stopped e2scrub_all.timer□etadata Check for All Filesystems.
+[  OK  ] Stopped fstrim.timer - Discard unused blocks once a week.
+[  OK  ] Stopped logrotate.timer - Daily rotation of log files.
+[  OK  ] Stopped man-db.timer - Daily man-db regeneration.
+[  OK  ] Stopped sysstat-collect.ti… accounting tool every 10 minutes.
+[  OK  ] Stopped sysstat-summary.ti…of yesterday's process accounting.
+[  OK  ] Stopped systemd-tmpfiles-c… Cleanup of Temporary Directories.
+[  OK  ] Stopped target time-set.target - System Time Set.
+         Unmounting run-rpc_pipefs.mount - RPC Pipe File System...
+         Stopping acpid.service - ACPI event daemon...
+[  OK  ] Stopped cloud-final.servic… Execute cloud user/final scripts.
+[  OK  ] Stopped target multi-user.target - Multi-User System.
+[  OK  ] Stopped target getty.target - Login Prompts.
+         Stopping apache2.service - The Apache HTTP Server...
+[  OK  ] Stopped cloud-config.servi…ettings specified in cloud-config.
+[  OK  ] Stopped target cloud-confi…t - Cloud-config availability.
+[  OK  ] Stopped cloud-postinit.ser…udStack post-patching init script.
+[  OK  ] Stopped cloud-early-config…ot patching service using cmdline.
+         Stopping cron.service …round program processing daemon...
+         Stopping getty@tty1.service - Getty on tty1...
+         Stopping ipvsadm.service - LSB: ipvsadm daemon...
+         Stopping qemu-guest-agent.service - QEMU Guest Agent...
+         Stopping rsyslog.service - System Logging Service...
+         Stopping serial-getty@ttys… - Serial Getty on ttysclp0...
+         Stopping ssh.service - OpenBSD Secure Shell server...
+[  OK  ] Stopped sysstat.service - Resets System Activity Logs.
+         Stopping systemd-random-se…ice - Load/Save Random Seed...
+         Stopping xl2tpd.service□yer 2 tunelling protocol daemon...
+[  OK  ] Stopped acpid.service - ACPI event daemon.
+[  OK  ] Stopped cron.service -…kground program processing daemon.
+[  OK  ] Stopped qemu-guest-agent.service - QEMU Guest Agent.
+[  OK  ] Stopped rsyslog.service - System Logging Service.
+[  OK  ] Stopped ssh.service - OpenBSD Secure Shell server.
+[  OK  ] Stopped getty@tty1.service - Getty on tty1.
+[  OK  ] Stopped serial-getty@ttysc…ce - Serial Getty on ttysclp0.
+[  OK  ] Unmounted run-rpc_pipefs.mount - RPC Pipe File System.
+[  OK  ] Stopped session-4.scope - Session 4 of User root.
+[  OK  ] Stopped systemd-random-see…rvice - Load/Save Random Seed.
+[  OK  ] Stopped ipvsadm.service - LSB: ipvsadm daemon.
+[  OK  ] Removed slice system-getty.slice - Slice /system/getty.
+[  OK  ] Removed slice system-seria… - Slice /system/serial-getty.
+         Stopping systemd-logind.se…ice - User Login Management...
+         Stopping systemd-user-sess…vice - Permit User Sessions...
+         Stopping user@0.service - User Manager for UID 0...
+[  OK  ] Stopped xl2tpd.service…layer 2 tunelling protocol daemon.
+[  OK  ] Stopped systemd-logind.service - User Login Management.
+         Stopping strongswan-starte…1/IKEv2 daemon using ipsec.conf...
+[  OK  ] Stopped user@0.service - User Manager for UID 0.
+         Stopping user-runtime-dir@…r Runtime Directory /run/user/0...
+[  OK  ] Stopped strongswan-starter…Ev1/IKEv2 daemon using ipsec.conf.
+[  OK  ] Stopped systemd-user-sessi…ervice - Permit User Sessions.
+[  OK  ] Stopped apache2.service - The Apache HTTP Server.
+[  OK  ] Stopped target network-online.target - Network is Online.
+[  OK  ] Stopped target network.target - Network.
+[  OK  ] Stopped target network-pre…get - Preparation for Network.
+[  OK  ] Stopped target nss-lookup.…m - Host and Network Name Lookups.
+[  OK  ] Stopped target remote-fs.target - Remote File Systems.
+[  OK  ] Stopped target remote-fs-p…eparation for Remote File Systems.
+[  OK  ] Stopped target nfs-client.target - NFS client services.
+[  OK  ] Stopped cloud-preinit.serv… service to initialize interfaces.
+         Stopping netfilter-persist…filter persistent configuration...
+[  OK  ] Unmounted run-user-0.mount - /run/user/0.
+[  OK  ] Stopped user-runtime-dir@0…ser Runtime Directory /run/user/0.
+[  OK  ] Stopped netfilter-persiste…etfilter persistent configuration.
+[  OK  ] Removed slice user-0.slice - User Slice of UID 0.
+         Stopping dbus.service - D-Bus System Message Bus...
+[  OK  ] Stopped dbus.service - D-Bus System Message Bus.
+[  OK  ] Stopped target basic.target - Basic System.
+[  OK  ] Stopped target paths.target - Path Units.
+[  OK  ] Stopped acpid.path - ACPI Events Check.
+[  OK  ] Stopped target slices.target - Slice Units.
+[  OK  ] Removed slice user.slice - User and Session Slice.
+[  OK  ] Stopped target sockets.target - Socket Units.
+[  OK  ] Closed acpid.socket - ACPID Listen Socket.
+[  OK  ] Closed cloud-init-hotplugd… - cloud-init hotplug hook socket.
+[  OK  ] Closed dbus.socket - D-Bus System Message Bus Socket.
+[  OK  ] Closed syslog.socket - Syslog Socket.
+[  OK  ] Closed uuidd.socket - UUID daemon activation socket.
+[  OK  ] Stopped target sysinit.target - System Initialization.
+[  OK  ] Stopped target cryptsetup.…get - Local Encrypted Volumes.
+[  OK  ] Stopped systemd-ask-passwo…quests to Console Directory Watch.
+[  OK  ] Stopped systemd-ask-passwo… Requests to Wall Directory Watch.
+[  OK  ] Stopped target integrityse…Local Integrity Protected Volumes.
+[  OK  ] Stopped target swap.target - Swaps.
+[  OK  ] Stopped target veritysetup… - Local Verity Protected Volumes.
+         Deactivating swap dev-disk…rtio-47c4f3f57c9044fba713-part3...
+[  OK  ] Stopped cloud-init.service…it job (metadata service crawler).
+[  OK  ] Stopped cloud-init-local.s…l cloud-init job (pre-networking).
+         Stopping systemd-binfmt.se…et Up Additional Binary Formats...
+[  OK  ] Stopped systemd-sysctl.service - Apply Kernel Variables.
+[  OK  ] Stopped systemd-modules-lo…service - Load Kernel Modules.
+         Stopping systemd-timesyncd… - Network Time Synchronization...
+         Stopping systemd-update-ut…rd System Boot/Shutdown in UTMP...
+[  OK  ] Deactivated swap dev-disk-…virtio-47c4f3f57c9044fba713-part3.
+[  OK  ] Deactivated swap dev-disk-…/dev/disk/by-partuuid/599a4cc8-03.
+[  OK  ] Deactivated swap dev-disk-…v/disk/by-path/ccw-0.0.0000-part3.
+[  OK  ] Deactivated swap dev-vda3.swap - /dev/vda3.
+[  OK  ] Unmounted run-credentials-…redentials/systemd-sysctl.service.
+[  OK  ] Stopped systemd-timesyncd.…0m - Network Time Synchronization.
+[  OK  ] Deactivated swap dev-disk-…84cf3-2e7e-4a44-af1c-413cce706913.
+[  OK  ] Stopped systemd-binfmt.ser… Set Up Additional Binary Formats.
+[  OK  ] Stopped systemd-update-utm…cord System Boot/Shutdown in UTMP.
+[  OK  ] Unset automount proc-sys-f…rmats File System Automount Point.
+[  OK  ] Stopped systemd-tmpfiles-s…eate System Files and Directories.
+[  OK  ] Stopped target local-fs.target - Local File Systems.
+         Unmounting boot.mount - /boot...
+         Unmounting run-credentials…ntials/systemd-sysusers.service...
+[ 1117.909588] EXT4-fs (vda1): unmounting filesystem.
+         Unmounting run-credentials…/systemd-tmpfiles-setup.service...
+         Unmounting run-credentials…temd-tmpfiles-setup-dev.service...
+[  OK  ] Unmounted boot.mount - /boot.
+[  OK  ] Unmounted run-credentials-…dentials/systemd-sysusers.service.
+[  OK  ] Unmounted run-credentials-…ls/systemd-tmpfiles-setup.service.
+[  OK  ] Unmounted run-credentials-…ystemd-tmpfiles-setup-dev.service.
+[  OK  ] Reached target umount.target - Unmount All Filesystems.
+[  OK  ] Stopped systemd-fsck@dev-d…94962-e5ae-42ae-a632-875288d8ae9b.
+[  OK  ] Removed slice system-syste… - Slice /system/systemd-fsck.
+[  OK  ] Stopped target local-fs-pr…reparation for Local File Systems.
+[  OK  ] Stopped systemd-tmpfiles-s…reate Static Device Nodes in /dev.
+[  OK  ] Stopped systemd-sysusers.service - Create System Users.
+[  OK  ] Stopped systemd-remount-fs…ount Root and Kernel File Systems.
+[  OK  ] Reached target shutdown.target - System Shutdown.
+[  OK  ] Reached target final.target - Late Shutdown Services.
+[  OK  ] Finished systemd-poweroff.service - System Power Off.
+[  OK  ] Reached target poweroff.target - System Power Off.
+[ 1118.612879] systemd-shutdown[1]: Syncing filesystems and block devices.
+[ 1118.625635] systemd-shutdown[1]: Sending SIGTERM to remaining processes...
+[ 1118.688911] systemd-journald[1444]: Received SIGTERM from PID 1 (systemd-shutdow).
+[ 1118.743766] systemd-shutdown[1]: Sending SIGKILL to remaining processes...
+[ 1118.793137] systemd-shutdown[1]: Unmounting file systems.
+[ 1118.798524] (sd-remount)[2058]: Remounting '/' read-only with options 'attr2,inode64,logbufs=8,logbsize=32k,noquota'.
+[ 1118.818615] systemd-shutdown[1]: All filesystems unmounted.
+[ 1118.818817] systemd-shutdown[1]: Deactivating swaps.
+[ 1118.819692] systemd-shutdown[1]: All swaps deactivated.
+[ 1118.819885] systemd-shutdown[1]: Detaching loop devices.
+
+[root@lr86xga ~]# vl
+ Id   Name                  State
+--------------------------------------
+ 5    s-115-VM              running
+ -    deb390-12-1           shut off
+ -    deb390-12-2           shut off
+ -    deb390-12-3           shut off
+ -    deb390-12-4           shut off
+ -    debian10-1            shut off
+ -    debian11-1            shut off
+ -    debnew125-1           shut off
+ -    debnew125-1-backupt   shut off
+ -    debnew125-2           shut off
+ -    systemvm-1            shut off
+ -    ubuntu-241            shut off
+ -    ubuntu-242            shut off
+
+[root@lr86xga ~]# cd ~sefi
+[root@lr86xga sefi]# ll
+total 175176
+drwx------. 9 sefi sefi      4096 Sep  5 02:31 ./
+drwxr-xr-x. 6 root root        63 Jul 22 04:45 ../
+-rw-r--r--. 1 sefi sefi     36383 Sep  5 02:31 a
+-rw-r--r--. 1 root root     16564 Aug 11 01:09 agent.log.zip
+-rw-rw-r--. 1 sefi sefi      2508 Jul 23 05:55 .bash_alias
+-rw-------. 1 sefi sefi      4288 Sep  8 01:54 .bash_history
+-rw-r--r--. 1 sefi sefi        18 Sep 30  2021 .bash_logout
+-rw-r--r--. 1 sefi sefi       141 Sep 30  2021 .bash_profile
+-rw-r--r--. 1 sefi sefi      1317 Aug  5 08:28 .bashrc
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-rw-rw-r--. 1 sefi sefi      4304 Aug  5 08:28 ..bashrc.vim
+drwx------. 5 sefi sefi        51 Jul 28 03:34 .cache/
+-rwxr-xr-x. 1 sefi sefi      3076 Sep  5 01:09 ch_dev_names.sh*
+drwx------. 6 sefi sefi        56 Aug  1 10:00 .config/
+-rw-r--r--. 1 root root 178991104 Feb  6  2021 debian-10.8.0-s390x-netinst.iso
+-rw-r--r--. 1 root root       627 Aug 29 05:06 debs390-2.xml
+-rw-r--r--. 1 root root      4365 Aug 29 05:06 .debs390-2.xml.vim
+-rw-r--r--. 1 root root      4467 Aug 15 08:31 .default.xml.vim
+-rw-------. 1 sefi sefi        49 Aug  6 03:22 .lesshst
+drwx------. 3 sefi sefi        19 Jun 30 01:36 .local/
+drwxrwxr-x. 3 sefi sefi        24 Jul 23 10:05 .m2/
+-rw-r--r--. 1 root root    193327 Aug 11 01:10 managment.log.zip
+drwxrwxr-x. 2 sefi sefi       148 Aug  1 10:09 qemu/
+-rw-r--r--. 1 root root      7484 Jul 31 04:34 radio52.ovpn.zip
+-rw-rw-r--. 1 sefi sefi      1675 Jul 21 03:38 Radius.rsa
+-rw-r--r--. 1 root root      7463 Jul 31 04:35 sefi.ovpn.zip
+drwxrwxrwx. 3 root root        30 Aug 27 04:26 src/
+drwx------. 2 sefi sefi        80 Sep  2 04:04 .ssh/
+-rw-------. 1 sefi sefi     26935 Aug  5 08:28 .viminfo
+-rw-rw-r--. 1 sefi sefi       529 Jul 23 05:53 .vimrc
+-rw-rw-r--. 1 sefi sefi      5359 Jul 23 05:53 ..vimrc.vim
+-rw-rw-r--. 1 sefi sefi       173 Aug  1 10:05 .wget-hsts
+-rw-r--r--. 1 sefi sefi       658 Feb 23  2022 .zshrc
+[root@lr86xga sefi]# less a
+[root@lr86xga sefi]# vl
+ Id   Name                  State
+--------------------------------------
+ 5    s-115-VM              running
+ -    deb390-12-1           shut off
+ -    deb390-12-2           shut off
+ -    deb390-12-3           shut off
+ -    deb390-12-4           shut off
+ -    debian10-1            shut off
+ -    debian11-1            shut off
+ -    debnew125-1           shut off
+ -    debnew125-1-backupt   shut off
+ -    debnew125-2           shut off
+ -    systemvm-1            shut off
+ -    ubuntu-241            shut off
+ -    ubuntu-242            shut off
+
+[root@lr86xga sefi]# vc 5
+Connected to domain 's-115-VM'
+Escape character is ^] (Ctrl + ])
+
+systemvm login: root
+Password: 
+Linux systemvm 6.1.0-25-s390x #1 SMP Debian 6.1.106-3 (2024-08-26) s390x
+
+The programs included with the Debian GNU/Linux system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+Last login: Sun Sep  8 04:25:56 EDT 2024 on ttysclp0
+
+[  OK  ] Created slice user-0.slice - User Slice of UID 0.
+         Starting user-runtime-dir@…r Runtime Directory /run/user/0...
+[  OK  ] Finished e2scrub_reap.serv…ine ext4 Metadata Check Snapshots.
+[  OK  ] Finished user-runtime-dir@…ser Runtime Directory /run/user/0.
+
+         Starting user@0.service - User Manager for UID 0...
+[  OK  ] Started user@0.service - User Manager for UID 0.
+[  OK  ] Started session-1.scope - Session 1 of User root.
+root@systemvm:~# 
+root@systemvm:~#
+root@systemvm:~# dmesg > dmesg.log
+root@systemvm:~# [  OK  ] Finished cloud-postinit.se…udStack post-patching init script.
+[  OK  ] Started cloud.service - CloudStack Agent service.
+[  OK  ] Reached target multi-user.target - Multi-User System.
+[  OK  ] Reached target graphical.target - Graphical Interface.
+         Starting cloud-final.servi…xecute cloud user/final scripts...
+         Starting systemd-update-ut… Record Runlevel Change in UTMP...
+[  OK  ] Stopped cloud.service - CloudStack Agent service.
+[  OK  ] Started cloud.service - CloudStack Agent service.
+[  OK  ] Finished systemd-update-ut… - Record Runlevel Change in UTMP.
+[  OK  ] Stopped cloud.service - CloudStack Agent service.
+[  OK  ] Started cloud.service - CloudStack Agent service.
+[  OK  ] Stopped cloud.service - CloudStack Agent service.
+[  OK  ] Started cloud.service - CloudStack Agent service.
+[  OK  ] Stopped cloud.service - CloudStack Agent service.
+[  OK  ] Started cloud.service - CloudStack Agent service.
+[  OK  ] Stopped cloud.service - CloudStack Agent service.
+[FAILED] Failed to start cloud.service - CloudStack Agent service.
+See 'systemctl status cloud.service' for details.
+[  354.124282] cloud-init[2209]: Cloud-init v. 22.4.2 running 'modules:final' at Sun, 08 Sep 2024 08:34:44 +0000. Up 352.46 seconds.
+[  356.148215] cloud-init[2209]: Cloud-init v. 22.4.2 finished at Sun, 08 Sep 2024 08:34:48 +0000. Datasource DataSourceNone.  Up 355.90 seconds
+[  356.171308] cloud-init[2209]: 2024-09-08 08:34:48,331 - cc_final_message.py[WARNING]: Used fallback datasource
+[  OK  ] Finished cloud-final.servi… Execute cloud user/final scripts.
+[  OK  ] Reached target cloud-init.target - Cloud-init target.
+
+root@systemvm:~# less dmesg.log 
+[    0.643432] Linux version 6.1.0-25-s390x (debian-kernel@lists.debian.org) (gcc-12 (Debian 12.2.0-14) 12.2.0, GNU ld (GNU Binutils for Debian) 2.40) #1 SMP Debian 6.1.106-3 (2024-08-26)
+[    0.643442] setup: Linux is running under KVM in 64-bit mode
+[    0.644052] setup: The maximum memory size is 512MB
+[    0.644054] setup: Relocating AMODE31 section of size 0x00003000
+[    0.644242] cpu: 1 configured CPUs, 0 standby CPUs
+[    0.644349] Write protected kernel read-only data: 12220k
+[    0.644440] Zone ranges:
+[    0.644442]   DMA      [mem 0x0000000000000000-0x000000007fffffff]
+[    0.644444]   Normal   empty
+[    0.644446] Movable zone start for each node
+[    0.644446] Early memory node ranges
+[    0.644446]   node   0: [mem 0x0000000000000000-0x000000001fffffff]
+[    0.644450] Initmem setup node 0 [mem 0x0000000000000000-0x000000001fffffff]
+[    0.653463] percpu: Embedded 31 pages/cpu s89856 r8192 d28928 u126976
+[    0.653482] pcpu-alloc: s89856 r8192 d28928 u126976 alloc=31*4096
+[    0.653485] pcpu-alloc: [0] 0
+[    0.653520] Built 1 zonelists, mobility grouping on.  Total pages: 129024
+[    0.653524] Kernel command line: root=UUID=55c20b27-f56b-4828-8b84-e88591817670
+[    0.653687] random: crng init done
+inear)
+near)
+[    0.655092] mem auto-init: stack:all(zero), heap alloc:on, heap free:off
+ta, 2160K rodata, 3592K init, 692K bss, 49036K reserved, 0K cma-reserved)
+[    0.657255] SLUB: HWalign=256, Order=0-3, MinObjects=0, CPUs=1, Nodes=1
+[    0.657267] ftrace: allocating 29416 entries in 115 pages
+[    0.669532] ftrace: allocated 115 pages with 5 groups
+[    0.669695] rcu: Hierarchical RCU implementation.
+[    0.669696] rcu:     RCU restricting CPUs from NR_CPUS=256 to nr_cpu_ids=1.
+[    0.669697]  Rude variant of Tasks RCU enabled.
+[    0.669698]  Tracing variant of Tasks RCU enabled.
+fies.
+[    0.669698] rcu: Adjusting geometry for rcu_fanout_leaf=16, nr_cpu_ids=1
+[    0.673190] NR_IRQS: 3, nr_irqs: 3, preallocated irqs: 3
+[    0.673199] rcu: srcu_init: Setting srcu_struct sizes based on contention.
+03b0a9, max_idle_ns: 1805497147909793 ns
+[    0.673485] Console: colour dummy device 80x25
+[    0.673646] printk: console [ttysclp0] enabled
+[    0.673718] Calibrating delay loop (skipped)... 26315.00 BogoMIPS preset
+[    0.673721] pid_max: default: 32768 minimum: 301
+[    0.673769] LSM: Security Framework initializing
+[    0.673793] landlock: Up and running.
+[    0.673794] Yama: disabled by default; enable with sysctl kernel.yama.*
+[    0.673846] AppArmor: AppArmor initialized
+[    0.673848] TOMOYO Linux initialized
+r)
+linear)
+.
+[    0.674455] cblist_init_generic: Setting shift to 0 and lim to 1.
+.
+[    0.674465] cblist_init_generic: Setting shift to 0 and lim to 1.
+[    0.674513] rcu: Hierarchical SRCU implementation.
+[    0.674513] rcu:     Max phase no-delay instances is 1000.
+[    0.674688] smp: Bringing up secondary CPUs ...
+[    0.674689] smp: Brought up 1 node, 1 CPU
+[    0.681762] node 0 deferred pages initialised in 8ms
+[    0.682392] devtmpfs: initialized
+x_idle_ns: 7645041785100000 ns
+[    0.682605] futex hash table entries: 256 (order: 4, 65536 bytes, linear)
+[    0.682752] NET: Registered PF_NETLINK/PF_ROUTE protocol family
+[    0.682795] audit: initializing netlink subsys (disabled)
+[    0.682947] thermal_sys: Registered thermal governor 'fair_share'
+[    0.682948] thermal_sys: Registered thermal governor 'bang_bang'
+[    0.682966] thermal_sys: Registered thermal governor 'step_wise'
+[    0.682968] thermal_sys: Registered thermal governor 'user_space'
+[    0.682988] Spectre V2 mitigation: etokens
+_enabled=0 res=1
+[    0.686941] HugeTLB: registered 1.00 MiB page size, pre-allocated 0 pages
+[    0.686943] HugeTLB: 0 KiB vmemmap can be freed for a 1.00 MiB page
+[    0.687102] iommu: Default domain type: Translated
+[    0.687103] iommu: DMA domain TLB invalidation policy: strict mode
+[    0.687130] pps_core: LinuxPPS API ver. 1 registered
+tti <giometti@linux.it>
+[    0.687133] PTP clock support registered
+[    0.687309] NetLabel: Initializing
+[    0.687310] NetLabel:  domain hash size = 128
+[    0.687311] NetLabel:  protocols = UNLABELED CIPSOv4 CALIPSO
+[    0.687321] NetLabel:  unlabeled traffic allowed by default
+[    0.708343] VFS: Disk quotas dquot_6.6.0
+[    0.708380] VFS: Dquot-cache hash table entries: 512 (order 0, 4096 bytes)
+[    0.708622] AppArmor: AppArmor Filesystem Enabled
+root@systemvm:~# cat  dmesg.log | wc -l
+272
+root@systemvm:~# arp
+^C
+root@systemvm:~# arp -a
+^C
+root@systemvm:~# pa
+-bash: pa: command not found
+root@systemvm:~# ipa
+lo               UNKNOWN        127.0.0.1/8 
+enc1             UP
+eth2             UP             192.168.122.171/24
+enc4             DOWN
+root@systemvm:~# ip -br -c a
+lo               UNKNOWN        127.0.0.1/8 
+enc1             UP
+eth2             UP             192.168.122.171/24
+enc4             DOWN
+root@systemvm:~#          Stopping session-1.scope - Session 1 of User root...
+[  OK  ] Removed slice system-modpr…lice - Slice /system/modprobe.
+[  OK  ] Stopped target cloud-init.target - Cloud-init target.
+[  OK  ] Stopped target graphical.target - Graphical Interface.
+[  OK  ] Stopped target rpc_pipefs.target.
+[  OK  ] Stopped target rpcbind.target - RPC Port Mapper.
+[  OK  ] Stopped target timers.target - Timer Units.
+[  OK  ] Stopped dpkg-db-backup.tim… Daily dpkg database backup timer.
+[  OK  ] Stopped e2scrub_all.timer□etadata Check for All Filesystems.
+[  OK  ] Stopped fstrim.timer - Discard unused blocks once a week.
+[  OK  ] Stopped logrotate.timer - Daily rotation of log files.
+[  OK  ] Stopped man-db.timer - Daily man-db regeneration.
+[  OK  ] Stopped sysstat-collect.ti… accounting tool every 10 minutes.
+[  OK  ] Stopped sysstat-summary.ti…of yesterday's process accounting.
+[  OK  ] Stopped systemd-tmpfiles-c… Cleanup of Temporary Directories.
+[  OK  ] Stopped target time-set.target - System Time Set.
+         Unmounting run-rpc_pipefs.mount - RPC Pipe File System...
+         Stopping acpid.service - ACPI event daemon...
+[  OK  ] Stopped cloud-final.servic… Execute cloud user/final scripts.
+[  OK  ] Stopped target multi-user.target - Multi-User System.
+[  OK  ] Stopped target getty.target - Login Prompts.
+         Stopping apache2.service - The Apache HTTP Server...
+[  OK  ] Stopped cloud-config.servi…ettings specified in cloud-config.
+[  OK  ] Stopped target cloud-confi…t - Cloud-config availability.
+[  OK  ] Stopped cloud-postinit.ser…udStack post-patching init script.
+[  OK  ] Stopped cloud-early-config…ot patching service using cmdline.
+         Stopping cron.service …round program processing daemon...
+         Stopping getty@tty1.service - Getty on tty1...
+         Stopping ipvsadm.service - LSB: ipvsadm daemon...
+         Stopping qemu-guest-agent.service - QEMU Guest Agent...
+         Stopping rsyslog.service - System Logging Service...
+         Stopping serial-getty@ttys… - Serial Getty on ttysclp0...
+         Stopping ssh.service - OpenBSD Secure Shell server...
+[  OK  ] Stopped sysstat.service - Resets System Activity Logs.
+         Stopping systemd-random-se…ice - Load/Save Random Seed...
+         Stopping xl2tpd.service□yer 2 tunelling protocol daemon...
+[  OK  ] Stopped acpid.service - ACPI event daemon.
+[  OK  ] Stopped cron.service -…kground program processing daemon.
+[  OK  ] Stopped qemu-guest-agent.service - QEMU Guest Agent.
+[  OK  ] Stopped rsyslog.service - System Logging Service.
+[  OK  ] Stopped ssh.service - OpenBSD Secure Shell server.
+[  OK  ] Stopped getty@tty1.service - Getty on tty1.
+[  OK  ] Stopped serial-getty@ttysc…ce - Serial Getty on ttysclp0.
+[  OK  ] Unmounted run-rpc_pipefs.mount - RPC Pipe File System.
+[  OK  ] Stopped session-1.scope - Session 1 of User root.
+[  OK  ] Stopped systemd-random-see…rvice - Load/Save Random Seed.
+[  OK  ] Stopped xl2tpd.service…layer 2 tunelling protocol daemon.
+[  OK  ] Stopped ipvsadm.service - LSB: ipvsadm daemon.
+[  OK  ] Removed slice system-getty.slice - Slice /system/getty.
+[  OK  ] Removed slice system-seria… - Slice /system/serial-getty.
+         Stopping strongswan-starte…1/IKEv2 daemon using ipsec.conf...
+         Stopping systemd-logind.se…ice - User Login Management...
+         Stopping systemd-user-sess…vice - Permit User Sessions...
+         Stopping user@0.service - User Manager for UID 0...
+[  OK  ] Stopped systemd-logind.service - User Login Management.
+[  OK  ] Stopped strongswan-starter…Ev1/IKEv2 daemon using ipsec.conf.
+[  OK  ] Stopped target network-online.target - Network is Online.
+[  OK  ] Stopped user@0.service - User Manager for UID 0.
+[  OK  ] Stopped systemd-user-sessi…ervice - Permit User Sessions.
+         Stopping user-runtime-dir@…r Runtime Directory /run/user/0...
+[  OK  ] Unmounted run-user-0.mount - /run/user/0.
+[  OK  ] Stopped user-runtime-dir@0…ser Runtime Directory /run/user/0.
+[  OK  ] Removed slice user-0.slice - User Slice of UID 0.
+         Stopping dbus.service - D-Bus System Message Bus...
+[  OK  ] Stopped dbus.service - D-Bus System Message Bus.
+[  OK  ] Stopped apache2.service - The Apache HTTP Server.
+[  OK  ] Stopped target basic.target - Basic System.
+[  OK  ] Stopped target network.target - Network.
+[  OK  ] Stopped target network-pre…get - Preparation for Network.
+[  OK  ] Stopped target paths.target - Path Units.
+[  OK  ] Stopped acpid.path - ACPI Events Check.
+[  OK  ] Stopped target remote-fs.target - Remote File Systems.
+[  OK  ] Stopped target remote-fs-p…eparation for Remote File Systems.
+[  OK  ] Stopped target nfs-client.target - NFS client services.
+[  OK  ] Stopped target slices.target - Slice Units.
+[  OK  ] Removed slice user.slice - User and Session Slice.
+[  OK  ] Stopped target sockets.target - Socket Units.
+[  OK  ] Closed acpid.socket - ACPID Listen Socket.
+[  OK  ] Closed cloud-init-hotplugd… - cloud-init hotplug hook socket.
+[  OK  ] Closed dbus.socket - D-Bus System Message Bus Socket.
+[  OK  ] Closed syslog.socket - Syslog Socket.
+[  OK  ] Closed uuidd.socket - UUID daemon activation socket.
+[  OK  ] Stopped target sysinit.target - System Initialization.
+[  OK  ] Stopped target cryptsetup.…get - Local Encrypted Volumes.
+[  OK  ] Stopped systemd-ask-passwo…quests to Console Directory Watch.
+[  OK  ] Stopped systemd-ask-passwo… Requests to Wall Directory Watch.
+[  OK  ] Stopped target integrityse…Local Integrity Protected Volumes.
+[  OK  ] Stopped target swap.target - Swaps.
+[  OK  ] Stopped target veritysetup… - Local Verity Protected Volumes.
+         Deactivating swap dev-disk…rtio-47c4f3f57c9044fba713-part3...
+[  OK  ] Stopped cloud-init.service…it job (metadata service crawler).
+[  OK  ] Stopped cloud-init-local.s…l cloud-init job (pre-networking).
+[  OK  ] Stopped cloud-preinit.serv… service to initialize interfaces.
+         Stopping netfilter-persist…filter persistent configuration...
+         Stopping systemd-binfmt.se…et Up Additional Binary Formats...
+[  OK  ] Stopped systemd-sysctl.service - Apply Kernel Variables.
+         Stopping systemd-timesyncd… - Network Time Synchronization...
+         Stopping systemd-update-ut…rd System Boot/Shutdown in UTMP...
+[  OK  ] Deactivated swap dev-disk-…virtio-47c4f3f57c9044fba713-part3.
+[  OK  ] Deactivated swap dev-disk-…/dev/disk/by-partuuid/599a4cc8-03.
+[  OK  ] Deactivated swap dev-disk-…v/disk/by-path/ccw-0.0.0000-part3.
+[  OK  ] Deactivated swap dev-vda3.swap - /dev/vda3.
+[  OK  ] Unmounted run-credentials-…redentials/systemd-sysctl.service.
+[  OK  ] Deactivated swap dev-disk-…84cf3-2e7e-4a44-af1c-413cce706913.
+[  OK  ] Stopped netfilter-persiste…etfilter persistent configuration.
+[  OK  ] Stopped systemd-binfmt.ser… Set Up Additional Binary Formats.
+[  OK  ] Stopped systemd-update-utm…cord System Boot/Shutdown in UTMP.
+[  OK  ] Unset automount proc-sys-f…rmats File System Automount Point.
+[  OK  ] Stopped systemd-modules-lo…service - Load Kernel Modules.
+[  OK  ] Stopped systemd-timesyncd.…0m - Network Time Synchronization.
+[  OK  ] Stopped systemd-tmpfiles-s…eate System Files and Directories.
+[  OK  ] Stopped target local-fs.target - Local File Systems.
+         Unmounting boot.mount - /boot...
+[ 1172.824375] EXT4-fs (vda1): unmounting filesystem.
+         Unmounting run-credentials…ntials/systemd-sysusers.service...
+         Unmounting run-credentials…/systemd-tmpfiles-setup.service...
+         Unmounting run-credentials…temd-tmpfiles-setup-dev.service...
+[  OK  ] Unmounted boot.mount - /boot.
+[  OK  ] Unmounted run-credentials-…dentials/systemd-sysusers.service.
+[  OK  ] Unmounted run-credentials-…ls/systemd-tmpfiles-setup.service.
+[  OK  ] Unmounted run-credentials-…ystemd-tmpfiles-setup-dev.service.
+[  OK  ] Reached target umount.target - Unmount All Filesystems.
+[  OK  ] Stopped systemd-fsck@dev-d…94962-e5ae-42ae-a632-875288d8ae9b.
+[  OK  ] Removed slice system-syste… - Slice /system/systemd-fsck.
+[  OK  ] Stopped target local-fs-pr…reparation for Local File Systems.
+[  OK  ] Stopped systemd-tmpfiles-s…reate Static Device Nodes in /dev.
+[  OK  ] Stopped systemd-sysusers.service - Create System Users.
+[  OK  ] Stopped systemd-remount-fs…ount Root and Kernel File Systems.
+[  OK  ] Reached target shutdown.target - System Shutdown.
+[  OK  ] Reached target final.target - Late Shutdown Services.
+[  OK  ] Finished systemd-poweroff.service - System Power Off.
+[  OK  ] Reached target poweroff.target - System Power Off.
+[ 1173.454952] systemd-shutdown[1]: Syncing filesystems and block devices.
+[ 1173.467868] systemd-shutdown[1]: Sending SIGTERM to remaining processes...
+[ 1173.525290] systemd-journald[1748]: Received SIGTERM from PID 1 (systemd-shutdow).
+[ 1173.565609] systemd-shutdown[1]: Sending SIGKILL to remaining processes...
+[ 1173.613645] systemd-shutdown[1]: Unmounting file systems.
+[ 1173.619066] (sd-remount)[2272]: Remounting '/' read-only with options 'attr2,inode64,logbufs=8,logbsize=32k,noquota'.
+[ 1173.638354] systemd-shutdown[1]: All filesystems unmounted.
+[ 1173.638572] systemd-shutdown[1]: Deactivating swaps.
+[ 1173.639435] systemd-shutdown[1]: All swaps deactivated.
+[ 1173.639623] systemd-shutdown[1]: Detaching loop devices.
+
+[root@lr86xga sefi]# vl
+ Id   Name                  State
+--------------------------------------
+ 6    s-116-VM              running
+ -    deb390-12-1           shut off
+ -    deb390-12-2           shut off
+ -    deb390-12-3           shut off
+ -    deb390-12-4           shut off
+ -    debian10-1            shut off
+ -    debian11-1            shut off
+ -    debnew125-1           shut off
+ -    debnew125-1-backupt   shut off
+ -    debnew125-2           shut off
+ -    systemvm-1            shut off
+ -    ubuntu-241            shut off
+ -    ubuntu-242            shut off
+
+[root@lr86xga sefi]# vc 6
+Connected to domain 's-116-VM'
+Escape character is ^] (Ctrl + ])
+
+systemvm login: root
+Password: 
+Linux systemvm 6.1.0-25-s390x #1 SMP Debian 6.1.106-3 (2024-08-26) s390x
+
+The programs included with the Debian GNU/Linux system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+Last login: Thu Sep  5 02:47:43 EDT 2024 on ttysclp0
+[  OK  ] Created slice user-0.slice - User Slice of UID 0.
+         Starting user-runtime-dir@…r Runtime Directory /run/user/0...
+[  OK  ] Finished user-runtime-dir@…ser Runtime Directory /run/user/0.
+         Starting user@0.service - User Manager for UID 0...
+[  OK  ] Started user@0.service - User Manager for UID 0.
+[  OK  ] Started session-1.scope - Session 1 of User root.
+
+         Stopping haproxy.service - HAProxy Load Balancer...
+[  OK  ] Stopped haproxy.service - HAProxy Load Balancer.
+root@systemvm:~# 
+root@systemvm:~# cat template.version         Stopping dnsmasq.serviceght DHCP and caching DNS server...
+[  OK  ] Finished cloud-postinit.se…udStack post-patching init script.
+[  OK  ] Started cloud.service - CloudStack Agent service.
+[  OK  ] Reached target multi-user.target - Multi-User System.
+[  OK  ] Reached target graphical.target - Graphical Interface.
+         Starting cloud-final.servi…xecute cloud user/final scripts...
+         Starting systemd-update-ut… Record Runlevel Change in UTMP...
+[  OK  ] Stopped cloud.service - CloudStack Agent service.
+[  OK  ] Started cloud.service - CloudStack Agent service.
+[  OK  ] Stopped cloud.service - CloudStack Agent service.
+[  OK  ] Started cloud.service - CloudStack Agent service.
+[  OK  ] Stopped dnsmasq.service□eight DHCP and caching DNS server.
+
+cat: template.versio: No such file or directory
+root@systemvm:~# [  OK  ] Finished systemd-update-ut… - Record Runlevel Change in UTMP.
+[  OK  ] Stopped cloud.service - CloudStack Agent service.
+[  OK  ] Reached target remote-fs.target - Remote File Systems.
+[  OK  ] Started systemd-timesyncd.…0m - Network Time Synchronization.
+[  OK  ] Reached target time-set.target - System Time Set.
+[   27.705529] cloud-init[605]: Cloud-init v. 22.4.2 running 'init-local' at Sun, 08 Sep 2024 09:12:09 +0000. Up 26.30 seconds.
+[   32.068824] systemd-journald[214]: Received SIGTERM from PID 1 (systemd).
+[   32.108849] systemd[1]: Stopping systemd-journald.service - Journal Service...
+         Stopping systemd-journald.service - Journal Service...
+[   32.131988] systemd[1]: systemd-journald.service: Deactivated successfully.
+[   32.153315] systemd[1]: Stopped systemd-journald.service - Journal Service.
+[  OK  ] Stopped systemd-journald.service - Journal Service.
+[   32.156920] systemd[1]: systemd-journald.service: Consumed 2.329s CPU time.
+[   32.234104] systemd[1]: Starting systemd-journald.service - Journal Service...
+         Starting systemd-journald.service - Journal Service...
+[   32.833791] systemd[1]: Started systemd-journald.service - Journal Service.
+[  OK  ] Started systemd-journald.service - Journal Service.
+[  OK  ] Finished cloud-preinit.ser… service to initialize interfaces.
+         Starting cloud-early-confi… patching service using cmdline...
+         Starting modprobe@dm_mod.s…[0m - Load Kernel Module dm_mod...
+         Starting modprobe@efi_psto…- Load Kernel Module efi_pstore...
+         Starting modprobe@loop.ser…e - Load Kernel Module loop...
+[  OK  ] Finished modprobe@dm_mod.s…e - Load Kernel Module dm_mod.
+[  OK  ] Finished modprobe@efi_psto…m - Load Kernel Module efi_pstore.
+[  OK  ] Finished modprobe@loop.service - Load Kernel Module loop.

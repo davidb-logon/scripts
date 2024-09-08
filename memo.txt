@@ -2,6 +2,11 @@
 
 1. to empty the db, run script 45 it will create a new systemvmtemplate from deb390-12-4 , then 38 to add a host.
 
+ll /etc/systemd/system/cloud* | awk '{ print "cat"  $0}'
+took /root/ch_dev_names.sh out from the end of /opt/cloud/bin/setup/init.sh
+>>> move it to the begining of the srvice /etc/systemd/system/cloud-preinit.service line 87 at the file /opt/cloud/bin/setup/init.sh
+
+
 less templates/ntp.conf.debian.tmpl
 
       Starting systemd-journald.service - Journal Service...
@@ -46,6 +51,9 @@ SUBSYSTEM=="net", ACTION=="add", DRIVERS=="?*", ATTR{address}=="0e:00:a9:fe:f3:d
 /opt/cloud/bin/setup/init.sh
 /opt/cloud/bin/setup/init.sh >2&1 | tee /root/init.sh.log
 cat /var/cache/cloud/cmd_line.json
+
+systemctl restart cloud-preinit.service  # this will put the /etc/network/interfaces file
+vi /opt/cloud/bin/setup/init.sh
 
 ch_dev_names.sh
 #!/bin/bash
@@ -135,3 +143,81 @@ iface enc1 inet static
 [  100.627502] cloud-init[625]: 2024-09-04 14:57:59,201 - util.py[WARNING]: Getting data from <class 'cloudinit.sources.DataSourceOpenStack.DataSourceOpenStackLocal'> failed
 [  OK  ] Finished cloud-init-local.…l cloud-init job (pre-networking).
 [  OK  ] Reached target network-pre…get - Preparation for Network.
+
+
+cat /var/cache/cloud/cmd_line.json
+{
+"type": "cmdline",
+"cmd_line": {
+        "template": "domP",
+        "type": "secstorage",
+        "host": "192.168.122.1",
+        "port": "8250",
+        "name": "s-6-VM",
+        "zone": "1",
+        "pod": "1",
+        "guid": "s-6-VM",
+        "workers": "5",
+        "authorized_key": "ZWNkc2Etc2hhMi1uaXN0cDI1NiBBQUFBRTJWalpITmhMWE5vWVRJdGJtbHpkSEF5TlRZQUFBQUlibWx6ZEhBeU5UWUFBQUJCQkd4c2FUdElGYTdzM2NkY3M0STNiVER4REZzSE1lYTZXQXR4dTB1OFNISkJyKzBpcUFPeENkN3ROaWtlWnUyK2tuUUUrdUovck93cWRXZXpMUG03QllJPSBjbG91ZEBscjg2eGdhCg",
+        "resource": "org.apache.cloudstack.storage.resource.NfsSecondaryStorageResource",
+        "instance": "SecStorage",
+        "sslcopy": "false",
+        "role": "templateProcessor",
+        "mtu": "1500",
+        "eth2ip": "192.168.122.171",
+        "eth2mask": "255.255.255.0",
+        "gateway": "192.168.122.1",
+        "eth0ip": "169.254.221.131",
+        "eth0mask": "255.255.0.0",
+        "eth1ip": "192.168.122.161",
+        "eth1mask": "255.255.255.0",
+        "mgmtcidr": "204.90.115.0/24",
+        "localgw": "192.168.122.1",
+        "private.network.device": "eth1",
+        "internaldns1": "192.168.122.1",
+        "dns1": "8.8.8.8",
+        "nfsVersion": "null",
+        "keystore_password": "ZHZETzRienJtS3d4OGdUcg",
+        "useHttpsToUpload": "true",
+        "secondaryStorageServerAddress": "192.168.122.1"
+        }
+}
+
+journalctl -u systemd-udevd
+cat /usr/lib/udev/rules.d/85-sysconfig-hardware.rules
+SUBSYSTEM=="ccw", WAIT_FOR_SYSFS="online"
+SUBSYSTEM=="ccw", ACTION=="add", RUN+="/sbin/hwup -A -D $devpath $env{SUBSYSTEM} $kernel"
+
+need to be changed with :
+#SUBSYSTEM=="ccw", ACTION=="add", RUN+="/sbin/hwup -A -D $devpath $env{SUBSYSTEM} $kernel"
+SUBSYSTEM=="ccw", ACTION=="add", RUN+="/sbin/udevadm settle", RUN+="/sbin/hwup -A -D $devpath $env{SUBSYSTEM} $kernel"
+
+udevadm control --reload-rules
+
+ssh -p 3922 sefi@169.254.30.146  #good way to logon
+
+
+Sep 08 04:54:04 systemvm systemd[1]: Started cloud.service - CloudStack Agent service.
+Sep 08 04:54:04 systemvm systemd[1]: cloud.service: Main process exited, code=exited, status=203/EXEC
+Sep 08 04:54:04 systemvm systemd[1]: cloud.service: Failed with result 'exit-code'.
+Sep 08 04:54:04 systemvm systemd[1]: cloud.service: Scheduled restart job, restart counter is at 1.
+Sep 08 04:54:04 systemvm systemd[1]: Stopped cloud.service - CloudStack Agent service.
+Sep 08 04:54:04 systemvm systemd[1]: Started cloud.service - CloudStack Agent service.
+Sep 08 04:54:05 systemvm systemd[1]: cloud.service: Main process exited, code=exited, status=203/EXEC
+Sep 08 04:54:05 systemvm systemd[1]: cloud.service: Failed with result 'exit-code'.
+Sep 08 04:54:05 systemvm systemd[1]: cloud.service: Scheduled restart job, restart counter is at 2.
+Sep 08 04:54:05 systemvm systemd[1]: Stopped cloud.service - CloudStack Agent service.
+Sep 08 04:54:05 systemvm systemd[1]: Started cloud.service - CloudStack Agent service.
+Sep 08 04:54:05 systemvm (_run.sh)[1982]: cloud.service: Failed to locate executable /usr/local/cloud/systemvm/_run.sh: No such file or directory 
+Sep 08 04:54:05 systemvm (_run.sh)[1982]: cloud.service: Failed at step EXEC spawning /usr/local/cloud/systemvm/_run.sh: No such file or directory
+Sep 08 04:54:05 systemvm systemd[1]: cloud.service: Main process exited, code=exited, status=203/EXEC
+Sep 08 04:54:05 systemvm systemd[1]: cloud.service: Failed with result 'exit-code'.
+Sep 08 04:54:05 systemvm systemd[1]: cloud.service: Scheduled restart job, restart counter is at 3.
+Sep 08 04:54:05 systemvm systemd[1]: Stopped cloud.service - CloudStack Agent service.
+Sep 08 04:54:05 systemvm systemd[1]: Started cloud.service - CloudStack Agent service.
+Sep 08 04:54:05 systemvm (_run.sh)[1984]: cloud.service: Failed to locate executable /usr/local/cloud/systemvm/_run.sh: No such file or directory 
+Sep 08 04:54:05 systemvm (_run.sh)[1984]: cloud.service: Failed at step EXEC spawning /usr/local/cloud/systemvm/_run.sh: No such file or directory
+Sep 08 04:54:05 systemvm systemd[1]: cloud.service: Main process exited, code=exited, status=203/EXEC
+Sep 08 04:54:05 systemvm systemd[1]: cloud.service: Failed with result 'exit-code'.
+Sep 08 04:54:06 systemvm systemd[1]: cloud.service: Scheduled restart job, restart counter is at 4.
+Sep 08 04:54:06 systemvm systemd[1]: Stopped cloud.service - CloudStack Agent service.
