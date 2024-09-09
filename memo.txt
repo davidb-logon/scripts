@@ -2,6 +2,34 @@
 
 1. to empty the db, run script 45 it will create a new systemvmtemplate from deb390-12-4 , then 38 to add a host.
 
+2. the first cloud service that is running:
+  [3.805951] systemd[1]: Starting cloud-init-local.service - Initial cloud-init job (pre-networking)...
+  Executing: /usr/bin/cloud-init
+  move the call to ch_dev_names here
+
+https://cloud.centos.org/centos/9-stream/s390x/images/CentOS-Stream-GenericCloud-9-20231002.0.s390x.qcow2
+
+cat shutd.sh
+\rm -f ch_dev_names.log ch_dev_names.log2
+echo "systemvm from $(date)" >> template.version
+shutdown -h now
+
+
+ll /mnt
+total 0
+drwxr-xr-x  4 root root  31 Aug 29 05:53 ./
+drwxr-xr-x 17 root root 211 Sep  9 07:22 ../
+drwxr-xr-x  2 root root   6 Aug 29 05:53 iso/
+drwxr-xr-x  2 root root   6 Aug 29 05:53 linuxu/
+
+root@systemvm:/etc/systemd/system# grep -nH ExecStart cloud-*
+cloud-early-config.service:13:ExecStart=/opt/cloud/bin/setup/cloud-early-config
+grep: cloud-init.target.wants: Is a directory
+cloud-password-server@.service:11:ExecStart=/opt/cloud/bin/passwd_server_ip.py %I
+cloud-postinit.service:10:ExecStart=/opt/cloud/bin/setup/postinit.sh
+cloud-preinit.service:16:ExecStart=/opt/cloud/bin/setup/init.sh
+
+
 ll /etc/systemd/system/cloud* | awk '{ print "cat"  $0}'
 took /root/ch_dev_names.sh out from the end of /opt/cloud/bin/setup/init.sh
 >>> move it to the begining of the srvice /etc/systemd/system/cloud-preinit.service line 87 at the file /opt/cloud/bin/setup/init.sh
@@ -195,6 +223,7 @@ SUBSYSTEM=="ccw", ACTION=="add", RUN+="/sbin/udevadm settle", RUN+="/sbin/hwup -
 udevadm control --reload-rules
 
 ssh -p 3922 sefi@169.254.30.146  #good way to logon
+ssh -p 3922 -i /root/.ssh/id_rsa.cloud  root@169.254.55.28  # login to systemvm machine
 
 
 Sep 08 04:54:04 systemvm systemd[1]: Started cloud.service - CloudStack Agent service.
@@ -221,3 +250,24 @@ Sep 08 04:54:05 systemvm systemd[1]: cloud.service: Main process exited, code=ex
 Sep 08 04:54:05 systemvm systemd[1]: cloud.service: Failed with result 'exit-code'.
 Sep 08 04:54:06 systemvm systemd[1]: cloud.service: Scheduled restart job, restart counter is at 4.
 Sep 08 04:54:06 systemvm systemd[1]: Stopped cloud.service - CloudStack Agent service.
+
+111.421090] cloud-init[982]: Cloud-init v. 22.4.2 running 'init' at Mon, 09 Sep 2024 12:42:44 +0000. Up 110.18 seconds.
+[  111.874267] cloud-init[982]: ci-info: +++++++++++++++++++++++++++++++++Net device info+++++++++++++++++++++++++++++++++
+[  111.876456] cloud-init[982]: ci-info: +--------+-------+-----------------+---------------+--------+-------------------+
+[  111.881062] cloud-init[982]: ci-info: | Device |   Up  |     Address     |      Mask     | Scope  |     Hw-Address    |
+[  111.883121] cloud-init[982]: ci-info: +--------+-------+-----------------+---------------+--------+-------------------+
+[  111.889090] cloud-init[982]: ci-info: |  enc4  | False |        .        |       .       |   .    | 0e:00:a9:fe:5e:48 |
+[  111.890952] cloud-init[982]: ci-info: |  eth0  |  True | 192.168.122.173 | 255.255.255.0 | global | 1e:00:0d:00:00:0e |
+[  111.898982] cloud-init[982]: ci-info: |   lo   |  True |    127.0.0.1    |   255.0.0.0   |  host  |         .         |
+[  111.905516] cloud-init[982]: ci-info: +--------+-------+-----------------+---------------+--------+-------------------+
+[  111.907062] cloud-init[982]: ci-info: +++++++++++++++++++++++++++++++Route IPv4 info+++++++++++++++++++++++++++++++
+[  111.908680] cloud-init[982]: ci-info: +-------+---------------+---------------+---------------+-----------+-------+
+[  111.913406] cloud-init[982]: ci-info: | Route |  Destination  |    Gateway    |    Genmask    | Interface | Flags |
+[  111.915147] cloud-init[982]: ci-info: +-------+---------------+---------------+---------------+-----------+-------+
+[  111.921023] cloud-init[982]: ci-info: |   0   |    0.0.0.0    | 192.168.122.1 |    0.0.0.0    |    eth0   |   UG  |
+[  111.922844] cloud-init[982]: ci-info: |   1   | 192.168.122.0 |    0.0.0.0    | 255.255.255.0 |    eth0   |   U   |
+[  111.925361] cloud-init[982]: ci-info: +-------+---------------+---------------+---------------+-----------+-------+
+
+/etc/systemd/journald.conf is marked executable. Please remove executable permission bits
+0e:00:a9:fe:18:75
+0e:00:a9:fe:5e:48
