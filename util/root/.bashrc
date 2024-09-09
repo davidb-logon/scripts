@@ -5,6 +5,64 @@ alias rm='rm -i'
 alias cp='cp -i'
 alias mv='mv -i'
 
+function vsc() {
+    vm_name="$1"
+
+    # Check if the default network is active
+    if virsh net-info default | grep -q 'Active: yes'; then
+        echo "The 'default' network is already active."
+    else
+        echo "The 'default' network is not active. Starting it..."
+        virsh net-start default
+        if [ $? -ne 0 ]; then
+            echo "Failed to start the 'default' network."
+            return 1
+        fi
+    fi
+
+    # Start the VM
+    echo "Starting the VM: $vm_name"
+    virsh start "$vm_name"
+    if [ $? -ne 0 ]; then
+        echo "Failed to start the VM: $vm_name."
+        return 1
+    fi
+
+    # Connect to the console
+    echo "Connecting to the console of the VM: $vm_name"
+    virsh console "$vm_name"
+}
+function vnd(){
+   vm_name="$1"
+
+    # Function to get IPs for a given VM using domifaddr
+    get_ip_for_vm() {
+        local vm="$1"
+        # Get IP addresses associated with the VM
+        ip_info=$(virsh domifaddr "$vm" --source agent 2>/dev/null | grep ipv4 | awk '{print $4}' | cut -d'/' -f1)
+
+        if [ -n "$ip_info" ]; then
+            echo "VM: $vm, IP: $ip_info"
+        else
+            echo "VM: $vm, IP: Not found or Guest Agent not installed"
+        fi
+    }
+
+    # Check if a VM name was passed
+    if [ -n "$vm_name" ]; then
+        # Report IP for the specified VM
+        get_ip_for_vm "$vm_name"
+    else
+        # Get a list of all online VMs
+        vm_list=$(virsh list --name)
+
+        # Loop through each VM and fetch its IP
+        for vm in $vm_list; do
+            get_ip_for_vm "$vm"
+        done
+    fi
+}
+
 # Source global definitions
 if [ -f /etc/bashrc ]; then
 	. /etc/bashrc
@@ -27,8 +85,18 @@ export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-11.0.14.1.1-6.el8.s390x
 export PATH=${JAVA_HOME}/bin:${PATH}
 export PATH=/usr/local/nodejs/bin:$PATH
 export PATH=/usr/local/bin:/usr/local/go/bin:$PATH
-export LD_LIBRARY_PATH=/usr/local/lib64:$LD_LIBRARY_PATH
 export PATH=/usr/local/glib-2.66.8/bin:$PATH
-export LD_LIBRARY_PATH=/usr/local/lib64:/usr/local/glib-2.66.8/lib:$LD_LIBRARY_PATH
-export PKG_CONFIG_PATH=/usr/local/glib-2.66.8/lib/pkgconfig:$PKG_CONFIG_PATH
+export LD_LIBRARY_PATH=/usr/local/glib-2.66.8/lib64:$LD_LIBRARY_PATH
+export PKG_CONFIG_PATH=/usr/local/glib-2.66.8/lib64/pkgconfig:$PKG_CONFIG_PATH
+# Split the PATH by ':' and convert it to an array
+IFS=':' read -r -a path_array <<< "$PATH"
 
+# Use awk to remove duplicates while preserving order
+unique_path=$(printf "%s\n" "${path_array[@]}" | awk '!seen[$0]++' | paste -sd ':' -)
+
+# Set the cleaned PATH
+export PATH="$unique_path"
+
+# Print the cleaned PATH
+#echo "Cleaned PATH: $PATH"
+export PATH=/usr/local/glib-2.66.8/bin:/usr/local/bin:/usr/local/go/bin:/usr/local/nodejs/bin:/usr/lib/jvm/java-11-openjdk-11.0.14.1.1-6.el8.s390x/bin:/usr/bin/maven/bin:/data/scripts:/data/scripts/util:/usr/local/sbin:/usr/sbin:/usr/bin:/sbin:
