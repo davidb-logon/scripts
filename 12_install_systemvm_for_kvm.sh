@@ -50,7 +50,7 @@ extract_template_from_vm() {
 prepare_repo() {
     logMessage "Start prepare repo"
     # do_cmd "mv ${FILE_PATH}.bz2 /data/repo/"
-    do_cmd "mv ${FILE_PATH} /data/repo/"
+    do_cmd "cp ${FILE_PATH} /data/repo/"
     start_web_server_on_repo.sh
      logMessage "End prepare repo"
 }

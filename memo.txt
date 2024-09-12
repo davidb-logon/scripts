@@ -1,5 +1,17 @@
 2024/09/02 - tomorrow we will create a cfg file for cloud-init to prepare the corect interfaces for the network in our systemvm
 
+
+cat interfaces
+auto lo
+iface lo inet loopback
+# The primary network interface
+auto enc1
+iface enc1 inet dhcp
+dns-nameservers 8.8.8.8 8.8.4.4
+
+
+
+
 1. to empty the db, run script 45 it will create a new systemvmtemplate from deb390-12-4 , then 38 to add a host.
 
 2. the first cloud service that is running:
