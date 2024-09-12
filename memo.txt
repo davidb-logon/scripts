@@ -7,6 +7,18 @@
   Executing: /usr/bin/cloud-init
   move the call to ch_dev_names here
 
+cat /etc/systemd/system/cloud-init.target.wants/cloud-init-local.service
+ExecStart=/usr/bin/cloud-init init --local   # running before network
+
+CMDLINE=/var/cache/cloud/cmdline
+
+
+shutd.sh
+\rm -f ch_dev_names.log ch_dev_names.log2
+  2 #echo "systemvm from $(date)" >> template.version
+  3 \rm -f /etc/udev/rules.d/70-persistent-net.rules
+  4 shutdown -h now
+
 https://cloud.centos.org/centos/9-stream/s390x/images/CentOS-Stream-GenericCloud-9-20231002.0.s390x.qcow2
 
 cat shutd.sh
