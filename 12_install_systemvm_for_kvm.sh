@@ -42,14 +42,15 @@ extract_template_from_vm() {
     sleep 3
     FILE_PATH=$(virsh dumpxml $DOMAIN | grep 'source file' |  grep -oP "file='\K[^']+")
     logMessage "FILE PATH: $FILE_PATH"
-    logMessage "The next step will take about 2-3 minutes..."
-    do_cmd "bzip2 -k --force $FILE_PATH"
-    logMessage "End extract and zip template from vm $DOMAIN"
+    # logMessage "The next step will take about 2-3 minutes..."
+    # do_cmd "bzip2 -k --force $FILE_PATH"
+    # logMessage "End extract and zip template from vm $DOMAIN"
 }
 
 prepare_repo() {
     logMessage "Start prepare repo"
-    do_cmd "mv ${FILE_PATH}.bz2 /data/repo/"
+    # do_cmd "mv ${FILE_PATH}.bz2 /data/repo/"
+    do_cmd "mv ${FILE_PATH} /data/repo/"
     start_web_server_on_repo.sh
      logMessage "End prepare repo"
 }
@@ -57,7 +58,8 @@ register_template() {
     logMessage "Start register template using"
     SVM_PATH=${REPO_PATH}$(basename $FILE_PATH)
     logMessage "SVM PATH: $SVM_PATH"
-    do_cmd "$SCRIPT_PATH -m /data/mainframe_secondary -u ${SVM_PATH}.bz2 -h kvm -F"
+    # do_cmd "$SCRIPT_PATH -m /data/mainframe_secondary -u ${SVM_PATH}.bz2 -h kvm -F"
+    do_cmd "$SCRIPT_PATH -m /data/mainframe_secondary -u ${SVM_PATH} -h kvm -F"
     do_cmd "systemctl restart cloudstack-management"
     logMessage "End register template"
 }

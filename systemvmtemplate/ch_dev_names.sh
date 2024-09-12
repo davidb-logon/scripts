@@ -1,4 +1,13 @@
 #!/bin/bash
+# this file is being called from /opt/cloud/bin/setup/init.sh#22 ;ike that:
+# /root/ch_dev_names.sh 2>&1 | tee >> ch_dev_names.log3 # logon addition
+
+#alos i have the  shutd.sh
+# \rm -f ch_dev_names.log ch_dev_names.log2 ch_dev_names.log3
+# \rm -f /etc/udev/rules.d/70-persistent-net.rules
+# echo "systemvm from $(date)" >> template.version
+# shutdown -h now
+
 
 PS4='${BASH_SOURCE}:$LINENO + '
 set -x
