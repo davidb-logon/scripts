@@ -71,7 +71,8 @@ register_template() {
 }
 
 verify_all_stopped(){
-    vm_name=$(mysql -D cloud -se "SELECT name FROM vm_instance WHERE state='Starting';")
+    #vm_name=$(mysql -D cloud -se "SELECT name FROM vm_instance WHERE state='Starting';")
+    vm_name=$(mysql -D cloud -se "SELECT name FROM vm_instance WHERE type='SecondaryStorageVm' or type ='ConsoleProxy';")
 
     # Loop through each VM name and update its state to 'Stopped'
     for vm in $vm_name; do
