@@ -54,12 +54,18 @@ prepare_repo() {
     start_web_server_on_repo.sh
      logMessage "End prepare repo"
 }
+get_version() {
+    LAST_VERSION=$( mysql -D cloud -e "select url from cloud.vm_template where type = 'SYSTEM' and hypervisor_type = 'KVM'" | awk -Fversion= '{print $2}' | tail -n 1)
+    VERSION=$((VERSION+1))
+     logMessage "Last version: $LAST_VERSION, new version: $VERSION"
+}
 register_template() {
     logMessage "Start register template using"
     SVM_PATH=${REPO_PATH}$(basename $FILE_PATH)
     logMessage "SVM PATH: $SVM_PATH"
+    get_version
     # do_cmd "$SCRIPT_PATH -m /data/mainframe_secondary -u ${SVM_PATH}.bz2 -h kvm -F"
-    do_cmd "$SCRIPT_PATH -m /data/mainframe_secondary -u ${SVM_PATH}?date=$(date +%Y%m%d)\&version=1 -h kvm -F"
+    do_cmd "$SCRIPT_PATH -m /data/mainframe_secondary -u ${SVM_PATH}?date=$(date)\&version=$VERSION -h kvm -F"
     do_cmd "systemctl restart cloudstack-management"
     logMessage "End register template"
 }
