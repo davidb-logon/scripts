@@ -66,7 +66,7 @@ register_template() {
     get_version
     # do_cmd "$SCRIPT_PATH -m /data/mainframe_secondary -u ${SVM_PATH}.bz2 -h kvm -F"
     do_cmd "$SCRIPT_PATH -m /data/mainframe_secondary -u ${SVM_PATH}?date=$(date +"%Y%m%d%H%M%S")\&version=$VERSION -h kvm -F"
-    do_cmd "systemctl restart cloudstack-management"
+    do_cmd "restart"
     logMessage "End register template"
 }
 
