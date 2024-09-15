@@ -171,7 +171,7 @@ install_management_server() {
 install_and_configure_mysql_database() {
     logMessage "--- Start to install and configure mysql"
     do_cmd "$CMD install mysql-server" "mysql-server installed."
-    check_mysql_configuration
+    # check_mysql_configuration
     do_cmd "systemctl restart $MYSQL_SERVICE" "mysql server was started" "failed to start mysql server"
     # cloudstack-setup-databases cloud:<dbpassword>@localhost [ --deploy-as=root:<password> | --schema-only ] -e <encryption_type> -m <management_server_key> -k <database_key> -i <management_server_ip>
     do_cmd "cloudstack-setup-databases cloud:cloud@localhost --deploy-as=root"
