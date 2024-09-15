@@ -56,7 +56,7 @@ prepare_repo() {
 }
 get_version() {
     LAST_VERSION=$( mysql -D cloud -e "select url from cloud.vm_template where type = 'SYSTEM' and hypervisor_type = 'KVM'" | awk -Fversion= '{print $2}' | tail -n 1)
-    VERSION=$((VERSION+1))
+    VERSION=$((LAST_VERSION+1))
      logMessage "Last version: $LAST_VERSION, new version: $VERSION"
 }
 register_template() {
