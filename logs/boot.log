@@ -1,0 +1,1922 @@
+Sep 15 04:41:36 systemvm kernel: Linux version 6.1.0-25-s390x (debian-kernel@lists.debian.org) (gcc-12 (Debian 12.2.0-14) 12.2.0, GNU ld (GNU Binutils for Debian) 2.40) #1 SMP Debian 6.1.106-3 (2024-08-26)
+Sep 15 04:41:36 systemvm kernel: setup: Linux is running under KVM in 64-bit mode
+Sep 15 04:41:36 systemvm kernel: setup: The maximum memory size is 2048MB
+Sep 15 04:41:36 systemvm kernel: setup: Relocating AMODE31 section of size 0x00003000
+Sep 15 04:41:36 systemvm kernel: cpu: 2 configured CPUs, 0 standby CPUs
+Sep 15 04:41:36 systemvm kernel: Write protected kernel read-only data: 12220k
+Sep 15 04:41:36 systemvm kernel: Zone ranges:
+Sep 15 04:41:36 systemvm kernel:   DMA      [mem 0x0000000000000000-0x000000007fffffff]
+Sep 15 04:41:36 systemvm kernel:   Normal   empty
+Sep 15 04:41:36 systemvm kernel: Movable zone start for each node
+Sep 15 04:41:36 systemvm kernel: Early memory node ranges
+Sep 15 04:41:36 systemvm kernel:   node   0: [mem 0x0000000000000000-0x000000007fffffff]
+Sep 15 04:41:36 systemvm kernel: Initmem setup node 0 [mem 0x0000000000000000-0x000000007fffffff]
+Sep 15 04:41:36 systemvm kernel: percpu: Embedded 31 pages/cpu s89856 r8192 d28928 u126976
+Sep 15 04:41:36 systemvm kernel: pcpu-alloc: s89856 r8192 d28928 u126976 alloc=31*4096
+Sep 15 04:41:36 systemvm kernel: pcpu-alloc: [0] 0 [0] 1 
+Sep 15 04:41:36 systemvm kernel: Built 1 zonelists, mobility grouping on.  Total pages: 516096
+Sep 15 04:41:36 systemvm kernel: Kernel command line: root=UUID=55c20b27-f56b-4828-8b84-e88591817670
+Sep 15 04:41:36 systemvm kernel: random: crng init done
+Sep 15 04:41:36 systemvm kernel: Dentry cache hash table entries: 262144 (order: 9, 2097152 bytes, linear)
+Sep 15 04:41:36 systemvm kernel: Inode-cache hash table entries: 131072 (order: 8, 1048576 bytes, linear)
+Sep 15 04:41:36 systemvm kernel: mem auto-init: stack:all(zero), heap alloc:on, heap free:off
+Sep 15 04:41:36 systemvm kernel: Memory: 240676K/2097152K available (10060K kernel code, 2100K rwdata, 2160K rodata, 3592K init, 692K bss, 76296K reserved, 0K cma-reserved)
+Sep 15 04:41:36 systemvm kernel: SLUB: HWalign=256, Order=0-3, MinObjects=0, CPUs=2, Nodes=1
+Sep 15 04:41:36 systemvm kernel: ftrace: allocating 29416 entries in 115 pages
+Sep 15 04:41:36 systemvm kernel: ftrace: allocated 115 pages with 5 groups
+Sep 15 04:41:36 systemvm kernel: rcu: Hierarchical RCU implementation.
+Sep 15 04:41:36 systemvm kernel: rcu:         RCU restricting CPUs from NR_CPUS=256 to nr_cpu_ids=2.
+Sep 15 04:41:36 systemvm kernel:         Rude variant of Tasks RCU enabled.
+Sep 15 04:41:36 systemvm kernel:         Tracing variant of Tasks RCU enabled.
+Sep 15 04:41:36 systemvm kernel: rcu: RCU calculated value of scheduler-enlistment delay is 25 jiffies.
+Sep 15 04:41:36 systemvm kernel: rcu: Adjusting geometry for rcu_fanout_leaf=16, nr_cpu_ids=2
+Sep 15 04:41:36 systemvm kernel: NR_IRQS: 3, nr_irqs: 3, preallocated irqs: 3
+Sep 15 04:41:36 systemvm kernel: rcu: srcu_init: Setting srcu_struct sizes based on contention.
+Sep 15 04:41:36 systemvm kernel: clocksource: tod: mask: 0xffffffffffffffff max_cycles: 0x3b0a9be803b0a9, max_idle_ns: 1805497147909793 ns
+Sep 15 04:41:36 systemvm kernel: Console: colour dummy device 80x25
+Sep 15 04:41:36 systemvm kernel: printk: console [ttysclp0] enabled
+Sep 15 04:41:36 systemvm kernel: Calibrating delay loop (skipped)... 26315.00 BogoMIPS preset
+Sep 15 04:41:36 systemvm kernel: pid_max: default: 32768 minimum: 301
+Sep 15 04:41:36 systemvm kernel: LSM: Security Framework initializing
+Sep 15 04:41:36 systemvm kernel: landlock: Up and running.
+Sep 15 04:41:36 systemvm kernel: Yama: disabled by default; enable with sysctl kernel.yama.*
+Sep 15 04:41:36 systemvm kernel: AppArmor: AppArmor initialized
+Sep 15 04:41:36 systemvm kernel: TOMOYO Linux initialized
+Sep 15 04:41:36 systemvm kernel: Mount-cache hash table entries: 4096 (order: 3, 32768 bytes, linear)
+Sep 15 04:41:36 systemvm kernel: Mountpoint-cache hash table entries: 4096 (order: 3, 32768 bytes, linear)
+Sep 15 04:41:36 systemvm kernel: cblist_init_generic: Setting adjustable number of callback queues.
+Sep 15 04:41:36 systemvm kernel: cblist_init_generic: Setting shift to 1 and lim to 1.
+Sep 15 04:41:36 systemvm kernel: cblist_init_generic: Setting adjustable number of callback queues.
+Sep 15 04:41:36 systemvm kernel: cblist_init_generic: Setting shift to 1 and lim to 1.
+Sep 15 04:41:36 systemvm kernel: rcu: Hierarchical SRCU implementation.
+Sep 15 04:41:36 systemvm kernel: rcu:         Max phase no-delay instances is 1000.
+Sep 15 04:41:36 systemvm kernel: smp: Bringing up secondary CPUs ...
+Sep 15 04:41:36 systemvm kernel: smp: Brought up 1 node, 2 CPUs
+Sep 15 04:41:36 systemvm kernel: node 0 deferred pages initialised in 16ms
+Sep 15 04:41:36 systemvm kernel: devtmpfs: initialized
+Sep 15 04:41:36 systemvm kernel: clocksource: jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 7645041785100000 ns
+Sep 15 04:41:36 systemvm kernel: futex hash table entries: 512 (order: 5, 131072 bytes, linear)
+Sep 15 04:41:36 systemvm kernel: NET: Registered PF_NETLINK/PF_ROUTE protocol family
+Sep 15 04:41:36 systemvm kernel: audit: initializing netlink subsys (disabled)
+Sep 15 04:41:36 systemvm kernel: audit: type=2000 audit(1726389693.227:1): state=initialized audit_enabled=0 res=1
+Sep 15 04:41:36 systemvm kernel: thermal_sys: Registered thermal governor 'fair_share'
+Sep 15 04:41:36 systemvm kernel: thermal_sys: Registered thermal governor 'bang_bang'
+Sep 15 04:41:36 systemvm kernel: thermal_sys: Registered thermal governor 'step_wise'
+Sep 15 04:41:36 systemvm kernel: thermal_sys: Registered thermal governor 'user_space'
+Sep 15 04:41:36 systemvm kernel: Spectre V2 mitigation: etokens
+Sep 15 04:41:36 systemvm kernel: HugeTLB: registered 1.00 MiB page size, pre-allocated 0 pages
+Sep 15 04:41:36 systemvm kernel: HugeTLB: 0 KiB vmemmap can be freed for a 1.00 MiB page
+Sep 15 04:41:36 systemvm kernel: iommu: Default domain type: Translated 
+Sep 15 04:41:36 systemvm kernel: iommu: DMA domain TLB invalidation policy: strict mode 
+Sep 15 04:41:36 systemvm kernel: pps_core: LinuxPPS API ver. 1 registered
+Sep 15 04:41:36 systemvm kernel: pps_core: Software ver. 5.3.6 - Copyright 2005-2007 Rodolfo Giometti <giometti@linux.it>
+Sep 15 04:41:36 systemvm kernel: PTP clock support registered
+Sep 15 04:41:36 systemvm kernel: NetLabel: Initializing
+Sep 15 04:41:36 systemvm kernel: NetLabel:  domain hash size = 128
+Sep 15 04:41:36 systemvm kernel: NetLabel:  protocols = UNLABELED CIPSOv4 CALIPSO
+Sep 15 04:41:36 systemvm kernel: NetLabel:  unlabeled traffic allowed by default
+Sep 15 04:41:36 systemvm kernel: VFS: Disk quotas dquot_6.6.0
+Sep 15 04:41:36 systemvm kernel: VFS: Dquot-cache hash table entries: 512 (order 0, 4096 bytes)
+Sep 15 04:41:36 systemvm kernel: AppArmor: AppArmor Filesystem Enabled
+Sep 15 04:41:36 systemvm kernel: NET: Registered PF_INET protocol family
+Sep 15 04:41:36 systemvm kernel: IP idents hash table entries: 32768 (order: 6, 262144 bytes, linear)
+Sep 15 04:41:36 systemvm kernel: tcp_listen_portaddr_hash hash table entries: 1024 (order: 2, 16384 bytes, linear)
+Sep 15 04:41:36 systemvm kernel: Table-perturb hash table entries: 65536 (order: 6, 262144 bytes, linear)
+Sep 15 04:41:36 systemvm kernel: TCP established hash table entries: 16384 (order: 5, 131072 bytes, linear)
+Sep 15 04:41:36 systemvm kernel: TCP bind hash table entries: 16384 (order: 7, 524288 bytes, linear)
+Sep 15 04:41:36 systemvm kernel: TCP: Hash tables configured (established 16384 bind 16384)
+Sep 15 04:41:36 systemvm kernel: MPTCP token hash table entries: 2048 (order: 3, 49152 bytes, linear)
+Sep 15 04:41:36 systemvm kernel: UDP hash table entries: 1024 (order: 3, 32768 bytes, linear)
+Sep 15 04:41:36 systemvm kernel: UDP-Lite hash table entries: 1024 (order: 3, 32768 bytes, linear)
+Sep 15 04:41:36 systemvm kernel: NET: Registered PF_UNIX/PF_LOCAL protocol family
+Sep 15 04:41:36 systemvm kernel: NET: Registered PF_XDP protocol family
+Sep 15 04:41:36 systemvm kernel: Trying to unpack rootfs image as initramfs...
+Sep 15 04:41:36 systemvm kernel: hypfs: The hardware system does not support hypfs
+Sep 15 04:41:36 systemvm kernel: Initialise system trusted keyrings
+Sep 15 04:41:36 systemvm kernel: Key type blacklist registered
+Sep 15 04:41:36 systemvm kernel: workingset: timestamp_bits=46 max_order=19 bucket_order=0
+Sep 15 04:41:36 systemvm kernel: zbud: loaded
+Sep 15 04:41:36 systemvm kernel: integrity: Platform Keyring initialized
+Sep 15 04:41:36 systemvm kernel: Key type asymmetric registered
+Sep 15 04:41:36 systemvm kernel: Asymmetric key parser 'x509' registered
+Sep 15 04:41:36 systemvm kernel: Freeing initrd memory: 20860K
+Sep 15 04:41:36 systemvm kernel: alg: self-tests for CTR-KDF (hmac(sha256)) passed
+Sep 15 04:41:36 systemvm kernel: Block layer SCSI generic (bsg) driver version 0.4 loaded (major 249)
+Sep 15 04:41:36 systemvm kernel: io scheduler mq-deadline registered
+Sep 15 04:41:36 systemvm kernel: hvc_iucv: The z/VM IUCV HVC device driver cannot be used without z/VM
+Sep 15 04:41:36 systemvm kernel: mousedev: PS/2 mouse device common for all mice
+Sep 15 04:41:36 systemvm kernel: ledtrig-cpu: registered to indicate activity on CPUs
+Sep 15 04:41:36 systemvm kernel: NET: Registered PF_INET6 protocol family
+Sep 15 04:41:36 systemvm kernel: Segment Routing with IPv6
+Sep 15 04:41:36 systemvm kernel: In-situ OAM (IOAM) with IPv6
+Sep 15 04:41:36 systemvm kernel: mip6: Mobile IPv6
+Sep 15 04:41:36 systemvm kernel: NET: Registered PF_PACKET protocol family
+Sep 15 04:41:36 systemvm kernel: mpls_gso: MPLS GSO support
+Sep 15 04:41:36 systemvm kernel: cio: Channel measurement facility initialized using format extended (mode autodetected)
+Sep 15 04:41:36 systemvm kernel: sclp_sd: Store Data request failed (eq=2, di=3, response=0x40f0, flags=0x00, status=0, rc=-5)
+Sep 15 04:41:36 systemvm kernel: registered taskstats version 1
+Sep 15 04:41:36 systemvm kernel: Loading compiled-in X.509 certificates
+Sep 15 04:41:36 systemvm kernel: Loaded X.509 cert 'Debian Secure Boot CA: 6ccece7e4c6c0d1f6149f3dd27dfcc5cbb419ea1'
+Sep 15 04:41:36 systemvm kernel: Loaded X.509 cert 'Debian Secure Boot Signer 2022 - linux: 14011249c2675ea8e5148542202005810584b25f'
+Sep 15 04:41:36 systemvm kernel: zswap: loaded using pool lzo/zbud
+Sep 15 04:41:36 systemvm kernel: Key type .fscrypt registered
+Sep 15 04:41:36 systemvm kernel: Key type fscrypt-provisioning registered
+Sep 15 04:41:36 systemvm kernel: Key type encrypted registered
+Sep 15 04:41:36 systemvm kernel: AppArmor: AppArmor sha1 policy hashing enabled
+Sep 15 04:41:36 systemvm kernel: ima: No TPM chip found, activating TPM-bypass!
+Sep 15 04:41:36 systemvm kernel: ima: Allocated hash algorithm: sha256
+Sep 15 04:41:36 systemvm kernel: ima: No architecture policies found
+Sep 15 04:41:36 systemvm kernel: evm: Initialising EVM extended attributes:
+Sep 15 04:41:36 systemvm kernel: evm: security.selinux
+Sep 15 04:41:36 systemvm kernel: evm: security.SMACK64 (disabled)
+Sep 15 04:41:36 systemvm kernel: evm: security.SMACK64EXEC (disabled)
+Sep 15 04:41:36 systemvm kernel: evm: security.SMACK64TRANSMUTE (disabled)
+Sep 15 04:41:36 systemvm kernel: evm: security.SMACK64MMAP (disabled)
+Sep 15 04:41:36 systemvm kernel: evm: security.apparmor
+Sep 15 04:41:36 systemvm kernel: evm: security.ima
+Sep 15 04:41:36 systemvm kernel: evm: security.capability
+Sep 15 04:41:36 systemvm kernel: evm: HMAC attrs: 0x1
+Sep 15 04:41:36 systemvm kernel: Freeing unused early sccb memory: 12K
+Sep 15 04:41:36 systemvm kernel: Freeing unused kernel image (initmem) memory: 3592K
+Sep 15 04:41:36 systemvm kernel: Write protected read-only-after-init data: 104k
+Sep 15 04:41:36 systemvm kernel: Run /init as init process
+Sep 15 04:41:36 systemvm kernel:   with arguments:
+Sep 15 04:41:36 systemvm kernel:     /init
+Sep 15 04:41:36 systemvm kernel:   with environment:
+Sep 15 04:41:36 systemvm kernel:     HOME=/
+Sep 15 04:41:36 systemvm kernel:     TERM=linux
+Sep 15 04:41:36 systemvm kernel: SCSI subsystem initialized
+Sep 15 04:41:36 systemvm kernel: virtio_blk virtio2: 1/0/0 default/read/poll queues
+Sep 15 04:41:36 systemvm kernel: virtio_blk virtio2: [vda] 12582912 512-byte logical blocks (6.44 GB/6.00 GiB)
+Sep 15 04:41:36 systemvm kernel: scsi host0: Virtio SCSI HBA
+Sep 15 04:41:36 systemvm kernel:  vda: vda1 vda2 vda3
+Sep 15 04:41:36 systemvm kernel: scsi 0:0:0:0: CD-ROM            QEMU     QEMU CD-ROM      2.5+ PQ: 0 ANSI: 5
+Sep 15 04:41:36 systemvm kernel: sr 0:0:0:0: Power-on or device reset occurred
+Sep 15 04:41:36 systemvm kernel: sr 0:0:0:0: [sr0] scsi3-mmc drive: 16x/50x cd/rw xa/form2 cdda tray
+Sep 15 04:41:36 systemvm kernel: cdrom: Uniform CD-ROM driver Revision: 3.20
+Sep 15 04:41:36 systemvm kernel: sr 0:0:0:0: Attached scsi CD-ROM sr0
+Sep 15 04:41:36 systemvm kernel: virtio_net virtio3 enc1: renamed from eth0
+Sep 15 04:41:36 systemvm kernel: SGI XFS with ACLs, security attributes, realtime, quota, no debug enabled
+Sep 15 04:41:36 systemvm kernel: XFS (vda2): Mounting V5 Filesystem
+Sep 15 04:41:36 systemvm kernel: XFS (vda2): Ending clean mount
+Sep 15 04:41:36 systemvm kernel: Not activating Mandatory Access Control as /sbin/tomoyo-init does not exist.
+Sep 15 04:41:36 systemvm systemd[1]: Inserted module 'autofs4'
+Sep 15 04:41:36 systemvm systemd[1]: systemd 252.30-1~deb12u2 running in system mode (+PAM +AUDIT +SELINUX +APPARMOR +IMA +SMACK +SECCOMP +GCRYPT -GNUTLS +OPENSSL +ACL +BLKID +CURL +ELFUTILS +FIDO2 +IDN2 -IDN +IPTC +KMOD +LIBCRYPTSETUP +LIBFDISK +PCRE2 -PWQUALITY +P11KIT +QRENCODE +TPM2 +BZIP2 +LZ4 +XZ +ZLIB +ZSTD -BPF_FRAMEWORK -XKBCOMMON +UTMP +SYSVINIT default-hierarchy=unified)
+Sep 15 04:41:36 systemvm systemd[1]: Detected virtualization kvm.
+Sep 15 04:41:36 systemvm systemd[1]: Detected architecture s390x.
+Sep 15 04:41:36 systemvm systemd[1]: Hostname set to <systemvm>.
+Sep 15 04:41:36 systemvm systemd[1]: Queued start job for default target graphical.target.
+Sep 15 04:41:36 systemvm systemd[1]: Created slice system-getty.slice - Slice /system/getty.
+Sep 15 04:41:36 systemvm systemd[1]: Created slice system-modprobe.slice - Slice /system/modprobe.
+Sep 15 04:41:36 systemvm systemd[1]: Created slice system-serial\x2dgetty.slice - Slice /system/serial-getty.
+Sep 15 04:41:36 systemvm systemd[1]: Created slice system-systemd\x2dfsck.slice - Slice /system/systemd-fsck.
+Sep 15 04:41:36 systemvm systemd[1]: Created slice user.slice - User and Session Slice.
+Sep 15 04:41:36 systemvm systemd[1]: Started systemd-ask-password-console.path - Dispatch Password Requests to Console Directory Watch.
+Sep 15 04:41:36 systemvm systemd[1]: Started systemd-ask-password-wall.path - Forward Password Requests to Wall Directory Watch.
+Sep 15 04:41:36 systemvm systemd[1]: Set up automount proc-sys-fs-binfmt_misc.automount - Arbitrary Executable File Formats File System Automount Point.
+Sep 15 04:41:36 systemvm systemd[1]: Expecting device dev-disk-by\x2duuid-26d84cf3\x2d2e7e\x2d4a44\x2daf1c\x2d413cce706913.device - /dev/disk/by-uuid/26d84cf3-2e7e-4a44-af1c-413cce706913...
+Sep 15 04:41:36 systemvm systemd[1]: Expecting device dev-disk-by\x2duuid-33594962\x2de5ae\x2d42ae\x2da632\x2d875288d8ae9b.device - /dev/disk/by-uuid/33594962-e5ae-42ae-a632-875288d8ae9b...
+Sep 15 04:41:36 systemvm systemd[1]: Expecting device dev-ttysclp0.device - /dev/ttysclp0...
+Sep 15 04:41:36 systemvm systemd[1]: Reached target cryptsetup.target - Local Encrypted Volumes.
+Sep 15 04:41:36 systemvm systemd[1]: Reached target integritysetup.target - Local Integrity Protected Volumes.
+Sep 15 04:41:36 systemvm systemd[1]: Reached target slices.target - Slice Units.
+Sep 15 04:41:36 systemvm systemd[1]: Reached target veritysetup.target - Local Verity Protected Volumes.
+Sep 15 04:41:36 systemvm systemd[1]: Listening on rpcbind.socket - RPCbind Server Activation Socket.
+Sep 15 04:41:36 systemvm systemd[1]: Listening on syslog.socket - Syslog Socket.
+Sep 15 04:41:36 systemvm systemd[1]: Listening on systemd-fsckd.socket - fsck to fsckd communication Socket.
+Sep 15 04:41:36 systemvm systemd[1]: Listening on systemd-initctl.socket - initctl Compatibility Named Pipe.
+Sep 15 04:41:36 systemvm systemd[1]: Listening on systemd-journald-audit.socket - Journal Audit Socket.
+Sep 15 04:41:36 systemvm systemd[1]: Listening on systemd-journald-dev-log.socket - Journal Socket (/dev/log).
+Sep 15 04:41:36 systemvm systemd[1]: Listening on systemd-journald.socket - Journal Socket.
+Sep 15 04:41:36 systemvm systemd[1]: Listening on systemd-udevd-control.socket - udev Control Socket.
+Sep 15 04:41:36 systemvm systemd[1]: Listening on systemd-udevd-kernel.socket - udev Kernel Socket.
+Sep 15 04:41:36 systemvm systemd[1]: Mounting dev-hugepages.mount - Huge Pages File System...
+Sep 15 04:41:36 systemvm systemd[1]: Mounting dev-mqueue.mount - POSIX Message Queue File System...
+Sep 15 04:41:36 systemvm systemd[1]: Mounting sys-kernel-debug.mount - Kernel Debug File System...
+Sep 15 04:41:36 systemvm systemd[1]: Mounting sys-kernel-tracing.mount - Kernel Trace File System...
+Sep 15 04:41:36 systemvm systemd[1]: auth-rpcgss-module.service - Kernel Module supporting RPCSEC_GSS was skipped because of an unmet condition check (ConditionPathExists=/etc/krb5.keytab).
+Sep 15 04:41:36 systemvm systemd[1]: Starting kmod-static-nodes.service - Create List of Static Device Nodes...
+Sep 15 04:41:36 systemvm systemd[1]: Starting modprobe@configfs.service - Load Kernel Module configfs...
+Sep 15 04:41:36 systemvm systemd[1]: Starting modprobe@dm_mod.service - Load Kernel Module dm_mod...
+Sep 15 04:41:36 systemvm systemd[1]: Starting modprobe@drm.service - Load Kernel Module drm...
+Sep 15 04:41:36 systemvm systemd[1]: Starting modprobe@efi_pstore.service - Load Kernel Module efi_pstore...
+Sep 15 04:41:36 systemvm systemd[1]: Starting modprobe@fuse.service - Load Kernel Module fuse...
+Sep 15 04:41:36 systemvm systemd[1]: Starting modprobe@loop.service - Load Kernel Module loop...
+Sep 15 04:41:36 systemvm systemd[1]: Starting systemd-journald.service - Journal Service...
+Sep 15 04:41:36 systemvm systemd[1]: Starting systemd-modules-load.service - Load Kernel Modules...
+Sep 15 04:41:36 systemvm kernel: fuse: init (API version 7.37)
+Sep 15 04:41:36 systemvm systemd[1]: Starting systemd-remount-fs.service - Remount Root and Kernel File Systems...
+Sep 15 04:41:36 systemvm kernel: device-mapper: core: CONFIG_IMA_DISABLE_HTABLE is disabled. Duplicate IMA measurements will not be recorded in the IMA log.
+Sep 15 04:41:36 systemvm kernel: device-mapper: uevent: version 1.0.3
+Sep 15 04:41:36 systemvm kernel: device-mapper: ioctl: 4.47.0-ioctl (2022-07-28) initialised: dm-devel@redhat.com
+Sep 15 04:41:36 systemvm systemd[1]: Starting systemd-udev-trigger.service - Coldplug All udev Devices...
+Sep 15 04:41:36 systemvm kernel: loop: module loaded
+Sep 15 04:41:36 systemvm systemd[1]: Mounted dev-hugepages.mount - Huge Pages File System.
+Sep 15 04:41:36 systemvm systemd[1]: Mounted dev-mqueue.mount - POSIX Message Queue File System.
+Sep 15 04:41:36 systemvm systemd[1]: Mounted sys-kernel-debug.mount - Kernel Debug File System.
+Sep 15 04:41:36 systemvm systemd[1]: Mounted sys-kernel-tracing.mount - Kernel Trace File System.
+Sep 15 04:41:36 systemvm systemd[1]: Finished kmod-static-nodes.service - Create List of Static Device Nodes.
+Sep 15 04:41:36 systemvm systemd[1]: modprobe@configfs.service: Deactivated successfully.
+Sep 15 04:41:36 systemvm systemd[1]: Finished modprobe@configfs.service - Load Kernel Module configfs.
+Sep 15 04:41:36 systemvm systemd[1]: modprobe@dm_mod.service: Deactivated successfully.
+Sep 15 04:41:36 systemvm systemd[1]: Finished modprobe@dm_mod.service - Load Kernel Module dm_mod.
+Sep 15 04:41:36 systemvm systemd[1]: modprobe@drm.service: Deactivated successfully.
+Sep 15 04:41:36 systemvm systemd[1]: Finished modprobe@drm.service - Load Kernel Module drm.
+Sep 15 04:41:36 systemvm systemd[1]: modprobe@efi_pstore.service: Deactivated successfully.
+Sep 15 04:41:36 systemvm systemd[1]: Finished modprobe@efi_pstore.service - Load Kernel Module efi_pstore.
+Sep 15 04:41:36 systemvm systemd[1]: modprobe@fuse.service: Deactivated successfully.
+Sep 15 04:41:36 systemvm systemd[1]: Finished modprobe@fuse.service - Load Kernel Module fuse.
+Sep 15 04:41:36 systemvm systemd[1]: modprobe@loop.service: Deactivated successfully.
+Sep 15 04:41:36 systemvm systemd[1]: Finished modprobe@loop.service - Load Kernel Module loop.
+Sep 15 04:41:36 systemvm systemd[1]: Mounting sys-fs-fuse-connections.mount - FUSE Control File System...
+Sep 15 04:41:36 systemvm systemd[1]: Mounting sys-kernel-config.mount - Kernel Configuration File System...
+Sep 15 04:41:36 systemvm systemd[1]: systemd-repart.service - Repartition Root Disk was skipped because no trigger condition checks were met.
+Sep 15 04:41:36 systemvm systemd[1]: Finished systemd-remount-fs.service - Remount Root and Kernel File Systems.
+Sep 15 04:41:36 systemvm systemd[1]: Mounted sys-fs-fuse-connections.mount - FUSE Control File System.
+Sep 15 04:41:36 systemvm systemd[1]: Mounted sys-kernel-config.mount - Kernel Configuration File System.
+Sep 15 04:41:36 systemvm systemd[1]: Starting cloud-init-local.service - Initial cloud-init job (pre-networking)...
+Sep 15 04:41:36 systemvm systemd[1]: systemd-firstboot.service - First Boot Wizard was skipped because of an unmet condition check (ConditionFirstBoot=yes).
+Sep 15 04:41:36 systemvm systemd[1]: systemd-pstore.service - Platform Persistent Storage Archival was skipped because of an unmet condition check (ConditionDirectoryNotEmpty=/sys/fs/pstore).
+Sep 15 04:41:36 systemvm systemd[1]: Starting systemd-random-seed.service - Load/Save Random Seed...
+Sep 15 04:41:36 systemvm systemd[1]: Starting systemd-sysusers.service - Create System Users...
+Sep 15 04:41:36 systemvm systemd[1]: Finished systemd-modules-load.service - Load Kernel Modules.
+Sep 15 04:41:36 systemvm systemd[1]: Starting systemd-sysctl.service - Apply Kernel Variables...
+Sep 15 04:41:36 systemvm systemd-journald[223]: Journal started
+Sep 15 04:41:36 systemvm systemd-journald[223]: Runtime Journal (/run/log/journal/fc72c60a73fb402b85ee860c04e1b2c7) is 2.5M, max 20.0M, 17.5M free.
+Sep 15 04:41:36 systemvm systemd-modules-load[224]: Inserted module 'nf_conntrack'
+Sep 15 04:41:36 systemvm systemd[1]: Started systemd-journald.service - Journal Service.
+Sep 15 04:41:36 systemvm systemd-modules-load[224]: Inserted module 'nf_conntrack_ftp'
+Sep 15 04:41:36 systemvm systemd-modules-load[224]: Inserted module 'nf_conntrack_pptp'
+Sep 15 04:41:36 systemvm systemd-modules-load[224]: Failed to find module 'nf_conntrack_proto_gre'
+Sep 15 04:41:36 systemvm systemd-modules-load[224]: Inserted module 'nf_nat_tftp'
+Sep 15 04:41:36 systemvm systemd-modules-load[224]: Inserted module 'nf_nat_ftp'
+Sep 15 04:41:36 systemvm systemd[1]: Starting systemd-journal-flush.service - Flush Journal to Persistent Storage...
+Sep 15 04:41:37 systemvm systemd[1]: Finished systemd-random-seed.service - Load/Save Random Seed.
+Sep 15 04:41:37 systemvm systemd[1]: first-boot-complete.target - First Boot Complete was skipped because of an unmet condition check (ConditionFirstBoot=yes).
+Sep 15 04:41:37 systemvm systemd-journald[223]: Time spent on flushing to /var/log/journal/fc72c60a73fb402b85ee860c04e1b2c7 is 178.376ms for 255 entries.
+Sep 15 04:41:37 systemvm systemd-journald[223]: System Journal (/var/log/journal/fc72c60a73fb402b85ee860c04e1b2c7) is 39.9M, max 40.0M, 12.0K free.
+Sep 15 04:41:37 systemvm systemd-journald[223]: Received client request to flush runtime journal.
+Sep 15 04:41:37 systemvm systemd[1]: Finished systemd-sysctl.service - Apply Kernel Variables.
+Sep 15 04:41:37 systemvm systemd[1]: Finished systemd-sysusers.service - Create System Users.
+Sep 15 04:41:37 systemvm systemd[1]: Starting systemd-tmpfiles-setup-dev.service - Create Static Device Nodes in /dev...
+Sep 15 04:41:37 systemvm systemd[1]: Finished systemd-journal-flush.service - Flush Journal to Persistent Storage.
+Sep 15 04:41:37 systemvm systemd[1]: Finished systemd-tmpfiles-setup-dev.service - Create Static Device Nodes in /dev.
+Sep 15 04:41:37 systemvm systemd[1]: Reached target local-fs-pre.target - Preparation for Local File Systems.
+Sep 15 04:41:37 systemvm systemd[1]: Starting systemd-udevd.service - Rule-based Manager for Device Events and Files...
+Sep 15 04:41:37 systemvm systemd[1]: Finished systemd-udev-trigger.service - Coldplug All udev Devices.
+Sep 15 04:41:37 systemvm systemd[1]: Starting ifupdown-pre.service - Helper to synchronize boot up for ifupdown...
+Sep 15 04:41:37 systemvm sh[243]: ifquery: unknown interface eth0iface
+Sep 15 04:41:37 systemvm sh[243]: ifquery: unknown interface inet
+Sep 15 04:41:37 systemvm sh[243]: ifquery: unknown interface loopback
+Sep 15 04:41:37 systemvm systemd[1]: Finished ifupdown-pre.service - Helper to synchronize boot up for ifupdown.
+Sep 15 04:41:38 systemvm systemd-udevd[241]: Using default interface naming scheme 'v252'.
+Sep 15 04:41:38 systemvm systemd[1]: Started systemd-udevd.service - Rule-based Manager for Device Events and Files.
+Sep 15 04:41:39 systemvm (udev-worker)[259]: 0.0.0000: Process '/sbin/udevadm settle' failed with exit code 1.
+Sep 15 04:41:39 systemvm (udev-worker)[257]: 0.0.0002: Process '/sbin/udevadm settle' failed with exit code 1.
+Sep 15 04:41:39 systemvm (udev-worker)[251]: 0.0.0001: Process '/sbin/udevadm settle' failed with exit code 1.
+Sep 15 04:41:39 systemvm (udev-worker)[257]: 0.0.0002: Process '/sbin/hwup -A -D /devices/css0/0.0.0000/0.0.0002 ccw 0.0.0002' failed with exit code 9.
+Sep 15 04:41:39 systemvm (udev-worker)[259]: 0.0.0000: Process '/sbin/hwup -A -D /devices/css0/0.0.0002/0.0.0000 ccw 0.0.0000' failed with exit code 9.
+Sep 15 04:41:39 systemvm (udev-worker)[251]: 0.0.0001: Process '/sbin/hwup -A -D /devices/css0/0.0.0003/0.0.0001 ccw 0.0.0001' failed with exit code 9.
+Sep 15 04:41:40 systemvm kernel: sr 0:0:0:0: Attached scsi generic sg0 type 5
+Sep 15 04:41:40 systemvm systemd[1]: Found device dev-ttysclp0.device - /dev/ttysclp0.
+Sep 15 04:41:41 systemvm systemd[1]: Found device dev-disk-by\x2duuid-26d84cf3\x2d2e7e\x2d4a44\x2daf1c\x2d413cce706913.device - /dev/disk/by-uuid/26d84cf3-2e7e-4a44-af1c-413cce706913.
+Sep 15 04:41:41 systemvm kernel: virtio_net virtio3 eth0: renamed from enc1
+Sep 15 04:41:41 systemvm (udev-worker)[258]: 0.0.0004: Process '/sbin/udevadm settle' failed with exit code 1.
+Sep 15 04:41:41 systemvm (udev-worker)[259]: 0.0.0003: Process '/sbin/udevadm settle' failed with exit code 1.
+Sep 15 04:41:41 systemvm (udev-worker)[248]: 0.0.0005: Process '/sbin/udevadm settle' failed with exit code 1.
+Sep 15 04:41:41 systemvm systemd[1]: Activating swap dev-disk-by\x2duuid-26d84cf3\x2d2e7e\x2d4a44\x2daf1c\x2d413cce706913.swap - /dev/disk/by-uuid/26d84cf3-2e7e-4a44-af1c-413cce706913...
+Sep 15 04:41:41 systemvm systemd[1]: Found device dev-disk-by\x2duuid-33594962\x2de5ae\x2d42ae\x2da632\x2d875288d8ae9b.device - /dev/disk/by-uuid/33594962-e5ae-42ae-a632-875288d8ae9b.
+Sep 15 04:41:41 systemvm (udev-worker)[248]: 0.0.0005: Process '/sbin/hwup -A -D /devices/css0/0.0.0005/0.0.0005 ccw 0.0.0005' failed with exit code 9.
+Sep 15 04:41:41 systemvm kernel: Adding 332796k swap on /dev/vda3.  Priority:-2 extents:1 across:332796k FS
+Sep 15 04:41:41 systemvm (udev-worker)[258]: 0.0.0004: Process '/sbin/hwup -A -D /devices/css0/0.0.0004/0.0.0004 ccw 0.0.0004' failed with exit code 9.
+Sep 15 04:41:41 systemvm (udev-worker)[259]: 0.0.0003: Process '/sbin/hwup -A -D /devices/css0/0.0.0001/0.0.0003 ccw 0.0.0003' failed with exit code 9.
+Sep 15 04:41:41 systemvm systemd[1]: Starting systemd-fsck@dev-disk-by\x2duuid-33594962\x2de5ae\x2d42ae\x2da632\x2d875288d8ae9b.service - File System Check on /dev/disk/by-uuid/33594962-e5ae-42ae-a632-875288d8ae9b...
+Sep 15 04:41:41 systemvm systemd[1]: Activated swap dev-disk-by\x2duuid-26d84cf3\x2d2e7e\x2d4a44\x2daf1c\x2d413cce706913.swap - /dev/disk/by-uuid/26d84cf3-2e7e-4a44-af1c-413cce706913.
+Sep 15 04:41:42 systemvm systemd[1]: Reached target swap.target - Swaps.
+Sep 15 04:41:42 systemvm systemd[1]: Started systemd-fsckd.service - File System Check Daemon to report status.
+Sep 15 04:41:43 systemvm systemd[1]: Starting modprobe@dm_mod.service - Load Kernel Module dm_mod...
+Sep 15 04:41:43 systemvm systemd[1]: Starting modprobe@efi_pstore.service - Load Kernel Module efi_pstore...
+Sep 15 04:41:43 systemvm systemd-fsck[361]: /dev/vda1: clean, 24/24288 files, 59841/97280 blocks (check in 3 mounts)
+Sep 15 04:41:43 systemvm systemd[1]: Starting modprobe@loop.service - Load Kernel Module loop...
+Sep 15 04:41:43 systemvm systemd[1]: systemd-firstboot.service - First Boot Wizard was skipped because of an unmet condition check (ConditionFirstBoot=yes).
+Sep 15 04:41:43 systemvm systemd[1]: first-boot-complete.target - First Boot Complete was skipped because of an unmet condition check (ConditionFirstBoot=yes).
+Sep 15 04:41:43 systemvm systemd[1]: Finished systemd-fsck@dev-disk-by\x2duuid-33594962\x2de5ae\x2d42ae\x2da632\x2d875288d8ae9b.service - File System Check on /dev/disk/by-uuid/33594962-e5ae-42ae-a632-875288d8ae9b.
+Sep 15 04:41:43 systemvm systemd[1]: modprobe@dm_mod.service: Deactivated successfully.
+Sep 15 04:41:43 systemvm systemd[1]: Finished modprobe@dm_mod.service - Load Kernel Module dm_mod.
+Sep 15 04:41:43 systemvm systemd[1]: modprobe@efi_pstore.service: Deactivated successfully.
+Sep 15 04:41:43 systemvm systemd[1]: Finished modprobe@efi_pstore.service - Load Kernel Module efi_pstore.
+Sep 15 04:41:43 systemvm systemd[1]: modprobe@loop.service: Deactivated successfully.
+Sep 15 04:41:43 systemvm systemd[1]: Finished modprobe@loop.service - Load Kernel Module loop.
+Sep 15 04:41:44 systemvm systemd[1]: Mounting boot.mount - /boot...
+Sep 15 04:41:44 systemvm systemd[1]: systemd-pstore.service - Platform Persistent Storage Archival was skipped because of an unmet condition check (ConditionDirectoryNotEmpty=/sys/fs/pstore).
+Sep 15 04:41:44 systemvm systemd[1]: systemd-repart.service - Repartition Root Disk was skipped because no trigger condition checks were met.
+Sep 15 04:41:44 systemvm kernel: EXT4-fs (vda1): mounting ext2 file system using the ext4 subsystem
+Sep 15 04:41:44 systemvm kernel: EXT4-fs (vda1): mounted filesystem without journal. Quota mode: none.
+Sep 15 04:41:44 systemvm systemd[1]: Mounted boot.mount - /boot.
+Sep 15 04:41:44 systemvm systemd[1]: Reached target local-fs.target - Local File Systems.
+Sep 15 04:41:44 systemvm systemd[1]: Starting cloud-preinit.service - CloudStack service to initialize interfaces...
+Sep 15 04:41:44 systemvm systemd[1]: Starting netfilter-persistent.service - netfilter persistent configuration...
+Sep 15 04:41:44 systemvm systemd[1]: Starting systemd-binfmt.service - Set Up Additional Binary Formats...
+Sep 15 04:41:44 systemvm systemd[1]: systemd-machine-id-commit.service - Commit a transient machine-id on disk was skipped because of an unmet condition check (ConditionPathIsMountPoint=/etc/machine-id).
+Sep 15 04:41:44 systemvm systemd[1]: Starting systemd-tmpfiles-setup.service - Create System Files and Directories...
+Sep 15 04:41:44 systemvm init.sh[369]: + PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+Sep 15 04:41:44 systemvm init.sh[369]: + CMDLINE=/var/cache/cloud/cmdline
+Sep 15 04:41:44 systemvm init.sh[375]: + /root/ch_dev_names.sh
+Sep 15 04:41:44 systemvm init.sh[376]: + tee
+Sep 15 04:41:44 systemvm netfilter-persistent[377]: run-parts: executing /usr/share/netfilter-persistent/plugins.d/15-ip4tables start
+Sep 15 04:41:44 systemvm systemd[1]: proc-sys-fs-binfmt_misc.automount: Got automount request for /proc/sys/fs/binfmt_misc, triggered by 371 (systemd-binfmt)
+Sep 15 04:41:44 systemvm systemd[1]: Mounting proc-sys-fs-binfmt_misc.mount - Arbitrary Executable File Formats File System...
+Sep 15 04:41:44 systemvm systemd[1]: Mounted proc-sys-fs-binfmt_misc.mount - Arbitrary Executable File Formats File System.
+Sep 15 04:41:44 systemvm systemd[1]: Finished systemd-binfmt.service - Set Up Additional Binary Formats.
+Sep 15 04:41:44 systemvm netfilter-persistent[377]: run-parts: executing /usr/share/netfilter-persistent/plugins.d/25-ip6tables start
+Sep 15 04:41:44 systemvm systemd[1]: Finished netfilter-persistent.service - netfilter persistent configuration.
+Sep 15 04:41:45 systemvm systemd[1]: Finished systemd-tmpfiles-setup.service - Create System Files and Directories.
+Sep 15 04:41:45 systemvm systemd[1]: Mounting run-rpc_pipefs.mount - RPC Pipe File System...
+Sep 15 04:41:45 systemvm systemd[1]: Started haveged.service - Entropy Daemon based on the HAVEGE algorithm.
+Sep 15 04:41:45 systemvm init.sh[408]: ++ hypervisor
+Sep 15 04:41:45 systemvm init.sh[408]: ++ '[' -d /proc/xen ']'
+Sep 15 04:41:45 systemvm init.sh[408]: ++ '[' -x /usr/sbin/virt-what ']'
+Sep 15 04:41:45 systemvm init.sh[411]: +++ virt-what
+Sep 15 04:41:45 systemvm kernel: RPC: Registered named UNIX socket transport module.
+Sep 15 04:41:45 systemvm kernel: RPC: Registered udp transport module.
+Sep 15 04:41:45 systemvm kernel: RPC: Registered tcp transport module.
+Sep 15 04:41:45 systemvm kernel: RPC: Registered tcp NFSv4.1 backchannel transport module.
+Sep 15 04:41:45 systemvm systemd[1]: Starting rpcbind.service - RPC bind portmap service...
+Sep 15 04:41:45 systemvm systemd[1]: Starting systemd-timesyncd.service - Network Time Synchronization...
+Sep 15 04:41:45 systemvm systemd[1]: Starting systemd-update-utmp.service - Record System Boot/Shutdown in UTMP...
+Sep 15 04:41:45 systemvm systemd[1]: Mounted run-rpc_pipefs.mount - RPC Pipe File System.
+Sep 15 04:41:45 systemvm systemd[1]: Reached target rpc_pipefs.target.
+Sep 15 04:41:45 systemvm systemd[1]: rpc-gssd.service - RPC security service for NFS client and server was skipped because of an unmet condition check (ConditionPathExists=/etc/krb5.keytab).
+Sep 15 04:41:45 systemvm systemd[1]: Reached target nfs-client.target - NFS client services.
+Sep 15 04:41:45 systemvm systemd[1]: Finished systemd-update-utmp.service - Record System Boot/Shutdown in UTMP.
+Sep 15 04:41:45 systemvm systemd[1]: Started rpcbind.service - RPC bind portmap service.
+Sep 15 04:41:45 systemvm systemd[1]: Reached target remote-fs-pre.target - Preparation for Remote File Systems.
+Sep 15 04:41:45 systemvm systemd[1]: Reached target remote-fs.target - Remote File Systems.
+Sep 15 04:41:45 systemvm systemd[1]: Reached target rpcbind.target - RPC Port Mapper.
+Sep 15 04:41:46 systemvm haveged[407]: haveged: command socket is listening at fd 3
+Sep 15 04:41:46 systemvm haveged[407]: haveged: ver: 1.9.14; arch: s390; vend: ; build: (gcc 12.2.0 TV); collect: 128K
+Sep 15 04:41:46 systemvm haveged[407]: haveged: cpu: (VC); data: 128K (V); inst: 128K (V); idx: 39/40; sz: 87276/87276
+Sep 15 04:41:46 systemvm haveged[407]: haveged: tot tests(BA8): A:1/1 B:1/1 continuous tests(B):  last entropy estimate 7.99906
+Sep 15 04:41:46 systemvm haveged[407]: haveged: fills: 0, generated: 0
+Sep 15 04:41:46 systemvm init.sh[408]: ++ facts=('ibm_systemz' 'ibm_systemz-kvm')
+Sep 15 04:41:46 systemvm init.sh[408]: ++ local facts
+Sep 15 04:41:46 systemvm init.sh[408]: ++ '[' ibm_systemz '!=' '' ']'
+Sep 15 04:41:46 systemvm init.sh[408]: ++ '[' ibm_systemz-kvm == xen-domU ']'
+Sep 15 04:41:46 systemvm init.sh[408]: ++ echo ibm_systemz-kvm
+Sep 15 04:41:46 systemvm init.sh[408]: ++ return 0
+Sep 15 04:41:46 systemvm init.sh[369]: + export HYPERVISOR=ibm_systemz-kvm
+Sep 15 04:41:46 systemvm init.sh[369]: + HYPERVISOR=ibm_systemz-kvm
+Sep 15 04:41:46 systemvm init.sh[369]: + '[' 0 -ne 0 ']'
+Sep 15 04:41:46 systemvm init.sh[369]: + log_it 'Starting guest services for ibm_systemz-kvm'
+Sep 15 04:41:46 systemvm init.sh[477]: ++ date
+Sep 15 04:41:46 systemvm systemd[1]: Started systemd-timesyncd.service - Network Time Synchronization.
+Sep 15 04:41:46 systemvm systemd[1]: Reached target time-set.target - System Time Set.
+Sep 15 04:41:46 systemvm init.sh[369]: + echo 'Sun Sep 15 04:41:46 AM EDT 2024 Starting guest services for ibm_systemz-kvm'
+Sep 15 04:41:46 systemvm init.sh[369]: + log_action_msg 'Starting guest services for ibm_systemz-kvm'
+Sep 15 04:41:46 systemvm init.sh[479]: /opt/cloud/bin/setup/init.sh: line 26: log_action_msg: command not found
+Sep 15 04:41:46 systemvm init.sh[369]: + config_guest
+Sep 15 04:41:46 systemvm init.sh[369]: + '[' '!' -d /proc/xen ']'
+Sep 15 04:41:46 systemvm init.sh[369]: + sed -i 's/^vc/#vc/' /etc/inittab
+Sep 15 04:41:46 systemvm init.sh[369]: + telinit q
+Sep 15 04:41:47 systemvm systemd[1]: Reloading.
+Sep 15 04:41:50 systemvm cloud-init[504]: Cloud-init v. 22.4.2 running 'init-local' at Sun, 15 Sep 2024 08:41:50 +0000. Up 17.69 seconds.
+Sep 15 04:41:50 systemvm init.sh[369]: + '[' -d /proc/xen ']'
+Sep 15 04:41:50 systemvm init.sh[369]: + systemctl daemon-reload
+Sep 15 04:41:51 systemvm systemd[1]: Reloading.
+Sep 15 04:41:52 systemvm dhclient[508]: Internet Systems Consortium DHCP Client 4.4.3-P1
+Sep 15 04:41:52 systemvm dhclient[508]: Copyright 2004-2022 Internet Systems Consortium.
+Sep 15 04:41:52 systemvm dhclient[508]: All rights reserved.
+Sep 15 04:41:52 systemvm dhclient[508]: For info, please visit https://www.isc.org/software/dhcp/
+Sep 15 04:41:52 systemvm dhclient[508]: 
+Sep 15 04:41:52 systemvm dhclient[508]: Listening on LPF/eth0/52:54:00:4c:78:e4
+Sep 15 04:41:52 systemvm dhclient[508]: Sending on   LPF/eth0/52:54:00:4c:78:e4
+Sep 15 04:41:52 systemvm dhclient[508]: Sending on   Socket/fallback
+Sep 15 04:41:52 systemvm dhclient[508]: DHCPDISCOVER on eth0 to 255.255.255.255 port 67 interval 8
+Sep 15 04:41:54 systemvm init.sh[369]: + case $HYPERVISOR in
+Sep 15 04:41:54 systemvm init.sh[369]: + '[' -f /mnt/cmdline ']'
+Sep 15 04:41:54 systemvm init.sh[529]: ++ grep -Po 'type=\K[a-zA-Z]*' /var/cache/cloud/cmdline
+Sep 15 04:41:54 systemvm init.sh[529]: grep: /var/cache/cloud/cmdline: No such file or directory
+Sep 15 04:41:54 systemvm init.sh[369]: + export TYPE=
+Sep 15 04:41:54 systemvm init.sh[369]: + TYPE=
+Sep 15 04:41:54 systemvm init.sh[369]: + source /opt/cloud/bin/setup/common.sh
+Sep 15 04:41:54 systemvm init.sh[369]: ++ set -x
+Sep 15 04:41:54 systemvm init.sh[369]: ++ PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+Sep 15 04:41:54 systemvm init.sh[369]: ++ . /lib/lsb/init-functions
+Sep 15 04:41:54 systemvm init.sh[530]: ++++ run-parts --lsbsysinit --list /lib/lsb/init-functions.d
+Sep 15 04:41:54 systemvm init.sh[369]: +++ for hook in $(run-parts --lsbsysinit --list /lib/lsb/init-functions.d 2> /dev/null)
+Sep 15 04:41:54 systemvm init.sh[369]: +++ '[' -r /lib/lsb/init-functions.d/00-verbose ']'
+Sep 15 04:41:54 systemvm init.sh[369]: +++ . /lib/lsb/init-functions.d/00-verbose
+Sep 15 04:41:54 systemvm init.sh[369]: +++ for hook in $(run-parts --lsbsysinit --list /lib/lsb/init-functions.d 2> /dev/null)
+Sep 15 04:41:54 systemvm init.sh[369]: +++ '[' -r /lib/lsb/init-functions.d/40-systemd ']'
+Sep 15 04:41:54 systemvm init.sh[369]: +++ . /lib/lsb/init-functions.d/40-systemd
+Sep 15 04:41:54 systemvm init.sh[369]: ++++ _use_systemctl=0
+Sep 15 04:41:54 systemvm init.sh[369]: ++++ '[' -d /run/systemd/system ']'
+Sep 15 04:41:54 systemvm init.sh[369]: ++++ '[' -n '' ']'
+Sep 15 04:41:54 systemvm init.sh[369]: ++++ '[' init.sh = init-d-script ']'
+Sep 15 04:41:54 systemvm init.sh[369]: ++++ '[' init.sh = '' ']'
+Sep 15 04:41:54 systemvm init.sh[369]: ++++ executable=/opt/cloud/bin/setup/init.sh
+Sep 15 04:41:54 systemvm init.sh[369]: ++++ argument=
+Sep 15 04:41:54 systemvm init.sh[369]: ++++ prog=init.sh
+Sep 15 04:41:54 systemvm init.sh[369]: ++++ service=init.service
+Sep 15 04:41:54 systemvm init.sh[532]: +++++ systemctl -p LoadState --value show init.service
+Sep 15 04:41:55 systemvm init.sh[369]: ++++ state=not-found
+Sep 15 04:41:55 systemvm init.sh[369]: ++++ '[' not-found = masked ']'
+Sep 15 04:41:55 systemvm init.sh[369]: ++++ '[' 1 -ne 1 ']'
+Sep 15 04:41:55 systemvm init.sh[369]: ++++ '[' 0 = 1 ']'
+Sep 15 04:41:55 systemvm init.sh[369]: +++ FANCYTTY=
+Sep 15 04:41:55 systemvm init.sh[369]: +++ '[' -e /etc/lsb-base-logging.sh ']'
+Sep 15 04:41:55 systemvm init.sh[369]: +++ true
+Sep 15 04:41:55 systemvm init.sh[369]: ++ parse_cmd_line
+Sep 15 04:41:55 systemvm init.sh[534]: +++ cat /var/cache/cloud/cmdline
+Sep 15 04:41:55 systemvm init.sh[534]: cat: /var/cache/cloud/cmdline: No such file or directory
+Sep 15 04:41:55 systemvm init.sh[369]: ++ CMDLINE=
+Sep 15 04:41:55 systemvm init.sh[369]: ++ TYPE=unknown
+Sep 15 04:41:55 systemvm init.sh[369]: ++ BOOTPROTO=static
+Sep 15 04:41:55 systemvm init.sh[369]: ++ DISABLE_RP_FILTER=false
+Sep 15 04:41:55 systemvm init.sh[369]: ++ STORAGE_IP=
+Sep 15 04:41:55 systemvm init.sh[369]: ++ STORAGE_NETMASK=
+Sep 15 04:41:55 systemvm init.sh[369]: ++ STORAGE_CIDR=
+Sep 15 04:41:55 systemvm init.sh[369]: ++ VM_PASSWORD=
+Sep 15 04:41:55 systemvm init.sh[369]: ++ CHEF_TMP_FILE=/tmp/cmdline.json
+Sep 15 04:41:55 systemvm init.sh[369]: ++ COMMA='\t'
+Sep 15 04:41:55 systemvm init.sh[369]: ++ echo -e '{\n"type": "cmdline",'
+Sep 15 04:41:55 systemvm init.sh[369]: ++ echo -e '"cmd_line": {'
+Sep 15 04:41:55 systemvm init.sh[369]: ++ echo -e '\n\t}\n}'
+Sep 15 04:41:55 systemvm init.sh[369]: ++ '[' unknown '!=' unknown ']'
+Sep 15 04:41:55 systemvm init.sh[369]: ++ TMP_KEY_PATH=/tmp/.auth_key
+Sep 15 04:41:55 systemvm init.sh[369]: ++ AUTHORIZED_KEYS_PATH=/root/.ssh/authorized_keys
+Sep 15 04:41:55 systemvm init.sh[369]: ++ '[' '!' -z '' ']'
+Sep 15 04:41:55 systemvm init.sh[369]: ++ '[' ']'
+Sep 15 04:41:55 systemvm init.sh[369]: ++ '[' ']'
+Sep 15 04:41:55 systemvm init.sh[369]: ++ '[' ']'
+Sep 15 04:41:55 systemvm init.sh[536]: ++ chpasswd
+Sep 15 04:41:55 systemvm init.sh[537]: +++ openssl rand -base64 32
+Sep 15 04:41:55 systemvm init.sh[535]: ++ echo cloud:230mUzi+UndYozHEDIu2GcV1WUVgy1lo5124ZsYkkco=
+Sep 15 04:41:55 systemvm chpasswd[536]: pam_unix(chpasswd:chauthtok): user "cloud" does not exist in /etc/passwd
+Sep 15 04:41:55 systemvm init.sh[536]: chpasswd: (user cloud) pam_chauthtok() failed, error:
+Sep 15 04:41:55 systemvm init.sh[536]: Authentication token manipulation error
+Sep 15 04:41:55 systemvm init.sh[536]: chpasswd: (line 1, user cloud) password not changed
+Sep 15 04:41:55 systemvm init.sh[369]: ++ '[' x '!=' x ']'
+Sep 15 04:41:55 systemvm init.sh[369]: + setup_interface_sshd
+Sep 15 04:41:55 systemvm init.sh[369]: + '[' unknown '!=' cksnode ']'
+Sep 15 04:41:55 systemvm init.sh[369]: + log_it 'Applying iptables rules'
+Sep 15 04:41:55 systemvm init.sh[538]: ++ date
+Sep 15 04:41:55 systemvm init.sh[369]: + echo 'Sun Sep 15 04:41:55 AM EDT 2024 Applying iptables rules'
+Sep 15 04:41:55 systemvm init.sh[369]: + log_action_msg 'Applying iptables rules'
+Sep 15 04:41:55 systemvm init.sh[369]: + log_action_msg_pre 'Applying iptables rules'
+Sep 15 04:41:55 systemvm init.sh[369]: + :
+Sep 15 04:41:55 systemvm init.sh[369]: + echo 'Applying iptables rules.'
+Sep 15 04:41:55 systemvm init.sh[369]: Applying iptables rules.
+Sep 15 04:41:55 systemvm init.sh[369]: + log_action_msg_post 'Applying iptables rules'
+Sep 15 04:41:55 systemvm init.sh[369]: + :
+Sep 15 04:41:55 systemvm init.sh[369]: + '[' unknown '!=' dhcpsrvr ']'
+Sep 15 04:41:55 systemvm init.sh[369]: + cp /etc/iptables/iptables-unknown /etc/iptables/rules.v4
+Sep 15 04:41:55 systemvm init.sh[539]: cp: cannot stat '/etc/iptables/iptables-unknown': No such file or directory
+Sep 15 04:41:55 systemvm init.sh[369]: + '[' unknown == consoleproxy ']'
+Sep 15 04:41:55 systemvm init.sh[369]: + '[' unknown == secstorage ']'
+Sep 15 04:41:55 systemvm init.sh[369]: + '[' unknown == router ']'
+Sep 15 04:41:55 systemvm init.sh[369]: + '[' unknown == vpcrouter ']'
+Sep 15 04:41:55 systemvm init.sh[369]: + '[' unknown == ilbvm ']'
+Sep 15 04:41:55 systemvm init.sh[369]: + '[' unknown == elbvm ']'
+Sep 15 04:41:55 systemvm init.sh[369]: + '[' unknown == dhcpsrvr ']'
+Sep 15 04:41:55 systemvm init.sh[369]: + '[' unknown == cksnode ']'
+Sep 15 04:41:55 systemvm init.sh[369]: + systemctl restart systemd-journald
+Sep 15 04:41:55 systemvm dhclient[508]: DHCPOFFER of 192.168.124.18 from 192.168.124.1
+Sep 15 04:41:55 systemvm dhclient[508]: DHCPREQUEST for 192.168.124.18 on eth0 to 255.255.255.255 port 67
+Sep 15 04:41:55 systemvm dhclient[508]: DHCPACK of 192.168.124.18 from 192.168.124.1
+Sep 15 04:41:55 systemvm dhclient[508]: bound to 192.168.124.18 -- renewal in 1690 seconds.
+Sep 15 04:41:55 systemvm systemd-journald[223]: Journal stopped
+Sep 15 04:41:55 systemvm systemd-journald[223]: Received SIGTERM from PID 1 (systemd).
+Sep 15 04:41:55 systemvm systemd[1]: Stopping systemd-journald.service - Journal Service...
+Sep 15 04:41:55 systemvm systemd[1]: systemd-journald.service: Deactivated successfully.
+Sep 15 04:41:55 systemvm systemd[1]: Stopped systemd-journald.service - Journal Service.
+Sep 15 04:41:55 systemvm systemd[1]: systemd-journald.service: Consumed 1.565s CPU time.
+Sep 15 04:41:55 systemvm systemd[1]: Starting systemd-journald.service - Journal Service...
+Sep 15 04:41:55 systemvm systemd-journald[546]: Journal started
+Sep 15 04:41:55 systemvm systemd-journald[546]: System Journal (/var/log/journal/fc72c60a73fb402b85ee860c04e1b2c7) is 39.9M, max 40.0M, 12.0K free.
+Sep 15 04:41:55 systemvm systemd[1]: Started systemd-journald.service - Journal Service.
+Sep 15 04:41:55 systemvm init.sh[369]: + systemctl enable --now --no-block ssh
+Sep 15 04:41:56 systemvm systemctl[549]: Synchronizing state of ssh.service with SysV service script with /lib/systemd/systemd-sysv-install.
+Sep 15 04:41:56 systemvm systemctl[549]: Executing: /lib/systemd/systemd-sysv-install enable ssh
+Sep 15 04:41:56 systemvm systemd[1]: Reloading.
+Sep 15 04:41:58 systemvm cloud-init[504]: 2024-09-15 08:41:58,987 - url_helper.py[ERROR]: Timed out, no response from urls: ['http://169.254.169.254/openstack']
+Sep 15 04:41:59 systemvm cloud-init[504]: 2024-09-15 08:41:59,295 - util.py[WARNING]: No active metadata service found
+Sep 15 04:42:00 systemvm systemd[1]: Reloading.
+Sep 15 04:42:03 systemvm systemd[1]: Finished cloud-init-local.service - Initial cloud-init job (pre-networking).
+Sep 15 04:42:03 systemvm systemd[1]: Reloading.
+Sep 15 04:42:08 systemvm systemd[1]: Starting modprobe@dm_mod.service - Load Kernel Module dm_mod...
+Sep 15 04:42:08 systemvm systemd[1]: Starting modprobe@efi_pstore.service - Load Kernel Module efi_pstore...
+Sep 15 04:42:08 systemvm systemd[1]: Starting modprobe@loop.service - Load Kernel Module loop...
+Sep 15 04:42:08 systemvm systemd[1]: systemd-firstboot.service - First Boot Wizard was skipped because of an unmet condition check (ConditionFirstBoot=yes).
+Sep 15 04:42:08 systemvm systemd[1]: first-boot-complete.target - First Boot Complete was skipped because of an unmet condition check (ConditionFirstBoot=yes).
+Sep 15 04:42:08 systemvm systemd[1]: systemd-machine-id-commit.service - Commit a transient machine-id on disk was skipped because of an unmet condition check (ConditionPathIsMountPoint=/etc/machine-id).
+Sep 15 04:42:08 systemvm systemd[1]: modprobe@dm_mod.service: Deactivated successfully.
+Sep 15 04:42:08 systemvm systemd[1]: Finished modprobe@dm_mod.service - Load Kernel Module dm_mod.
+Sep 15 04:42:08 systemvm systemd[1]: modprobe@efi_pstore.service: Deactivated successfully.
+Sep 15 04:42:08 systemvm systemd[1]: Finished modprobe@efi_pstore.service - Load Kernel Module efi_pstore.
+Sep 15 04:42:08 systemvm systemd[1]: modprobe@loop.service: Deactivated successfully.
+Sep 15 04:42:08 systemvm systemd[1]: Finished modprobe@loop.service - Load Kernel Module loop.
+Sep 15 04:42:08 systemvm systemd[1]: Finished cloud-preinit.service - CloudStack service to initialize interfaces.
+Sep 15 04:42:08 systemvm systemd[1]: Reached target network-pre.target - Preparation for Network.
+Sep 15 04:42:08 systemvm systemd[1]: Starting cloud-early-config.service - CloudStack post-boot patching service using cmdline...
+Sep 15 04:42:08 systemvm systemd[1]: Starting networking.service - Raise network interfaces...
+Sep 15 04:42:08 systemvm systemd[1]: systemd-pstore.service - Platform Persistent Storage Archival was skipped because of an unmet condition check (ConditionDirectoryNotEmpty=/sys/fs/pstore).
+Sep 15 04:42:08 systemvm systemd[1]: systemd-repart.service - Repartition Root Disk was skipped because no trigger condition checks were met.
+Sep 15 04:42:08 systemvm cloud-early-config[620]: + PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+Sep 15 04:42:08 systemvm cloud-early-config[620]: + mkdir -p /var/cache/cloud
+Sep 15 04:42:08 systemvm cloud-early-config[620]: + rm -f /var/cache/cloud/boot_up_done
+Sep 15 04:42:08 systemvm cloud-early-config[620]: + '[' -x /sbin/ifup ']'
+Sep 15 04:42:08 systemvm cloud-early-config[620]: + . /lib/lsb/init-functions
+Sep 15 04:42:08 systemvm cloud-early-config[629]: +++ run-parts --lsbsysinit --list /lib/lsb/init-functions.d
+Sep 15 04:42:08 systemvm cloud-early-config[620]: ++ for hook in $(run-parts --lsbsysinit --list /lib/lsb/init-functions.d 2> /dev/null)
+Sep 15 04:42:08 systemvm cloud-early-config[620]: ++ '[' -r /lib/lsb/init-functions.d/00-verbose ']'
+Sep 15 04:42:08 systemvm cloud-early-config[620]: ++ . /lib/lsb/init-functions.d/00-verbose
+Sep 15 04:42:08 systemvm cloud-early-config[620]: ++ for hook in $(run-parts --lsbsysinit --list /lib/lsb/init-functions.d 2> /dev/null)
+Sep 15 04:42:08 systemvm cloud-early-config[620]: ++ '[' -r /lib/lsb/init-functions.d/40-systemd ']'
+Sep 15 04:42:08 systemvm cloud-early-config[620]: ++ . /lib/lsb/init-functions.d/40-systemd
+Sep 15 04:42:08 systemvm cloud-early-config[620]: +++ _use_systemctl=0
+Sep 15 04:42:08 systemvm cloud-early-config[620]: +++ '[' -d /run/systemd/system ']'
+Sep 15 04:42:08 systemvm cloud-early-config[620]: +++ '[' -n '' ']'
+Sep 15 04:42:08 systemvm cloud-early-config[620]: +++ '[' cloud-early-config = init-d-script ']'
+Sep 15 04:42:08 systemvm cloud-early-config[620]: +++ '[' cloud-early-config = '' ']'
+Sep 15 04:42:08 systemvm cloud-early-config[620]: +++ executable=/opt/cloud/bin/setup/cloud-early-config
+Sep 15 04:42:08 systemvm cloud-early-config[620]: +++ argument=
+Sep 15 04:42:08 systemvm cloud-early-config[620]: +++ prog=cloud-early-config
+Sep 15 04:42:08 systemvm cloud-early-config[620]: +++ service=cloud-early-config.service
+Sep 15 04:42:08 systemvm cloud-early-config[637]: ++++ systemctl -p LoadState --value show cloud-early-config.service
+Sep 15 04:42:08 systemvm cloud-early-config[620]: +++ state=loaded
+Sep 15 04:42:08 systemvm cloud-early-config[620]: +++ '[' loaded = masked ']'
+Sep 15 04:42:08 systemvm cloud-early-config[620]: +++ '[' 1 -ne 1 ']'
+Sep 15 04:42:08 systemvm cloud-early-config[620]: +++ '[' 0 = 1 ']'
+Sep 15 04:42:08 systemvm cloud-early-config[620]: ++ FANCYTTY=
+Sep 15 04:42:08 systemvm cloud-early-config[620]: ++ '[' -e /etc/lsb-base-logging.sh ']'
+Sep 15 04:42:08 systemvm cloud-early-config[620]: ++ true
+Sep 15 04:42:08 systemvm cloud-early-config[620]: + start
+Sep 15 04:42:08 systemvm cloud-early-config[620]: + log_it 'Executing cloud-early-config'
+Sep 15 04:42:08 systemvm cloud-early-config[642]: ++ date
+Sep 15 04:42:08 systemvm cloud-early-config[620]: + echo 'Sun Sep 15 04:42:08 AM EDT 2024 Executing cloud-early-config'
+Sep 15 04:42:08 systemvm cloud-early-config[620]: + log_action_msg 'Executing cloud-early-config'
+Sep 15 04:42:08 systemvm cloud-early-config[620]: + log_action_msg_pre 'Executing cloud-early-config'
+Sep 15 04:42:08 systemvm cloud-early-config[620]: + :
+Sep 15 04:42:08 systemvm cloud-early-config[620]: + echo 'Executing cloud-early-config.'
+Sep 15 04:42:08 systemvm cloud-early-config[620]: Executing cloud-early-config.
+Sep 15 04:42:08 systemvm cloud-early-config[620]: + log_action_msg_post 'Executing cloud-early-config'
+Sep 15 04:42:08 systemvm cloud-early-config[620]: + :
+Sep 15 04:42:08 systemvm cloud-early-config[620]: + rm -f '/tmp/*.lock'
+Sep 15 04:42:08 systemvm ifup[621]: ifup: unknown interface eth0iface
+Sep 15 04:42:08 systemvm ifup[621]: ifup: unknown interface inet
+Sep 15 04:42:08 systemvm ifup[621]: ifup: unknown interface loopback
+Sep 15 04:42:08 systemvm cloud-early-config[620]: + rm -f /tmp/rrouter_bumped
+Sep 15 04:42:08 systemvm cloud-early-config[620]: + rm -f /root/.rnd
+Sep 15 04:42:08 systemvm cloud-early-config[620]: + echo ''
+Sep 15 04:42:08 systemvm cloud-early-config[620]: + which growpart
+Sep 15 04:42:08 systemvm cloud-early-config[657]: ++ df -h /
+Sep 15 04:42:08 systemvm cloud-early-config[658]: ++ tail -n 1
+Sep 15 04:42:08 systemvm cloud-early-config[659]: ++ cut '-d ' -f1
+Sep 15 04:42:09 systemvm cloud-early-config[620]: + ROOT_MOUNT_POINT=/dev/vda2
+Sep 15 04:42:09 systemvm cloud-early-config[669]: ++ sed 's/[0-9]*$//g'
+Sep 15 04:42:09 systemvm systemd[1]: networking.service: Main process exited, code=exited, status=1/FAILURE
+Sep 15 04:42:09 systemvm cloud-early-config[668]: ++ echo /dev/vda2
+Sep 15 04:42:09 systemvm cloud-early-config[620]: + ROOT_DISK=/dev/vda
+Sep 15 04:42:09 systemvm cloud-early-config[620]: + growpart /dev/vda 2
+Sep 15 04:42:09 systemvm systemd[1]: networking.service: Failed with result 'exit-code'.
+Sep 15 04:42:09 systemvm systemd[1]: Failed to start networking.service - Raise network interfaces.
+Sep 15 04:42:09 systemvm systemd[1]: Reached target network.target - Network.
+Sep 15 04:42:09 systemvm systemd[1]: Starting cloud-init.service - Initial cloud-init job (metadata service crawler)...
+Sep 15 04:42:09 systemvm cloud-early-config[671]: NOCHANGE: partition 2 is size 11718656. it cannot be grown
+Sep 15 04:42:10 systemvm cloud-early-config[620]: + growpart /dev/vda 6
+Sep 15 04:42:10 systemvm cloud-early-config[696]: FAILED: failed to get start and end for /dev/vda6 in /dev/vda
+Sep 15 04:42:10 systemvm cloud-early-config[620]: + resize2fs /dev/vda2
+Sep 15 04:42:10 systemvm cloud-early-config[715]: resize2fs 1.47.0 (5-Feb-2023)
+Sep 15 04:42:10 systemvm cloud-early-config[715]: resize2fs: Bad magic number in super-block while trying to open /dev/vda2
+Sep 15 04:42:10 systemvm cloud-early-config[715]: Couldn't find valid filesystem superblock.
+Sep 15 04:42:10 systemvm cloud-early-config[620]: + patch
+Sep 15 04:42:10 systemvm cloud-early-config[620]: + local PATCH_MOUNT=/var/cache/cloud
+Sep 15 04:42:10 systemvm cloud-early-config[620]: + local PATCH_SCRIPTS=cloud-scripts.tgz
+Sep 15 04:42:10 systemvm cloud-early-config[620]: + local oldpatchfile=/usr/share/cloud/cloud-scripts.tgz
+Sep 15 04:42:10 systemvm cloud-early-config[620]: + local patchfile=/var/cache/cloud/cloud-scripts.tgz
+Sep 15 04:42:10 systemvm cloud-early-config[620]: + local privkey=/var/cache/cloud/authorized_keys
+Sep 15 04:42:10 systemvm cloud-early-config[620]: + local md5file=/var/cache/cloud/cloud-scripts-signature
+Sep 15 04:42:10 systemvm cloud-early-config[620]: + mkdir -p /var/cache/cloud
+Sep 15 04:42:10 systemvm cloud-early-config[620]: + '[' -f /var/cache/cloud/authorized_keys ']'
+Sep 15 04:42:10 systemvm cloud-early-config[717]: ++ validate_checksums /var/cache/cloud/cloud-scripts-signature /usr/share/cloud/cloud-scripts.tgz
+Sep 15 04:42:10 systemvm cloud-early-config[717]: ++ local oldmd5=
+Sep 15 04:42:10 systemvm cloud-early-config[717]: ++ '[' -f /var/cache/cloud/cloud-scripts-signature ']'
+Sep 15 04:42:10 systemvm cloud-early-config[718]: +++ cat /var/cache/cloud/cloud-scripts-signature
+Sep 15 04:42:10 systemvm cloud-early-config[717]: ++ oldmd5=ff6854d0c5d86d0cfb05438f5c752e9a
+Sep 15 04:42:10 systemvm cloud-early-config[717]: ++ local newmd5=
+Sep 15 04:42:10 systemvm cloud-early-config[717]: ++ '[' -f /usr/share/cloud/cloud-scripts.tgz ']'
+Sep 15 04:42:10 systemvm cloud-early-config[720]: +++ md5sum /usr/share/cloud/cloud-scripts.tgz
+Sep 15 04:42:10 systemvm cloud-early-config[721]: +++ awk '{print $1}'
+Sep 15 04:42:11 systemvm cloud-early-config[717]: ++ newmd5=ff6854d0c5d86d0cfb05438f5c752e9a
+Sep 15 04:42:11 systemvm cloud-early-config[717]: ++ log_it 'Scripts checksum detected: oldmd5=ff6854d0c5d86d0cfb05438f5c752e9a newmd5=ff6854d0c5d86d0cfb05438f5c752e9a'
+Sep 15 04:42:11 systemvm cloud-early-config[717]: ++ echo 'oldmd5='\''ff6854d0c5d86d0cfb05438f5c752e9a'\''; newmd5='\''ff6854d0c5d86d0cfb05438f5c752e9a'\'''
+Sep 15 04:42:11 systemvm cloud-early-config[620]: + eval 'oldmd5='\''ff6854d0c5d86d0cfb05438f5c752e9a'\'';' 'newmd5='\''ff6854d0c5d86d0cfb05438f5c752e9a'\'''
+Sep 15 04:42:11 systemvm cloud-early-config[620]: ++ oldmd5=ff6854d0c5d86d0cfb05438f5c752e9a
+Sep 15 04:42:11 systemvm cloud-early-config[620]: ++ newmd5=ff6854d0c5d86d0cfb05438f5c752e9a
+Sep 15 04:42:11 systemvm cloud-early-config[620]: + '[' ff6854d0c5d86d0cfb05438f5c752e9a == ff6854d0c5d86d0cfb05438f5c752e9a ']'
+Sep 15 04:42:11 systemvm cloud-early-config[620]: + '[' -d /usr/local/cloud/systemvm ']'
+Sep 15 04:42:11 systemvm cloud-early-config[620]: + CMDLINE=/var/cache/cloud/cmdline
+Sep 15 04:42:11 systemvm cloud-early-config[723]: ++ grep -Po 'type=\K[a-zA-Z]*' /var/cache/cloud/cmdline
+Sep 15 04:42:11 systemvm cloud-early-config[723]: grep: /var/cache/cloud/cmdline: No such file or directory
+Sep 15 04:42:11 systemvm cloud-early-config[620]: + export TYPE=
+Sep 15 04:42:11 systemvm cloud-early-config[620]: + TYPE=
+Sep 15 04:42:11 systemvm cloud-early-config[620]: + retry=60
+Sep 15 04:42:11 systemvm cloud-early-config[620]: + local patched=false
+Sep 15 04:42:11 systemvm cloud-early-config[620]: + '[' '' '!=' cksnode ']'
+Sep 15 04:42:11 systemvm cloud-early-config[620]: + '[' 60 -gt 0 ']'
+Sep 15 04:42:11 systemvm cloud-early-config[620]: + tar tf /var/cache/cloud/cloud-scripts.tgz
+Sep 15 04:42:11 systemvm cloud-early-config[620]: + sleep 2
+Sep 15 04:42:13 systemvm cloud-early-config[620]: + retry=59
+Sep 15 04:42:13 systemvm cloud-early-config[620]: + log_it 'Could not find patch file, retrying'
+Sep 15 04:42:13 systemvm cloud-early-config[726]: ++ date
+Sep 15 04:42:13 systemvm cloud-early-config[620]: + echo 'Sun Sep 15 04:42:13 AM EDT 2024 Could not find patch file, retrying'
+Sep 15 04:42:13 systemvm cloud-early-config[620]: + log_action_msg 'Could not find patch file, retrying'
+Sep 15 04:42:13 systemvm cloud-early-config[620]: + log_action_msg_pre 'Could not find patch file, retrying'
+Sep 15 04:42:13 systemvm cloud-early-config[620]: + :
+Sep 15 04:42:13 systemvm cloud-early-config[620]: + echo 'Could not find patch file, retrying.'
+Sep 15 04:42:13 systemvm cloud-early-config[620]: Could not find patch file, retrying.
+Sep 15 04:42:13 systemvm cloud-early-config[620]: + log_action_msg_post 'Could not find patch file, retrying'
+Sep 15 04:42:13 systemvm cloud-early-config[620]: + :
+Sep 15 04:42:13 systemvm cloud-early-config[620]: + '[' 59 -gt 0 ']'
+Sep 15 04:42:13 systemvm cloud-early-config[620]: + tar tf /var/cache/cloud/cloud-scripts.tgz
+Sep 15 04:42:13 systemvm cloud-early-config[620]: + sleep 2
+Sep 15 04:42:13 systemvm systemd[1]: systemd-fsckd.service: Deactivated successfully.
+Sep 15 04:42:15 systemvm cloud-early-config[620]: + retry=58
+Sep 15 04:42:15 systemvm cloud-early-config[620]: + log_it 'Could not find patch file, retrying'
+Sep 15 04:42:15 systemvm cloud-early-config[729]: ++ date
+Sep 15 04:42:15 systemvm cloud-early-config[620]: + echo 'Sun Sep 15 04:42:15 AM EDT 2024 Could not find patch file, retrying'
+Sep 15 04:42:15 systemvm cloud-early-config[620]: + log_action_msg 'Could not find patch file, retrying'
+Sep 15 04:42:15 systemvm cloud-early-config[620]: + log_action_msg_pre 'Could not find patch file, retrying'
+Sep 15 04:42:15 systemvm cloud-early-config[620]: + :
+Sep 15 04:42:15 systemvm cloud-early-config[620]: + echo 'Could not find patch file, retrying.'
+Sep 15 04:42:15 systemvm cloud-early-config[620]: Could not find patch file, retrying.
+Sep 15 04:42:15 systemvm cloud-early-config[620]: + log_action_msg_post 'Could not find patch file, retrying'
+Sep 15 04:42:15 systemvm cloud-early-config[620]: + :
+Sep 15 04:42:15 systemvm cloud-early-config[620]: + '[' 58 -gt 0 ']'
+Sep 15 04:42:15 systemvm cloud-early-config[620]: + tar tf /var/cache/cloud/cloud-scripts.tgz
+Sep 15 04:42:15 systemvm cloud-early-config[620]: + sleep 2
+Sep 15 04:42:17 systemvm cloud-early-config[620]: + retry=57
+Sep 15 04:42:17 systemvm cloud-early-config[620]: + log_it 'Could not find patch file, retrying'
+Sep 15 04:42:17 systemvm cloud-early-config[732]: ++ date
+Sep 15 04:42:17 systemvm cloud-early-config[620]: + echo 'Sun Sep 15 04:42:17 AM EDT 2024 Could not find patch file, retrying'
+Sep 15 04:42:17 systemvm cloud-early-config[620]: + log_action_msg 'Could not find patch file, retrying'
+Sep 15 04:42:17 systemvm cloud-early-config[620]: + log_action_msg_pre 'Could not find patch file, retrying'
+Sep 15 04:42:17 systemvm cloud-early-config[620]: + :
+Sep 15 04:42:17 systemvm cloud-early-config[620]: + echo 'Could not find patch file, retrying.'
+Sep 15 04:42:17 systemvm cloud-early-config[620]: Could not find patch file, retrying.
+Sep 15 04:42:17 systemvm cloud-early-config[620]: + log_action_msg_post 'Could not find patch file, retrying'
+Sep 15 04:42:17 systemvm cloud-early-config[620]: + :
+Sep 15 04:42:17 systemvm cloud-early-config[620]: + '[' 57 -gt 0 ']'
+Sep 15 04:42:17 systemvm cloud-early-config[620]: + tar tf /var/cache/cloud/cloud-scripts.tgz
+Sep 15 04:42:17 systemvm cloud-early-config[620]: + sleep 2
+Sep 15 04:42:19 systemvm cloud-early-config[620]: + retry=56
+Sep 15 04:42:19 systemvm cloud-early-config[620]: + log_it 'Could not find patch file, retrying'
+Sep 15 04:42:19 systemvm cloud-early-config[737]: ++ date
+Sep 15 04:42:19 systemvm cloud-early-config[620]: + echo 'Sun Sep 15 04:42:19 AM EDT 2024 Could not find patch file, retrying'
+Sep 15 04:42:19 systemvm cloud-early-config[620]: + log_action_msg 'Could not find patch file, retrying'
+Sep 15 04:42:19 systemvm cloud-early-config[620]: + log_action_msg_pre 'Could not find patch file, retrying'
+Sep 15 04:42:19 systemvm cloud-early-config[620]: + :
+Sep 15 04:42:19 systemvm cloud-early-config[620]: + echo 'Could not find patch file, retrying.'
+Sep 15 04:42:19 systemvm cloud-early-config[620]: Could not find patch file, retrying.
+Sep 15 04:42:19 systemvm cloud-early-config[620]: + log_action_msg_post 'Could not find patch file, retrying'
+Sep 15 04:42:19 systemvm cloud-early-config[620]: + :
+Sep 15 04:42:19 systemvm cloud-early-config[620]: + '[' 56 -gt 0 ']'
+Sep 15 04:42:19 systemvm cloud-early-config[620]: + tar tf /var/cache/cloud/cloud-scripts.tgz
+Sep 15 04:42:19 systemvm cloud-early-config[620]: + sleep 2
+Sep 15 04:42:19 systemvm cloud-init[741]: Cloud-init v. 22.4.2 running 'init' at Sun, 15 Sep 2024 08:42:19 +0000. Up 46.61 seconds.
+Sep 15 04:42:20 systemvm cloud-init[741]: ci-info: +++++++++++++++++++++++++++Net device info++++++++++++++++++++++++++++
+Sep 15 04:42:20 systemvm cloud-init[741]: ci-info: +--------+-------+-----------+-----------+-------+-------------------+
+Sep 15 04:42:20 systemvm cloud-init[741]: ci-info: | Device |   Up  |  Address  |    Mask   | Scope |     Hw-Address    |
+Sep 15 04:42:20 systemvm cloud-init[741]: ci-info: +--------+-------+-----------+-----------+-------+-------------------+
+Sep 15 04:42:20 systemvm cloud-init[741]: ci-info: |  eth0  | False |     .     |     .     |   .   | 52:54:00:4c:78:e4 |
+Sep 15 04:42:20 systemvm cloud-init[741]: ci-info: |   lo   |  True | 127.0.0.1 | 255.0.0.0 |  host |         .         |
+Sep 15 04:42:20 systemvm cloud-init[741]: ci-info: +--------+-------+-----------+-----------+-------+-------------------+
+Sep 15 04:42:20 systemvm cloud-init[741]: ci-info:
+Sep 15 04:42:20 systemvm cloud-init[741]: 2024-09-15 08:42:20,797 - url_helper.py[ERROR]: Timed out, no response from urls: ['http://169.254.169.254/openstack']
+Sep 15 04:42:20 systemvm cloud-init[741]: 2024-09-15 08:42:20,805 - util.py[WARNING]: No active metadata service found
+Sep 15 04:42:21 systemvm cloud-early-config[620]: + retry=55
+Sep 15 04:42:21 systemvm cloud-early-config[620]: + log_it 'Could not find patch file, retrying'
+Sep 15 04:42:21 systemvm cloud-early-config[745]: ++ date
+Sep 15 04:42:21 systemvm cloud-early-config[620]: + echo 'Sun Sep 15 04:42:21 AM EDT 2024 Could not find patch file, retrying'
+Sep 15 04:42:21 systemvm cloud-early-config[620]: + log_action_msg 'Could not find patch file, retrying'
+Sep 15 04:42:21 systemvm cloud-early-config[620]: + log_action_msg_pre 'Could not find patch file, retrying'
+Sep 15 04:42:21 systemvm cloud-early-config[620]: + :
+Sep 15 04:42:21 systemvm cloud-early-config[620]: + echo 'Could not find patch file, retrying.'
+Sep 15 04:42:21 systemvm cloud-early-config[620]: Could not find patch file, retrying.
+Sep 15 04:42:21 systemvm cloud-early-config[620]: + log_action_msg_post 'Could not find patch file, retrying'
+Sep 15 04:42:21 systemvm cloud-early-config[620]: + :
+Sep 15 04:42:21 systemvm cloud-early-config[620]: + '[' 55 -gt 0 ']'
+Sep 15 04:42:21 systemvm cloud-early-config[620]: + tar tf /var/cache/cloud/cloud-scripts.tgz
+Sep 15 04:42:21 systemvm cloud-early-config[620]: + sleep 2
+Sep 15 04:42:23 systemvm cloud-early-config[620]: + retry=54
+Sep 15 04:42:23 systemvm cloud-early-config[620]: + log_it 'Could not find patch file, retrying'
+Sep 15 04:42:23 systemvm cloud-early-config[748]: ++ date
+Sep 15 04:42:23 systemvm cloud-early-config[620]: + echo 'Sun Sep 15 04:42:23 AM EDT 2024 Could not find patch file, retrying'
+Sep 15 04:42:23 systemvm cloud-early-config[620]: + log_action_msg 'Could not find patch file, retrying'
+Sep 15 04:42:23 systemvm cloud-early-config[620]: + log_action_msg_pre 'Could not find patch file, retrying'
+Sep 15 04:42:23 systemvm cloud-early-config[620]: + :
+Sep 15 04:42:23 systemvm cloud-early-config[620]: + echo 'Could not find patch file, retrying.'
+Sep 15 04:42:23 systemvm cloud-early-config[620]: Could not find patch file, retrying.
+Sep 15 04:42:23 systemvm cloud-early-config[620]: + log_action_msg_post 'Could not find patch file, retrying'
+Sep 15 04:42:23 systemvm cloud-early-config[620]: + :
+Sep 15 04:42:23 systemvm cloud-early-config[620]: + '[' 54 -gt 0 ']'
+Sep 15 04:42:23 systemvm cloud-early-config[620]: + tar tf /var/cache/cloud/cloud-scripts.tgz
+Sep 15 04:42:23 systemvm cloud-early-config[620]: + sleep 2
+Sep 15 04:42:25 systemvm cloud-early-config[620]: + retry=53
+Sep 15 04:42:25 systemvm cloud-early-config[620]: + log_it 'Could not find patch file, retrying'
+Sep 15 04:42:25 systemvm cloud-early-config[751]: ++ date
+Sep 15 04:42:26 systemvm cloud-early-config[620]: + echo 'Sun Sep 15 04:42:25 AM EDT 2024 Could not find patch file, retrying'
+Sep 15 04:42:26 systemvm cloud-early-config[620]: + log_action_msg 'Could not find patch file, retrying'
+Sep 15 04:42:26 systemvm cloud-early-config[620]: + log_action_msg_pre 'Could not find patch file, retrying'
+Sep 15 04:42:26 systemvm cloud-early-config[620]: + :
+Sep 15 04:42:26 systemvm cloud-early-config[620]: + echo 'Could not find patch file, retrying.'
+Sep 15 04:42:26 systemvm cloud-early-config[620]: Could not find patch file, retrying.
+Sep 15 04:42:26 systemvm cloud-early-config[620]: + log_action_msg_post 'Could not find patch file, retrying'
+Sep 15 04:42:26 systemvm cloud-early-config[620]: + :
+Sep 15 04:42:26 systemvm cloud-early-config[620]: + '[' 53 -gt 0 ']'
+Sep 15 04:42:26 systemvm cloud-early-config[620]: + tar tf /var/cache/cloud/cloud-scripts.tgz
+Sep 15 04:42:26 systemvm cloud-early-config[620]: + sleep 2
+Sep 15 04:42:28 systemvm cloud-early-config[620]: + retry=52
+Sep 15 04:42:28 systemvm cloud-early-config[620]: + log_it 'Could not find patch file, retrying'
+Sep 15 04:42:28 systemvm cloud-early-config[776]: ++ date
+Sep 15 04:42:28 systemvm cloud-early-config[620]: + echo 'Sun Sep 15 04:42:28 AM EDT 2024 Could not find patch file, retrying'
+Sep 15 04:42:28 systemvm cloud-early-config[620]: + log_action_msg 'Could not find patch file, retrying'
+Sep 15 04:42:28 systemvm cloud-early-config[620]: + log_action_msg_pre 'Could not find patch file, retrying'
+Sep 15 04:42:28 systemvm cloud-early-config[620]: + :
+Sep 15 04:42:28 systemvm cloud-early-config[620]: + echo 'Could not find patch file, retrying.'
+Sep 15 04:42:28 systemvm cloud-early-config[620]: Could not find patch file, retrying.
+Sep 15 04:42:28 systemvm cloud-early-config[620]: + log_action_msg_post 'Could not find patch file, retrying'
+Sep 15 04:42:28 systemvm cloud-early-config[620]: + :
+Sep 15 04:42:28 systemvm cloud-early-config[620]: + '[' 52 -gt 0 ']'
+Sep 15 04:42:28 systemvm cloud-early-config[620]: + tar tf /var/cache/cloud/cloud-scripts.tgz
+Sep 15 04:42:28 systemvm cloud-early-config[620]: + sleep 2
+Sep 15 04:42:28 systemvm systemd[1]: Finished cloud-init.service - Initial cloud-init job (metadata service crawler).
+Sep 15 04:42:28 systemvm systemd[1]: Reached target cloud-config.target - Cloud-config availability.
+Sep 15 04:42:28 systemvm systemd[1]: Reached target network-online.target - Network is Online.
+Sep 15 04:42:28 systemvm systemd[1]: Reached target sysinit.target - System Initialization.
+Sep 15 04:42:28 systemvm systemd[1]: Started acpid.path - ACPI Events Check.
+Sep 15 04:42:28 systemvm systemd[1]: Started dpkg-db-backup.timer - Daily dpkg database backup timer.
+Sep 15 04:42:28 systemvm systemd[1]: Started e2scrub_all.timer - Periodic ext4 Online Metadata Check for All Filesystems.
+Sep 15 04:42:28 systemvm systemd[1]: Started fstrim.timer - Discard unused blocks once a week.
+Sep 15 04:42:28 systemvm systemd[1]: Started logrotate.timer - Daily rotation of log files.
+Sep 15 04:42:28 systemvm systemd[1]: Started man-db.timer - Daily man-db regeneration.
+Sep 15 04:42:28 systemvm systemd[1]: Started sysstat-collect.timer - Run system activity accounting tool every 10 minutes.
+Sep 15 04:42:28 systemvm systemd[1]: Started sysstat-summary.timer - Generate summary of yesterday's process accounting.
+Sep 15 04:42:28 systemvm systemd[1]: Started systemd-tmpfiles-clean.timer - Daily Cleanup of Temporary Directories.
+Sep 15 04:42:28 systemvm systemd[1]: Reached target paths.target - Path Units.
+Sep 15 04:42:28 systemvm systemd[1]: Reached target timers.target - Timer Units.
+Sep 15 04:42:28 systemvm systemd[1]: Listening on acpid.socket - ACPID Listen Socket.
+Sep 15 04:42:28 systemvm systemd[1]: Listening on cloud-init-hotplugd.socket - cloud-init hotplug hook socket.
+Sep 15 04:42:28 systemvm systemd[1]: Listening on dbus.socket - D-Bus System Message Bus Socket.
+Sep 15 04:42:28 systemvm systemd[1]: Listening on uuidd.socket - UUID daemon activation socket.
+Sep 15 04:42:28 systemvm systemd[1]: Reached target sockets.target - Socket Units.
+Sep 15 04:42:28 systemvm systemd[1]: Reached target basic.target - Basic System.
+Sep 15 04:42:28 systemvm systemd[1]: Started acpid.service - ACPI event daemon.
+Sep 15 04:42:28 systemvm acpid[779]: cannot open input layer
+Sep 15 04:42:28 systemvm acpid[779]: starting up with netlink and the input layer
+Sep 15 04:42:28 systemvm acpid[779]: 1 rule loaded
+Sep 15 04:42:28 systemvm acpid[779]: waiting for events: event logging is off
+Sep 15 04:42:28 systemvm systemd[1]: Starting cloud-config.service - Apply the settings specified in cloud-config...
+Sep 15 04:42:28 systemvm systemd[1]: Started cron.service - Regular background program processing daemon.
+Sep 15 04:42:28 systemvm systemd[1]: Starting dbus.service - D-Bus System Message Bus...
+Sep 15 04:42:28 systemvm systemd-journald[546]: Forwarding to syslog missed 1 messages.
+Sep 15 04:42:28 systemvm systemd[1]: Starting dnsmasq.service - dnsmasq - A lightweight DHCP and caching DNS server...
+Sep 15 04:42:28 systemvm cron[782]: (CRON) INFO (pidfile fd = 3)
+Sep 15 04:42:28 systemvm systemd[1]: Starting e2scrub_reap.service - Remove Stale Online ext4 Metadata Check Snapshots...
+Sep 15 04:42:28 systemvm systemd[1]: getty-static.service - getty on tty2-tty6 if dbus and logind are not available was skipped because of an unmet condition check (ConditionPathExists=!/usr/bin/dbus-daemon).
+Sep 15 04:42:29 systemvm systemd[1]: Starting ipvsadm.service - LSB: ipvsadm daemon...
+Sep 15 04:42:29 systemvm cron[782]: (CRON) INFO (Running @reboot jobs)
+Sep 15 04:42:29 systemvm systemd[1]: Started irqbalance.service - irqbalance daemon.
+Sep 15 04:42:29 systemvm systemd[1]: keepalived.service - Keepalive Daemon (LVS and VRRP) was skipped because of an unmet condition check (ConditionFileNotEmpty=/etc/keepalived/keepalived.conf).
+Sep 15 04:42:29 systemvm systemd[1]: Started qemu-guest-agent.service - QEMU Guest Agent.
+Sep 15 04:42:29 systemvm systemd[1]: radvd.service - Router advertisement daemon for IPv6 was skipped because of an unmet condition check (ConditionPathExists=/etc/radvd.conf).
+Sep 15 04:42:29 systemvm systemd[1]: Starting rsyslog.service - System Logging Service...
+Sep 15 04:42:29 systemvm systemd[1]: Starting ssh.service - OpenBSD Secure Shell server...
+Sep 15 04:42:29 systemvm systemd[1]: Started strongswan-starter.service - strongSwan IPsec IKEv1/IKEv2 daemon using ipsec.conf.
+Sep 15 04:42:29 systemvm systemd[1]: Starting sysstat.service - Resets System Activity Logs...
+Sep 15 04:42:29 systemvm systemd[1]: Starting systemd-logind.service - User Login Management...
+Sep 15 04:42:29 systemvm systemd[1]: Starting systemd-user-sessions.service - Permit User Sessions...
+Sep 15 04:42:29 systemvm systemd[1]: Starting xl2tpd.service - LSB: layer 2 tunelling protocol daemon...
+Sep 15 04:42:29 systemvm rsyslogd[793]: imuxsock: Acquired UNIX socket '/run/systemd/journal/syslog' (fd 3) from systemd.  [v8.2302.0]
+Sep 15 04:42:29 systemvm rsyslogd[793]: [origin software="rsyslogd" swVersion="8.2302.0" x-pid="793" x-info="https://www.rsyslog.com"] start
+Sep 15 04:42:30 systemvm systemd[1]: Started rsyslog.service - System Logging Service.
+Sep 15 04:42:30 systemvm systemd[1]: Started dbus.service - D-Bus System Message Bus.
+Sep 15 04:42:30 systemvm cloud-early-config[620]: + retry=51
+Sep 15 04:42:30 systemvm cloud-early-config[620]: + log_it 'Could not find patch file, retrying'
+Sep 15 04:42:30 systemvm cloud-early-config[811]: ++ date
+Sep 15 04:42:30 systemvm cloud-early-config[620]: + echo 'Sun Sep 15 04:42:30 AM EDT 2024 Could not find patch file, retrying'
+Sep 15 04:42:30 systemvm cloud-early-config[620]: + log_action_msg 'Could not find patch file, retrying'
+Sep 15 04:42:30 systemvm cloud-early-config[620]: + log_action_msg_pre 'Could not find patch file, retrying'
+Sep 15 04:42:30 systemvm cloud-early-config[620]: + :
+Sep 15 04:42:30 systemvm cloud-early-config[620]: + echo 'Could not find patch file, retrying.'
+Sep 15 04:42:30 systemvm cloud-early-config[620]: Could not find patch file, retrying.
+Sep 15 04:42:30 systemvm cloud-early-config[620]: + log_action_msg_post 'Could not find patch file, retrying'
+Sep 15 04:42:30 systemvm cloud-early-config[620]: + :
+Sep 15 04:42:30 systemvm cloud-early-config[620]: + '[' 51 -gt 0 ']'
+Sep 15 04:42:30 systemvm cloud-early-config[620]: + tar tf /var/cache/cloud/cloud-scripts.tgz
+Sep 15 04:42:30 systemvm cloud-early-config[620]: + sleep 2
+Sep 15 04:42:30 systemvm systemd[1]: Finished sysstat.service - Resets System Activity Logs.
+Sep 15 04:42:30 systemvm systemd[1]: Finished systemd-user-sessions.service - Permit User Sessions.
+Sep 15 04:42:31 systemvm sshd[813]: Server listening on 0.0.0.0 port 3922.
+Sep 15 04:42:31 systemvm sshd[813]: Server listening on :: port 3922.
+Sep 15 04:42:31 systemvm ipvsadm[787]: ipvsadm is not configured to run. Please edit /etc/default/ipvsadm.
+Sep 15 04:42:31 systemvm systemd[1]: Started ssh.service - OpenBSD Secure Shell server.
+Sep 15 04:42:31 systemvm systemd[1]: Started ipvsadm.service - LSB: ipvsadm daemon.
+Sep 15 04:42:31 systemvm systemd[1]: Started getty@tty1.service - Getty on tty1.
+Sep 15 04:42:31 systemvm systemd[1]: Starting haproxy.service - HAProxy Load Balancer...
+Sep 15 04:42:31 systemvm xl2tpd[817]: Not looking for kernel SAref support.
+Sep 15 04:42:31 systemvm xl2tpd[817]: L2TP kernel support not detected (try modprobing l2tp_ppp and pppol2tp)
+Sep 15 04:42:31 systemvm xl2tpd[804]: Starting xl2tpd: xl2tpd.
+Sep 15 04:42:31 systemvm xl2tpd[821]: xl2tpd version xl2tpd-1.3.18 started on systemvm PID:821
+Sep 15 04:42:31 systemvm xl2tpd[821]: Written by Mark Spencer, Copyright (C) 1998, Adtran, Inc.
+Sep 15 04:42:31 systemvm systemd[1]: Started serial-getty@ttysclp0.service - Serial Getty on ttysclp0.
+Sep 15 04:42:31 systemvm xl2tpd[821]: Forked by Scott Balmos and David Stipp, (C) 2001
+Sep 15 04:42:31 systemvm systemd[1]: Reached target getty.target - Login Prompts.
+Sep 15 04:42:31 systemvm xl2tpd[821]: Inherited by Jeff McAdams, (C) 2002
+Sep 15 04:42:31 systemvm systemd[1]: Started xl2tpd.service - LSB: layer 2 tunelling protocol daemon.
+Sep 15 04:42:31 systemvm xl2tpd[821]: Forked again by Xelerance (www.xelerance.com) (C) 2006-2016
+Sep 15 04:42:31 systemvm xl2tpd[821]: Listening on IP address 0.0.0.0, port 1701
+Sep 15 04:42:31 systemvm ipsec[795]: Starting strongSwan 5.9.8 IPsec [starter]...
+Sep 15 04:42:32 systemvm ipsec_starter[795]: Starting strongSwan 5.9.8 IPsec [starter]...
+Sep 15 04:42:32 systemvm dnsmasq[827]: started, version 2.89 cachesize 150
+Sep 15 04:42:32 systemvm dnsmasq[827]: DNS service limited to local subnets
+Sep 15 04:42:32 systemvm dnsmasq[827]: compile time options: IPv6 GNU-getopt DBus no-UBus i18n IDN2 DHCP DHCPv6 no-Lua TFTP conntrack ipset nftset auth cryptohash DNSSEC loop-detect inotify dumpfile
+Sep 15 04:42:32 systemvm dnsmasq[827]: reading /etc/resolv.conf
+Sep 15 04:42:32 systemvm dnsmasq[827]: using nameserver 192.168.124.1#53
+Sep 15 04:42:32 systemvm dnsmasq[827]: read /etc/hosts - 7 names
+Sep 15 04:42:32 systemvm cloud-early-config[620]: + retry=50
+Sep 15 04:42:32 systemvm cloud-early-config[620]: + log_it 'Could not find patch file, retrying'
+Sep 15 04:42:32 systemvm cloud-early-config[830]: ++ date
+Sep 15 04:42:32 systemvm cloud-early-config[620]: + echo 'Sun Sep 15 04:42:32 AM EDT 2024 Could not find patch file, retrying'
+Sep 15 04:42:32 systemvm cloud-early-config[620]: + log_action_msg 'Could not find patch file, retrying'
+Sep 15 04:42:32 systemvm cloud-early-config[620]: + log_action_msg_pre 'Could not find patch file, retrying'
+Sep 15 04:42:32 systemvm cloud-early-config[620]: + :
+Sep 15 04:42:32 systemvm cloud-early-config[620]: + echo 'Could not find patch file, retrying.'
+Sep 15 04:42:32 systemvm cloud-early-config[620]: Could not find patch file, retrying.
+Sep 15 04:42:32 systemvm cloud-early-config[620]: + log_action_msg_post 'Could not find patch file, retrying'
+Sep 15 04:42:32 systemvm cloud-early-config[620]: + :
+Sep 15 04:42:32 systemvm cloud-early-config[620]: + '[' 50 -gt 0 ']'
+Sep 15 04:42:32 systemvm cloud-early-config[620]: + tar tf /var/cache/cloud/cloud-scripts.tgz
+Sep 15 04:42:32 systemvm cloud-early-config[620]: + sleep 2
+Sep 15 04:42:32 systemvm systemd-logind[800]: New seat seat0.
+Sep 15 04:42:33 systemvm systemd[1]: Started systemd-logind.service - User Login Management.
+Sep 15 04:42:33 systemvm systemd[1]: Started dnsmasq.service - dnsmasq - A lightweight DHCP and caching DNS server.
+Sep 15 04:42:33 systemvm systemd[1]: Reached target nss-lookup.target - Host and Network Name Lookups.
+Sep 15 04:42:33 systemvm systemd[1]: Starting rpc-statd-notify.service - Notify NFS peers of a restart...
+Sep 15 04:42:33 systemvm sm-notify[836]: Version 2.6.2 starting
+Sep 15 04:42:33 systemvm systemd[1]: Started rpc-statd-notify.service - Notify NFS peers of a restart.
+Sep 15 04:42:33 systemvm charon[840]: 00[DMN] Starting IKE charon daemon (strongSwan 5.9.8, Linux 6.1.0-25-s390x, s390x)
+Sep 15 04:42:33 systemvm systemd[1]: e2scrub_reap.service: Deactivated successfully.
+Sep 15 04:42:33 systemvm systemd[1]: Finished e2scrub_reap.service - Remove Stale Online ext4 Metadata Check Snapshots.
+Sep 15 04:42:34 systemvm charon[840]: 00[CFG] PKCS11 module '<name>' lacks library path
+Sep 15 04:42:34 systemvm charon[840]: 00[PTS] TPM 2.0 - could not load "libtss2-tcti-tabrmd.so.0"
+Sep 15 04:42:34 systemvm charon[840]: 00[LIB] plugin 'tpm': failed to load - tpm_plugin_create returned NULL
+Sep 15 04:42:34 systemvm kernel: NET: Registered PF_ALG protocol family
+Sep 15 04:42:34 systemvm cloud-early-config[620]: + retry=49
+Sep 15 04:42:34 systemvm cloud-early-config[620]: + log_it 'Could not find patch file, retrying'
+Sep 15 04:42:34 systemvm cloud-early-config[853]: ++ date
+Sep 15 04:42:34 systemvm cloud-early-config[620]: + echo 'Sun Sep 15 04:42:34 AM EDT 2024 Could not find patch file, retrying'
+Sep 15 04:42:34 systemvm cloud-early-config[620]: + log_action_msg 'Could not find patch file, retrying'
+Sep 15 04:42:34 systemvm cloud-early-config[620]: + log_action_msg_pre 'Could not find patch file, retrying'
+Sep 15 04:42:34 systemvm cloud-early-config[620]: + :
+Sep 15 04:42:34 systemvm cloud-early-config[620]: + echo 'Could not find patch file, retrying.'
+Sep 15 04:42:34 systemvm cloud-early-config[620]: Could not find patch file, retrying.
+Sep 15 04:42:34 systemvm cloud-early-config[620]: + log_action_msg_post 'Could not find patch file, retrying'
+Sep 15 04:42:34 systemvm cloud-early-config[620]: + :
+Sep 15 04:42:34 systemvm cloud-early-config[620]: + '[' 49 -gt 0 ']'
+Sep 15 04:42:34 systemvm cloud-early-config[620]: + tar tf /var/cache/cloud/cloud-scripts.tgz
+Sep 15 04:42:34 systemvm cloud-early-config[620]: + sleep 2
+Sep 15 04:42:34 systemvm haproxy[819]: [NOTICE]   (819) : haproxy version is 2.6.12-1+deb12u1
+Sep 15 04:42:34 systemvm haproxy[819]: [NOTICE]   (819) : path to executable is /usr/sbin/haproxy
+Sep 15 04:42:34 systemvm haproxy[819]: [WARNING]  (819) : config : 'stats' statement ignored for proxy 'cloud-default' as it requires HTTP mode.
+Sep 15 04:42:34 systemvm haproxy[819]: [WARNING]  (819) : config : 'option forwardfor' ignored for proxy 'cloud-default' as it requires HTTP mode.
+Sep 15 04:42:35 systemvm haproxy[819]: [NOTICE]   (819) : New worker (869) forked
+Sep 15 04:42:35 systemvm haproxy[819]: [NOTICE]   (819) : Loading success.
+Sep 15 04:42:35 systemvm systemd[1]: Started haproxy.service - HAProxy Load Balancer.
+Sep 15 04:42:35 systemvm kernel: alg: No test for xcbc(camellia) (xcbc(camellia-generic))
+Sep 15 04:42:35 systemvm kernel: alg: No test for rfc3686(ctr(camellia)) (rfc3686(ctr(camellia-generic)))
+Sep 15 04:42:36 systemvm kernel: Initializing XFRM netlink socket
+Sep 15 04:42:36 systemvm charon[840]: 00[CFG] loading ca certificates from '/etc/ipsec.d/cacerts'
+Sep 15 04:42:36 systemvm charon[840]: 00[CFG] loading aa certificates from '/etc/ipsec.d/aacerts'
+Sep 15 04:42:36 systemvm charon[840]: 00[CFG] loading ocsp signer certificates from '/etc/ipsec.d/ocspcerts'
+Sep 15 04:42:36 systemvm charon[840]: 00[CFG] loading attribute certificates from '/etc/ipsec.d/acerts'
+Sep 15 04:42:36 systemvm charon[840]: 00[CFG] loading crls from '/etc/ipsec.d/crls'
+Sep 15 04:42:36 systemvm charon[840]: 00[CFG] loading secrets from '/etc/ipsec.secrets'
+Sep 15 04:42:36 systemvm charon[840]: 00[CFG] expanding file expression '/var/lib/strongswan/ipsec.conf.inc' failed
+Sep 15 04:42:36 systemvm charon[840]: 00[CFG] expanding file expression '/etc/ipsec.d/ipsec.*.secrets' failed
+Sep 15 04:42:36 systemvm ipsec[795]: charon (840) started after 2900 ms
+Sep 15 04:42:36 systemvm charon[840]: 00[CFG] loaded 0 RADIUS server configurations
+Sep 15 04:42:36 systemvm ipsec[795]: 'L2TP-PSK' routed
+Sep 15 04:42:36 systemvm charon[840]: 00[CFG] HA config misses local/remote address
+Sep 15 04:42:36 systemvm charon[840]: 00[LIB] loaded plugins: charon test-vectors ldap pkcs11 aes rc2 sha2 sha1 md5 mgf1 random nonce x509 revocation constraints pubkey pkcs1 pkcs7 pkcs12 pgp dnskey sshkey pem gcrypt pkcs8 af-alg fips-prf gmp curve25519 chapoly xcbc cmac hmac kdf ctr ccm drbg curl attr kernel-netlink resolve socket-default forecast farp stroke updown eap-identity eap-aka eap-md5 eap-gtc eap-radius eap-tls eap-ttls eap-tnc xauth-eap xauth-pam tnc-tnccs dhcp lookip error-notify certexpire led addrblock unity counters
+Sep 15 04:42:36 systemvm charon[840]: 00[LIB] dropped capabilities, running as uid 0, gid 0
+Sep 15 04:42:36 systemvm charon[840]: 00[JOB] spawning 16 worker threads
+Sep 15 04:42:36 systemvm ipsec_starter[795]: charon (840) started after 2900 ms
+Sep 15 04:42:36 systemvm charon[840]: 03[CFG] received stroke: add connection 'L2TP-PSK'
+Sep 15 04:42:36 systemvm charon[840]: 03[CFG] left nor right host is our side, assuming left=local
+Sep 15 04:42:36 systemvm charon[840]: 03[CFG] added configuration 'L2TP-PSK'
+Sep 15 04:42:36 systemvm charon[840]: 13[CFG] received stroke: route 'L2TP-PSK'
+Sep 15 04:42:36 systemvm ipsec_starter[795]: 'L2TP-PSK' routed
+Sep 15 04:42:36 systemvm ipsec_starter[795]: 
+Sep 15 04:42:36 systemvm cloud-early-config[620]: + retry=48
+Sep 15 04:42:36 systemvm cloud-early-config[620]: + log_it 'Could not find patch file, retrying'
+Sep 15 04:42:36 systemvm cloud-early-config[956]: ++ date
+Sep 15 04:42:36 systemvm cloud-early-config[620]: + echo 'Sun Sep 15 04:42:36 AM EDT 2024 Could not find patch file, retrying'
+Sep 15 04:42:36 systemvm cloud-early-config[620]: + log_action_msg 'Could not find patch file, retrying'
+Sep 15 04:42:36 systemvm cloud-early-config[620]: + log_action_msg_pre 'Could not find patch file, retrying'
+Sep 15 04:42:36 systemvm cloud-early-config[620]: + :
+Sep 15 04:42:36 systemvm cloud-early-config[620]: + echo 'Could not find patch file, retrying.'
+Sep 15 04:42:36 systemvm cloud-early-config[620]: Could not find patch file, retrying.
+Sep 15 04:42:36 systemvm cloud-early-config[620]: + log_action_msg_post 'Could not find patch file, retrying'
+Sep 15 04:42:36 systemvm cloud-early-config[620]: + :
+Sep 15 04:42:36 systemvm cloud-early-config[620]: + '[' 48 -gt 0 ']'
+Sep 15 04:42:36 systemvm cloud-early-config[620]: + tar tf /var/cache/cloud/cloud-scripts.tgz
+Sep 15 04:42:36 systemvm cloud-early-config[620]: + sleep 2
+Sep 15 04:42:38 systemvm cloud-early-config[620]: + retry=47
+Sep 15 04:42:39 systemvm cloud-early-config[620]: + log_it 'Could not find patch file, retrying'
+Sep 15 04:42:39 systemvm cloud-early-config[959]: ++ date
+Sep 15 04:42:39 systemvm cloud-early-config[620]: + echo 'Sun Sep 15 04:42:39 AM EDT 2024 Could not find patch file, retrying'
+Sep 15 04:42:39 systemvm cloud-early-config[620]: + log_action_msg 'Could not find patch file, retrying'
+Sep 15 04:42:39 systemvm cloud-early-config[620]: + log_action_msg_pre 'Could not find patch file, retrying'
+Sep 15 04:42:39 systemvm cloud-early-config[620]: + :
+Sep 15 04:42:39 systemvm cloud-early-config[620]: + echo 'Could not find patch file, retrying.'
+Sep 15 04:42:39 systemvm cloud-early-config[620]: Could not find patch file, retrying.
+Sep 15 04:42:39 systemvm cloud-early-config[620]: + log_action_msg_post 'Could not find patch file, retrying'
+Sep 15 04:42:39 systemvm cloud-early-config[620]: + :
+Sep 15 04:42:39 systemvm cloud-early-config[620]: + '[' 47 -gt 0 ']'
+Sep 15 04:42:39 systemvm cloud-early-config[620]: + tar tf /var/cache/cloud/cloud-scripts.tgz
+Sep 15 04:42:39 systemvm cloud-early-config[620]: + sleep 2
+Sep 15 04:42:41 systemvm cloud-early-config[620]: + retry=46
+Sep 15 04:42:41 systemvm cloud-early-config[620]: + log_it 'Could not find patch file, retrying'
+Sep 15 04:42:41 systemvm cloud-early-config[962]: ++ date
+Sep 15 04:42:41 systemvm cloud-early-config[620]: + echo 'Sun Sep 15 04:42:41 AM EDT 2024 Could not find patch file, retrying'
+Sep 15 04:42:41 systemvm cloud-early-config[620]: + log_action_msg 'Could not find patch file, retrying'
+Sep 15 04:42:41 systemvm cloud-early-config[620]: + log_action_msg_pre 'Could not find patch file, retrying'
+Sep 15 04:42:41 systemvm cloud-early-config[620]: + :
+Sep 15 04:42:41 systemvm cloud-early-config[620]: + echo 'Could not find patch file, retrying.'
+Sep 15 04:42:41 systemvm cloud-early-config[620]: Could not find patch file, retrying.
+Sep 15 04:42:41 systemvm cloud-early-config[620]: + log_action_msg_post 'Could not find patch file, retrying'
+Sep 15 04:42:41 systemvm cloud-early-config[620]: + :
+Sep 15 04:42:41 systemvm cloud-early-config[620]: + '[' 46 -gt 0 ']'
+Sep 15 04:42:41 systemvm cloud-early-config[620]: + tar tf /var/cache/cloud/cloud-scripts.tgz
+Sep 15 04:42:41 systemvm cloud-early-config[620]: + sleep 2
+Sep 15 04:42:43 systemvm login[822]: pam_unix(login:session): session opened for user root(uid=0) by LOGIN(uid=0)
+Sep 15 04:42:43 systemvm cloud-early-config[620]: + retry=45
+Sep 15 04:42:43 systemvm cloud-early-config[620]: + log_it 'Could not find patch file, retrying'
+Sep 15 04:42:43 systemvm cloud-early-config[969]: ++ date
+Sep 15 04:42:43 systemvm cloud-early-config[620]: + echo 'Sun Sep 15 04:42:43 AM EDT 2024 Could not find patch file, retrying'
+Sep 15 04:42:43 systemvm cloud-early-config[620]: + log_action_msg 'Could not find patch file, retrying'
+Sep 15 04:42:43 systemvm cloud-early-config[620]: + log_action_msg_pre 'Could not find patch file, retrying'
+Sep 15 04:42:43 systemvm cloud-early-config[620]: + :
+Sep 15 04:42:43 systemvm cloud-early-config[620]: + echo 'Could not find patch file, retrying.'
+Sep 15 04:42:43 systemvm cloud-early-config[620]: Could not find patch file, retrying.
+Sep 15 04:42:43 systemvm cloud-early-config[620]: + log_action_msg_post 'Could not find patch file, retrying'
+Sep 15 04:42:43 systemvm cloud-early-config[620]: + :
+Sep 15 04:42:43 systemvm cloud-early-config[620]: + '[' 45 -gt 0 ']'
+Sep 15 04:42:43 systemvm cloud-early-config[620]: + tar tf /var/cache/cloud/cloud-scripts.tgz
+Sep 15 04:42:43 systemvm cloud-early-config[620]: + sleep 2
+Sep 15 04:42:43 systemvm systemd-logind[800]: New session 1 of user root.
+Sep 15 04:42:43 systemvm systemd[1]: Created slice user-0.slice - User Slice of UID 0.
+Sep 15 04:42:43 systemvm systemd[1]: Starting user-runtime-dir@0.service - User Runtime Directory /run/user/0...
+Sep 15 04:42:43 systemvm systemd[1]: Finished user-runtime-dir@0.service - User Runtime Directory /run/user/0.
+Sep 15 04:42:43 systemvm systemd[1]: Starting user@0.service - User Manager for UID 0...
+Sep 15 04:42:43 systemvm (systemd)[973]: pam_unix(systemd-user:session): session opened for user root(uid=0) by (uid=0)
+Sep 15 04:42:44 systemvm systemd[973]: Queued start job for default target default.target.
+Sep 15 04:42:44 systemvm systemd[973]: Created slice app.slice - User Application Slice.
+Sep 15 04:42:44 systemvm systemd[973]: Reached target paths.target - Paths.
+Sep 15 04:42:44 systemvm systemd[973]: Reached target timers.target - Timers.
+Sep 15 04:42:44 systemvm systemd[973]: Starting dbus.socket - D-Bus User Message Bus Socket...
+Sep 15 04:42:44 systemvm systemd[973]: Listening on dirmngr.socket - GnuPG network certificate management daemon.
+Sep 15 04:42:44 systemvm systemd[973]: Listening on gpg-agent-browser.socket - GnuPG cryptographic agent and passphrase cache (access for web browsers).
+Sep 15 04:42:44 systemvm systemd[973]: Listening on gpg-agent-extra.socket - GnuPG cryptographic agent and passphrase cache (restricted).
+Sep 15 04:42:44 systemvm systemd[973]: Listening on gpg-agent-ssh.socket - GnuPG cryptographic agent (ssh-agent emulation).
+Sep 15 04:42:44 systemvm systemd[973]: Listening on gpg-agent.socket - GnuPG cryptographic agent and passphrase cache.
+Sep 15 04:42:44 systemvm systemd[973]: Listening on pk-debconf-helper.socket - debconf communication socket.
+Sep 15 04:42:44 systemvm systemd[973]: Listening on dbus.socket - D-Bus User Message Bus Socket.
+Sep 15 04:42:44 systemvm systemd[973]: Reached target sockets.target - Sockets.
+Sep 15 04:42:44 systemvm systemd[973]: Reached target basic.target - Basic System.
+Sep 15 04:42:44 systemvm systemd[973]: Reached target default.target - Main User Target.
+Sep 15 04:42:44 systemvm systemd[973]: Startup finished in 884ms.
+Sep 15 04:42:44 systemvm systemd[1]: Started user@0.service - User Manager for UID 0.
+Sep 15 04:42:45 systemvm systemd[1]: Started session-1.scope - Session 1 of User root.
+Sep 15 04:42:45 systemvm login[991]: ROOT LOGIN  on '/dev/ttysclp0'
+Sep 15 04:42:45 systemvm cloud-early-config[620]: + retry=44
+Sep 15 04:42:45 systemvm cloud-early-config[620]: + log_it 'Could not find patch file, retrying'
+Sep 15 04:42:45 systemvm cloud-early-config[994]: ++ date
+Sep 15 04:42:45 systemvm cloud-early-config[620]: + echo 'Sun Sep 15 04:42:45 AM EDT 2024 Could not find patch file, retrying'
+Sep 15 04:42:45 systemvm cloud-early-config[620]: + log_action_msg 'Could not find patch file, retrying'
+Sep 15 04:42:45 systemvm cloud-early-config[620]: + log_action_msg_pre 'Could not find patch file, retrying'
+Sep 15 04:42:45 systemvm cloud-early-config[620]: + :
+Sep 15 04:42:45 systemvm cloud-early-config[620]: + echo 'Could not find patch file, retrying.'
+Sep 15 04:42:45 systemvm cloud-early-config[620]: Could not find patch file, retrying.
+Sep 15 04:42:45 systemvm cloud-early-config[620]: + log_action_msg_post 'Could not find patch file, retrying'
+Sep 15 04:42:45 systemvm cloud-early-config[620]: + :
+Sep 15 04:42:45 systemvm cloud-early-config[620]: + '[' 44 -gt 0 ']'
+Sep 15 04:42:45 systemvm cloud-early-config[620]: + tar tf /var/cache/cloud/cloud-scripts.tgz
+Sep 15 04:42:45 systemvm cloud-early-config[620]: + sleep 2
+Sep 15 04:42:45 systemvm cloud-init[1005]: Cloud-init v. 22.4.2 running 'modules:config' at Sun, 15 Sep 2024 08:42:44 +0000. Up 71.54 seconds.
+Sep 15 04:42:47 systemvm cloud-early-config[620]: + retry=43
+Sep 15 04:42:47 systemvm cloud-early-config[620]: + log_it 'Could not find patch file, retrying'
+Sep 15 04:42:47 systemvm cloud-early-config[1006]: ++ date
+Sep 15 04:42:47 systemvm cloud-early-config[620]: + echo 'Sun Sep 15 04:42:47 AM EDT 2024 Could not find patch file, retrying'
+Sep 15 04:42:47 systemvm cloud-early-config[620]: + log_action_msg 'Could not find patch file, retrying'
+Sep 15 04:42:47 systemvm cloud-early-config[620]: + log_action_msg_pre 'Could not find patch file, retrying'
+Sep 15 04:42:47 systemvm cloud-early-config[620]: + :
+Sep 15 04:42:47 systemvm cloud-early-config[620]: + echo 'Could not find patch file, retrying.'
+Sep 15 04:42:47 systemvm cloud-early-config[620]: Could not find patch file, retrying.
+Sep 15 04:42:47 systemvm cloud-early-config[620]: + log_action_msg_post 'Could not find patch file, retrying'
+Sep 15 04:42:47 systemvm cloud-early-config[620]: + :
+Sep 15 04:42:47 systemvm cloud-early-config[620]: + '[' 43 -gt 0 ']'
+Sep 15 04:42:47 systemvm cloud-early-config[620]: + tar tf /var/cache/cloud/cloud-scripts.tgz
+Sep 15 04:42:47 systemvm cloud-early-config[620]: + sleep 2
+Sep 15 04:42:49 systemvm systemd[1]: Finished cloud-config.service - Apply the settings specified in cloud-config.
+Sep 15 04:42:49 systemvm cloud-early-config[620]: + retry=42
+Sep 15 04:42:49 systemvm cloud-early-config[620]: + log_it 'Could not find patch file, retrying'
+Sep 15 04:42:49 systemvm cloud-early-config[1009]: ++ date
+Sep 15 04:42:49 systemvm cloud-early-config[620]: + echo 'Sun Sep 15 04:42:49 AM EDT 2024 Could not find patch file, retrying'
+Sep 15 04:42:49 systemvm cloud-early-config[620]: + log_action_msg 'Could not find patch file, retrying'
+Sep 15 04:42:49 systemvm cloud-early-config[620]: + log_action_msg_pre 'Could not find patch file, retrying'
+Sep 15 04:42:49 systemvm cloud-early-config[620]: + :
+Sep 15 04:42:49 systemvm cloud-early-config[620]: + echo 'Could not find patch file, retrying.'
+Sep 15 04:42:49 systemvm cloud-early-config[620]: Could not find patch file, retrying.
+Sep 15 04:42:49 systemvm cloud-early-config[620]: + log_action_msg_post 'Could not find patch file, retrying'
+Sep 15 04:42:49 systemvm cloud-early-config[620]: + :
+Sep 15 04:42:49 systemvm cloud-early-config[620]: + '[' 42 -gt 0 ']'
+Sep 15 04:42:49 systemvm cloud-early-config[620]: + tar tf /var/cache/cloud/cloud-scripts.tgz
+Sep 15 04:42:49 systemvm cloud-early-config[620]: + sleep 2
+Sep 15 04:42:51 systemvm cloud-early-config[620]: + retry=41
+Sep 15 04:42:51 systemvm cloud-early-config[620]: + log_it 'Could not find patch file, retrying'
+Sep 15 04:42:51 systemvm cloud-early-config[1012]: ++ date
+Sep 15 04:42:51 systemvm cloud-early-config[620]: + echo 'Sun Sep 15 04:42:51 AM EDT 2024 Could not find patch file, retrying'
+Sep 15 04:42:51 systemvm cloud-early-config[620]: + log_action_msg 'Could not find patch file, retrying'
+Sep 15 04:42:51 systemvm cloud-early-config[620]: + log_action_msg_pre 'Could not find patch file, retrying'
+Sep 15 04:42:51 systemvm cloud-early-config[620]: + :
+Sep 15 04:42:51 systemvm cloud-early-config[620]: + echo 'Could not find patch file, retrying.'
+Sep 15 04:42:51 systemvm cloud-early-config[620]: Could not find patch file, retrying.
+Sep 15 04:42:51 systemvm cloud-early-config[620]: + log_action_msg_post 'Could not find patch file, retrying'
+Sep 15 04:42:51 systemvm cloud-early-config[620]: + :
+Sep 15 04:42:51 systemvm cloud-early-config[620]: + '[' 41 -gt 0 ']'
+Sep 15 04:42:51 systemvm cloud-early-config[620]: + tar tf /var/cache/cloud/cloud-scripts.tgz
+Sep 15 04:42:51 systemvm cloud-early-config[620]: + sleep 2
+Sep 15 04:42:53 systemvm cloud-early-config[620]: + retry=40
+Sep 15 04:42:53 systemvm cloud-early-config[620]: + log_it 'Could not find patch file, retrying'
+Sep 15 04:42:53 systemvm cloud-early-config[1024]: ++ date
+Sep 15 04:42:53 systemvm cloud-early-config[620]: + echo 'Sun Sep 15 04:42:53 AM EDT 2024 Could not find patch file, retrying'
+Sep 15 04:42:53 systemvm cloud-early-config[620]: + log_action_msg 'Could not find patch file, retrying'
+Sep 15 04:42:53 systemvm cloud-early-config[620]: + log_action_msg_pre 'Could not find patch file, retrying'
+Sep 15 04:42:53 systemvm cloud-early-config[620]: + :
+Sep 15 04:42:53 systemvm cloud-early-config[620]: + echo 'Could not find patch file, retrying.'
+Sep 15 04:42:53 systemvm cloud-early-config[620]: Could not find patch file, retrying.
+Sep 15 04:42:53 systemvm cloud-early-config[620]: + log_action_msg_post 'Could not find patch file, retrying'
+Sep 15 04:42:53 systemvm cloud-early-config[620]: + :
+Sep 15 04:42:53 systemvm cloud-early-config[620]: + '[' 40 -gt 0 ']'
+Sep 15 04:42:53 systemvm cloud-early-config[620]: + tar tf /var/cache/cloud/cloud-scripts.tgz
+Sep 15 04:42:53 systemvm cloud-early-config[620]: + sleep 2
+Sep 15 04:42:55 systemvm cloud-early-config[620]: + retry=39
+Sep 15 04:42:55 systemvm cloud-early-config[620]: + log_it 'Could not find patch file, retrying'
+Sep 15 04:42:55 systemvm cloud-early-config[1028]: ++ date
+Sep 15 04:42:55 systemvm cloud-early-config[620]: + echo 'Sun Sep 15 04:42:55 AM EDT 2024 Could not find patch file, retrying'
+Sep 15 04:42:55 systemvm cloud-early-config[620]: + log_action_msg 'Could not find patch file, retrying'
+Sep 15 04:42:55 systemvm cloud-early-config[620]: + log_action_msg_pre 'Could not find patch file, retrying'
+Sep 15 04:42:55 systemvm cloud-early-config[620]: + :
+Sep 15 04:42:55 systemvm cloud-early-config[620]: + echo 'Could not find patch file, retrying.'
+Sep 15 04:42:55 systemvm cloud-early-config[620]: Could not find patch file, retrying.
+Sep 15 04:42:55 systemvm cloud-early-config[620]: + log_action_msg_post 'Could not find patch file, retrying'
+Sep 15 04:42:55 systemvm cloud-early-config[620]: + :
+Sep 15 04:42:55 systemvm cloud-early-config[620]: + '[' 39 -gt 0 ']'
+Sep 15 04:42:55 systemvm cloud-early-config[620]: + tar tf /var/cache/cloud/cloud-scripts.tgz
+Sep 15 04:42:55 systemvm cloud-early-config[620]: + sleep 2
+Sep 15 04:42:57 systemvm cloud-early-config[620]: + retry=38
+Sep 15 04:42:57 systemvm cloud-early-config[620]: + log_it 'Could not find patch file, retrying'
+Sep 15 04:42:57 systemvm cloud-early-config[1031]: ++ date
+Sep 15 04:42:57 systemvm cloud-early-config[620]: + echo 'Sun Sep 15 04:42:57 AM EDT 2024 Could not find patch file, retrying'
+Sep 15 04:42:57 systemvm cloud-early-config[620]: + log_action_msg 'Could not find patch file, retrying'
+Sep 15 04:42:57 systemvm cloud-early-config[620]: + log_action_msg_pre 'Could not find patch file, retrying'
+Sep 15 04:42:57 systemvm cloud-early-config[620]: + :
+Sep 15 04:42:57 systemvm cloud-early-config[620]: + echo 'Could not find patch file, retrying.'
+Sep 15 04:42:57 systemvm cloud-early-config[620]: Could not find patch file, retrying.
+Sep 15 04:42:57 systemvm cloud-early-config[620]: + log_action_msg_post 'Could not find patch file, retrying'
+Sep 15 04:42:57 systemvm cloud-early-config[620]: + :
+Sep 15 04:42:57 systemvm cloud-early-config[620]: + '[' 38 -gt 0 ']'
+Sep 15 04:42:57 systemvm cloud-early-config[620]: + tar tf /var/cache/cloud/cloud-scripts.tgz
+Sep 15 04:42:57 systemvm cloud-early-config[620]: + sleep 2
+Sep 15 04:42:59 systemvm cloud-early-config[620]: + retry=37
+Sep 15 04:42:59 systemvm systemd-journald[546]: Forwarding to syslog missed 17 messages.
+Sep 15 04:42:59 systemvm cloud-early-config[620]: + log_it 'Could not find patch file, retrying'
+Sep 15 04:42:59 systemvm cloud-early-config[1034]: ++ date
+Sep 15 04:42:59 systemvm cloud-early-config[620]: + echo 'Sun Sep 15 04:42:59 AM EDT 2024 Could not find patch file, retrying'
+Sep 15 04:42:59 systemvm cloud-early-config[620]: + log_action_msg 'Could not find patch file, retrying'
+Sep 15 04:42:59 systemvm cloud-early-config[620]: + log_action_msg_pre 'Could not find patch file, retrying'
+Sep 15 04:42:59 systemvm cloud-early-config[620]: + :
+Sep 15 04:42:59 systemvm cloud-early-config[620]: + echo 'Could not find patch file, retrying.'
+Sep 15 04:42:59 systemvm cloud-early-config[620]: Could not find patch file, retrying.
+Sep 15 04:42:59 systemvm cloud-early-config[620]: + log_action_msg_post 'Could not find patch file, retrying'
+Sep 15 04:42:59 systemvm cloud-early-config[620]: + :
+Sep 15 04:42:59 systemvm cloud-early-config[620]: + '[' 37 -gt 0 ']'
+Sep 15 04:42:59 systemvm cloud-early-config[620]: + tar tf /var/cache/cloud/cloud-scripts.tgz
+Sep 15 04:42:59 systemvm cloud-early-config[620]: + sleep 2
+Sep 15 04:43:01 systemvm cloud-early-config[620]: + retry=36
+Sep 15 04:43:02 systemvm cloud-early-config[620]: + log_it 'Could not find patch file, retrying'
+Sep 15 04:43:02 systemvm cloud-early-config[1037]: ++ date
+Sep 15 04:43:02 systemvm cloud-early-config[620]: + echo 'Sun Sep 15 04:43:02 AM EDT 2024 Could not find patch file, retrying'
+Sep 15 04:43:02 systemvm cloud-early-config[620]: + log_action_msg 'Could not find patch file, retrying'
+Sep 15 04:43:02 systemvm cloud-early-config[620]: + log_action_msg_pre 'Could not find patch file, retrying'
+Sep 15 04:43:02 systemvm cloud-early-config[620]: + :
+Sep 15 04:43:02 systemvm cloud-early-config[620]: + echo 'Could not find patch file, retrying.'
+Sep 15 04:43:02 systemvm cloud-early-config[620]: Could not find patch file, retrying.
+Sep 15 04:43:02 systemvm cloud-early-config[620]: + log_action_msg_post 'Could not find patch file, retrying'
+Sep 15 04:43:02 systemvm cloud-early-config[620]: + :
+Sep 15 04:43:02 systemvm cloud-early-config[620]: + '[' 36 -gt 0 ']'
+Sep 15 04:43:02 systemvm cloud-early-config[620]: + tar tf /var/cache/cloud/cloud-scripts.tgz
+Sep 15 04:43:02 systemvm cloud-early-config[620]: + sleep 2
+Sep 15 04:43:04 systemvm cloud-early-config[620]: + retry=35
+Sep 15 04:43:04 systemvm cloud-early-config[620]: + log_it 'Could not find patch file, retrying'
+Sep 15 04:43:04 systemvm cloud-early-config[1040]: ++ date
+Sep 15 04:43:04 systemvm cloud-early-config[620]: + echo 'Sun Sep 15 04:43:04 AM EDT 2024 Could not find patch file, retrying'
+Sep 15 04:43:04 systemvm cloud-early-config[620]: + log_action_msg 'Could not find patch file, retrying'
+Sep 15 04:43:04 systemvm cloud-early-config[620]: + log_action_msg_pre 'Could not find patch file, retrying'
+Sep 15 04:43:04 systemvm cloud-early-config[620]: + :
+Sep 15 04:43:04 systemvm cloud-early-config[620]: + echo 'Could not find patch file, retrying.'
+Sep 15 04:43:04 systemvm cloud-early-config[620]: Could not find patch file, retrying.
+Sep 15 04:43:04 systemvm cloud-early-config[620]: + log_action_msg_post 'Could not find patch file, retrying'
+Sep 15 04:43:04 systemvm cloud-early-config[620]: + :
+Sep 15 04:43:04 systemvm cloud-early-config[620]: + '[' 35 -gt 0 ']'
+Sep 15 04:43:04 systemvm cloud-early-config[620]: + tar tf /var/cache/cloud/cloud-scripts.tgz
+Sep 15 04:43:04 systemvm cloud-early-config[620]: + sleep 2
+Sep 15 04:43:06 systemvm cloud-early-config[620]: + retry=34
+Sep 15 04:43:06 systemvm cloud-early-config[620]: + log_it 'Could not find patch file, retrying'
+Sep 15 04:43:06 systemvm cloud-early-config[1043]: ++ date
+Sep 15 04:43:06 systemvm cloud-early-config[620]: + echo 'Sun Sep 15 04:43:06 AM EDT 2024 Could not find patch file, retrying'
+Sep 15 04:43:06 systemvm cloud-early-config[620]: + log_action_msg 'Could not find patch file, retrying'
+Sep 15 04:43:06 systemvm cloud-early-config[620]: + log_action_msg_pre 'Could not find patch file, retrying'
+Sep 15 04:43:06 systemvm cloud-early-config[620]: + :
+Sep 15 04:43:06 systemvm cloud-early-config[620]: + echo 'Could not find patch file, retrying.'
+Sep 15 04:43:06 systemvm cloud-early-config[620]: Could not find patch file, retrying.
+Sep 15 04:43:06 systemvm cloud-early-config[620]: + log_action_msg_post 'Could not find patch file, retrying'
+Sep 15 04:43:06 systemvm cloud-early-config[620]: + :
+Sep 15 04:43:06 systemvm cloud-early-config[620]: + '[' 34 -gt 0 ']'
+Sep 15 04:43:06 systemvm cloud-early-config[620]: + tar tf /var/cache/cloud/cloud-scripts.tgz
+Sep 15 04:43:06 systemvm cloud-early-config[620]: + sleep 2
+Sep 15 04:43:08 systemvm cloud-early-config[620]: + retry=33
+Sep 15 04:43:08 systemvm cloud-early-config[620]: + log_it 'Could not find patch file, retrying'
+Sep 15 04:43:08 systemvm cloud-early-config[1046]: ++ date
+Sep 15 04:43:08 systemvm cloud-early-config[620]: + echo 'Sun Sep 15 04:43:08 AM EDT 2024 Could not find patch file, retrying'
+Sep 15 04:43:08 systemvm cloud-early-config[620]: + log_action_msg 'Could not find patch file, retrying'
+Sep 15 04:43:08 systemvm cloud-early-config[620]: + log_action_msg_pre 'Could not find patch file, retrying'
+Sep 15 04:43:08 systemvm cloud-early-config[620]: + :
+Sep 15 04:43:08 systemvm cloud-early-config[620]: + echo 'Could not find patch file, retrying.'
+Sep 15 04:43:08 systemvm cloud-early-config[620]: Could not find patch file, retrying.
+Sep 15 04:43:08 systemvm cloud-early-config[620]: + log_action_msg_post 'Could not find patch file, retrying'
+Sep 15 04:43:08 systemvm cloud-early-config[620]: + :
+Sep 15 04:43:08 systemvm cloud-early-config[620]: + '[' 33 -gt 0 ']'
+Sep 15 04:43:08 systemvm cloud-early-config[620]: + tar tf /var/cache/cloud/cloud-scripts.tgz
+Sep 15 04:43:08 systemvm cloud-early-config[620]: + sleep 2
+Sep 15 04:43:10 systemvm cloud-early-config[620]: + retry=32
+Sep 15 04:43:10 systemvm cloud-early-config[620]: + log_it 'Could not find patch file, retrying'
+Sep 15 04:43:10 systemvm cloud-early-config[1049]: ++ date
+Sep 15 04:43:10 systemvm cloud-early-config[620]: + echo 'Sun Sep 15 04:43:10 AM EDT 2024 Could not find patch file, retrying'
+Sep 15 04:43:10 systemvm cloud-early-config[620]: + log_action_msg 'Could not find patch file, retrying'
+Sep 15 04:43:10 systemvm cloud-early-config[620]: + log_action_msg_pre 'Could not find patch file, retrying'
+Sep 15 04:43:10 systemvm cloud-early-config[620]: + :
+Sep 15 04:43:10 systemvm cloud-early-config[620]: + echo 'Could not find patch file, retrying.'
+Sep 15 04:43:10 systemvm cloud-early-config[620]: Could not find patch file, retrying.
+Sep 15 04:43:10 systemvm cloud-early-config[620]: + log_action_msg_post 'Could not find patch file, retrying'
+Sep 15 04:43:10 systemvm cloud-early-config[620]: + :
+Sep 15 04:43:10 systemvm cloud-early-config[620]: + '[' 32 -gt 0 ']'
+Sep 15 04:43:10 systemvm cloud-early-config[620]: + tar tf /var/cache/cloud/cloud-scripts.tgz
+Sep 15 04:43:10 systemvm cloud-early-config[620]: + sleep 2
+Sep 15 04:43:12 systemvm cloud-early-config[620]: + retry=31
+Sep 15 04:43:12 systemvm cloud-early-config[620]: + log_it 'Could not find patch file, retrying'
+Sep 15 04:43:12 systemvm cloud-early-config[1052]: ++ date
+Sep 15 04:43:12 systemvm cloud-early-config[620]: + echo 'Sun Sep 15 04:43:12 AM EDT 2024 Could not find patch file, retrying'
+Sep 15 04:43:12 systemvm cloud-early-config[620]: + log_action_msg 'Could not find patch file, retrying'
+Sep 15 04:43:12 systemvm cloud-early-config[620]: + log_action_msg_pre 'Could not find patch file, retrying'
+Sep 15 04:43:12 systemvm cloud-early-config[620]: + :
+Sep 15 04:43:12 systemvm cloud-early-config[620]: + echo 'Could not find patch file, retrying.'
+Sep 15 04:43:12 systemvm cloud-early-config[620]: Could not find patch file, retrying.
+Sep 15 04:43:12 systemvm cloud-early-config[620]: + log_action_msg_post 'Could not find patch file, retrying'
+Sep 15 04:43:12 systemvm cloud-early-config[620]: + :
+Sep 15 04:43:12 systemvm cloud-early-config[620]: + '[' 31 -gt 0 ']'
+Sep 15 04:43:12 systemvm cloud-early-config[620]: + tar tf /var/cache/cloud/cloud-scripts.tgz
+Sep 15 04:43:12 systemvm cloud-early-config[620]: + sleep 2
+Sep 15 04:43:14 systemvm cloud-early-config[620]: + retry=30
+Sep 15 04:43:14 systemvm cloud-early-config[620]: + log_it 'Could not find patch file, retrying'
+Sep 15 04:43:14 systemvm cloud-early-config[1055]: ++ date
+Sep 15 04:43:14 systemvm cloud-early-config[620]: + echo 'Sun Sep 15 04:43:14 AM EDT 2024 Could not find patch file, retrying'
+Sep 15 04:43:14 systemvm cloud-early-config[620]: + log_action_msg 'Could not find patch file, retrying'
+Sep 15 04:43:14 systemvm cloud-early-config[620]: + log_action_msg_pre 'Could not find patch file, retrying'
+Sep 15 04:43:14 systemvm cloud-early-config[620]: + :
+Sep 15 04:43:14 systemvm cloud-early-config[620]: + echo 'Could not find patch file, retrying.'
+Sep 15 04:43:14 systemvm cloud-early-config[620]: Could not find patch file, retrying.
+Sep 15 04:43:14 systemvm cloud-early-config[620]: + log_action_msg_post 'Could not find patch file, retrying'
+Sep 15 04:43:14 systemvm cloud-early-config[620]: + :
+Sep 15 04:43:14 systemvm cloud-early-config[620]: + '[' 30 -gt 0 ']'
+Sep 15 04:43:14 systemvm cloud-early-config[620]: + tar tf /var/cache/cloud/cloud-scripts.tgz
+Sep 15 04:43:14 systemvm cloud-early-config[620]: + sleep 2
+Sep 15 04:43:16 systemvm cloud-early-config[620]: + retry=29
+Sep 15 04:43:16 systemvm cloud-early-config[620]: + log_it 'Could not find patch file, retrying'
+Sep 15 04:43:16 systemvm cloud-early-config[1058]: ++ date
+Sep 15 04:43:16 systemvm cloud-early-config[620]: + echo 'Sun Sep 15 04:43:16 AM EDT 2024 Could not find patch file, retrying'
+Sep 15 04:43:16 systemvm cloud-early-config[620]: + log_action_msg 'Could not find patch file, retrying'
+Sep 15 04:43:16 systemvm cloud-early-config[620]: + log_action_msg_pre 'Could not find patch file, retrying'
+Sep 15 04:43:16 systemvm cloud-early-config[620]: + :
+Sep 15 04:43:16 systemvm cloud-early-config[620]: + echo 'Could not find patch file, retrying.'
+Sep 15 04:43:16 systemvm cloud-early-config[620]: Could not find patch file, retrying.
+Sep 15 04:43:16 systemvm cloud-early-config[620]: + log_action_msg_post 'Could not find patch file, retrying'
+Sep 15 04:43:16 systemvm cloud-early-config[620]: + :
+Sep 15 04:43:16 systemvm cloud-early-config[620]: + '[' 29 -gt 0 ']'
+Sep 15 04:43:16 systemvm cloud-early-config[620]: + tar tf /var/cache/cloud/cloud-scripts.tgz
+Sep 15 04:43:16 systemvm cloud-early-config[620]: + sleep 2
+Sep 15 04:43:18 systemvm cloud-early-config[620]: + retry=28
+Sep 15 04:43:18 systemvm cloud-early-config[620]: + log_it 'Could not find patch file, retrying'
+Sep 15 04:43:18 systemvm cloud-early-config[1061]: ++ date
+Sep 15 04:43:18 systemvm cloud-early-config[620]: + echo 'Sun Sep 15 04:43:18 AM EDT 2024 Could not find patch file, retrying'
+Sep 15 04:43:18 systemvm cloud-early-config[620]: + log_action_msg 'Could not find patch file, retrying'
+Sep 15 04:43:18 systemvm cloud-early-config[620]: + log_action_msg_pre 'Could not find patch file, retrying'
+Sep 15 04:43:18 systemvm cloud-early-config[620]: + :
+Sep 15 04:43:18 systemvm cloud-early-config[620]: + echo 'Could not find patch file, retrying.'
+Sep 15 04:43:18 systemvm cloud-early-config[620]: Could not find patch file, retrying.
+Sep 15 04:43:18 systemvm cloud-early-config[620]: + log_action_msg_post 'Could not find patch file, retrying'
+Sep 15 04:43:18 systemvm cloud-early-config[620]: + :
+Sep 15 04:43:18 systemvm cloud-early-config[620]: + '[' 28 -gt 0 ']'
+Sep 15 04:43:18 systemvm cloud-early-config[620]: + tar tf /var/cache/cloud/cloud-scripts.tgz
+Sep 15 04:43:18 systemvm cloud-early-config[620]: + sleep 2
+Sep 15 04:43:20 systemvm cloud-early-config[620]: + retry=27
+Sep 15 04:43:20 systemvm cloud-early-config[620]: + log_it 'Could not find patch file, retrying'
+Sep 15 04:43:20 systemvm cloud-early-config[1064]: ++ date
+Sep 15 04:43:20 systemvm cloud-early-config[620]: + echo 'Sun Sep 15 04:43:20 AM EDT 2024 Could not find patch file, retrying'
+Sep 15 04:43:20 systemvm cloud-early-config[620]: + log_action_msg 'Could not find patch file, retrying'
+Sep 15 04:43:20 systemvm cloud-early-config[620]: + log_action_msg_pre 'Could not find patch file, retrying'
+Sep 15 04:43:20 systemvm cloud-early-config[620]: + :
+Sep 15 04:43:20 systemvm cloud-early-config[620]: + echo 'Could not find patch file, retrying.'
+Sep 15 04:43:20 systemvm cloud-early-config[620]: Could not find patch file, retrying.
+Sep 15 04:43:20 systemvm cloud-early-config[620]: + log_action_msg_post 'Could not find patch file, retrying'
+Sep 15 04:43:20 systemvm cloud-early-config[620]: + :
+Sep 15 04:43:20 systemvm cloud-early-config[620]: + '[' 27 -gt 0 ']'
+Sep 15 04:43:20 systemvm cloud-early-config[620]: + tar tf /var/cache/cloud/cloud-scripts.tgz
+Sep 15 04:43:20 systemvm cloud-early-config[620]: + sleep 2
+Sep 15 04:43:22 systemvm cloud-early-config[620]: + retry=26
+Sep 15 04:43:22 systemvm cloud-early-config[620]: + log_it 'Could not find patch file, retrying'
+Sep 15 04:43:22 systemvm cloud-early-config[1067]: ++ date
+Sep 15 04:43:22 systemvm cloud-early-config[620]: + echo 'Sun Sep 15 04:43:22 AM EDT 2024 Could not find patch file, retrying'
+Sep 15 04:43:22 systemvm cloud-early-config[620]: + log_action_msg 'Could not find patch file, retrying'
+Sep 15 04:43:22 systemvm cloud-early-config[620]: + log_action_msg_pre 'Could not find patch file, retrying'
+Sep 15 04:43:22 systemvm cloud-early-config[620]: + :
+Sep 15 04:43:22 systemvm cloud-early-config[620]: + echo 'Could not find patch file, retrying.'
+Sep 15 04:43:22 systemvm cloud-early-config[620]: Could not find patch file, retrying.
+Sep 15 04:43:22 systemvm cloud-early-config[620]: + log_action_msg_post 'Could not find patch file, retrying'
+Sep 15 04:43:22 systemvm cloud-early-config[620]: + :
+Sep 15 04:43:22 systemvm cloud-early-config[620]: + '[' 26 -gt 0 ']'
+Sep 15 04:43:22 systemvm cloud-early-config[620]: + tar tf /var/cache/cloud/cloud-scripts.tgz
+Sep 15 04:43:22 systemvm cloud-early-config[620]: + sleep 2
+Sep 15 04:43:24 systemvm cloud-early-config[620]: + retry=25
+Sep 15 04:43:24 systemvm cloud-early-config[620]: + log_it 'Could not find patch file, retrying'
+Sep 15 04:43:24 systemvm cloud-early-config[1070]: ++ date
+Sep 15 04:43:24 systemvm cloud-early-config[620]: + echo 'Sun Sep 15 04:43:24 AM EDT 2024 Could not find patch file, retrying'
+Sep 15 04:43:24 systemvm cloud-early-config[620]: + log_action_msg 'Could not find patch file, retrying'
+Sep 15 04:43:24 systemvm cloud-early-config[620]: + log_action_msg_pre 'Could not find patch file, retrying'
+Sep 15 04:43:24 systemvm cloud-early-config[620]: + :
+Sep 15 04:43:24 systemvm cloud-early-config[620]: + echo 'Could not find patch file, retrying.'
+Sep 15 04:43:24 systemvm cloud-early-config[620]: Could not find patch file, retrying.
+Sep 15 04:43:24 systemvm cloud-early-config[620]: + log_action_msg_post 'Could not find patch file, retrying'
+Sep 15 04:43:24 systemvm cloud-early-config[620]: + :
+Sep 15 04:43:24 systemvm cloud-early-config[620]: + '[' 25 -gt 0 ']'
+Sep 15 04:43:24 systemvm cloud-early-config[620]: + tar tf /var/cache/cloud/cloud-scripts.tgz
+Sep 15 04:43:24 systemvm cloud-early-config[620]: + sleep 2
+Sep 15 04:43:26 systemvm cloud-early-config[620]: + retry=24
+Sep 15 04:43:26 systemvm cloud-early-config[620]: + log_it 'Could not find patch file, retrying'
+Sep 15 04:43:26 systemvm cloud-early-config[1073]: ++ date
+Sep 15 04:43:26 systemvm cloud-early-config[620]: + echo 'Sun Sep 15 04:43:26 AM EDT 2024 Could not find patch file, retrying'
+Sep 15 04:43:26 systemvm cloud-early-config[620]: + log_action_msg 'Could not find patch file, retrying'
+Sep 15 04:43:26 systemvm cloud-early-config[620]: + log_action_msg_pre 'Could not find patch file, retrying'
+Sep 15 04:43:26 systemvm cloud-early-config[620]: + :
+Sep 15 04:43:26 systemvm cloud-early-config[620]: + echo 'Could not find patch file, retrying.'
+Sep 15 04:43:26 systemvm cloud-early-config[620]: Could not find patch file, retrying.
+Sep 15 04:43:26 systemvm cloud-early-config[620]: + log_action_msg_post 'Could not find patch file, retrying'
+Sep 15 04:43:26 systemvm cloud-early-config[620]: + :
+Sep 15 04:43:26 systemvm cloud-early-config[620]: + '[' 24 -gt 0 ']'
+Sep 15 04:43:26 systemvm cloud-early-config[620]: + tar tf /var/cache/cloud/cloud-scripts.tgz
+Sep 15 04:43:27 systemvm cloud-early-config[620]: + sleep 2
+Sep 15 04:43:29 systemvm cloud-early-config[620]: + retry=23
+Sep 15 04:43:29 systemvm cloud-early-config[620]: + log_it 'Could not find patch file, retrying'
+Sep 15 04:43:29 systemvm cloud-early-config[1076]: ++ date
+Sep 15 04:43:29 systemvm cloud-early-config[620]: + echo 'Sun Sep 15 04:43:29 AM EDT 2024 Could not find patch file, retrying'
+Sep 15 04:43:29 systemvm cloud-early-config[620]: + log_action_msg 'Could not find patch file, retrying'
+Sep 15 04:43:29 systemvm cloud-early-config[620]: + log_action_msg_pre 'Could not find patch file, retrying'
+Sep 15 04:43:29 systemvm cloud-early-config[620]: + :
+Sep 15 04:43:29 systemvm cloud-early-config[620]: + echo 'Could not find patch file, retrying.'
+Sep 15 04:43:29 systemvm cloud-early-config[620]: Could not find patch file, retrying.
+Sep 15 04:43:29 systemvm cloud-early-config[620]: + log_action_msg_post 'Could not find patch file, retrying'
+Sep 15 04:43:29 systemvm cloud-early-config[620]: + :
+Sep 15 04:43:29 systemvm cloud-early-config[620]: + '[' 23 -gt 0 ']'
+Sep 15 04:43:29 systemvm cloud-early-config[620]: + tar tf /var/cache/cloud/cloud-scripts.tgz
+Sep 15 04:43:29 systemvm cloud-early-config[620]: + sleep 2
+Sep 15 04:43:31 systemvm cloud-early-config[620]: + retry=22
+Sep 15 04:43:31 systemvm cloud-early-config[620]: + log_it 'Could not find patch file, retrying'
+Sep 15 04:43:31 systemvm cloud-early-config[1081]: ++ date
+Sep 15 04:43:31 systemvm cloud-early-config[620]: + echo 'Sun Sep 15 04:43:31 AM EDT 2024 Could not find patch file, retrying'
+Sep 15 04:43:31 systemvm cloud-early-config[620]: + log_action_msg 'Could not find patch file, retrying'
+Sep 15 04:43:31 systemvm cloud-early-config[620]: + log_action_msg_pre 'Could not find patch file, retrying'
+Sep 15 04:43:31 systemvm cloud-early-config[620]: + :
+Sep 15 04:43:31 systemvm cloud-early-config[620]: + echo 'Could not find patch file, retrying.'
+Sep 15 04:43:31 systemvm cloud-early-config[620]: Could not find patch file, retrying.
+Sep 15 04:43:31 systemvm cloud-early-config[620]: + log_action_msg_post 'Could not find patch file, retrying'
+Sep 15 04:43:31 systemvm cloud-early-config[620]: + :
+Sep 15 04:43:31 systemvm cloud-early-config[620]: + '[' 22 -gt 0 ']'
+Sep 15 04:43:31 systemvm cloud-early-config[620]: + tar tf /var/cache/cloud/cloud-scripts.tgz
+Sep 15 04:43:31 systemvm cloud-early-config[620]: + sleep 2
+Sep 15 04:43:33 systemvm cloud-early-config[620]: + retry=21
+Sep 15 04:43:33 systemvm cloud-early-config[620]: + log_it 'Could not find patch file, retrying'
+Sep 15 04:43:33 systemvm cloud-early-config[1084]: ++ date
+Sep 15 04:43:33 systemvm cloud-early-config[620]: + echo 'Sun Sep 15 04:43:33 AM EDT 2024 Could not find patch file, retrying'
+Sep 15 04:43:33 systemvm cloud-early-config[620]: + log_action_msg 'Could not find patch file, retrying'
+Sep 15 04:43:33 systemvm cloud-early-config[620]: + log_action_msg_pre 'Could not find patch file, retrying'
+Sep 15 04:43:33 systemvm cloud-early-config[620]: + :
+Sep 15 04:43:33 systemvm cloud-early-config[620]: + echo 'Could not find patch file, retrying.'
+Sep 15 04:43:33 systemvm cloud-early-config[620]: Could not find patch file, retrying.
+Sep 15 04:43:33 systemvm cloud-early-config[620]: + log_action_msg_post 'Could not find patch file, retrying'
+Sep 15 04:43:33 systemvm cloud-early-config[620]: + :
+Sep 15 04:43:33 systemvm cloud-early-config[620]: + '[' 21 -gt 0 ']'
+Sep 15 04:43:33 systemvm cloud-early-config[620]: + tar tf /var/cache/cloud/cloud-scripts.tgz
+Sep 15 04:43:33 systemvm cloud-early-config[620]: + sleep 2
+Sep 15 04:43:35 systemvm cloud-early-config[620]: + retry=20
+Sep 15 04:43:35 systemvm cloud-early-config[620]: + log_it 'Could not find patch file, retrying'
+Sep 15 04:43:35 systemvm cloud-early-config[1087]: ++ date
+Sep 15 04:43:35 systemvm cloud-early-config[620]: + echo 'Sun Sep 15 04:43:35 AM EDT 2024 Could not find patch file, retrying'
+Sep 15 04:43:35 systemvm cloud-early-config[620]: + log_action_msg 'Could not find patch file, retrying'
+Sep 15 04:43:35 systemvm cloud-early-config[620]: + log_action_msg_pre 'Could not find patch file, retrying'
+Sep 15 04:43:35 systemvm cloud-early-config[620]: + :
+Sep 15 04:43:35 systemvm cloud-early-config[620]: + echo 'Could not find patch file, retrying.'
+Sep 15 04:43:35 systemvm cloud-early-config[620]: Could not find patch file, retrying.
+Sep 15 04:43:35 systemvm cloud-early-config[620]: + log_action_msg_post 'Could not find patch file, retrying'
+Sep 15 04:43:35 systemvm cloud-early-config[620]: + :
+Sep 15 04:43:35 systemvm cloud-early-config[620]: + '[' 20 -gt 0 ']'
+Sep 15 04:43:35 systemvm cloud-early-config[620]: + tar tf /var/cache/cloud/cloud-scripts.tgz
+Sep 15 04:43:35 systemvm cloud-early-config[620]: + sleep 2
+Sep 15 04:43:37 systemvm cloud-early-config[620]: + retry=19
+Sep 15 04:43:37 systemvm cloud-early-config[620]: + log_it 'Could not find patch file, retrying'
+Sep 15 04:43:37 systemvm cloud-early-config[1090]: ++ date
+Sep 15 04:43:37 systemvm cloud-early-config[620]: + echo 'Sun Sep 15 04:43:37 AM EDT 2024 Could not find patch file, retrying'
+Sep 15 04:43:37 systemvm cloud-early-config[620]: + log_action_msg 'Could not find patch file, retrying'
+Sep 15 04:43:37 systemvm cloud-early-config[620]: + log_action_msg_pre 'Could not find patch file, retrying'
+Sep 15 04:43:37 systemvm cloud-early-config[620]: + :
+Sep 15 04:43:37 systemvm cloud-early-config[620]: + echo 'Could not find patch file, retrying.'
+Sep 15 04:43:37 systemvm cloud-early-config[620]: Could not find patch file, retrying.
+Sep 15 04:43:37 systemvm cloud-early-config[620]: + log_action_msg_post 'Could not find patch file, retrying'
+Sep 15 04:43:37 systemvm cloud-early-config[620]: + :
+Sep 15 04:43:37 systemvm cloud-early-config[620]: + '[' 19 -gt 0 ']'
+Sep 15 04:43:37 systemvm cloud-early-config[620]: + tar tf /var/cache/cloud/cloud-scripts.tgz
+Sep 15 04:43:37 systemvm cloud-early-config[620]: + sleep 2
+Sep 15 04:43:39 systemvm cloud-early-config[620]: + retry=18
+Sep 15 04:43:39 systemvm cloud-early-config[620]: + log_it 'Could not find patch file, retrying'
+Sep 15 04:43:39 systemvm cloud-early-config[1093]: ++ date
+Sep 15 04:43:39 systemvm cloud-early-config[620]: + echo 'Sun Sep 15 04:43:39 AM EDT 2024 Could not find patch file, retrying'
+Sep 15 04:43:39 systemvm cloud-early-config[620]: + log_action_msg 'Could not find patch file, retrying'
+Sep 15 04:43:39 systemvm cloud-early-config[620]: + log_action_msg_pre 'Could not find patch file, retrying'
+Sep 15 04:43:39 systemvm cloud-early-config[620]: + :
+Sep 15 04:43:39 systemvm cloud-early-config[620]: + echo 'Could not find patch file, retrying.'
+Sep 15 04:43:39 systemvm cloud-early-config[620]: Could not find patch file, retrying.
+Sep 15 04:43:39 systemvm cloud-early-config[620]: + log_action_msg_post 'Could not find patch file, retrying'
+Sep 15 04:43:39 systemvm cloud-early-config[620]: + :
+Sep 15 04:43:39 systemvm cloud-early-config[620]: + '[' 18 -gt 0 ']'
+Sep 15 04:43:39 systemvm cloud-early-config[620]: + tar tf /var/cache/cloud/cloud-scripts.tgz
+Sep 15 04:43:39 systemvm cloud-early-config[620]: + sleep 2
+Sep 15 04:43:41 systemvm cloud-early-config[620]: + retry=17
+Sep 15 04:43:41 systemvm cloud-early-config[620]: + log_it 'Could not find patch file, retrying'
+Sep 15 04:43:41 systemvm cloud-early-config[1096]: ++ date
+Sep 15 04:43:41 systemvm cloud-early-config[620]: + echo 'Sun Sep 15 04:43:41 AM EDT 2024 Could not find patch file, retrying'
+Sep 15 04:43:41 systemvm cloud-early-config[620]: + log_action_msg 'Could not find patch file, retrying'
+Sep 15 04:43:41 systemvm cloud-early-config[620]: + log_action_msg_pre 'Could not find patch file, retrying'
+Sep 15 04:43:41 systemvm cloud-early-config[620]: + :
+Sep 15 04:43:41 systemvm cloud-early-config[620]: + echo 'Could not find patch file, retrying.'
+Sep 15 04:43:41 systemvm cloud-early-config[620]: Could not find patch file, retrying.
+Sep 15 04:43:41 systemvm cloud-early-config[620]: + log_action_msg_post 'Could not find patch file, retrying'
+Sep 15 04:43:41 systemvm cloud-early-config[620]: + :
+Sep 15 04:43:41 systemvm cloud-early-config[620]: + '[' 17 -gt 0 ']'
+Sep 15 04:43:41 systemvm cloud-early-config[620]: + tar tf /var/cache/cloud/cloud-scripts.tgz
+Sep 15 04:43:41 systemvm cloud-early-config[620]: + sleep 2
+Sep 15 04:43:43 systemvm cloud-early-config[620]: + retry=16
+Sep 15 04:43:43 systemvm cloud-early-config[620]: + log_it 'Could not find patch file, retrying'
+Sep 15 04:43:43 systemvm cloud-early-config[1099]: ++ date
+Sep 15 04:43:43 systemvm cloud-early-config[620]: + echo 'Sun Sep 15 04:43:43 AM EDT 2024 Could not find patch file, retrying'
+Sep 15 04:43:43 systemvm cloud-early-config[620]: + log_action_msg 'Could not find patch file, retrying'
+Sep 15 04:43:43 systemvm cloud-early-config[620]: + log_action_msg_pre 'Could not find patch file, retrying'
+Sep 15 04:43:43 systemvm cloud-early-config[620]: + :
+Sep 15 04:43:43 systemvm cloud-early-config[620]: + echo 'Could not find patch file, retrying.'
+Sep 15 04:43:43 systemvm cloud-early-config[620]: Could not find patch file, retrying.
+Sep 15 04:43:43 systemvm cloud-early-config[620]: + log_action_msg_post 'Could not find patch file, retrying'
+Sep 15 04:43:43 systemvm cloud-early-config[620]: + :
+Sep 15 04:43:43 systemvm cloud-early-config[620]: + '[' 16 -gt 0 ']'
+Sep 15 04:43:43 systemvm cloud-early-config[620]: + tar tf /var/cache/cloud/cloud-scripts.tgz
+Sep 15 04:43:43 systemvm cloud-early-config[620]: + sleep 2
+Sep 15 04:43:45 systemvm cloud-early-config[620]: + retry=15
+Sep 15 04:43:45 systemvm cloud-early-config[620]: + log_it 'Could not find patch file, retrying'
+Sep 15 04:43:45 systemvm cloud-early-config[1102]: ++ date
+Sep 15 04:43:45 systemvm cloud-early-config[620]: + echo 'Sun Sep 15 04:43:45 AM EDT 2024 Could not find patch file, retrying'
+Sep 15 04:43:45 systemvm cloud-early-config[620]: + log_action_msg 'Could not find patch file, retrying'
+Sep 15 04:43:45 systemvm cloud-early-config[620]: + log_action_msg_pre 'Could not find patch file, retrying'
+Sep 15 04:43:45 systemvm cloud-early-config[620]: + :
+Sep 15 04:43:45 systemvm cloud-early-config[620]: + echo 'Could not find patch file, retrying.'
+Sep 15 04:43:45 systemvm cloud-early-config[620]: Could not find patch file, retrying.
+Sep 15 04:43:45 systemvm cloud-early-config[620]: + log_action_msg_post 'Could not find patch file, retrying'
+Sep 15 04:43:45 systemvm cloud-early-config[620]: + :
+Sep 15 04:43:45 systemvm cloud-early-config[620]: + '[' 15 -gt 0 ']'
+Sep 15 04:43:45 systemvm cloud-early-config[620]: + tar tf /var/cache/cloud/cloud-scripts.tgz
+Sep 15 04:43:45 systemvm cloud-early-config[620]: + sleep 2
+Sep 15 04:43:47 systemvm cloud-early-config[620]: + retry=14
+Sep 15 04:43:47 systemvm cloud-early-config[620]: + log_it 'Could not find patch file, retrying'
+Sep 15 04:43:47 systemvm cloud-early-config[1105]: ++ date
+Sep 15 04:43:47 systemvm cloud-early-config[620]: + echo 'Sun Sep 15 04:43:47 AM EDT 2024 Could not find patch file, retrying'
+Sep 15 04:43:47 systemvm cloud-early-config[620]: + log_action_msg 'Could not find patch file, retrying'
+Sep 15 04:43:47 systemvm cloud-early-config[620]: + log_action_msg_pre 'Could not find patch file, retrying'
+Sep 15 04:43:47 systemvm cloud-early-config[620]: + :
+Sep 15 04:43:47 systemvm cloud-early-config[620]: + echo 'Could not find patch file, retrying.'
+Sep 15 04:43:47 systemvm cloud-early-config[620]: Could not find patch file, retrying.
+Sep 15 04:43:47 systemvm cloud-early-config[620]: + log_action_msg_post 'Could not find patch file, retrying'
+Sep 15 04:43:47 systemvm cloud-early-config[620]: + :
+Sep 15 04:43:47 systemvm cloud-early-config[620]: + '[' 14 -gt 0 ']'
+Sep 15 04:43:47 systemvm cloud-early-config[620]: + tar tf /var/cache/cloud/cloud-scripts.tgz
+Sep 15 04:43:47 systemvm cloud-early-config[620]: + sleep 2
+Sep 15 04:43:49 systemvm cloud-early-config[620]: + retry=13
+Sep 15 04:43:49 systemvm cloud-early-config[620]: + log_it 'Could not find patch file, retrying'
+Sep 15 04:43:49 systemvm cloud-early-config[1108]: ++ date
+Sep 15 04:43:49 systemvm cloud-early-config[620]: + echo 'Sun Sep 15 04:43:49 AM EDT 2024 Could not find patch file, retrying'
+Sep 15 04:43:49 systemvm cloud-early-config[620]: + log_action_msg 'Could not find patch file, retrying'
+Sep 15 04:43:49 systemvm cloud-early-config[620]: + log_action_msg_pre 'Could not find patch file, retrying'
+Sep 15 04:43:49 systemvm cloud-early-config[620]: + :
+Sep 15 04:43:49 systemvm cloud-early-config[620]: + echo 'Could not find patch file, retrying.'
+Sep 15 04:43:49 systemvm cloud-early-config[620]: Could not find patch file, retrying.
+Sep 15 04:43:49 systemvm cloud-early-config[620]: + log_action_msg_post 'Could not find patch file, retrying'
+Sep 15 04:43:49 systemvm cloud-early-config[620]: + :
+Sep 15 04:43:49 systemvm cloud-early-config[620]: + '[' 13 -gt 0 ']'
+Sep 15 04:43:49 systemvm cloud-early-config[620]: + tar tf /var/cache/cloud/cloud-scripts.tgz
+Sep 15 04:43:49 systemvm cloud-early-config[620]: + sleep 2
+Sep 15 04:43:51 systemvm cloud-early-config[620]: + retry=12
+Sep 15 04:43:51 systemvm cloud-early-config[620]: + log_it 'Could not find patch file, retrying'
+Sep 15 04:43:51 systemvm cloud-early-config[1111]: ++ date
+Sep 15 04:43:51 systemvm cloud-early-config[620]: + echo 'Sun Sep 15 04:43:51 AM EDT 2024 Could not find patch file, retrying'
+Sep 15 04:43:51 systemvm cloud-early-config[620]: + log_action_msg 'Could not find patch file, retrying'
+Sep 15 04:43:51 systemvm cloud-early-config[620]: + log_action_msg_pre 'Could not find patch file, retrying'
+Sep 15 04:43:51 systemvm cloud-early-config[620]: + :
+Sep 15 04:43:51 systemvm cloud-early-config[620]: + echo 'Could not find patch file, retrying.'
+Sep 15 04:43:51 systemvm cloud-early-config[620]: Could not find patch file, retrying.
+Sep 15 04:43:51 systemvm cloud-early-config[620]: + log_action_msg_post 'Could not find patch file, retrying'
+Sep 15 04:43:51 systemvm cloud-early-config[620]: + :
+Sep 15 04:43:51 systemvm cloud-early-config[620]: + '[' 12 -gt 0 ']'
+Sep 15 04:43:51 systemvm cloud-early-config[620]: + tar tf /var/cache/cloud/cloud-scripts.tgz
+Sep 15 04:43:51 systemvm cloud-early-config[620]: + sleep 2
+Sep 15 04:43:53 systemvm cloud-early-config[620]: + retry=11
+Sep 15 04:43:53 systemvm cloud-early-config[620]: + log_it 'Could not find patch file, retrying'
+Sep 15 04:43:53 systemvm cloud-early-config[1114]: ++ date
+Sep 15 04:43:53 systemvm cloud-early-config[620]: + echo 'Sun Sep 15 04:43:53 AM EDT 2024 Could not find patch file, retrying'
+Sep 15 04:43:53 systemvm cloud-early-config[620]: + log_action_msg 'Could not find patch file, retrying'
+Sep 15 04:43:53 systemvm cloud-early-config[620]: + log_action_msg_pre 'Could not find patch file, retrying'
+Sep 15 04:43:53 systemvm cloud-early-config[620]: + :
+Sep 15 04:43:53 systemvm cloud-early-config[620]: + echo 'Could not find patch file, retrying.'
+Sep 15 04:43:53 systemvm cloud-early-config[620]: Could not find patch file, retrying.
+Sep 15 04:43:53 systemvm cloud-early-config[620]: + log_action_msg_post 'Could not find patch file, retrying'
+Sep 15 04:43:53 systemvm cloud-early-config[620]: + :
+Sep 15 04:43:53 systemvm cloud-early-config[620]: + '[' 11 -gt 0 ']'
+Sep 15 04:43:53 systemvm cloud-early-config[620]: + tar tf /var/cache/cloud/cloud-scripts.tgz
+Sep 15 04:43:54 systemvm cloud-early-config[620]: + sleep 2
+Sep 15 04:43:56 systemvm cloud-early-config[620]: + retry=10
+Sep 15 04:43:56 systemvm cloud-early-config[620]: + log_it 'Could not find patch file, retrying'
+Sep 15 04:43:56 systemvm cloud-early-config[1117]: ++ date
+Sep 15 04:43:56 systemvm cloud-early-config[620]: + echo 'Sun Sep 15 04:43:56 AM EDT 2024 Could not find patch file, retrying'
+Sep 15 04:43:56 systemvm cloud-early-config[620]: + log_action_msg 'Could not find patch file, retrying'
+Sep 15 04:43:56 systemvm cloud-early-config[620]: + log_action_msg_pre 'Could not find patch file, retrying'
+Sep 15 04:43:56 systemvm cloud-early-config[620]: + :
+Sep 15 04:43:56 systemvm cloud-early-config[620]: + echo 'Could not find patch file, retrying.'
+Sep 15 04:43:56 systemvm cloud-early-config[620]: Could not find patch file, retrying.
+Sep 15 04:43:56 systemvm cloud-early-config[620]: + log_action_msg_post 'Could not find patch file, retrying'
+Sep 15 04:43:56 systemvm cloud-early-config[620]: + :
+Sep 15 04:43:56 systemvm cloud-early-config[620]: + '[' 10 -gt 0 ']'
+Sep 15 04:43:56 systemvm cloud-early-config[620]: + tar tf /var/cache/cloud/cloud-scripts.tgz
+Sep 15 04:43:56 systemvm cloud-early-config[620]: + sleep 2
+Sep 15 04:43:58 systemvm cloud-early-config[620]: + retry=9
+Sep 15 04:43:58 systemvm cloud-early-config[620]: + log_it 'Could not find patch file, retrying'
+Sep 15 04:43:58 systemvm cloud-early-config[1120]: ++ date
+Sep 15 04:43:58 systemvm cloud-early-config[620]: + echo 'Sun Sep 15 04:43:58 AM EDT 2024 Could not find patch file, retrying'
+Sep 15 04:43:58 systemvm cloud-early-config[620]: + log_action_msg 'Could not find patch file, retrying'
+Sep 15 04:43:58 systemvm cloud-early-config[620]: + log_action_msg_pre 'Could not find patch file, retrying'
+Sep 15 04:43:58 systemvm cloud-early-config[620]: + :
+Sep 15 04:43:58 systemvm cloud-early-config[620]: + echo 'Could not find patch file, retrying.'
+Sep 15 04:43:58 systemvm cloud-early-config[620]: Could not find patch file, retrying.
+Sep 15 04:43:58 systemvm cloud-early-config[620]: + log_action_msg_post 'Could not find patch file, retrying'
+Sep 15 04:43:58 systemvm cloud-early-config[620]: + :
+Sep 15 04:43:58 systemvm cloud-early-config[620]: + '[' 9 -gt 0 ']'
+Sep 15 04:43:58 systemvm cloud-early-config[620]: + tar tf /var/cache/cloud/cloud-scripts.tgz
+Sep 15 04:43:58 systemvm cloud-early-config[620]: + sleep 2
+Sep 15 04:44:00 systemvm cloud-early-config[620]: + retry=8
+Sep 15 04:44:00 systemvm cloud-early-config[620]: + log_it 'Could not find patch file, retrying'
+Sep 15 04:44:00 systemvm cloud-early-config[1123]: ++ date
+Sep 15 04:44:00 systemvm cloud-early-config[620]: + echo 'Sun Sep 15 04:44:00 AM EDT 2024 Could not find patch file, retrying'
+Sep 15 04:44:00 systemvm cloud-early-config[620]: + log_action_msg 'Could not find patch file, retrying'
+Sep 15 04:44:00 systemvm cloud-early-config[620]: + log_action_msg_pre 'Could not find patch file, retrying'
+Sep 15 04:44:00 systemvm cloud-early-config[620]: + :
+Sep 15 04:44:00 systemvm cloud-early-config[620]: + echo 'Could not find patch file, retrying.'
+Sep 15 04:44:00 systemvm cloud-early-config[620]: Could not find patch file, retrying.
+Sep 15 04:44:00 systemvm cloud-early-config[620]: + log_action_msg_post 'Could not find patch file, retrying'
+Sep 15 04:44:00 systemvm cloud-early-config[620]: + :
+Sep 15 04:44:00 systemvm cloud-early-config[620]: + '[' 8 -gt 0 ']'
+Sep 15 04:44:00 systemvm cloud-early-config[620]: + tar tf /var/cache/cloud/cloud-scripts.tgz
+Sep 15 04:44:00 systemvm cloud-early-config[620]: + sleep 2
+Sep 15 04:44:02 systemvm cloud-early-config[620]: + retry=7
+Sep 15 04:44:02 systemvm cloud-early-config[620]: + log_it 'Could not find patch file, retrying'
+Sep 15 04:44:02 systemvm cloud-early-config[1126]: ++ date
+Sep 15 04:44:02 systemvm cloud-early-config[620]: + echo 'Sun Sep 15 04:44:02 AM EDT 2024 Could not find patch file, retrying'
+Sep 15 04:44:02 systemvm cloud-early-config[620]: + log_action_msg 'Could not find patch file, retrying'
+Sep 15 04:44:02 systemvm cloud-early-config[620]: + log_action_msg_pre 'Could not find patch file, retrying'
+Sep 15 04:44:02 systemvm cloud-early-config[620]: + :
+Sep 15 04:44:02 systemvm cloud-early-config[620]: + echo 'Could not find patch file, retrying.'
+Sep 15 04:44:02 systemvm cloud-early-config[620]: Could not find patch file, retrying.
+Sep 15 04:44:02 systemvm cloud-early-config[620]: + log_action_msg_post 'Could not find patch file, retrying'
+Sep 15 04:44:02 systemvm cloud-early-config[620]: + :
+Sep 15 04:44:02 systemvm cloud-early-config[620]: + '[' 7 -gt 0 ']'
+Sep 15 04:44:02 systemvm cloud-early-config[620]: + tar tf /var/cache/cloud/cloud-scripts.tgz
+Sep 15 04:44:02 systemvm cloud-early-config[620]: + sleep 2
+Sep 15 04:44:04 systemvm cloud-early-config[620]: + retry=6
+Sep 15 04:44:04 systemvm cloud-early-config[620]: + log_it 'Could not find patch file, retrying'
+Sep 15 04:44:04 systemvm cloud-early-config[1129]: ++ date
+Sep 15 04:44:04 systemvm cloud-early-config[620]: + echo 'Sun Sep 15 04:44:04 AM EDT 2024 Could not find patch file, retrying'
+Sep 15 04:44:04 systemvm cloud-early-config[620]: + log_action_msg 'Could not find patch file, retrying'
+Sep 15 04:44:04 systemvm cloud-early-config[620]: + log_action_msg_pre 'Could not find patch file, retrying'
+Sep 15 04:44:04 systemvm cloud-early-config[620]: + :
+Sep 15 04:44:04 systemvm cloud-early-config[620]: + echo 'Could not find patch file, retrying.'
+Sep 15 04:44:04 systemvm cloud-early-config[620]: Could not find patch file, retrying.
+Sep 15 04:44:04 systemvm cloud-early-config[620]: + log_action_msg_post 'Could not find patch file, retrying'
+Sep 15 04:44:04 systemvm cloud-early-config[620]: + :
+Sep 15 04:44:04 systemvm cloud-early-config[620]: + '[' 6 -gt 0 ']'
+Sep 15 04:44:04 systemvm cloud-early-config[620]: + tar tf /var/cache/cloud/cloud-scripts.tgz
+Sep 15 04:44:04 systemvm cloud-early-config[620]: + sleep 2
+Sep 15 04:44:06 systemvm cloud-early-config[620]: + retry=5
+Sep 15 04:44:06 systemvm cloud-early-config[620]: + log_it 'Could not find patch file, retrying'
+Sep 15 04:44:06 systemvm cloud-early-config[1132]: ++ date
+Sep 15 04:44:06 systemvm cloud-early-config[620]: + echo 'Sun Sep 15 04:44:06 AM EDT 2024 Could not find patch file, retrying'
+Sep 15 04:44:06 systemvm cloud-early-config[620]: + log_action_msg 'Could not find patch file, retrying'
+Sep 15 04:44:06 systemvm cloud-early-config[620]: + log_action_msg_pre 'Could not find patch file, retrying'
+Sep 15 04:44:06 systemvm cloud-early-config[620]: + :
+Sep 15 04:44:06 systemvm cloud-early-config[620]: + echo 'Could not find patch file, retrying.'
+Sep 15 04:44:06 systemvm cloud-early-config[620]: Could not find patch file, retrying.
+Sep 15 04:44:06 systemvm cloud-early-config[620]: + log_action_msg_post 'Could not find patch file, retrying'
+Sep 15 04:44:06 systemvm cloud-early-config[620]: + :
+Sep 15 04:44:06 systemvm cloud-early-config[620]: + '[' 5 -gt 0 ']'
+Sep 15 04:44:06 systemvm cloud-early-config[620]: + tar tf /var/cache/cloud/cloud-scripts.tgz
+Sep 15 04:44:06 systemvm cloud-early-config[620]: + sleep 2
+Sep 15 04:44:08 systemvm cloud-early-config[620]: + retry=4
+Sep 15 04:44:08 systemvm cloud-early-config[620]: + log_it 'Could not find patch file, retrying'
+Sep 15 04:44:08 systemvm cloud-early-config[1135]: ++ date
+Sep 15 04:44:08 systemvm cloud-early-config[620]: + echo 'Sun Sep 15 04:44:08 AM EDT 2024 Could not find patch file, retrying'
+Sep 15 04:44:08 systemvm cloud-early-config[620]: + log_action_msg 'Could not find patch file, retrying'
+Sep 15 04:44:08 systemvm cloud-early-config[620]: + log_action_msg_pre 'Could not find patch file, retrying'
+Sep 15 04:44:08 systemvm cloud-early-config[620]: + :
+Sep 15 04:44:08 systemvm cloud-early-config[620]: + echo 'Could not find patch file, retrying.'
+Sep 15 04:44:08 systemvm cloud-early-config[620]: Could not find patch file, retrying.
+Sep 15 04:44:08 systemvm cloud-early-config[620]: + log_action_msg_post 'Could not find patch file, retrying'
+Sep 15 04:44:08 systemvm cloud-early-config[620]: + :
+Sep 15 04:44:08 systemvm cloud-early-config[620]: + '[' 4 -gt 0 ']'
+Sep 15 04:44:08 systemvm cloud-early-config[620]: + tar tf /var/cache/cloud/cloud-scripts.tgz
+Sep 15 04:44:08 systemvm cloud-early-config[620]: + sleep 2
+Sep 15 04:44:10 systemvm cloud-early-config[620]: + retry=3
+Sep 15 04:44:10 systemvm cloud-early-config[620]: + log_it 'Could not find patch file, retrying'
+Sep 15 04:44:10 systemvm cloud-early-config[1138]: ++ date
+Sep 15 04:44:10 systemvm cloud-early-config[620]: + echo 'Sun Sep 15 04:44:10 AM EDT 2024 Could not find patch file, retrying'
+Sep 15 04:44:10 systemvm cloud-early-config[620]: + log_action_msg 'Could not find patch file, retrying'
+Sep 15 04:44:10 systemvm cloud-early-config[620]: + log_action_msg_pre 'Could not find patch file, retrying'
+Sep 15 04:44:10 systemvm cloud-early-config[620]: + :
+Sep 15 04:44:10 systemvm cloud-early-config[620]: + echo 'Could not find patch file, retrying.'
+Sep 15 04:44:10 systemvm cloud-early-config[620]: Could not find patch file, retrying.
+Sep 15 04:44:10 systemvm cloud-early-config[620]: + log_action_msg_post 'Could not find patch file, retrying'
+Sep 15 04:44:10 systemvm cloud-early-config[620]: + :
+Sep 15 04:44:10 systemvm cloud-early-config[620]: + '[' 3 -gt 0 ']'
+Sep 15 04:44:10 systemvm cloud-early-config[620]: + tar tf /var/cache/cloud/cloud-scripts.tgz
+Sep 15 04:44:10 systemvm cloud-early-config[620]: + sleep 2
+Sep 15 04:44:12 systemvm cloud-early-config[620]: + retry=2
+Sep 15 04:44:12 systemvm cloud-early-config[620]: + log_it 'Could not find patch file, retrying'
+Sep 15 04:44:12 systemvm cloud-early-config[1141]: ++ date
+Sep 15 04:44:12 systemvm cloud-early-config[620]: + echo 'Sun Sep 15 04:44:12 AM EDT 2024 Could not find patch file, retrying'
+Sep 15 04:44:12 systemvm cloud-early-config[620]: + log_action_msg 'Could not find patch file, retrying'
+Sep 15 04:44:12 systemvm cloud-early-config[620]: + log_action_msg_pre 'Could not find patch file, retrying'
+Sep 15 04:44:12 systemvm cloud-early-config[620]: + :
+Sep 15 04:44:12 systemvm cloud-early-config[620]: + echo 'Could not find patch file, retrying.'
+Sep 15 04:44:12 systemvm cloud-early-config[620]: Could not find patch file, retrying.
+Sep 15 04:44:12 systemvm cloud-early-config[620]: + log_action_msg_post 'Could not find patch file, retrying'
+Sep 15 04:44:12 systemvm cloud-early-config[620]: + :
+Sep 15 04:44:12 systemvm cloud-early-config[620]: + '[' 2 -gt 0 ']'
+Sep 15 04:44:12 systemvm cloud-early-config[620]: + tar tf /var/cache/cloud/cloud-scripts.tgz
+Sep 15 04:44:12 systemvm cloud-early-config[620]: + sleep 2
+Sep 15 04:44:14 systemvm cloud-early-config[620]: + retry=1
+Sep 15 04:44:14 systemvm cloud-early-config[620]: + log_it 'Could not find patch file, retrying'
+Sep 15 04:44:14 systemvm cloud-early-config[1144]: ++ date
+Sep 15 04:44:14 systemvm cloud-early-config[620]: + echo 'Sun Sep 15 04:44:14 AM EDT 2024 Could not find patch file, retrying'
+Sep 15 04:44:14 systemvm cloud-early-config[620]: + log_action_msg 'Could not find patch file, retrying'
+Sep 15 04:44:14 systemvm cloud-early-config[620]: + log_action_msg_pre 'Could not find patch file, retrying'
+Sep 15 04:44:14 systemvm cloud-early-config[620]: + :
+Sep 15 04:44:14 systemvm cloud-early-config[620]: + echo 'Could not find patch file, retrying.'
+Sep 15 04:44:14 systemvm cloud-early-config[620]: Could not find patch file, retrying.
+Sep 15 04:44:14 systemvm cloud-early-config[620]: + log_action_msg_post 'Could not find patch file, retrying'
+Sep 15 04:44:14 systemvm cloud-early-config[620]: + :
+Sep 15 04:44:14 systemvm cloud-early-config[620]: + '[' 1 -gt 0 ']'
+Sep 15 04:44:14 systemvm cloud-early-config[620]: + tar tf /var/cache/cloud/cloud-scripts.tgz
+Sep 15 04:44:14 systemvm cloud-early-config[620]: + sleep 2
+Sep 15 04:44:16 systemvm cloud-early-config[620]: + retry=0
+Sep 15 04:44:16 systemvm cloud-early-config[620]: + log_it 'Could not find patch file, retrying'
+Sep 15 04:44:16 systemvm cloud-early-config[1147]: ++ date
+Sep 15 04:44:16 systemvm cloud-early-config[620]: + echo 'Sun Sep 15 04:44:16 AM EDT 2024 Could not find patch file, retrying'
+Sep 15 04:44:16 systemvm cloud-early-config[620]: + log_action_msg 'Could not find patch file, retrying'
+Sep 15 04:44:16 systemvm cloud-early-config[620]: + log_action_msg_pre 'Could not find patch file, retrying'
+Sep 15 04:44:16 systemvm cloud-early-config[620]: + :
+Sep 15 04:44:16 systemvm cloud-early-config[620]: + echo 'Could not find patch file, retrying.'
+Sep 15 04:44:16 systemvm cloud-early-config[620]: Could not find patch file, retrying.
+Sep 15 04:44:16 systemvm cloud-early-config[620]: + log_action_msg_post 'Could not find patch file, retrying'
+Sep 15 04:44:16 systemvm cloud-early-config[620]: + :
+Sep 15 04:44:16 systemvm cloud-early-config[620]: + '[' 0 -gt 0 ']'
+Sep 15 04:44:16 systemvm cloud-early-config[620]: + '[' 0 -eq 0 ']'
+Sep 15 04:44:16 systemvm cloud-early-config[620]: + '[' false == false ']'
+Sep 15 04:44:16 systemvm cloud-early-config[620]: + return 2
+Sep 15 04:44:16 systemvm cloud-early-config[620]: + sync
+Sep 15 04:44:16 systemvm cloud-early-config[620]: + /opt/cloud/bin/setup/bootstrap.sh
+Sep 15 04:44:16 systemvm cloud-early-config[1149]: + PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+Sep 15 04:44:16 systemvm cloud-early-config[1149]: + CMDLINE=/var/cache/cloud/cmdline
+Sep 15 04:44:16 systemvm cloud-early-config[1149]: + PROPERTIES=usr/local/cloud/systemvm/conf/agent.properties
+Sep 15 04:44:16 systemvm cloud-early-config[1149]: + rm -f /var/cache/cloud/enabled_svcs
+Sep 15 04:44:16 systemvm cloud-early-config[1149]: + rm -f /var/cache/cloud/disabled_svcs
+Sep 15 04:44:16 systemvm cloud-early-config[1149]: + . /lib/lsb/init-functions
+Sep 15 04:44:16 systemvm cloud-early-config[1152]: +++ run-parts --lsbsysinit --list /lib/lsb/init-functions.d
+Sep 15 04:44:16 systemvm cloud-early-config[1149]: ++ for hook in $(run-parts --lsbsysinit --list /lib/lsb/init-functions.d 2> /dev/null)
+Sep 15 04:44:16 systemvm cloud-early-config[1149]: ++ '[' -r /lib/lsb/init-functions.d/00-verbose ']'
+Sep 15 04:44:16 systemvm cloud-early-config[1149]: ++ . /lib/lsb/init-functions.d/00-verbose
+Sep 15 04:44:16 systemvm cloud-early-config[1149]: ++ for hook in $(run-parts --lsbsysinit --list /lib/lsb/init-functions.d 2> /dev/null)
+Sep 15 04:44:16 systemvm cloud-early-config[1149]: ++ '[' -r /lib/lsb/init-functions.d/40-systemd ']'
+Sep 15 04:44:16 systemvm cloud-early-config[1149]: ++ . /lib/lsb/init-functions.d/40-systemd
+Sep 15 04:44:16 systemvm cloud-early-config[1149]: +++ _use_systemctl=0
+Sep 15 04:44:16 systemvm cloud-early-config[1149]: +++ '[' -d /run/systemd/system ']'
+Sep 15 04:44:16 systemvm cloud-early-config[1149]: +++ '[' -n '' ']'
+Sep 15 04:44:16 systemvm cloud-early-config[1149]: +++ '[' bootstrap.sh = init-d-script ']'
+Sep 15 04:44:16 systemvm cloud-early-config[1149]: +++ '[' bootstrap.sh = '' ']'
+Sep 15 04:44:16 systemvm cloud-early-config[1149]: +++ executable=/opt/cloud/bin/setup/bootstrap.sh
+Sep 15 04:44:16 systemvm cloud-early-config[1149]: +++ argument=
+Sep 15 04:44:16 systemvm cloud-early-config[1149]: +++ prog=bootstrap.sh
+Sep 15 04:44:16 systemvm cloud-early-config[1149]: +++ service=bootstrap.service
+Sep 15 04:44:16 systemvm cloud-early-config[1154]: ++++ systemctl -p LoadState --value show bootstrap.service
+Sep 15 04:44:16 systemvm cloud-early-config[1149]: +++ state=not-found
+Sep 15 04:44:16 systemvm cloud-early-config[1149]: +++ '[' not-found = masked ']'
+Sep 15 04:44:16 systemvm cloud-early-config[1149]: +++ '[' 620 -ne 1 ']'
+Sep 15 04:44:16 systemvm cloud-early-config[1149]: +++ '[' -z '' ']'
+Sep 15 04:44:16 systemvm cloud-early-config[1149]: +++ case $(readlink -f "$executable") in
+Sep 15 04:44:16 systemvm cloud-early-config[1156]: ++++ readlink -f /opt/cloud/bin/setup/bootstrap.sh
+Sep 15 04:44:17 systemvm cloud-early-config[1149]: +++ '[' 0 = 1 ']'
+Sep 15 04:44:17 systemvm cloud-early-config[1149]: ++ FANCYTTY=
+Sep 15 04:44:17 systemvm cloud-early-config[1149]: ++ '[' -e /etc/lsb-base-logging.sh ']'
+Sep 15 04:44:17 systemvm cloud-early-config[1149]: ++ true
+Sep 15 04:44:17 systemvm cloud-early-config[1149]: + bootstrap
+Sep 15 04:44:17 systemvm cloud-early-config[1149]: + log_it 'Bootstrapping systemvm appliance'
+Sep 15 04:44:17 systemvm cloud-early-config[1157]: ++ date
+Sep 15 04:44:17 systemvm cloud-early-config[1149]: + echo 'Sun Sep 15 04:44:17 AM EDT 2024 Bootstrapping systemvm appliance'
+Sep 15 04:44:17 systemvm cloud-early-config[1149]: + log_action_msg 'Bootstrapping systemvm appliance'
+Sep 15 04:44:17 systemvm cloud-early-config[1149]: + log_action_msg_pre 'Bootstrapping systemvm appliance'
+Sep 15 04:44:17 systemvm cloud-early-config[1149]: + :
+Sep 15 04:44:17 systemvm cloud-early-config[1149]: + echo 'Bootstrapping systemvm appliance.'
+Sep 15 04:44:17 systemvm cloud-early-config[1149]: Bootstrapping systemvm appliance.
+Sep 15 04:44:17 systemvm cloud-early-config[1149]: + log_action_msg_post 'Bootstrapping systemvm appliance'
+Sep 15 04:44:17 systemvm cloud-early-config[1149]: + :
+Sep 15 04:44:17 systemvm cloud-early-config[1158]: ++ grep -Po 'type=\K[a-zA-Z]*' /var/cache/cloud/cmdline
+Sep 15 04:44:17 systemvm cloud-early-config[1158]: grep: /var/cache/cloud/cmdline: No such file or directory
+Sep 15 04:44:17 systemvm cloud-early-config[1149]: + export TYPE=
+Sep 15 04:44:17 systemvm cloud-early-config[1149]: + TYPE=
+Sep 15 04:44:17 systemvm cloud-early-config[1149]: + patch
+Sep 15 04:44:17 systemvm cloud-early-config[1149]: + local PATCH_MOUNT=/var/cache/cloud/
+Sep 15 04:44:17 systemvm cloud-early-config[1149]: + local logfile=/var/log/patchsystemvm.log
+Sep 15 04:44:17 systemvm cloud-early-config[1149]: + '[' '' == consoleproxy ']'
+Sep 15 04:44:17 systemvm cloud-early-config[1149]: + '[' '' == secstorage ']'
+Sep 15 04:44:17 systemvm cloud-early-config[1149]: + rm -f /var/cache/cloud/patch.required
+Sep 15 04:44:17 systemvm cloud-early-config[1149]: + chmod -x /etc/systemd/system/cloud-early-config.service /etc/systemd/system/cloud-password-server@.service /etc/systemd/system/cloud-postinit.service /etc/systemd/system/cloud-preinit.service /etc/systemd/system/cloud.service
+Sep 15 04:44:17 systemvm cloud-early-config[1149]: + systemctl daemon-reload
+Sep 15 04:44:17 systemvm systemd[1]: Reloading.
+Sep 15 04:44:24 systemvm cloud-early-config[1149]: + return 0
+Sep 15 04:44:24 systemvm cloud-early-config[1149]: + config_sysctl
+Sep 15 04:44:24 systemvm cloud-early-config[1184]: ++ awk '/^Mem:/{print $2}'
+Sep 15 04:44:24 systemvm cloud-early-config[1183]: ++ free
+Sep 15 04:44:24 systemvm cloud-early-config[1149]: + physmem=2045344
+Sep 15 04:44:24 systemvm cloud-early-config[1149]: + '[' 2045344 -lt 409600 ']'
+Sep 15 04:44:24 systemvm cloud-early-config[1149]: + sed -i '/^vm.vfs_cache_pressure/ c\vm.vfs_cache_pressure = 100' /etc/sysctl.conf
+Sep 15 04:44:24 systemvm cloud-early-config[1149]: + sync
+Sep 15 04:44:24 systemvm cloud-early-config[1149]: + sysctl -p
+Sep 15 04:44:24 systemvm cloud-early-config[1187]: net.ipv4.ip_forward = 1
+Sep 15 04:44:24 systemvm cloud-early-config[1187]: net.ipv4.conf.default.rp_filter = 0
+Sep 15 04:44:24 systemvm cloud-early-config[1187]: net.ipv4.conf.default.accept_source_route = 0
+Sep 15 04:44:24 systemvm cloud-early-config[1187]: net.ipv4.conf.default.arp_announce = 2
+Sep 15 04:44:24 systemvm cloud-early-config[1187]: net.ipv4.conf.default.arp_ignore = 2
+Sep 15 04:44:24 systemvm cloud-early-config[1187]: net.ipv4.conf.all.arp_announce = 2
+Sep 15 04:44:24 systemvm cloud-early-config[1187]: net.ipv4.conf.all.arp_ignore = 2
+Sep 15 04:44:24 systemvm cloud-early-config[1187]: net.ipv4.conf.all.accept_redirects = 0
+Sep 15 04:44:24 systemvm cloud-early-config[1187]: net.ipv4.conf.default.accept_redirects = 0
+Sep 15 04:44:24 systemvm cloud-early-config[1187]: net.ipv4.conf.all.send_redirects = 0
+Sep 15 04:44:24 systemvm cloud-early-config[1187]: net.ipv4.conf.default.send_redirects = 0
+Sep 15 04:44:24 systemvm cloud-early-config[1187]: net.ipv4.conf.all.secure_redirects = 0
+Sep 15 04:44:24 systemvm cloud-early-config[1187]: net.ipv4.conf.default.secure_redirects = 0
+Sep 15 04:44:24 systemvm cloud-early-config[1187]: net.ipv4.conf.all.promote_secondaries = 1
+Sep 15 04:44:24 systemvm cloud-early-config[1187]: net.ipv4.conf.default.promote_secondaries = 1
+Sep 15 04:44:24 systemvm cloud-early-config[1187]: net.ipv4.ip_nonlocal_bind = 1
+Sep 15 04:44:24 systemvm cloud-early-config[1187]: kernel.sysrq = 0
+Sep 15 04:44:24 systemvm cloud-early-config[1187]: kernel.core_uses_pid = 1
+Sep 15 04:44:24 systemvm cloud-early-config[1187]: kernel.panic = 10
+Sep 15 04:44:24 systemvm cloud-early-config[1187]: kernel.panic_on_oops = 1
+Sep 15 04:44:24 systemvm cloud-early-config[1187]: vm.panic_on_oom = 1
+Sep 15 04:44:24 systemvm cloud-early-config[1187]: net.ipv4.tcp_syncookies = 1
+Sep 15 04:44:24 systemvm cloud-early-config[1187]: net.ipv4.tcp_timestamps = 0
+Sep 15 04:44:24 systemvm cloud-early-config[1187]: net.ipv4.tcp_tw_reuse = 1
+Sep 15 04:44:24 systemvm cloud-early-config[1187]: net.ipv4.tcp_max_tw_buckets = 1000000
+Sep 15 04:44:24 systemvm cloud-early-config[1187]: net.core.somaxconn = 65535
+Sep 15 04:44:24 systemvm cloud-early-config[1187]: net.nf_conntrack_max = 1000000
+Sep 15 04:44:24 systemvm cloud-early-config[1187]: net.netfilter.nf_conntrack_max = 1000000
+Sep 15 04:44:24 systemvm cloud-early-config[1187]: net.ipv6.conf.all.disable_ipv6 = 1
+Sep 15 04:44:24 systemvm cloud-early-config[1187]: net.ipv6.conf.all.forwarding = 0
+Sep 15 04:44:24 systemvm cloud-early-config[1187]: net.ipv6.conf.all.accept_ra = 0
+Sep 15 04:44:24 systemvm cloud-early-config[1187]: net.ipv6.conf.all.accept_redirects = 0
+Sep 15 04:44:24 systemvm cloud-early-config[1187]: net.ipv6.conf.all.autoconf = 0
+Sep 15 04:44:24 systemvm cloud-early-config[1187]: vm.swappiness = 1
+Sep 15 04:44:24 systemvm cloud-early-config[1187]: vm.vfs_cache_pressure = 100
+Sep 15 04:44:24 systemvm cloud-early-config[1187]: vm.min_free_kbytes = 20480
+Sep 15 04:44:24 systemvm cloud-early-config[1149]: + log_it 'Configuring systemvm type='
+Sep 15 04:44:24 systemvm cloud-early-config[1188]: ++ date
+Sep 15 04:44:24 systemvm cloud-early-config[1149]: + echo 'Sun Sep 15 04:44:24 AM EDT 2024 Configuring systemvm type='
+Sep 15 04:44:24 systemvm cloud-early-config[1149]: + log_action_msg 'Configuring systemvm type='
+Sep 15 04:44:24 systemvm cloud-early-config[1149]: + log_action_msg_pre 'Configuring systemvm type='
+Sep 15 04:44:24 systemvm cloud-early-config[1149]: + :
+Sep 15 04:44:24 systemvm cloud-early-config[1149]: + echo 'Configuring systemvm type=.'
+Sep 15 04:44:24 systemvm cloud-early-config[1149]: Configuring systemvm type=.
+Sep 15 04:44:24 systemvm cloud-early-config[1149]: + log_action_msg_post 'Configuring systemvm type='
+Sep 15 04:44:24 systemvm cloud-early-config[1149]: + :
+Sep 15 04:44:24 systemvm cloud-early-config[1149]: + '[' -f /opt/cloud/bin/setup/.sh ']'
+Sep 15 04:44:24 systemvm cloud-early-config[1149]: + /opt/cloud/bin/setup/default.sh
+Sep 15 04:44:24 systemvm cloud-early-config[1189]: ++ PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+Sep 15 04:44:24 systemvm cloud-early-config[1189]: ++ . /lib/lsb/init-functions
+Sep 15 04:44:24 systemvm cloud-early-config[1190]: ++++ run-parts --lsbsysinit --list /lib/lsb/init-functions.d
+Sep 15 04:44:24 systemvm cloud-early-config[1189]: +++ for hook in $(run-parts --lsbsysinit --list /lib/lsb/init-functions.d 2> /dev/null)
+Sep 15 04:44:24 systemvm cloud-early-config[1189]: +++ '[' -r /lib/lsb/init-functions.d/00-verbose ']'
+Sep 15 04:44:24 systemvm cloud-early-config[1189]: +++ . /lib/lsb/init-functions.d/00-verbose
+Sep 15 04:44:24 systemvm cloud-early-config[1189]: +++ for hook in $(run-parts --lsbsysinit --list /lib/lsb/init-functions.d 2> /dev/null)
+Sep 15 04:44:24 systemvm cloud-early-config[1189]: +++ '[' -r /lib/lsb/init-functions.d/40-systemd ']'
+Sep 15 04:44:24 systemvm cloud-early-config[1189]: +++ . /lib/lsb/init-functions.d/40-systemd
+Sep 15 04:44:24 systemvm cloud-early-config[1189]: ++++ _use_systemctl=0
+Sep 15 04:44:24 systemvm cloud-early-config[1189]: ++++ '[' -d /run/systemd/system ']'
+Sep 15 04:44:24 systemvm cloud-early-config[1189]: ++++ '[' -n '' ']'
+Sep 15 04:44:24 systemvm cloud-early-config[1189]: ++++ '[' default.sh = init-d-script ']'
+Sep 15 04:44:24 systemvm cloud-early-config[1189]: ++++ '[' default.sh = '' ']'
+Sep 15 04:44:24 systemvm cloud-early-config[1189]: ++++ executable=/opt/cloud/bin/setup/default.sh
+Sep 15 04:44:24 systemvm cloud-early-config[1189]: ++++ argument=
+Sep 15 04:44:24 systemvm cloud-early-config[1189]: ++++ prog=default.sh
+Sep 15 04:44:24 systemvm cloud-early-config[1189]: ++++ service=default.service
+Sep 15 04:44:24 systemvm cloud-early-config[1192]: +++++ systemctl -p LoadState --value show default.service
+Sep 15 04:44:24 systemvm cloud-early-config[1189]: ++++ state=not-found
+Sep 15 04:44:24 systemvm cloud-early-config[1189]: ++++ '[' not-found = masked ']'
+Sep 15 04:44:24 systemvm cloud-early-config[1189]: ++++ '[' 1149 -ne 1 ']'
+Sep 15 04:44:24 systemvm cloud-early-config[1189]: ++++ '[' -z '' ']'
+Sep 15 04:44:24 systemvm cloud-early-config[1189]: ++++ case $(readlink -f "$executable") in
+Sep 15 04:44:24 systemvm cloud-early-config[1194]: +++++ readlink -f /opt/cloud/bin/setup/default.sh
+Sep 15 04:44:24 systemvm cloud-early-config[1189]: ++++ '[' 0 = 1 ']'
+Sep 15 04:44:24 systemvm cloud-early-config[1189]: +++ FANCYTTY=
+Sep 15 04:44:24 systemvm cloud-early-config[1189]: +++ '[' -e /etc/lsb-base-logging.sh ']'
+Sep 15 04:44:24 systemvm cloud-early-config[1189]: +++ true
+Sep 15 04:44:24 systemvm cloud-early-config[1189]: ++ parse_cmd_line
+Sep 15 04:44:24 systemvm cloud-early-config[1195]: +++ cat /var/cache/cloud/cmdline
+Sep 15 04:44:24 systemvm cloud-early-config[1195]: cat: /var/cache/cloud/cmdline: No such file or directory
+Sep 15 04:44:24 systemvm cloud-early-config[1189]: ++ CMDLINE=
+Sep 15 04:44:24 systemvm cloud-early-config[1189]: ++ TYPE=unknown
+Sep 15 04:44:24 systemvm cloud-early-config[1189]: ++ BOOTPROTO=static
+Sep 15 04:44:24 systemvm cloud-early-config[1189]: ++ DISABLE_RP_FILTER=false
+Sep 15 04:44:24 systemvm cloud-early-config[1189]: ++ STORAGE_IP=
+Sep 15 04:44:24 systemvm cloud-early-config[1189]: ++ STORAGE_NETMASK=
+Sep 15 04:44:24 systemvm cloud-early-config[1189]: ++ STORAGE_CIDR=
+Sep 15 04:44:24 systemvm cloud-early-config[1189]: ++ VM_PASSWORD=
+Sep 15 04:44:24 systemvm cloud-early-config[1189]: ++ CHEF_TMP_FILE=/tmp/cmdline.json
+Sep 15 04:44:24 systemvm cloud-early-config[1189]: ++ COMMA='\t'
+Sep 15 04:44:24 systemvm cloud-early-config[1189]: ++ echo -e '{\n"type": "cmdline",'
+Sep 15 04:44:24 systemvm cloud-early-config[1189]: ++ echo -e '"cmd_line": {'
+Sep 15 04:44:24 systemvm cloud-early-config[1189]: ++ echo -e '\n\t}\n}'
+Sep 15 04:44:24 systemvm cloud-early-config[1189]: ++ '[' unknown '!=' unknown ']'
+Sep 15 04:44:24 systemvm cloud-early-config[1189]: ++ TMP_KEY_PATH=/tmp/.auth_key
+Sep 15 04:44:24 systemvm cloud-early-config[1189]: ++ AUTHORIZED_KEYS_PATH=/root/.ssh/authorized_keys
+Sep 15 04:44:24 systemvm cloud-early-config[1189]: ++ '[' '!' -z '' ']'
+Sep 15 04:44:24 systemvm cloud-early-config[1189]: ++ '[' ']'
+Sep 15 04:44:24 systemvm cloud-early-config[1189]: ++ '[' ']'
+Sep 15 04:44:24 systemvm cloud-early-config[1189]: ++ '[' ']'
+Sep 15 04:44:24 systemvm cloud-early-config[1197]: ++ chpasswd
+Sep 15 04:44:24 systemvm cloud-early-config[1198]: +++ openssl rand -base64 32
+Sep 15 04:44:24 systemvm cloud-early-config[1196]: ++ echo cloud:KSDgpqk/8yD2T8HSlS+v2VZ+/qPpqTaXISwIj10gkL4=
+Sep 15 04:44:24 systemvm chpasswd[1197]: pam_unix(chpasswd:chauthtok): user "cloud" does not exist in /etc/passwd
+Sep 15 04:44:24 systemvm cloud-early-config[1197]: chpasswd: (user cloud) pam_chauthtok() failed, error:
+Sep 15 04:44:24 systemvm cloud-early-config[1197]: Authentication token manipulation error
+Sep 15 04:44:24 systemvm cloud-early-config[1197]: chpasswd: (line 1, user cloud) password not changed
+Sep 15 04:44:24 systemvm cloud-early-config[1189]: ++ '[' x '!=' x ']'
+Sep 15 04:44:24 systemvm cloud-early-config[1189]: + setup_default
+Sep 15 04:44:24 systemvm cloud-early-config[1189]: + cat
+Sep 15 04:44:24 systemvm cloud-early-config[1189]: + cp -f /etc/iptables/rt_tables_init /etc/iproute2/rt_tables
+Sep 15 04:44:24 systemvm cloud-early-config[1149]: + log_it 'Finished setting up systemvm'
+Sep 15 04:44:24 systemvm cloud-early-config[1201]: ++ date
+Sep 15 04:44:24 systemvm cloud-early-config[1149]: + echo 'Sun Sep 15 04:44:24 AM EDT 2024 Finished setting up systemvm'
+Sep 15 04:44:24 systemvm cloud-early-config[1149]: + log_action_msg 'Finished setting up systemvm'
+Sep 15 04:44:24 systemvm cloud-early-config[1149]: + log_action_msg_pre 'Finished setting up systemvm'
+Sep 15 04:44:24 systemvm cloud-early-config[1149]: + :
+Sep 15 04:44:24 systemvm cloud-early-config[1149]: + echo 'Finished setting up systemvm.'
+Sep 15 04:44:24 systemvm cloud-early-config[1149]: Finished setting up systemvm.
+Sep 15 04:44:24 systemvm cloud-early-config[1149]: + log_action_msg_post 'Finished setting up systemvm'
+Sep 15 04:44:24 systemvm cloud-early-config[1149]: + :
+Sep 15 04:44:24 systemvm cloud-early-config[1149]: + exit 0
+Sep 15 04:44:24 systemvm cloud-early-config[620]: + cleanup
+Sep 15 04:44:24 systemvm cloud-early-config[620]: + rm -rf /var/cache/cloud/agent.zip
+Sep 15 04:44:24 systemvm cloud-early-config[620]: + mv /var/cache/cloud/cloud-scripts.tgz /usr/share/cloud/cloud-scripts.tgz
+Sep 15 04:44:25 systemvm cloud-early-config[1203]: mv: cannot stat '/var/cache/cloud/cloud-scripts.tgz': No such file or directory
+Sep 15 04:44:25 systemvm cloud-early-config[620]: + log_it 'Finished setting up systemvm'
+Sep 15 04:44:25 systemvm cloud-early-config[1204]: ++ date
+Sep 15 04:44:25 systemvm cloud-early-config[620]: + echo 'Sun Sep 15 04:44:25 AM EDT 2024 Finished setting up systemvm'
+Sep 15 04:44:25 systemvm cloud-early-config[620]: + log_action_msg 'Finished setting up systemvm'
+Sep 15 04:44:25 systemvm cloud-early-config[620]: + log_action_msg_pre 'Finished setting up systemvm'
+Sep 15 04:44:25 systemvm cloud-early-config[620]: + :
+Sep 15 04:44:25 systemvm cloud-early-config[620]: + echo 'Finished setting up systemvm.'
+Sep 15 04:44:25 systemvm cloud-early-config[620]: Finished setting up systemvm.
+Sep 15 04:44:25 systemvm cloud-early-config[620]: + log_action_msg_post 'Finished setting up systemvm'
+Sep 15 04:44:25 systemvm cloud-early-config[620]: + :
+Sep 15 04:44:25 systemvm cloud-early-config[620]: + exit 0
+Sep 15 04:44:25 systemvm systemd[1]: Finished cloud-early-config.service - CloudStack post-boot patching service using cmdline.
+Sep 15 04:44:25 systemvm systemd[1]: Starting cloud-postinit.service - CloudStack post-patching init script...
+Sep 15 04:44:25 systemvm systemd-journald[546]: Journal stopped
+Sep 15 04:44:26 systemvm systemd-journald[546]: Received SIGTERM from PID 1 (systemd).
+Sep 15 04:44:26 systemvm systemd[1]: Stopping systemd-journald.service - Journal Service...
+Sep 15 04:44:26 systemvm systemd[1]: systemd-journald.service: Deactivated successfully.
+Sep 15 04:44:26 systemvm systemd[1]: Stopped systemd-journald.service - Journal Service.
+Sep 15 04:44:26 systemvm systemd[1]: systemd-journald.service: Consumed 4.632s CPU time.
+Sep 15 04:44:26 systemvm systemd[1]: Starting systemd-journald.service - Journal Service...
+Sep 15 04:44:26 systemvm systemd-journald[1208]: Journal started
+Sep 15 04:44:26 systemvm systemd-journald[1208]: System Journal (/var/log/journal/fc72c60a73fb402b85ee860c04e1b2c7) is 39.9M, max 40.0M, 12.0K free.
+Sep 15 04:44:26 systemvm systemd[1]: Started systemd-journald.service - Journal Service.
+Sep 15 04:44:26 systemvm postinit.sh[1211]: grep: /var/cache/cloud/cmdline: No such file or directory
+Sep 15 04:44:26 systemvm systemd[1]: Finished cloud-postinit.service - CloudStack post-patching init script.
+Sep 15 04:44:26 systemvm systemd[1]: Reached target multi-user.target - Multi-User System.
+Sep 15 04:44:26 systemvm systemd[1]: Reached target graphical.target - Graphical Interface.
+Sep 15 04:44:26 systemvm systemd[1]: Starting cloud-final.service - Execute cloud user/final scripts...
+Sep 15 04:44:26 systemvm systemd[1]: Starting systemd-update-utmp-runlevel.service - Record Runlevel Change in UTMP...
+Sep 15 04:44:26 systemvm systemd[1]: systemd-update-utmp-runlevel.service: Deactivated successfully.
+Sep 15 04:44:26 systemvm systemd[1]: Finished systemd-update-utmp-runlevel.service - Record Runlevel Change in UTMP.
+Sep 15 04:44:27 systemvm systemd[1]: Starting networking.service - Raise network interfaces...
+Sep 15 04:44:28 systemvm dhclient[1232]: Internet Systems Consortium DHCP Client 4.4.3-P1
+Sep 15 04:44:28 systemvm ifup[1232]: Internet Systems Consortium DHCP Client 4.4.3-P1
+Sep 15 04:44:28 systemvm ifup[1232]: Copyright 2004-2022 Internet Systems Consortium.
+Sep 15 04:44:28 systemvm ifup[1232]: All rights reserved.
+Sep 15 04:44:28 systemvm ifup[1232]: For info, please visit https://www.isc.org/software/dhcp/
+Sep 15 04:44:28 systemvm dhclient[1232]: Copyright 2004-2022 Internet Systems Consortium.
+Sep 15 04:44:28 systemvm dhclient[1232]: All rights reserved.
+Sep 15 04:44:28 systemvm dhclient[1232]: For info, please visit https://www.isc.org/software/dhcp/
+Sep 15 04:44:28 systemvm dhclient[1232]: 
+Sep 15 04:44:28 systemvm charon[840]: 05[KNL] interface eth0 activated
+Sep 15 04:44:28 systemvm dhclient[1232]: Listening on LPF/eth0/52:54:00:4c:78:e4
+Sep 15 04:44:28 systemvm dhclient[1232]: Sending on   LPF/eth0/52:54:00:4c:78:e4
+Sep 15 04:44:28 systemvm ifup[1232]: Listening on LPF/eth0/52:54:00:4c:78:e4
+Sep 15 04:44:28 systemvm ifup[1232]: Sending on   LPF/eth0/52:54:00:4c:78:e4
+Sep 15 04:44:28 systemvm dhclient[1232]: Sending on   Socket/fallback
+Sep 15 04:44:28 systemvm ifup[1232]: Sending on   Socket/fallback
+Sep 15 04:44:28 systemvm ifup[1232]: DHCPDISCOVER on eth0 to 255.255.255.255 port 67 interval 5
+Sep 15 04:44:28 systemvm dhclient[1232]: DHCPDISCOVER on eth0 to 255.255.255.255 port 67 interval 5
+Sep 15 04:44:28 systemvm dhclient[1232]: DHCPOFFER of 192.168.124.18 from 192.168.124.1
+Sep 15 04:44:28 systemvm ifup[1232]: DHCPOFFER of 192.168.124.18 from 192.168.124.1
+Sep 15 04:44:28 systemvm ifup[1232]: DHCPREQUEST for 192.168.124.18 on eth0 to 255.255.255.255 port 67
+Sep 15 04:44:28 systemvm dhclient[1232]: DHCPREQUEST for 192.168.124.18 on eth0 to 255.255.255.255 port 67
+Sep 15 04:44:28 systemvm dhclient[1232]: DHCPACK of 192.168.124.18 from 192.168.124.1
+Sep 15 04:44:28 systemvm ifup[1232]: DHCPACK of 192.168.124.18 from 192.168.124.1
+Sep 15 04:44:28 systemvm charon[840]: 13[KNL] 192.168.124.18 appeared on eth0
+Sep 15 04:44:28 systemvm charon[840]: 03[NET] using forecast interface eth0
+Sep 15 04:44:28 systemvm charon[840]: 03[CFG] joining forecast multicast groups: 224.0.0.1,224.0.0.22,224.0.0.251,224.0.0.252,239.255.255.250
+Sep 15 04:44:28 systemvm dnsmasq[827]: reading /etc/resolv.conf
+Sep 15 04:44:28 systemvm dnsmasq[827]: using nameserver 192.168.124.1#53
+Sep 15 04:44:28 systemvm dhclient[1232]: bound to 192.168.124.18 -- renewal in 1426 seconds.
+Sep 15 04:44:28 systemvm ifup[1232]: bound to 192.168.124.18 -- renewal in 1426 seconds.
+Sep 15 04:44:29 systemvm systemd[1]: Finished networking.service - Raise network interfaces.
+Sep 15 04:44:36 systemvm cloud-init[1310]: Cloud-init v. 22.4.2 running 'modules:final' at Sun, 15 Sep 2024 08:44:35 +0000. Up 182.63 seconds.
+Sep 15 04:44:37 systemvm cloud-init[1310]: Cloud-init v. 22.4.2 finished at Sun, 15 Sep 2024 08:44:37 +0000. Datasource DataSourceNone.  Up 185.05 seconds
+Sep 15 04:44:37 systemvm cloud-init[1310]: 2024-09-15 08:44:37,953 - cc_final_message.py[WARNING]: Used fallback datasource
+Sep 15 04:44:39 systemvm systemd[1]: Finished cloud-final.service - Execute cloud user/final scripts.
+Sep 15 04:44:39 systemvm systemd[1]: Reached target cloud-init.target - Cloud-init target.
+Sep 15 04:44:39 systemvm systemd[1]: Startup finished in 1.504s (kernel) + 3min 4.856s (userspace) = 3min 6.360s.
+Sep 15 04:44:46 systemvm systemd-timesyncd[414]: Contacted time server 89.116.246.10:123 (0.debian.pool.ntp.org).
+Sep 15 04:44:46 systemvm systemd-timesyncd[414]: Initial clock synchronization to Sun 2024-09-15 04:44:46.980317 EDT.
+Sep 15 04:45:01 systemvm CRON[1311]: pam_unix(cron:session): session opened for user root(uid=0) by (uid=0)
+Sep 15 04:45:01 systemvm CRON[1312]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+Sep 15 04:45:01 systemvm CRON[1311]: pam_unix(cron:session): session closed for user root
+Sep 15 04:50:05 systemvm systemd[1]: Starting sysstat-collect.service - system activity accounting tool...
+Sep 15 04:50:05 systemvm systemd[1]: sysstat-collect.service: Deactivated successfully.
+Sep 15 04:50:05 systemvm systemd[1]: Finished sysstat-collect.service - system activity accounting tool.
+Sep 15 04:55:01 systemvm CRON[1325]: pam_unix(cron:session): session opened for user root(uid=0) by (uid=0)
+Sep 15 04:55:01 systemvm CRON[1326]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+Sep 15 04:55:02 systemvm CRON[1325]: pam_unix(cron:session): session closed for user root
+Sep 15 04:56:36 systemvm systemd[1]: Starting systemd-tmpfiles-clean.service - Cleanup of Temporary Directories...
+Sep 15 04:56:37 systemvm systemd[1]: systemd-tmpfiles-clean.service: Deactivated successfully.
+Sep 15 04:56:37 systemvm systemd[1]: Finished systemd-tmpfiles-clean.service - Cleanup of Temporary Directories.
+Sep 15 04:56:37 systemvm systemd[1]: run-credentials-systemd\x2dtmpfiles\x2dclean.service.mount: Deactivated successfully.
+Sep 15 05:00:05 systemvm systemd[1]: Starting sysstat-collect.service - system activity accounting tool...
+Sep 15 05:00:05 systemvm systemd[1]: sysstat-collect.service: Deactivated successfully.
+Sep 15 05:00:05 systemvm systemd[1]: Finished sysstat-collect.service - system activity accounting tool.
+Sep 15 05:05:01 systemvm CRON[1357]: pam_unix(cron:session): session opened for user root(uid=0) by (uid=0)
+Sep 15 05:05:01 systemvm CRON[1358]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+Sep 15 05:05:01 systemvm CRON[1357]: pam_unix(cron:session): session closed for user root
