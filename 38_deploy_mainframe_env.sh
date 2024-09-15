@@ -9,6 +9,7 @@ main() {
     init_vars "logon" "deploy_basic_cs_env"
     start_logging
     delete_everything
+    sleep 2
     create_zone "dlinux_zone" # Creates global $ZONE_ID
     create_physical_network "$ZONE_ID"
     add_traffic_type "$PHY_ID" "Guest" 
