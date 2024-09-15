@@ -59,7 +59,7 @@ register_template() {
     SVM_PATH=${REPO_PATH}$(basename $FILE_PATH)
     logMessage "SVM PATH: $SVM_PATH"
     # do_cmd "$SCRIPT_PATH -m /data/mainframe_secondary -u ${SVM_PATH}.bz2 -h kvm -F"
-    do_cmd "$SCRIPT_PATH -m /data/mainframe_secondary -u ${SVM_PATH}?date=$(date +%Y%m%d)&version=1 -h kvm -F"
+    do_cmd "$SCRIPT_PATH -m /data/mainframe_secondary -u ${SVM_PATH}?date=$(date +%Y%m%d)\&version=1 -h kvm -F"
     do_cmd "systemctl restart cloudstack-management"
     logMessage "End register template"
 }
