@@ -173,7 +173,7 @@ $(cat $rule_file)
 EOF
 }
 # Define the AppArmor profile path
-local profile="/etc/apparmor.d/sbin.dhclient"
+profile="/etc/apparmor.d/sbin.dhclient"
 # Check if the rule is already present
 apparmor_parser -r "$profile"
 
@@ -230,6 +230,23 @@ if [ "$need_to_reboot" -eq 1 ]; then
                 echo "Error: $nerr MAC addresses found" >> /root/ch_dev_names.log2
             fi
         fi
+    fi
+else  # no need to reboot
+    echo "no need to reboot but checking if eth0 have an ip address"
+    if ip addr show dev eth0 | grep -q "inet "; then
+        echo "eth0 has an IP address"
+        else
+        echo "eth0 does not have an IP address, doing something..."
+            cat << EOF > /etc/network/interfaces
+auto lo
+iface lo inet loopback
+# The primary network interface
+auto eth0
+iface eth0 inet dhcp
+dns-nameservers 8.8.8.8 8.8.4.4
+EOF
+        # do something here, e.g. assign a static IP address
+        systemctl restart networking
     fi
 fi
 
