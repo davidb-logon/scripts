@@ -5,11 +5,24 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Python Debugger: Current File",
-            "type": "debugpy",
-            "request": "launch",
-            "program": "${file}",
-            "console": "integratedTerminal"
+            "type": "java",
+            "name": "cloudstack mgmt",
+            "request": "attach",
+            "hostName": "192.168.122.1", // Change this to the remote host if needed
+            "port": 8000, // Ensure this matches the port specified in the JVM options
+            "projectName": "org.apache.cloudstack.ServerDaemon", // Optional: Specify your project name if required
+            "timeout": 10000 // Optional: Specify a timeout value if needed
+        },
+        {
+            "type": "java",
+            "name": "cloudstack agent",
+            "request": "attach",
+            "hostName": "192.168.122.1", // Change this to the remote host if needed
+            "port": 8001, // Ensure this matches the port specified in the JVM options
+            "timeout": 100000, // Optional: Specify a timeout value if needed
+            "sourcePaths": [
+                "${workspaceFolder}/../libvirt-java/src/main/java"
+            ]
         }
     ]
 }

@@ -169,6 +169,9 @@ create_zone() {
 
 create_physical_network() {
   local zone_id=$1
+  # Check if the zone has already a physical network, if yes, assign PHY_ID to the physical network id.
+  # Else create the network for this zone.
+  
   do_cmd 'result=$(cmk create physicalnetwork name=phy-network zoneid='$zone_id')' "Network created." "Network creation failed."
   PHY_ID=$(echo $result | jq -r '.physicalnetwork.id')
   logMessage "--- Physical Network: $PHY_ID created."

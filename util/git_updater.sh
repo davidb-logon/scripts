@@ -8,3 +8,8 @@ pwd
 sudo git fetch
 sudo git pull
 git status
+cd /data/libvirt-java
+pwd
+sudo git fetch
+sudo git pull
+git status
