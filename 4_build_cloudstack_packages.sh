@@ -27,8 +27,12 @@ script_ended_ok=true
 init_vars() {
     init_utils_vars $1 $2
     # Input
-    CLOUDSTACK_DIR="$HOME/logon/cloudstack"
-    /home/davidb/logon/work
+    if [ $(uname -m) == "x86_64" ]; then
+        CLOUDSTACK_DIR="$HOME/logon/cloudstack"
+    else
+        CLOUDSTACK_DIR="/data/cloudstack" # For s390x @ dallas
+    fi
+    #/home/davidb/logon/work
 
     PACKAGING_DIR="${CLOUDSTACK_DIR}/packaging" # Where the build-deb.sh script resides
 
