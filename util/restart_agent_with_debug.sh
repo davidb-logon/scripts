@@ -33,4 +33,5 @@ init_vars() {
     init_utils_vars $1 $2
 }
 
+# main
 main "$@"
