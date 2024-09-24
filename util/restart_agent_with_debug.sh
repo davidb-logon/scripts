@@ -20,8 +20,8 @@ main() {
     sed -i 's/value="INFO"/value="DEBUG"/g' /etc/cloudstack/agent/log4j-cloud.xml
 
     do_cmd "systemctl stop cloudstack-agent"
-    do_cmd "truncate --size=0 /var/log/cloudstack/agent/agent.log
-    do_cmd "systemctl start cloudstack-agent
+    do_cmd "truncate --size=0 /var/log/cloudstack/agent/agent.log"
+    do_cmd "systemctl start cloudstack-agent"
 
     end_time=$(date +%s)
     elapsed_time=$((end_time - start_time))
