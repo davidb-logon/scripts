@@ -12,11 +12,11 @@ update_vm_state() {
   fi
 }
 
-# Fetch VM names and states from the database, each separated by a newline
+# Fetch VM names and states from the database, store in a temporary file
 vm_name_and_state=$(mysql -D cloud -se "SELECT name, state FROM vm_instance;")
 
-# Process each line by reading the VM name and state
-echo "$vm_name_and_state" | while read -r vm_name vm_state; do
+# Process each line from the MySQL result
+while read -r vm_name vm_state; do
   # Display the current VM name and state
   echo "VM: $vm_name is currently in state: $vm_state."
 
@@ -29,6 +29,6 @@ echo "$vm_name_and_state" | while read -r vm_name vm_state; do
   else
     echo "Skipped updating $vm_name."
   fi
-done
+done <<< "$vm_name_and_state"
 
 echo "Script completed."
