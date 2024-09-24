@@ -1,4 +1,6 @@
-To install or reinstall cloudstack server, reinitialize the database and install a new systemvm template, run 9_9_install_cloudstack_server.sh
+CS scripts Manuel
+1. To install or reinstall cloudstack server, reinitialize the database and install a new systemvm template, run 9_9_install_cloudstack_server.sh
+2. resetting 
 
 
 2024/09/02 - tomorrow we will create a cfg file for cloud-init to prepare the corect interfaces for the network in our systemvm
