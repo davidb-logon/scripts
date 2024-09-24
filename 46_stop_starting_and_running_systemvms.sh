@@ -2,7 +2,7 @@
 
 # Function to update VM state in the database
 update_vm_state() {
-  local vm_name=$1
+  local vm_name="$1"
   echo "Updating state of VM: $vm_name to Stopped..."
   mysql -D cloud -se "UPDATE vm_instance SET state='Stopped' WHERE name='$vm_name';"
   if [ $? -eq 0 ]; then
@@ -12,19 +12,15 @@ update_vm_state() {
   fi
 }
 
-# Fetch VM names and states from the database
+# Fetch VM names and states from the database, each separated by a newline
 vm_name_and_state=$(mysql -D cloud -se "SELECT name, state FROM vm_instance;")
 
-# Convert the result into an array by splitting on spaces
-IFS=' ' read -r -a vm_array <<< "$vm_name_and_state"
-
-# Loop through the array and display the VM name and state
-for ((i=0; i<${#vm_array[@]}; i+=2)); do
-  vm_name=${vm_array[i]}
-  vm_state=${vm_array[i+1]}
+# Process each line by reading the VM name and state
+echo "$vm_name_and_state" | while read -r vm_name vm_state; do
+  # Display the current VM name and state
+  echo "VM: $vm_name is currently in state: $vm_state."
 
   # Ask user for confirmation to update the state
-  echo "VM: $vm_name is currently in state: $vm_state."
   read -p "Do you want to update the state of $vm_name to 'Stopped'? (y/n): " choice
 
   # If user confirms, update the state
