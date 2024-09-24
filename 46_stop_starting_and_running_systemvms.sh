@@ -21,7 +21,7 @@ while read -r vm_name vm_state; do
   echo "VM: $vm_name is currently in state: $vm_state."
 
   # Ask user for confirmation to update the state
-  read -p "Do you want to update the state of $vm_name to 'Stopped'? (y/n): " choice
+  read -p "Do you want to update the state of $vm_name to Stopped? (y/n): " choice
 
   # If user confirms, update the state
   if [[ $choice == "y" || $choice == "Y" ]]; then
