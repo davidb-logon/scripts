@@ -1,6 +1,15 @@
-CS scripts Manuel
-1. To install or reinstall cloudstack server, reinitialize the database and install a new systemvm template, run 9_9_install_cloudstack_server.sh
-2. resetting 
+CS scripts Manual
+
+To build and install cloudstack server and agent after code changes:
+====================================================================
+1. run gu
+2. execute 4 - compiles all and creates packages, including repo
+3. run yum update to refesh repo metadata
+4. execute 9
+5. run 14 to install agent
+6. start cloudstack server and agent
+6. run 38 to populate database
+
 
 
 2024/09/02 - tomorrow we will create a cfg file for cloud-init to prepare the corect interfaces for the network in our systemvm
@@ -149,7 +158,7 @@ vi /etc/udev/rules.d/70-persistent-net.rules
   135  udevadm trigger
 
 cat /etc/udev/rules.d/70-persistent-net.rules
-SUBSYSTEM=="net", ACTION=="add", DRIVERS=="?*", ATTR{address}=="0e:00:a9:fe:f3:d0", NAME="eth0"  
+SUBSYSTEM=="net", ACTION=="add", DRIVERS=="?*", ATTR{address}=="0e:00:a9:fe:f3:d0", NAME="eth0"
 
 /opt/cloud/bin/setup/init.sh
 /opt/cloud/bin/setup/init.sh >2&1 | tee /root/init.sh.log
@@ -217,7 +226,7 @@ done
 if [ "$need_to_reboot" -eq 1 ]; then
   init_interfaces_orderby_macs $macs
   echo reboot
-fi    
+fi
 
 cat /etc/network/interfaces
 # This file describes the network interfaces available on your system
@@ -312,14 +321,14 @@ Sep 08 04:54:05 systemvm systemd[1]: cloud.service: Failed with result 'exit-cod
 Sep 08 04:54:05 systemvm systemd[1]: cloud.service: Scheduled restart job, restart counter is at 2.
 Sep 08 04:54:05 systemvm systemd[1]: Stopped cloud.service - CloudStack Agent service.
 Sep 08 04:54:05 systemvm systemd[1]: Started cloud.service - CloudStack Agent service.
-Sep 08 04:54:05 systemvm (_run.sh)[1982]: cloud.service: Failed to locate executable /usr/local/cloud/systemvm/_run.sh: No such file or directory 
+Sep 08 04:54:05 systemvm (_run.sh)[1982]: cloud.service: Failed to locate executable /usr/local/cloud/systemvm/_run.sh: No such file or directory
 Sep 08 04:54:05 systemvm (_run.sh)[1982]: cloud.service: Failed at step EXEC spawning /usr/local/cloud/systemvm/_run.sh: No such file or directory
 Sep 08 04:54:05 systemvm systemd[1]: cloud.service: Main process exited, code=exited, status=203/EXEC
 Sep 08 04:54:05 systemvm systemd[1]: cloud.service: Failed with result 'exit-code'.
 Sep 08 04:54:05 systemvm systemd[1]: cloud.service: Scheduled restart job, restart counter is at 3.
 Sep 08 04:54:05 systemvm systemd[1]: Stopped cloud.service - CloudStack Agent service.
 Sep 08 04:54:05 systemvm systemd[1]: Started cloud.service - CloudStack Agent service.
-Sep 08 04:54:05 systemvm (_run.sh)[1984]: cloud.service: Failed to locate executable /usr/local/cloud/systemvm/_run.sh: No such file or directory 
+Sep 08 04:54:05 systemvm (_run.sh)[1984]: cloud.service: Failed to locate executable /usr/local/cloud/systemvm/_run.sh: No such file or directory
 Sep 08 04:54:05 systemvm (_run.sh)[1984]: cloud.service: Failed at step EXEC spawning /usr/local/cloud/systemvm/_run.sh: No such file or directory
 Sep 08 04:54:05 systemvm systemd[1]: cloud.service: Main process exited, code=exited, status=203/EXEC
 Sep 08 04:54:05 systemvm systemd[1]: cloud.service: Failed with result 'exit-code'.
