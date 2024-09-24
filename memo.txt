@@ -355,3 +355,17 @@ Sep 08 04:54:06 systemvm systemd[1]: Stopped cloud.service - CloudStack Agent se
 /etc/systemd/journald.conf is marked executable. Please remove executable permission bits
 0e:00:a9:fe:18:75
 0e:00:a9:fe:5e:48
+
+
+
+#vscode 
+  theme: Dark Modern
+
+  used extentions: 
+  codeium : for AI 
+  python : by microsoft 
+
+
+
+  -->>To set Git Bash as the default terminal for VS Code:
+      Go to the search bar at the top of the settings window and search for terminal integrated default profile.
