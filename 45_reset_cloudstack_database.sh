@@ -27,7 +27,7 @@ main() {
     detect_linux_distribution # Sets global variable $LINUX_DISTRIBUTION
     init_vars "logon" "reset_cloudstack_database" "$@"
     start_logging
-    
+
     stop_cs # stop managment and agent
     install_and_configure_mysql_database
     do_cmd "cloudstack-setup-management"
@@ -35,7 +35,7 @@ main() {
     prepare_system_vm_template
     fix_cluster_node_ip_in_db_properties "$LOCAL_IP"
     sleep 10
-    logMessage "--- Restarting CloudStack management server"
+    logMessage "--- Restarting CloudStack management server and agent"
     restart
     script_ended_ok=true
 }
@@ -96,7 +96,7 @@ prepare_os() {
     fi
     HOSTNAME=$(hostname --fqdn)
     confirm "--- hostname: $HOSTNAME, confirm " || exit 1
-    
+
 
     if ! check_if_connected_to_internet; then
         logMessage "--- Not connected to internet"
@@ -106,13 +106,13 @@ prepare_os() {
 
     install_ntp
     install_java.sh
-    
+
 
     logMessage "--- End of preparing OS"
 }
 
 install_ntp() {
-    logMessage "--- Start Installing ntp" 
+    logMessage "--- Start Installing ntp"
     do_cmd "$CMD install chrony" "Installed chrony" "Unable to install chrony"
     do_cmd "systemctl start chronyd" "Started chronyd" "Unable to start chronyd"
     do_cmd "systemctl enable chronyd" "Enabled chronyd" "Unable to enable chronyd"
@@ -154,7 +154,7 @@ install_management_server() {
         # do_cmd "cd /home/davidb/logon/work/rpm"
         # files=("cloudstack-common-4.19.0.0-1.x86_64.rpm" "cloudstack-management-4.19.0.0-1.x86_64.rpm")  # cloudstack-agent-4.19.0.0-1.x86_64.rpm
         # for file in $files:
-        #     if [ ! -f "$file" ]; then 
+        #     if [ ! -f "$file" ]; then
         #         do_cmd "wget http://download.cloudstack.org/el/9/4.19/$file"
         #         do_cmd "rpm -i --ignorearch  --nodeps  $file"
         #     fi
@@ -199,5 +199,5 @@ prepare_system_vm_template() {
     12_install_systemvm_for_kvm.sh
     logMessage "--- End of preparing system VM template"
 }
-  
+
 main "$@"

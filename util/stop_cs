@@ -1,5 +1,42 @@
-if systemctl list-unit-files | grep -q 'cloudstack-agent.service'; then
-    sudo systemctl stop cloudstack-agent.service
-fi
-for vm in $(virsh list --state-running --name); do virsh destroy $vm; done
-sudo systemctl stop cloudstack-management.service
+#!/bin/bash
+#------------------------------------------------------------------------------
+# Licensed Materials (c) Copyright Log-On 2024, All Rights Reserved.
+#------------------------------------------------------------------------------
+# See usage for what this script does.
+
+# Source script libraries as needed.
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
+source "$DIR/lib/common.sh"
+script_ended_ok=false
+trap 'cleanup' EXIT
+
+main() {
+    init_vars "logon" "stop_cloudstack_agent_and_server" "$@"
+    start_logging
+    check_if_root
+    stop_agent
+    stop_management
+}
+
+stop_agent() {
+    logMessage "--- Start stopping cloudstack agent, if service exits"
+    if systemctl list-unit-files | grep -q 'cloudstack-agent.service'; then
+        do_cmd "systemctl stop cloudstack-agent.service"
+    else
+        logMessage "--- cloudstack agent service does not exist"
+    fi
+    logMessage "--- End stopping cloudstack agent"
+}
+
+stop_management() {
+    logMessage "--- Start stopping cloudstack management server"
+    for vm in $(virsh list --state-running --name); do
+        do_cmd "virsh destroy $vm"
+    done
+
+    do_cmd "systemctl stop cloudstack-management.service"
+
+    logMessage "--- End stopping cloudstack management server"
+}
+
+main
