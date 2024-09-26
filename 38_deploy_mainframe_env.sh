@@ -8,6 +8,7 @@ main() {
     usage
     init_vars "logon" "deploy_basic_cs_env"
     start_logging
+    retry_cmk  # wait for cmk to be ready
     delete_everything
     sleep 2
     create_zone "dlinux_zone" # Creates global $ZONE_ID
@@ -33,6 +34,30 @@ main() {
     elapsed_time=$((end_time - start_time))
     logMessage "The script took $elapsed_time seconds to complete."
     script_ended_ok=true
+}
+
+retry_cmk() {
+    local retries=20
+    local count=0
+
+    while [ $count -lt $retries ]; do
+        # Run the command
+        cmk list zones
+        
+        # Check the exit status of the command
+        if [ $? -eq 0 ]; then
+            logMessage "Command succeeded"
+            return 0
+        fi
+        
+        # If it failed, wait for 1 second and retry
+        logMessage "Command failed, retrying in 1 second..."
+        sleep 1
+        count=$((count + 1))
+    done
+
+    logMessage "Command failed after $retries attempts"
+    return 1
 }
 
 add_ssh_key_to_cloudstack() {
