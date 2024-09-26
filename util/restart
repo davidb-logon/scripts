@@ -34,7 +34,7 @@ clear_log_files() {
                /var/log/cloudstack/agent/agent.log
     do
         if [ -f "$logfile" ]; then
-            logMessage "--- Clearing $$logfile"
+            logMessage "--- Clearing $logfile"
             sudo truncate --size 0 $logfile
         fi
     done
