@@ -5,6 +5,31 @@ To install or reinstall cloudstack server, reinitialize the database and install
 
 239.898856] systemd-journald[1747]: Configuration file /etc/systemd/journald.conf is marked executable. Please remove executable permission bits. Proceeding anyway.
 
+cat /etc/cloudstack/agent/agent.properties
+#Storage
+#Mon Sep 23 05:48:52 CDT 2024
+cluster=1
+pod=1
+resource=com.cloud.hypervisor.kvm.resource.LibvirtComputingResource
+private.network.device=cloudbr0
+domr.scripts.dir=scripts/network/domr/kvm
+guest.network.device=cloudbr0
+keystore.passphrase=7Q4sq6zS5HHtzthD
+hypervisor.type=kvm
+port=8250
+zone=1
+public.network.device=cloudbr0
+local.storage.uuid=1547a6bb-1093-4666-bf90-d2cf0f7cebbc
+host=192.168.122.1@static
+guid=4af2c148-8ae5-3171-92b8-05e9d2f39de0
+LibvirtComputingResource.id=1
+workers=5
+iscsi.session.cleanup.enabled=false
+vm.migrate.wait=3600
+
+
+
+
 
 create_ch_dev_names_service() {
     # Create the systemd service file
@@ -344,3 +369,27 @@ Sep 08 04:54:06 systemvm systemd[1]: Stopped cloud.service - CloudStack Agent se
 /etc/systemd/journald.conf is marked executable. Please remove executable permission bits
 0e:00:a9:fe:18:75
 0e:00:a9:fe:5e:48
+
+#debug in vscode launch.json
+{
+            "type": "java",
+            "name": "cloudstack mgmt",
+            "request": "attach",
+            "hostName": "192.168.122.1", // Change this to the remote host if needed
+            "port": 8000, // Ensure this matches the port specified in the JVM options
+            "projectName": "cloud-server", // Optional: Specify your project name if required
+            "timeout": 10000 // Optional: Specify a timeout value if needed
+        },
+        {
+            "type": "java",
+            "name": "cloudstack agent",
+            "request": "attach",
+            "hostName": "192.168.122.1", // Change this to the remote host if needed
+            "port": 8001, // Ensure this matches the port specified in the JVM options
+            "timeout": 100000, // Optional: Specify a timeout value if needed
+            "projectName": "cloud-agent",
+            // "mainClass": "com.cloud.agent.AgentShell",
+            "sourcePaths": [
+                "${workspaceFolder}/../libvirt-java/src/main/java"
+            ]
+        }

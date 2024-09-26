@@ -32,7 +32,7 @@ main() {
 init_vars() {
     init_utils_vars $1 $2
     SCRIPT_PATH="/usr/share/cloudstack-common/scripts/storage/secondary/cloud-install-sys-tmplt"
-    DOMAIN="deb390-12-5"
+    DOMAIN="deb390-12-6"
     REPO_PATH="http://localhost:8090/" 
 }
 
