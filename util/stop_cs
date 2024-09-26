@@ -18,6 +18,10 @@ main() {
     stop_management
 }
 
+init_vars() {
+    init_utils_vars $1 $2
+}
+
 stop_agent() {
     logMessage "--- Start stopping cloudstack agent, if service exits"
     if systemctl list-unit-files | grep -q 'cloudstack-agent.service'; then
