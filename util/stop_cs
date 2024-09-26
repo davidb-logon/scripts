@@ -16,6 +16,7 @@ main() {
     check_if_root
     stop_agent
     stop_management
+    script_ended_ok=true
 }
 
 init_vars() {
