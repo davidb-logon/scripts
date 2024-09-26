@@ -2,38 +2,42 @@
 #------------------------------------------------------------------------------
 # Licensed Materials (c) Copyright Log-On 2024, All Rights Reserved.
 #------------------------------------------------------------------------------
-stop_cs
-sleep 5
-for logfile in /var/log/cloudstack/management/management-server.log \
+# See usage for what this script does.
+
+# Source script libraries as needed.
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
+source "$DIR/lib/common.sh"
+script_ended_ok=false
+trap 'cleanup' EXIT
+
+main() {
+    init_vars "logon" "stop_cloudstack_agent_and_server" "$@"
+    start_logging
+    check_if_root
+    stop_cs
+    sleep 7
+    clear_log_files
+    do_cmd "systemctl start cloudstack-management.service"
+    sleep 7
+    do_cmd "systemctl start cloudstack-agent.service"
+    sleep 7
+    script_ended_ok=true
+}
+
+init_vars() {
+    init_utils_vars $1 $2
+}
+
+clear_log_files() {
+    for logfile in /var/log/cloudstack/management/management-server.log \
                /var/log/cloudstack/management/apilog.log \
-               /var/log/cloudstack/agent/agent.log; do
-    if [ -f "$logfile" ]; then
-        sudo touch $logfile
-        sudo truncate --size 0 $logfile
-    fi
-done
+               /var/log/cloudstack/agent/agent.log
+    do
+        if [ -f "$logfile" ]; then
+            logMessage "--- Clearing $$logfile"
+            sudo truncate --size 0 $logfile
+        fi
+    done
+}
 
-sudo systemctl restart cloudstack-management.service
-if systemctl list-unit-files | grep -q 'cloudstack-agent.service'; then
-    sudo systemctl restart cloudstack-agent.service
-fi
-
-# Check if the default network is active
-#network_status=$(virsh net-list --all | grep -w default | awk '{print $2}')
-
-#if [ "$network_status" == "active" ]; then
-#  echo "The default network is already active."
-#else
-#  echo "The default network is not active. Activating it..."
-#  virsh net-start default
-#
-#  if [ $? -eq 0 ]; then
-#    echo "The default network has been successfully activated."
-#    virsh net-autostart default
-#  else
-#    echo "Failed to activate the default network."
-#  fi
-#fi
-#virsh net-list
-#sleep 5
-
+main
