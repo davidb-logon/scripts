@@ -108,7 +108,12 @@ def update_xml_for_s390x(root):
             devices.remove(rng)
         rng = ET.SubElement(devices, 'rng', model='virtio')
         ET.SubElement(rng, 'backend', model='random').text = '/dev/urandom'
+
+        # <address type='ccw' cssid='0xfe' ssid='0x0' devno='0x0005'/>
         ET.SubElement(rng, 'address', type='ccw', cssid='0xfe', ssid='0x0', devno='0x0005')
+        
+        # <rate bytes='1024' period='2000'/>
+        ET.SubElement(rng, 'rate', bytes='1024', period='2000')
 
         # Add a panic device for s390, handling existing ones
         for panic in devices.findall('panic'):

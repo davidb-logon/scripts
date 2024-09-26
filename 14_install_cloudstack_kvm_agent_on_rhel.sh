@@ -28,10 +28,14 @@ script_ended_ok=true
 }
 
 main() {
-    # Replace logon and template with your own values
-    init_vars "logon" "install_cloudstack_kvm_agent"
+    init_vars "logon" "install_cloudstack_kvm_agent_on_rhel"
     start_logging
+    detect_linux_distribution # LINUX_DISTRIBUTION
+    detect_architecture # MACHINE_ARCHITECTURE
+    check_if_root
     prepare_os
+    start_web_server_on_repo.sh
+    uninstall_cloudstack_agent
     install_cloudstack_kvm_agent
     add_env_vars_to_cloudstack_agent
     script_ended_ok=true
@@ -42,58 +46,37 @@ init_vars() {
 }
 
 prepare_os() {
-    logMessage "--- Start to prepare OS"
-
-    # Check if the current user ID is 0 (root user)
-    if [ "$(id -u)" -ne 0 ]; then
-        logMessage "--- You are not root. Will prepend 'sudo' to all commands."
-        SUDO="sudo"
-    else
-        logMessage "--- Logged in as root."
-        SUDO=""
-    fi
-    HOSTNAME=$(hostname --fqdn)
-    confirm "--- hostname: $HOSTNAME, confirm " || exit 1
-    
+    logMessage "--- Start to prepare OS"   
 
     if ! check_if_connected_to_internet; then
-        logMessage "--- Not connected to internet"
-        exit 1
+        error_exit "--- Not connected to internet"
     fi
     logMessage "--- Connected to the internet."
 
-    do_cmd "$SUDO yum -y install  bzip2  ipmitool qemu-guest-agent"
-    do_cmd "$SUDO yum -y install java-11-openjdk"
-    do_cmd "$SUDO yum -y install python36"
-    do_cmd "$SUDO yum -y install chrony"
+    do_cmd "yum -y install  bzip2  ipmitool qemu-guest-agent"
+    do_cmd "yum -y install java-11-openjdk"
+    do_cmd "yum -y install python36"
+    do_cmd "yum -y install chrony"
 
     logMessage "--- End of preparing OS"
 }
 
+uninstall_cloudstack_agent() {
+    logMessage "--- Start to uninstall Cloudstack Agent"
+    do_cmd "sudo systemctl stop cloudstack-management" "Stopped cloudstack_management service" "INFO:could not stop service"
+    do_cmd "sudo systemctl stop cloudstack-agent" "Stopped cloudstack_agent service" "INFO:could not stop service"
+    do_cmd "sudo yum remove cloudstack-agent" "Removed cloudstack-agent" "INFO: could not remove cloudstack-agent"
+    do_cmd "sudo yum autoremove"
+    do_cmd "sudo yum clean all"
+    logMessage "--- End of uninstalling Cloudstack Agent"
+}
+
 install_cloudstack_kvm_agent() {
     logMessage "--- Start to install Cloudstack Agent"
-
-    mkdir -p /home/davidb/cloudstack-rpms
-    cd /home/davidb/cloudstack-rpms
-
-    # These are the packages needed for the cloudstack agent
-    packages=("cloudstack-common" "cloudstack-agent")
-
-    for package in "${packages[@]}"
-    do
-        do_cmd "wget http://download.cloudstack.org/el/9/4.19/${package}-4.19.0.0-1.x86_64.rpm"
-
-        if rpm -q "$package" >/dev/null; then
-            logMessage "$package package is installed. Removing it..."
-            do_cmd "sudo rpm -e $package"
-        else
-            logMessage "$package package is not currently installed."
-        fi
-        do_cmd "sudo rpm -ivh --ignorearch  --nodeps --nosignature ${package}-4.19.0.0-1.x86_64.rpm"
-    done
-
+    do_cmd "yum -y install cloudstack-common cloudstack-agent"
     logMessage "--- End of installing Cloudstack Agent"
 }
+
 add_env_vars_to_cloudstack_agent() {
     local file="/etc/default/cloudstack-agent"
     
@@ -108,6 +91,7 @@ add_env_vars_to_cloudstack_agent() {
 PATH=/usr/local/glib-2.66.8/bin:/usr/local/bin:/usr/local/go/bin:/usr/local/nodejs/bin:/usr/lib/jvm/java-11-openjdk-11.0.14.1.1-6.el8.s390x/bin:/usr/bin/maven/bin:/data/scripts:/data/scripts/util:/usr/local/sbin:/sbin:/bin:/usr/sbin:/usr/bin:/root/bin:/opt/groovy/groovy-4.0.9/bin
 LD_LIBRARY_PATH=/usr/local/glib-2.66.8/lib64
 PKG_CONFIG_PATH=/usr/local/glib-2.66.8/lib64/pkgconfig
+JAVA_DEBUG="-agentlib:jdwp=transport=dt_socket,address=*:8001,server=y,suspend=n"
 EOL
 
         echo "Environment variables added to $file."
