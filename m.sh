@@ -12,52 +12,53 @@
 # This is what to run. it can be a linux command line instrunctions or a name of            #
 # a function that later apear in the file                                                   #
 #############################################################################################
+# r1=Run zVM Logon1@/home/ibmsys1/runz1.sh
+# r2=Run zVM Logon2@/home/ibmsys1/runz2.sh
+# r22=Run zVM Logon2@runz logon2 123
+# r3=Run zVM Logon3@/home/ibmsys1/runz3.sh
+# r4=Run zVM Logon4@/home/ibmsys1/runz4.sh
+# rs4=Run zVM LogonSSI4@/home/ibmsys1/runzssi4.sh
+# r21=Run zVM Logon21@/home/ibmsys1/runz21.sh
+# rt=Run zVM LogonT@/home/ibmsys2/runzt.sh
+# rl12=Run zLinux12@/home/ibmsys1/runzlinux12.sh
+# rl155=Run zLinux15@/home/ibmsys1/runzlinux15.sh
+# rlu20=Run zLinuxu20@/home/ibmsys1/runzlinuxu20.sh
+# rlu23=Run zLinuxu20@/home/ibmsys1/runzlinuxu23.sh
+# rca=Run zVM LogonCA@/home/ibmsys2/runca.sh
+# rca3=Run zVM LogonCA3@/home/ibmsys2/runCA3.sh
+# sz=Stop zPDT@stopz
+# sz2=Stop zPDT & Shutdown@/mnt/linuxu/stopz2.sh
+# zs=zPDT Status@zpdtStatus
+# c1=Check if zPDT is running@wave_check_zpdt
+# i1=Wave Install Java@wave_install_java
+# lwr=List Wave Repository@wave_list_repository
+# wi=Wave Install@wave_update -i
+# wu=Wave Update@wave_update $2 $3
+# wc=Wave Create Certificate@/mnt/linuxu/wave_create_certificate.sh
+# wic=Wave Install Certificate@wave_install_certificate liberty! $2
+# wr=Wave restart services@/mnt/linuxu/wave_irestart_services.sh
+# n=Netstat servers@ss -lnt
+# m=Edit menu@vim /mnt/linuxu/m.sh
+# o=OprMsg to zpdt@oprmsg $2 $3 $4 $5 $6
+# w=Watch emily@watch -n1 w;ss -lnt; ps aux | grep emily | grep -v grep | grep -v watch
+# wj=Watch java@watch -n1 w;ss -lnt; ps aux | grep java | grep -v watch | grep -v grep
+# pj=ps java@ps -eaf | grep java
+# a=Set alias@alias m='/home/sefi/app/ibm/m.sh'
+# al=List alias@echo ${BASH_ALIASES}alias
+# mr=Mount Repository@wave_list_repository
+# b2=Backup Logon2@backup_logon2
+# bl=Backup Linuxu@backup_linuxu
+# im=Install Menu@install_m
+# ar=Allow Root SSH@arssh
+# rqa=rpm -qa wave@rpmqa
+# rme=rpm -e wave@rpmme
+# rmei=rpm -e IBM-Wave@rpmmei
+# iibm=Install IBM-Wave@cd /home/ec2-user/WaveFixpack16;cp ../IBM-Wave-1.20-1.s390x.rpm install;./doUpdate.sh -i install/IBM-Wave-1.20-1.s390x.rpm
+# ulog=Update Log-On-Wave@cd /home/ec2-user/WaveFixpack_feature_WAVE-65-migration-from-ibm-wave-1.2.0;./doUpdate.sh
+# fsz=Force Stop ZPDT@forcestopz
 
 readarray -t  VAR <<EOF
-r1=Run zVM Logon1@/home/ibmsys1/runz1.sh
-r2=Run zVM Logon2@/home/ibmsys1/runz2.sh
-r22=Run zVM Logon2@runz logon2 123
-r3=Run zVM Logon3@/home/ibmsys1/runz3.sh
-r4=Run zVM Logon4@/home/ibmsys1/runz4.sh
-rs4=Run zVM LogonSSI4@/home/ibmsys1/runzssi4.sh
-r21=Run zVM Logon21@/home/ibmsys1/runz21.sh
-rt=Run zVM LogonT@/home/ibmsys2/runzt.sh
-rl12=Run zLinux12@/home/ibmsys1/runzlinux12.sh
-rl155=Run zLinux15@/home/ibmsys1/runzlinux15.sh
-rlu20=Run zLinuxu20@/home/ibmsys1/runzlinuxu20.sh
-rlu23=Run zLinuxu20@/home/ibmsys1/runzlinuxu23.sh
-rca=Run zVM LogonCA@/home/ibmsys2/runca.sh
-rca3=Run zVM LogonCA3@/home/ibmsys2/runCA3.sh
-sz=Stop zPDT@stopz
-sz2=Stop zPDT & Shutdown@/mnt/linuxu/stopz2.sh
-zs=zPDT Status@zpdtStatus
-c1=Check if zPDT is running@wave_check_zpdt
-i1=Wave Install Java@wave_install_java
-lwr=List Wave Repository@wave_list_repository
-wi=Wave Install@wave_update -i
-wu=Wave Update@wave_update $2 $3
-wc=Wave Create Certificate@/mnt/linuxu/wave_create_certificate.sh
-wic=Wave Install Certificate@wave_install_certificate liberty! $2
-wr=Wave restart services@/mnt/linuxu/wave_irestart_services.sh
-n=Netstat servers@ss -lnt
-m=Edit menu@vim /mnt/linuxu/m.sh
-o=OprMsg to zpdt@oprmsg $2 $3 $4 $5 $6
-w=Watch emily@watch -n1 w;ss -lnt; ps aux | grep emily | grep -v grep | grep -v watch
-wj=Watch java@watch -n1 w;ss -lnt; ps aux | grep java | grep -v watch | grep -v grep
-pj=ps java@ps -eaf | grep java
-a=Set alias@alias m='/home/sefi/app/ibm/m.sh'
-al=List alias@echo ${BASH_ALIASES}alias
-mr=Mount Repository@wave_list_repository
-b2=Backup Logon2@backup_logon2
-bl=Backup Linuxu@backup_linuxu
-im=Install Menu@install_m
-ar=Allow Root SSH@arssh
-rqa=rpm -qa wave@rpmqa
-rme=rpm -e wave@rpmme
-rmei=rpm -e IBM-Wave@rpmmei
-iibm=Install IBM-Wave@cd /home/ec2-user/WaveFixpack16;cp ../IBM-Wave-1.20-1.s390x.rpm install;./doUpdate.sh -i install/IBM-Wave-1.20-1.s390x.rpm
-ulog=Update Log-On-Wave@cd /home/ec2-user/WaveFixpack_feature_WAVE-65-migration-from-ibm-wave-1.2.0;./doUpdate.sh
-fsz=Force Stop ZPDT@forcestopz
+cbi=Build Install CS@build_and_install
 dm=Display Menu@display_menu_main
 q=Quit@qmenu
 EOF
@@ -78,6 +79,26 @@ done
 # Licensed Materials (c) Copyright Log-On 2024, All Rights Reserved.
 #------------------------------------------------------------------------------
 # Function to display the menu
+
+build_and_install() {
+#   To build and install cloudstack server and agent after code changes:
+# ====================================================================
+# 1. run gu
+# 2. execute 4 - compiles all and creates packages, including repo
+# 3. run yum update to refesh repo metadata
+# 4. execute 9
+# 5. run 14 to install agent
+# 6. start cloudstack server and agent
+# 7. run 38 to populate database
+
+git_updater.sh
+4_build_cloudstack_packages.sh 
+yum update
+9_install_cloudstack_server.sh
+14_install_cloudstack_agent.sh
+38_populate_database.sh
+
+}
 display_menu_numbers() {
   local files=("$@")
   local cols=3
