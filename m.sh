@@ -1,43 +1,5 @@
 #!/bin/bash
-#------------------------------------------------------------------------------
-# Licensed Materials (c) Copyright Log-On 2024, All Rights Reserved.
-#------------------------------------------------------------------------------
-# Function to display the menu
-display_menu() {
-  local files=("$@")
-  local cols=3
-  local total_files=${#files[@]}
-  local rows=$(( (total_files + cols - 1) / cols ))
 
-  for (( i=0; i<rows; i++ )); do
-    for (( j=0; j<cols; j++ )); do
-      idx=$(( i + j * rows ))
-      if [ $idx -lt $total_files ]; then
-        printf "%2d) %-50s" $((idx+1)) "${files[$idx]}"
-      fi
-    done
-    echo
-  done
-}
-
-# Get the list of files and sort them by the numeric part of the filename
-files=($(ls | grep -E '^[0-9]+_.*\.sh$' | sort -V))
-
-# Display the menu
-echo "Select a file to run:"
-display_menu "${files[@]}"
-
-# Get the user's choice
-read -p "Enter the number of the file you want to run: " choice
-
-# Validate the choice and run the selected file
-if [[ $choice =~ ^[0-9]+$ ]] && [ $choice -ge 1 ] && [ $choice -le ${#files[@]} ]; then
-  selected_file=${files[$((choice-1))]}
-  echo "Running $selected_file..."
-  ./$selected_file
-else
-  echo "Invalid choice. Exiting."
-fi
 #!/bin/bash 
 #set -x
 #############################################################################################
@@ -96,6 +58,7 @@ rmei=rpm -e IBM-Wave@rpmmei
 iibm=Install IBM-Wave@cd /home/ec2-user/WaveFixpack16;cp ../IBM-Wave-1.20-1.s390x.rpm install;./doUpdate.sh -i install/IBM-Wave-1.20-1.s390x.rpm
 ulog=Update Log-On-Wave@cd /home/ec2-user/WaveFixpack_feature_WAVE-65-migration-from-ibm-wave-1.2.0;./doUpdate.sh
 fsz=Force Stop ZPDT@forcestopz
+dm=Display Menu@display_menu_main
 q=Quit@qmenu
 EOF
 declare -A Menu
@@ -110,6 +73,50 @@ done
 #for key in "${OMenu[@]}"; do
 # echo $key  ${Menu[$key]}
 #done
+
+#------------------------------------------------------------------------------
+# Licensed Materials (c) Copyright Log-On 2024, All Rights Reserved.
+#------------------------------------------------------------------------------
+# Function to display the menu
+display_menu_numbers() {
+  local files=("$@")
+  local cols=3
+  local total_files=${#files[@]}
+  local rows=$(( (total_files + cols - 1) / cols ))
+
+  for (( i=0; i<rows; i++ )); do
+    for (( j=0; j<cols; j++ )); do
+      idx=$(( i + j * rows ))
+      if [ $idx -lt $total_files ]; then
+        printf "%2d) %-50s" $((idx+1)) "${files[$idx]}"
+      fi
+    done
+    echo
+  done
+}
+
+display_menu_main() {
+  # Get the list of files and sort them by the numeric part of the filename
+  files=($(ls | grep -E '^[0-9]+_.*\.sh$' | sort -V))
+
+  # Display the menu
+  echo "Select a file to run:"
+  display_menu_numbers "${files[@]}"
+
+  # Get the user's choice
+  read -p "Enter the number of the file you want to run: " choice
+
+  # Validate the choice and run the selected file
+  if [[ $choice =~ ^[0-9]+$ ]] && [ $choice -ge 1 ] && [ $choice -le ${#files[@]} ]; then
+    selected_file=${files[$((choice-1))]}
+    echo "Running $selected_file..."
+    ./$selected_file
+  else
+    echo "Invalid choice. Exiting."
+  fi
+  
+}
+
 MountUB16Repository(){
 mkdir -p  /mnt/ub16
 mount -t nfs 10.0.78.231:/ubuntu16 /mnt/ub16/

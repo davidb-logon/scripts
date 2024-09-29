@@ -8,7 +8,7 @@ To build and install cloudstack server and agent after code changes:
 4. execute 9
 5. run 14 to install agent
 6. start cloudstack server and agent
-6. run 38 to populate database
+7. run 38 to populate database
 
 
 
