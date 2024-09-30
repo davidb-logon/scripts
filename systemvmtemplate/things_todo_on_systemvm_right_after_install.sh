@@ -12,6 +12,8 @@ EOF
 # apt install sudo rsync
 # usermod -aG sudo sefi
 # visudo
+#sefi ALL=(ALL) NOPASSWD: ALL
+#edit sshd_config to permit root login with password
 # apt-get install cloud-init
 # apt install uuid-runtime
 # update-alternatives --config editor

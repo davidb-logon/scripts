@@ -17,7 +17,8 @@ cat << EOF
 -------------------------------------------------------------------------------
 run like that:
 example:
-    copy_scripts_to_systemvm_guest.sh "-P 3922 -i /root/.ssh/systemvm.rsa"  sefi@192.168.124.171
+    copy_scripts_to_systemvm_guest.sh "-P 3922 -i /root/.ssh/systemvm.rsa"  sefi@192.168.124.98
+    copy_scripts_to_systemvm_guest.sh " "  sefi@192.168.124.98
 -------------------------------------------------------------------------------
 EOF
 script_ended_ok=true
