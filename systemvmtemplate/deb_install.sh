@@ -29,7 +29,7 @@ virt-install --name deb11-1 \
 
 # root password should be "password"
 # after installation finished, i added the folowing packages:
-apt install mc bzip2 vim sudo
+apt install -y mc vim sudo
 
 cat >> ~/.bashrc << EOF
 export EDITOR=vi
