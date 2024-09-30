@@ -16,6 +16,27 @@
 #   │                                                                                   >     #1  primary   99.6 MB    f  ext2    /boot                                                                                         │ 
 #   │                                                                                   >     #2  primary    6.0 GB    f  xfs     /                                                                                             │ 
 #   │                                                                                   >     #3  primary  340.8 MB    f  swap    swap   
+# on our nfs server we did:
+# wget https://cdimage.debian.org/cdimage/archive/11.11.0/s390x/iso-cd/debian-11.11.0-s390x-netinst.iso
+# on our dlinux make sure the nfs iso is mounted to /mnt/iso:
+# mkdir -p /mnt/iso;mount -t nfs 54.227.191.101:/iso /mnt/iso
+# on the host s390x machine we did:
+virt-install --name deb11-1 \
+     --memory 2048 --vcpus=2  --os-variant=debian11  \
+     --network network=default --graphics=none -v \
+     --disk path=/data/primary/vm/images/deb11-1.qcow2,size=6 \
+     --check disk_size=off --boot hd --location=/mnt/iso/debian/debian-11.11.0-s390x-netinst.iso --extra-args ro 
+
+# root password should be "password"
+# after installation finished, i added the folowing packages:
+apt install mc bzip2 vim sudo
+
+cat >> ~/.bashrc << EOF
+export EDITOR=vi
+export VISUAL=vi
+EOF
+
+# =====================================================
 virsh net-start default
 virsh undefine deb390-12-1
 virt-install --name deb390-12-1 \
