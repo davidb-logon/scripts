@@ -9,7 +9,7 @@ virsh undefine deb11-a
 virt-install --name deb11-a \
     --memory 2048 --vcpus=2  --os-variant=debian11  \
     --network network=default --graphics=none -v \
-    --disk path=/data/primary/vm/images/deb11-1.qcow2,size=6 \
+    --disk path=/data/primary/vm/images/deb11-a.qcow2,size=6 \
     --check disk_size=off --boot hd --location=/mnt/iso/debian/debian-11.11.0-s390x-netinst.iso \
     --extra-args="auto=true priority=critical preseed/file=/preseed.cfg" \
     --initrd-inject=/data/scripts/systemvmtemplate/http/preseed_s390x.cfg \
