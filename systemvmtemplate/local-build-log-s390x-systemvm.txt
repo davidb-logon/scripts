@@ -1,0 +1,1367 @@
++ set -e
++ packer version
+Packer v1.9.5
+
+Your version of Packer is out of date! The latest version
+is 1.11.2. You can update by downloading from www.packer.io/downloads
+
++ cd tools/appliance
+++ grep CLOUDSTACK_RELEASE systemvmtemplate/scripts/configure_systemvm_services.sh
+++ head -1
+++ sed s/CLOUDSTACK_RELEASE=//g
++ VERSION=4.20.0
++ rm -fr dist
++ export PACKER_LOG=1
++ PACKER_LOG=1
++ bash -x build.sh systemvmtemplate 4.20.0 s390x
++ for i in $@
++ '[' systemvmtemplate == -h -o systemvmtemplate == --help -o systemvmtemplate == help ']'
++ for i in $@
++ '[' 4.20.0 == -h -o 4.20.0 == --help -o 4.20.0 == help ']'
++ for i in $@
++ '[' s390x == -h -o s390x == --help -o s390x == help ']'
++ set -e
+++ arch
++ base_arch=x86_64
++ appliance=systemvmtemplate
++ version=4.20.0
++ target_arch=s390x
++ BUILD_NUMBER=
++ version_tag=
++ '[' '!' -z 4.20.0 ']'
++ '[' '!' -z '' ']'
++ version_tag=-4.20.0
++ appliance_build_name=systemvmtemplate-4.20.0-s390x
+++ uname
++ os=Linux
++ sed_regex_option=-E
++ '[' Linux == Linux ']'
++ sed_regex_option=-r
++ [[ 1 == \1 ]]
++ set -x
++ declare -a on_exit_items
++ return
++ main
++ prepare
++ log INFO 'preparing for build'
++ local level=INFO
++ shift
++ [[ 1 != \1 ]]
++ local code=
+++ date '+%F %T'
++ local 'line=[2024-08-28 11:10:18] INFO: preparing for build'
++ '[' -t 2 ']'
++ echo '[2024-08-28 11:10:18] INFO: preparing for build'
+[2024-08-28 11:10:18] INFO: preparing for build
++ rm -rf dist '*.ova' '*.vhd' '*.vdi' '*.qcow*' '*.bz2' '*.vmdk' '*.ovf'
++ create_definition
++ '[' systemvmtemplate '!=' systemvmtemplate-4.20.0-s390x ']'
++ cp -r systemvmtemplate systemvmtemplate-4.20.0-s390x
++ set +e
++ '[' '!' -z 4.20.0 ']'
++ '[' -f systemvmtemplate-4.20.0-s390x/scripts/configure_systemvm_services.sh ']'
++ sed -r -i -e 's/^CLOUDSTACK_RELEASE=.+/CLOUDSTACK_RELEASE=4.20.0/' systemvmtemplate-4.20.0-s390x/scripts/configure_systemvm_services.sh
++ set -e
++ add_on_exit rm -rf systemvmtemplate-4.20.0-s390x
++ local n=0
++ on_exit_items[${n}]='rm -rf systemvmtemplate-4.20.0-s390x'
++ '[' 0 -eq 0 ']'
++ log DEBUG 'Setting trap'
++ local level=DEBUG
++ shift
++ [[ 1 != \1 ]]
++ local code=
+++ date '+%F %T'
++ local 'line=[2024-08-28 11:10:18] DEBUG: Setting trap'
++ '[' -t 2 ']'
++ echo '[2024-08-28 11:10:18] DEBUG: Setting trap'
+[2024-08-28 11:10:18] DEBUG: Setting trap
++ trap on_exit EXIT
++ ./shar_cloud_scripts.sh
++ CURR_DIR=/var/lib/jenkins/workspace/systemvmtemplate-multi-arch/tools/appliance
++++ dirname ./shar_cloud_scripts.sh
+++ cd .
+++ pwd
+...snipped...
++ TMPDIR=/tmp
+++ mktemp -d /tmp/shar_cloud.XXXXXXXX
++ TEMP_DIR=/tmp/shar_cloud.wLdofEcE
++ cd /tmp/shar_cloud.wLdofEcE
++ mkdir cloud_scripts
++ mkdir -p cloud_scripts/opt/cloudstack
++ cp -r /var/lib/jenkins/workspace/systemvmtemplate-multi-arch/systemvm/debian/etc /var/lib/jenkins/workspace/systemvmtemplate-multi-arch/systemvm/debian/opt /var/lib/jenkins/workspace/systemvmtemplate-multi-arch/systemvm/debian/root /var/lib/jenkins/workspace/systemvmtemplate-multi-arch/systemvm/debian/var cloud_scripts/
++ mkdir -p cloud_scripts/usr/share/cloud
++ cd /var/lib/jenkins/workspace/systemvmtemplate-multi-arch/systemvm/debian
++ tar -cf /tmp/shar_cloud.wLdofEcE/cloud_scripts/usr/share/cloud/cloud-scripts.tar etc opt root var
++ cd /tmp/shar_cloud.wLdofEcE
+++ find . -print
++ shar . ./cloud_scripts ./cloud_scripts/var ./cloud_scripts/var/www ./cloud_scripts/var/www/html ./cloud_scripts/var/www/html/userdata ./cloud_scripts/var/www/html/userdata/.htaccess ./cloud_scripts/var/www/html/latest ./cloud_scripts/var/www/html/latest/.htaccess ./cloud_scripts/opt ./cloud_scripts/opt/cloudstack ./cloud_scripts/opt/cloud ./cloud_scripts/opt/cloud/templates ./cloud_scripts/opt/cloud/templates/check_bumpup.sh ./cloud_scripts/opt/cloud/templates/check_heartbeat.sh.templ ./cloud_scripts/opt/cloud/templates/checkrouter.sh.templ ./cloud_scripts/opt/cloud/templates/conntrackd.conf.templ ./cloud_scripts/opt/cloud/templates/arping_gateways.sh.templ ./cloud_scripts/opt/cloud/templates/heartbeat.sh.templ ./cloud_scripts/opt/cloud/templates/keepalived.conf.templ ./cloud_scripts/opt/cloud/testdata ./cloud_scripts/opt/cloud/testdata/ips0001.json ./cloud_scripts/opt/cloud/testdata/ips0003.json ./cloud_scripts/opt/cloud/testdata/dhcp0001.json ./cloud_scripts/opt/cloud/testdata/acl0001.json ./cloud_scripts/opt/cloud/testdata/s2s0001.json ./cloud_scripts/opt/cloud/testdata/test.sh ./cloud_scripts/opt/cloud/testdata/gn0001.json ./cloud_scripts/opt/cloud/testdata/vmp0001.json ./cloud_scripts/opt/cloud/testdata/ips0002.json ./cloud_scripts/opt/cloud/testdata/README ./cloud_scripts/opt/cloud/bin ./cloud_scripts/opt/cloud/bin/ipsectunnel.sh ./cloud_scripts/opt/cloud/bin/vr_cfg.sh ./cloud_scripts/opt/cloud/bin/update_interface_config.sh ./cloud_scripts/opt/cloud/bin/passwd_server_ip.py ./cloud_scripts/opt/cloud/bin/getRouterMonitorResults.sh ./cloud_scripts/opt/cloud/bin/get_diagnostics_files.py ./cloud_scripts/opt/cloud/bin/vpn_l2tp.sh ./cloud_scripts/opt/cloud/bin/configure_router.py ./cloud_scripts/opt/cloud/bin/cs_firewallrules.py ./cloud_scripts/opt/cloud/bin/get_template_version.sh ./cloud_scripts/opt/cloud/bin/prepare_pxe.sh ./cloud_scripts/opt/cloud/bin/netusage.sh ./cloud_scripts/opt/cloud/bin/cs_staticroutes.py ./cloud_scripts/opt/cloud/bin/update_config.py ./cloud_scripts/opt/cloud/bin/cloud-nic.sh ./cloud_scripts/opt/cloud/bin/vmdata.py ./cloud_scripts/opt/cloud/bin/get_haproxy_stats.sh ./cloud_scripts/opt/cloud/bin/loadbalancer.sh ./cloud_scripts/opt/cloud/bin/checks2svpn.sh ./cloud_scripts/opt/cloud/bin/checkbatchs2svpn.sh ./cloud_scripts/opt/cloud/bin/ipassoc.sh ./cloud_scripts/opt/cloud/bin/diagnostics.py ./cloud_scripts/opt/cloud/bin/checkrouter.sh ./cloud_scripts/opt/cloud/bin/merge.py ./cloud_scripts/opt/cloud/bin/cs_vmdata.py ./cloud_scripts/opt/cloud/bin/cs_loadbalancer.py ./cloud_scripts/opt/cloud/bin/cleanup.sh ./cloud_scripts/opt/cloud/bin/baremetal-vr.py ./cloud_scripts/opt/cloud/bin/monitor_service.sh ./cloud_scripts/opt/cloud/bin/setup ./cloud_scripts/opt/cloud/bin/setup/postinit.sh ./cloud_scripts/opt/cloud/bin/setup/cksnode.sh ./cloud_scripts/opt/cloud/bin/setup/ilbvm.sh ./cloud_scripts/opt/cloud/bin/setup/patch.sh ./cloud_scripts/opt/cloud/bin/setup/router.sh ./cloud_scripts/opt/cloud/bin/setup/vpcrouter.sh ./cloud_scripts/opt/cloud/bin/setup/cloud-early-config ./cloud_scripts/opt/cloud/bin/setup/common.sh ./cloud_scripts/opt/cloud/bin/setup/elbvm.sh ./cloud_scripts/opt/cloud/bin/setup/dhcpsrvr.sh ./cloud_scripts/opt/cloud/bin/setup/bootstrap.sh ./cloud_scripts/opt/cloud/bin/setup/consoleproxy.sh ./cloud_scripts/opt/cloud/bin/setup/init.sh ./cloud_scripts/opt/cloud/bin/setup/secstorage.sh ./cloud_scripts/opt/cloud/bin/setup/default.sh ./cloud_scripts/opt/cloud/bin/savepassword.sh ./cloud_scripts/opt/cloud/bin/vpc_func.sh ./cloud_scripts/opt/cloud/bin/patched.sh ./cloud_scripts/opt/cloud/bin/cs_ip.py ./cloud_scripts/opt/cloud/bin/cs_forwardingrules.py ./cloud_scripts/opt/cloud/bin/filesystem_writable_check.py ./cloud_scripts/opt/cloud/bin/bumpup_priority.sh ./cloud_scripts/opt/cloud/bin/cs_remoteaccessvpn.py ./cloud_scripts/opt/cloud/bin/manage_service.sh ./cloud_scripts/opt/cloud/bin/setup_tf_route.py ./cloud_scripts/opt/cloud/bin/cs_site2sitevpn.py ./cloud_scripts/opt/cloud/bin/cs_monitorservice.py ./cloud_scripts/opt/cloud/bin/cs_dhcp.py ./cloud_scripts/opt/cloud/bin/vpc_netusage.sh ./cloud_scripts/opt/cloud/bin/vpc_staticroute.sh ./cloud_scripts/opt/cloud/bin/baremetal_snat.sh ./cloud_scripts/opt/cloud/bin/cs_network_acl.py ./cloud_scripts/opt/cloud/bin/cs ./cloud_scripts/opt/cloud/bin/cs/CsApp.py ./cloud_scripts/opt/cloud/bin/cs/CsRule.py ./cloud_scripts/opt/cloud/bin/cs/CsRoute.py ./cloud_scripts/opt/cloud/bin/cs/CsRedundant.py ./cloud_scripts/opt/cloud/bin/cs/CsFile.py ./cloud_scripts/opt/cloud/bin/cs/CsVpcGuestNetwork.py ./cloud_scripts/opt/cloud/bin/cs/__init__.py ./cloud_scripts/opt/cloud/bin/cs/CsHelper.py ./cloud_scripts/opt/cloud/bin/cs/CsNetfilter.py ./cloud_scripts/opt/cloud/bin/cs/CsAddress.py ./cloud_scripts/opt/cloud/bin/cs/CsLoadBalancer.py ./cloud_scripts/opt/cloud/bin/cs/CsProcess.py ./cloud_scripts/opt/cloud/bin/cs/CsDatabag.py ./cloud_scripts/opt/cloud/bin/cs/CsGuestNetwork.py ./cloud_scripts/opt/cloud/bin/cs/CsDhcp.py ./cloud_scripts/opt/cloud/bin/cs/CsStaticRoutes.py ./cloud_scripts/opt/cloud/bin/cs/CsMonitor.py ./cloud_scripts/opt/cloud/bin/cs/CsConfig.py ./cloud_scripts/opt/cloud/bin/vpc_snat.sh ./cloud_scripts/opt/cloud/bin/edithosts.sh ./cloud_scripts/opt/cloud/bin/cs_vmp.py ./cloud_scripts/opt/cloud/bin/cs_vpnusers.py ./cloud_scripts/opt/cloud/bin/cs_guestnetwork.py ./cloud_scripts/opt/cloud/bin/line_edit.py ./cloud_scripts/opt/cloud/bin/set_redundant.py ./cloud_scripts/opt/cloud/bin/getRouterAlerts.sh ./cloud_scripts/opt/cloud/bin/dnsmasq.sh ./cloud_scripts/opt/cloud/bin/configure.py ./cloud_scripts/opt/cloud/bin/ilb.sh ./cloud_scripts/opt/cloud/bin/cs_cmdline.py ./cloud_scripts/usr ./cloud_scripts/usr/share ./cloud_scripts/usr/share/cloud ./cloud_scripts/usr/share/cloud/cloud-scripts.tar ./cloud_scripts/etc ./cloud_scripts/etc/cloud-nic.rules ./cloud_scripts/etc/profile.d ./cloud_scripts/etc/profile.d/cloud.sh ./cloud_scripts/etc/vmware-tools ./cloud_scripts/etc/vmware-tools/tools.conf ./cloud_scripts/etc/rsyslog.conf ./cloud_scripts/etc/apache2 ./cloud_scripts/etc/apache2/httpd.conf ./cloud_scripts/etc/apache2/vhost.template ./cloud_scripts/etc/apache2/conf-enabled ./cloud_scripts/etc/apache2/conf-enabled/mods-enabled ./cloud_scripts/etc/apache2/conf-enabled/mods-enabled/mpm_event.conf ./cloud_scripts/etc/apache2/conf-enabled/security.conf ./cloud_scripts/etc/ipsec.d ./cloud_scripts/etc/ipsec.d/l2tp.conf ./cloud_scripts/etc/sysctl.conf ./cloud_scripts/etc/ppp ./cloud_scripts/etc/ppp/options.xl2tpd ./cloud_scripts/etc/radvd.conf.tmpl ./cloud_scripts/etc/haproxy ./cloud_scripts/etc/haproxy/haproxy.cfg ./cloud_scripts/etc/modprobe.d ./cloud_scripts/etc/modprobe.d/pcspkr.conf ./cloud_scripts/etc/modprobe.d/aesni_intel.conf ./cloud_scripts/etc/iptables ./cloud_scripts/etc/iptables/iptables-vpcrouter ./cloud_scripts/etc/iptables/rules ./cloud_scripts/etc/iptables/iptables-secstorage ./cloud_scripts/etc/iptables/iptables-consoleproxy ./cloud_scripts/etc/iptables/iptables-router ./cloud_scripts/etc/iptables/iptables-elbvm ./cloud_scripts/etc/iptables/rt_tables_init ./cloud_scripts/etc/iptables/iptables-dhcpsrvr ./cloud_scripts/etc/iptables/iptables-ilbvm ./cloud_scripts/etc/logrotate.d ./cloud_scripts/etc/logrotate.d/dnsmasq ./cloud_scripts/etc/logrotate.d/wtmp ./cloud_scripts/etc/logrotate.d/apache2 ./cloud_scripts/etc/logrotate.d/routerServiceMonitor ./cloud_scripts/etc/logrotate.d/ppp ./cloud_scripts/etc/logrotate.d/haproxy ./cloud_scripts/etc/logrotate.d/rsyslog ./cloud_scripts/etc/logrotate.d/monitor ./cloud_scripts/etc/logrotate.d/btmp ./cloud_scripts/etc/logrotate.d/conntrackd ./cloud_scripts/etc/logrotate.d/cloud ./cloud_scripts/etc/vpcdnsmasq.conf ./cloud_scripts/etc/cron.hourly ./cloud_scripts/etc/cron.hourly/clear_cache ./cloud_scripts/etc/xl2tpd ./cloud_scripts/etc/xl2tpd/xl2tpd.conf ./cloud_scripts/etc/ipsec.secrets ./cloud_scripts/etc/logrotate.conf ./cloud_scripts/etc/dnsmasq.conf.tmpl ./cloud_scripts/etc/systemd ./cloud_scripts/etc/systemd/system ./cloud_scripts/etc/systemd/system/hyperv-daemons.hv-vss-daemon.service ./cloud_scripts/etc/systemd/system/open-vm-tools.service ./cloud_scripts/etc/systemd/system/cloud-preinit.service ./cloud_scripts/etc/systemd/system/xe-daemon.service ./cloud_scripts/etc/systemd/system/cloud-early-config.service ./cloud_scripts/etc/systemd/system/hyperv-daemons.hv-kvp-daemon.service ./cloud_scripts/etc/systemd/system/cloud.service ./cloud_scripts/etc/systemd/system/cloud-password-server@.service ./cloud_scripts/etc/systemd/system/hyperv-daemons.hv-fcopy-daemon.service ./cloud_scripts/etc/systemd/system/baremetal-vr.service ./cloud_scripts/etc/systemd/system/cloud-postinit.service ./cloud_scripts/etc/systemd/journald.conf ./cloud_scripts/etc/cron.daily ./cloud_scripts/etc/cron.daily/clean_cloud_processed_files ./cloud_scripts/etc/cron.daily/clear_cache ./cloud_scripts/etc/ssh ./cloud_scripts/etc/ssh/sshd_config ./cloud_scripts/etc/ipsec.conf ./cloud_scripts/root ./cloud_scripts/root/reconfigLB.sh ./cloud_scripts/root/clearUsageRules.sh ./cloud_scripts/root/monitorServices.py ./cloud_scripts/root/func.sh ./cloud_scripts/root/health_checks ./cloud_scripts/root/health_checks/iptables_check.py ./cloud_scripts/root/health_checks/dhcp_check.py ./cloud_scripts/root/health_checks/__init__.py ./cloud_scripts/root/health_checks/memory_usage_check.py ./cloud_scripts/root/health_checks/haproxy_check.py ./cloud_scripts/root/health_checks/disk_space_check.py ./cloud_scripts/root/health_checks/router_version_check.py ./cloud_scripts/root/health_checks/dns_check.py ./cloud_scripts/root/health_checks/gateways_check.py ./cloud_scripts/root/health_checks/utility ./cloud_scripts/root/health_checks/utility/__init__.py ./cloud_scripts/root/health_checks/utility/sharedFunctions.py ./cloud_scripts/root/health_checks/cpu_usage_check.py
+shar: Saving ./cloud_scripts/var/www/html/userdata/.htaccess (text)
+shar: Saving ./cloud_scripts/var/www/html/latest/.htaccess (text)
+shar: Saving ./cloud_scripts/opt/cloud/templates/check_bumpup.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/templates/check_heartbeat.sh.templ (text)
+shar: Saving ./cloud_scripts/opt/cloud/templates/checkrouter.sh.templ (text)
+shar: Saving ./cloud_scripts/opt/cloud/templates/conntrackd.conf.templ (text)
+shar: Saving ./cloud_scripts/opt/cloud/templates/arping_gateways.sh.templ (text)
+shar: Saving ./cloud_scripts/opt/cloud/templates/heartbeat.sh.templ (text)
+shar: Saving ./cloud_scripts/opt/cloud/templates/keepalived.conf.templ (text)
+shar: Saving ./cloud_scripts/opt/cloud/testdata/ips0001.json (text)
+shar: Saving ./cloud_scripts/opt/cloud/testdata/ips0003.json (text)
+shar: Saving ./cloud_scripts/opt/cloud/testdata/dhcp0001.json (text)
+shar: Saving ./cloud_scripts/opt/cloud/testdata/acl0001.json (text)
+shar: Saving ./cloud_scripts/opt/cloud/testdata/s2s0001.json (text)
+shar: Saving ./cloud_scripts/opt/cloud/testdata/test.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/testdata/gn0001.json (text)
+shar: Saving ./cloud_scripts/opt/cloud/testdata/vmp0001.json (text)
+shar: Saving ./cloud_scripts/opt/cloud/testdata/ips0002.json (text)
+shar: Saving ./cloud_scripts/opt/cloud/testdata/README (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/ipsectunnel.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/vr_cfg.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/update_interface_config.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/passwd_server_ip.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/getRouterMonitorResults.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/get_diagnostics_files.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/vpn_l2tp.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/configure_router.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs_firewallrules.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/get_template_version.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/prepare_pxe.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/netusage.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs_staticroutes.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/update_config.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cloud-nic.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/vmdata.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/get_haproxy_stats.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/loadbalancer.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/checks2svpn.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/checkbatchs2svpn.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/ipassoc.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/diagnostics.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/checkrouter.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/merge.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs_vmdata.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs_loadbalancer.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cleanup.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/baremetal-vr.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/monitor_service.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/postinit.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/cksnode.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/ilbvm.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/patch.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/router.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/vpcrouter.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/cloud-early-config (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/common.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/elbvm.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/dhcpsrvr.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/bootstrap.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/consoleproxy.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/init.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/secstorage.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/default.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/savepassword.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/vpc_func.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/patched.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs_ip.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs_forwardingrules.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/filesystem_writable_check.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/bumpup_priority.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs_remoteaccessvpn.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/manage_service.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup_tf_route.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs_site2sitevpn.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs_monitorservice.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs_dhcp.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/vpc_netusage.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/vpc_staticroute.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/baremetal_snat.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs_network_acl.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsApp.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsRule.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsRoute.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsRedundant.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsFile.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsVpcGuestNetwork.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/__init__.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsHelper.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsNetfilter.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsAddress.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsLoadBalancer.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsProcess.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsDatabag.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsGuestNetwork.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsDhcp.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsStaticRoutes.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsMonitor.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsConfig.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/vpc_snat.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/edithosts.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs_vmp.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs_vpnusers.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs_guestnetwork.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/line_edit.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/set_redundant.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/getRouterAlerts.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/dnsmasq.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/configure.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/ilb.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs_cmdline.py (text)
+shar: Saving ./cloud_scripts/usr/share/cloud/cloud-scripts.tar (text)
+shar: Saving ./cloud_scripts/etc/cloud-nic.rules (text)
+shar: Saving ./cloud_scripts/etc/profile.d/cloud.sh (text)
+shar: Saving ./cloud_scripts/etc/vmware-tools/tools.conf (text)
+shar: Saving ./cloud_scripts/etc/rsyslog.conf (text)
+shar: Saving ./cloud_scripts/etc/apache2/httpd.conf (text)
+shar: Saving ./cloud_scripts/etc/apache2/vhost.template (text)
+shar: Saving ./cloud_scripts/etc/apache2/conf-enabled/mods-enabled/mpm_event.conf (text)
+shar: Saving ./cloud_scripts/etc/apache2/conf-enabled/security.conf (text)
+shar: Saving ./cloud_scripts/etc/ipsec.d/l2tp.conf (text)
+shar: Saving ./cloud_scripts/etc/sysctl.conf (text)
+shar: Saving ./cloud_scripts/etc/ppp/options.xl2tpd (text)
+shar: Saving ./cloud_scripts/etc/radvd.conf.tmpl (text)
+shar: Saving ./cloud_scripts/etc/haproxy/haproxy.cfg (text)
+shar: Saving ./cloud_scripts/etc/modprobe.d/pcspkr.conf (text)
+shar: Saving ./cloud_scripts/etc/modprobe.d/aesni_intel.conf (text)
+shar: Saving ./cloud_scripts/etc/iptables/iptables-vpcrouter (text)
+shar: Saving ./cloud_scripts/etc/iptables/rules (text)
+shar: Saving ./cloud_scripts/etc/iptables/iptables-secstorage (text)
+shar: Saving ./cloud_scripts/etc/iptables/iptables-consoleproxy (text)
+shar: Saving ./cloud_scripts/etc/iptables/iptables-router (text)
+shar: Saving ./cloud_scripts/etc/iptables/iptables-elbvm (text)
+shar: Saving ./cloud_scripts/etc/iptables/rt_tables_init (text)
+shar: Saving ./cloud_scripts/etc/iptables/iptables-dhcpsrvr (text)
+shar: Saving ./cloud_scripts/etc/iptables/iptables-ilbvm (text)
+shar: Saving ./cloud_scripts/etc/logrotate.d/dnsmasq (text)
+shar: Saving ./cloud_scripts/etc/logrotate.d/wtmp (text)
+shar: Saving ./cloud_scripts/etc/logrotate.d/apache2 (text)
+shar: Saving ./cloud_scripts/etc/logrotate.d/routerServiceMonitor (text)
+shar: Saving ./cloud_scripts/etc/logrotate.d/ppp (text)
+shar: Saving ./cloud_scripts/etc/logrotate.d/haproxy (text)
+shar: Saving ./cloud_scripts/etc/logrotate.d/rsyslog (text)
+shar: Saving ./cloud_scripts/etc/logrotate.d/monitor (text)
+shar: Saving ./cloud_scripts/etc/logrotate.d/btmp (text)
+shar: Saving ./cloud_scripts/etc/logrotate.d/conntrackd (text)
+shar: Saving ./cloud_scripts/etc/logrotate.d/cloud (text)
+shar: Saving ./cloud_scripts/etc/vpcdnsmasq.conf (text)
+shar: Saving ./cloud_scripts/etc/cron.hourly/clear_cache (text)
+shar: Saving ./cloud_scripts/etc/xl2tpd/xl2tpd.conf (text)
+shar: Saving ./cloud_scripts/etc/ipsec.secrets (text)
+shar: Saving ./cloud_scripts/etc/logrotate.conf (text)
+shar: Saving ./cloud_scripts/etc/dnsmasq.conf.tmpl (text)
+shar: Saving ./cloud_scripts/etc/systemd/system/hyperv-daemons.hv-vss-daemon.service (text)
+shar: Saving ./cloud_scripts/etc/systemd/system/open-vm-tools.service (text)
+shar: Saving ./cloud_scripts/etc/systemd/system/cloud-preinit.service (text)
+shar: Saving ./cloud_scripts/etc/systemd/system/xe-daemon.service (text)
+shar: Saving ./cloud_scripts/etc/systemd/system/cloud-early-config.service (text)
+shar: Saving ./cloud_scripts/etc/systemd/system/hyperv-daemons.hv-kvp-daemon.service (text)
+shar: Saving ./cloud_scripts/etc/systemd/system/cloud.service (text)
+shar: Saving ./cloud_scripts/etc/systemd/system/cloud-password-server@.service (text)
+shar: Saving ./cloud_scripts/etc/systemd/system/hyperv-daemons.hv-fcopy-daemon.service (text)
+shar: Saving ./cloud_scripts/etc/systemd/system/baremetal-vr.service (text)
+shar: Saving ./cloud_scripts/etc/systemd/system/cloud-postinit.service (text)
+shar: Saving ./cloud_scripts/etc/systemd/journald.conf (text)
+shar: Saving ./cloud_scripts/etc/cron.daily/clean_cloud_processed_files (text)
+shar: Saving ./cloud_scripts/etc/cron.daily/clear_cache (text)
+shar: Saving ./cloud_scripts/etc/ssh/sshd_config (text)
+shar: Saving ./cloud_scripts/etc/ipsec.conf (text)
+shar: Saving ./cloud_scripts/root/reconfigLB.sh (text)
+shar: Saving ./cloud_scripts/root/clearUsageRules.sh (text)
+shar: Saving ./cloud_scripts/root/monitorServices.py (text)
+shar: Saving ./cloud_scripts/root/func.sh (text)
+shar: Saving ./cloud_scripts/root/health_checks/iptables_check.py (text)
+shar: Saving ./cloud_scripts/root/health_checks/dhcp_check.py (text)
+shar: Saving ./cloud_scripts/root/health_checks/__init__.py (text)
+shar: Saving ./cloud_scripts/root/health_checks/memory_usage_check.py (text)
+shar: Saving ./cloud_scripts/root/health_checks/haproxy_check.py (text)
+shar: Saving ./cloud_scripts/root/health_checks/disk_space_check.py (text)
+shar: Saving ./cloud_scripts/root/health_checks/router_version_check.py (text)
+shar: Saving ./cloud_scripts/root/health_checks/dns_check.py (text)
+shar: Saving ./cloud_scripts/root/health_checks/gateways_check.py (text)
+shar: Saving ./cloud_scripts/root/health_checks/utility/__init__.py (text)
+shar: Saving ./cloud_scripts/root/health_checks/utility/sharedFunctions.py (text)
+shar: Saving ./cloud_scripts/root/health_checks/cpu_usage_check.py (text)
+shar: Saving ./cloud_scripts/var/www/html/userdata/.htaccess (text)
+shar: Saving ./cloud_scripts/var/www/html/latest/.htaccess (text)
+shar: Saving ./cloud_scripts/opt/cloud/templates/check_bumpup.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/templates/check_heartbeat.sh.templ (text)
+shar: Saving ./cloud_scripts/opt/cloud/templates/checkrouter.sh.templ (text)
+shar: Saving ./cloud_scripts/opt/cloud/templates/conntrackd.conf.templ (text)
+shar: Saving ./cloud_scripts/opt/cloud/templates/arping_gateways.sh.templ (text)
+shar: Saving ./cloud_scripts/opt/cloud/templates/heartbeat.sh.templ (text)
+shar: Saving ./cloud_scripts/opt/cloud/templates/keepalived.conf.templ (text)
+shar: Saving ./cloud_scripts/opt/cloud/testdata/ips0001.json (text)
+shar: Saving ./cloud_scripts/opt/cloud/testdata/ips0003.json (text)
+shar: Saving ./cloud_scripts/opt/cloud/testdata/dhcp0001.json (text)
+shar: Saving ./cloud_scripts/opt/cloud/testdata/acl0001.json (text)
+shar: Saving ./cloud_scripts/opt/cloud/testdata/s2s0001.json (text)
+shar: Saving ./cloud_scripts/opt/cloud/testdata/test.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/testdata/gn0001.json (text)
+shar: Saving ./cloud_scripts/opt/cloud/testdata/vmp0001.json (text)
+shar: Saving ./cloud_scripts/opt/cloud/testdata/ips0002.json (text)
+shar: Saving ./cloud_scripts/opt/cloud/testdata/README (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/ipsectunnel.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/vr_cfg.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/update_interface_config.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/passwd_server_ip.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/getRouterMonitorResults.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/get_diagnostics_files.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/vpn_l2tp.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/configure_router.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs_firewallrules.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/get_template_version.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/prepare_pxe.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/netusage.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs_staticroutes.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/update_config.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cloud-nic.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/vmdata.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/get_haproxy_stats.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/loadbalancer.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/checks2svpn.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/checkbatchs2svpn.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/ipassoc.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/diagnostics.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/checkrouter.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/merge.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs_vmdata.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs_loadbalancer.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cleanup.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/baremetal-vr.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/monitor_service.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/postinit.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/cksnode.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/ilbvm.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/patch.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/router.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/vpcrouter.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/cloud-early-config (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/common.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/elbvm.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/dhcpsrvr.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/bootstrap.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/consoleproxy.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/init.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/secstorage.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/default.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/savepassword.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/vpc_func.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/patched.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs_ip.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs_forwardingrules.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/filesystem_writable_check.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/bumpup_priority.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs_remoteaccessvpn.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/manage_service.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup_tf_route.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs_site2sitevpn.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs_monitorservice.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs_dhcp.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/vpc_netusage.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/vpc_staticroute.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/baremetal_snat.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs_network_acl.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsApp.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsRule.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsRoute.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsRedundant.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsFile.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsVpcGuestNetwork.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/__init__.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsHelper.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsNetfilter.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsAddress.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsLoadBalancer.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsProcess.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsDatabag.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsGuestNetwork.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsDhcp.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsStaticRoutes.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsMonitor.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsConfig.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/vpc_snat.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/edithosts.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs_vmp.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs_vpnusers.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs_guestnetwork.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/line_edit.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/set_redundant.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/getRouterAlerts.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/dnsmasq.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/configure.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/ilb.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs_cmdline.py (text)
+shar: Saving ./cloud_scripts/usr/share/cloud/cloud-scripts.tar (text)
+shar: Saving ./cloud_scripts/etc/cloud-nic.rules (text)
+shar: Saving ./cloud_scripts/etc/profile.d/cloud.sh (text)
+shar: Saving ./cloud_scripts/etc/vmware-tools/tools.conf (text)
+shar: Saving ./cloud_scripts/etc/rsyslog.conf (text)
+shar: Saving ./cloud_scripts/etc/apache2/httpd.conf (text)
+shar: Saving ./cloud_scripts/etc/apache2/vhost.template (text)
+shar: Saving ./cloud_scripts/etc/apache2/conf-enabled/mods-enabled/mpm_event.conf (text)
+shar: Saving ./cloud_scripts/etc/apache2/conf-enabled/security.conf (text)
+shar: Saving ./cloud_scripts/etc/ipsec.d/l2tp.conf (text)
+shar: Saving ./cloud_scripts/etc/sysctl.conf (text)
+shar: Saving ./cloud_scripts/etc/ppp/options.xl2tpd (text)
+shar: Saving ./cloud_scripts/etc/radvd.conf.tmpl (text)
+shar: Saving ./cloud_scripts/etc/haproxy/haproxy.cfg (text)
+shar: Saving ./cloud_scripts/etc/modprobe.d/pcspkr.conf (text)
+shar: Saving ./cloud_scripts/etc/modprobe.d/aesni_intel.conf (text)
+shar: Saving ./cloud_scripts/etc/iptables/iptables-vpcrouter (text)
+shar: Saving ./cloud_scripts/etc/iptables/rules (text)
+shar: Saving ./cloud_scripts/etc/iptables/iptables-secstorage (text)
+shar: Saving ./cloud_scripts/etc/iptables/iptables-consoleproxy (text)
+shar: Saving ./cloud_scripts/etc/iptables/iptables-router (text)
+shar: Saving ./cloud_scripts/etc/iptables/iptables-elbvm (text)
+shar: Saving ./cloud_scripts/etc/iptables/rt_tables_init (text)
+shar: Saving ./cloud_scripts/etc/iptables/iptables-dhcpsrvr (text)
+shar: Saving ./cloud_scripts/etc/iptables/iptables-ilbvm (text)
+shar: Saving ./cloud_scripts/etc/logrotate.d/dnsmasq (text)
+shar: Saving ./cloud_scripts/etc/logrotate.d/wtmp (text)
+shar: Saving ./cloud_scripts/etc/logrotate.d/apache2 (text)
+shar: Saving ./cloud_scripts/etc/logrotate.d/routerServiceMonitor (text)
+shar: Saving ./cloud_scripts/etc/logrotate.d/ppp (text)
+shar: Saving ./cloud_scripts/etc/logrotate.d/haproxy (text)
+shar: Saving ./cloud_scripts/etc/logrotate.d/rsyslog (text)
+shar: Saving ./cloud_scripts/etc/logrotate.d/monitor (text)
+shar: Saving ./cloud_scripts/etc/logrotate.d/btmp (text)
+shar: Saving ./cloud_scripts/etc/logrotate.d/conntrackd (text)
+shar: Saving ./cloud_scripts/etc/logrotate.d/cloud (text)
+shar: Saving ./cloud_scripts/etc/vpcdnsmasq.conf (text)
+shar: Saving ./cloud_scripts/etc/cron.hourly/clear_cache (text)
+shar: Saving ./cloud_scripts/etc/xl2tpd/xl2tpd.conf (text)
+shar: Saving ./cloud_scripts/etc/ipsec.secrets (text)
+shar: Saving ./cloud_scripts/etc/logrotate.conf (text)
+shar: Saving ./cloud_scripts/etc/dnsmasq.conf.tmpl (text)
+shar: Saving ./cloud_scripts/etc/systemd/system/hyperv-daemons.hv-vss-daemon.service (text)
+shar: Saving ./cloud_scripts/etc/systemd/system/open-vm-tools.service (text)
+shar: Saving ./cloud_scripts/etc/systemd/system/cloud-preinit.service (text)
+shar: Saving ./cloud_scripts/etc/systemd/system/xe-daemon.service (text)
+shar: Saving ./cloud_scripts/etc/systemd/system/cloud-early-config.service (text)
+shar: Saving ./cloud_scripts/etc/systemd/system/hyperv-daemons.hv-kvp-daemon.service (text)
+shar: Saving ./cloud_scripts/etc/systemd/system/cloud.service (text)
+shar: Saving ./cloud_scripts/etc/systemd/system/cloud-password-server@.service (text)
+shar: Saving ./cloud_scripts/etc/systemd/system/hyperv-daemons.hv-fcopy-daemon.service (text)
+shar: Saving ./cloud_scripts/etc/systemd/system/baremetal-vr.service (text)
+shar: Saving ./cloud_scripts/etc/systemd/system/cloud-postinit.service (text)
+shar: Saving ./cloud_scripts/etc/systemd/journald.conf (text)
+shar: Saving ./cloud_scripts/etc/cron.daily/clean_cloud_processed_files (text)
+shar: Saving ./cloud_scripts/etc/cron.daily/clear_cache (text)
+shar: Saving ./cloud_scripts/etc/ssh/sshd_config (text)
+shar: Saving ./cloud_scripts/etc/ipsec.conf (text)
+shar: Saving ./cloud_scripts/root/reconfigLB.sh (text)
+shar: Saving ./cloud_scripts/root/clearUsageRules.sh (text)
+shar: Saving ./cloud_scripts/root/monitorServices.py (text)
+shar: Saving ./cloud_scripts/root/func.sh (text)
+shar: Saving ./cloud_scripts/root/health_checks/iptables_check.py (text)
+shar: Saving ./cloud_scripts/root/health_checks/dhcp_check.py (text)
+shar: Saving ./cloud_scripts/root/health_checks/__init__.py (text)
+shar: Saving ./cloud_scripts/root/health_checks/memory_usage_check.py (text)
+shar: Saving ./cloud_scripts/root/health_checks/haproxy_check.py (text)
+shar: Saving ./cloud_scripts/root/health_checks/disk_space_check.py (text)
+shar: Saving ./cloud_scripts/root/health_checks/router_version_check.py (text)
+shar: Saving ./cloud_scripts/root/health_checks/dns_check.py (text)
+shar: Saving ./cloud_scripts/root/health_checks/gateways_check.py (text)
+shar: Saving ./cloud_scripts/root/health_checks/utility/__init__.py (text)
+shar: Saving ./cloud_scripts/root/health_checks/utility/sharedFunctions.py (text)
+shar: Saving ./cloud_scripts/root/health_checks/cpu_usage_check.py (text)
+shar: Saving ./cloud_scripts/var/www/html/userdata/.htaccess (text)
+shar: Saving ./cloud_scripts/var/www/html/latest/.htaccess (text)
+shar: Saving ./cloud_scripts/var/www/html/userdata/.htaccess (text)
+shar: Saving ./cloud_scripts/var/www/html/latest/.htaccess (text)
+shar: Saving ./cloud_scripts/var/www/html/userdata/.htaccess (text)
+shar: Saving ./cloud_scripts/var/www/html/latest/.htaccess (text)
+shar: Saving ./cloud_scripts/var/www/html/userdata/.htaccess (text)
+shar: Saving ./cloud_scripts/var/www/html/userdata/.htaccess (text)
+shar: Saving ./cloud_scripts/var/www/html/latest/.htaccess (text)
+shar: Saving ./cloud_scripts/var/www/html/latest/.htaccess (text)
+shar: Saving ./cloud_scripts/opt/cloud/templates/check_bumpup.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/templates/check_heartbeat.sh.templ (text)
+shar: Saving ./cloud_scripts/opt/cloud/templates/checkrouter.sh.templ (text)
+shar: Saving ./cloud_scripts/opt/cloud/templates/conntrackd.conf.templ (text)
+shar: Saving ./cloud_scripts/opt/cloud/templates/arping_gateways.sh.templ (text)
+shar: Saving ./cloud_scripts/opt/cloud/templates/heartbeat.sh.templ (text)
+shar: Saving ./cloud_scripts/opt/cloud/templates/keepalived.conf.templ (text)
+shar: Saving ./cloud_scripts/opt/cloud/testdata/ips0001.json (text)
+shar: Saving ./cloud_scripts/opt/cloud/testdata/ips0003.json (text)
+shar: Saving ./cloud_scripts/opt/cloud/testdata/dhcp0001.json (text)
+shar: Saving ./cloud_scripts/opt/cloud/testdata/acl0001.json (text)
+shar: Saving ./cloud_scripts/opt/cloud/testdata/s2s0001.json (text)
+shar: Saving ./cloud_scripts/opt/cloud/testdata/test.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/testdata/gn0001.json (text)
+shar: Saving ./cloud_scripts/opt/cloud/testdata/vmp0001.json (text)
+shar: Saving ./cloud_scripts/opt/cloud/testdata/ips0002.json (text)
+shar: Saving ./cloud_scripts/opt/cloud/testdata/README (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/ipsectunnel.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/vr_cfg.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/update_interface_config.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/passwd_server_ip.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/getRouterMonitorResults.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/get_diagnostics_files.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/vpn_l2tp.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/configure_router.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs_firewallrules.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/get_template_version.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/prepare_pxe.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/netusage.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs_staticroutes.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/update_config.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cloud-nic.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/vmdata.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/get_haproxy_stats.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/loadbalancer.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/checks2svpn.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/checkbatchs2svpn.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/ipassoc.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/diagnostics.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/checkrouter.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/merge.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs_vmdata.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs_loadbalancer.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cleanup.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/baremetal-vr.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/monitor_service.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/postinit.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/cksnode.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/ilbvm.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/patch.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/router.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/vpcrouter.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/cloud-early-config (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/common.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/elbvm.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/dhcpsrvr.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/bootstrap.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/consoleproxy.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/init.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/secstorage.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/default.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/savepassword.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/vpc_func.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/patched.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs_ip.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs_forwardingrules.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/filesystem_writable_check.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/bumpup_priority.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs_remoteaccessvpn.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/manage_service.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup_tf_route.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs_site2sitevpn.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs_monitorservice.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs_dhcp.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/vpc_netusage.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/vpc_staticroute.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/baremetal_snat.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs_network_acl.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsApp.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsRule.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsRoute.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsRedundant.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsFile.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsVpcGuestNetwork.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/__init__.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsHelper.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsNetfilter.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsAddress.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsLoadBalancer.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsProcess.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsDatabag.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsGuestNetwork.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsDhcp.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsStaticRoutes.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsMonitor.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsConfig.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/vpc_snat.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/edithosts.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs_vmp.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs_vpnusers.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs_guestnetwork.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/line_edit.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/set_redundant.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/getRouterAlerts.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/dnsmasq.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/configure.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/ilb.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs_cmdline.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/templates/check_bumpup.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/templates/check_heartbeat.sh.templ (text)
+shar: Saving ./cloud_scripts/opt/cloud/templates/checkrouter.sh.templ (text)
+shar: Saving ./cloud_scripts/opt/cloud/templates/conntrackd.conf.templ (text)
+shar: Saving ./cloud_scripts/opt/cloud/templates/arping_gateways.sh.templ (text)
+shar: Saving ./cloud_scripts/opt/cloud/templates/heartbeat.sh.templ (text)
+shar: Saving ./cloud_scripts/opt/cloud/templates/keepalived.conf.templ (text)
+shar: Saving ./cloud_scripts/opt/cloud/testdata/ips0001.json (text)
+shar: Saving ./cloud_scripts/opt/cloud/testdata/ips0003.json (text)
+shar: Saving ./cloud_scripts/opt/cloud/testdata/dhcp0001.json (text)
+shar: Saving ./cloud_scripts/opt/cloud/testdata/acl0001.json (text)
+shar: Saving ./cloud_scripts/opt/cloud/testdata/s2s0001.json (text)
+shar: Saving ./cloud_scripts/opt/cloud/testdata/test.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/testdata/gn0001.json (text)
+shar: Saving ./cloud_scripts/opt/cloud/testdata/vmp0001.json (text)
+shar: Saving ./cloud_scripts/opt/cloud/testdata/ips0002.json (text)
+shar: Saving ./cloud_scripts/opt/cloud/testdata/README (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/ipsectunnel.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/vr_cfg.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/update_interface_config.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/passwd_server_ip.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/getRouterMonitorResults.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/get_diagnostics_files.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/vpn_l2tp.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/configure_router.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs_firewallrules.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/get_template_version.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/prepare_pxe.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/netusage.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs_staticroutes.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/update_config.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cloud-nic.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/vmdata.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/get_haproxy_stats.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/loadbalancer.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/checks2svpn.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/checkbatchs2svpn.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/ipassoc.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/diagnostics.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/checkrouter.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/merge.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs_vmdata.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs_loadbalancer.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cleanup.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/baremetal-vr.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/monitor_service.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/postinit.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/cksnode.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/ilbvm.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/patch.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/router.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/vpcrouter.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/cloud-early-config (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/common.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/elbvm.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/dhcpsrvr.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/bootstrap.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/consoleproxy.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/init.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/secstorage.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/default.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/savepassword.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/vpc_func.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/patched.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs_ip.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs_forwardingrules.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/filesystem_writable_check.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/bumpup_priority.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs_remoteaccessvpn.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/manage_service.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup_tf_route.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs_site2sitevpn.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs_monitorservice.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs_dhcp.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/vpc_netusage.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/vpc_staticroute.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/baremetal_snat.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs_network_acl.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsApp.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsRule.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsRoute.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsRedundant.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsFile.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsVpcGuestNetwork.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/__init__.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsHelper.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsNetfilter.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsAddress.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsLoadBalancer.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsProcess.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsDatabag.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsGuestNetwork.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsDhcp.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsStaticRoutes.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsMonitor.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsConfig.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/vpc_snat.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/edithosts.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs_vmp.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs_vpnusers.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs_guestnetwork.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/line_edit.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/set_redundant.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/getRouterAlerts.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/dnsmasq.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/configure.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/ilb.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs_cmdline.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/templates/check_bumpup.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/templates/check_heartbeat.sh.templ (text)
+shar: Saving ./cloud_scripts/opt/cloud/templates/checkrouter.sh.templ (text)
+shar: Saving ./cloud_scripts/opt/cloud/templates/conntrackd.conf.templ (text)
+shar: Saving ./cloud_scripts/opt/cloud/templates/arping_gateways.sh.templ (text)
+shar: Saving ./cloud_scripts/opt/cloud/templates/heartbeat.sh.templ (text)
+shar: Saving ./cloud_scripts/opt/cloud/templates/keepalived.conf.templ (text)
+shar: Saving ./cloud_scripts/opt/cloud/templates/check_bumpup.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/templates/check_heartbeat.sh.templ (text)
+shar: Saving ./cloud_scripts/opt/cloud/templates/checkrouter.sh.templ (text)
+shar: Saving ./cloud_scripts/opt/cloud/templates/conntrackd.conf.templ (text)
+shar: Saving ./cloud_scripts/opt/cloud/templates/arping_gateways.sh.templ (text)
+shar: Saving ./cloud_scripts/opt/cloud/templates/heartbeat.sh.templ (text)
+shar: Saving ./cloud_scripts/opt/cloud/templates/keepalived.conf.templ (text)
+shar: Saving ./cloud_scripts/opt/cloud/testdata/ips0001.json (text)
+shar: Saving ./cloud_scripts/opt/cloud/testdata/ips0003.json (text)
+shar: Saving ./cloud_scripts/opt/cloud/testdata/dhcp0001.json (text)
+shar: Saving ./cloud_scripts/opt/cloud/testdata/acl0001.json (text)
+shar: Saving ./cloud_scripts/opt/cloud/testdata/s2s0001.json (text)
+shar: Saving ./cloud_scripts/opt/cloud/testdata/test.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/testdata/gn0001.json (text)
+shar: Saving ./cloud_scripts/opt/cloud/testdata/vmp0001.json (text)
+shar: Saving ./cloud_scripts/opt/cloud/testdata/ips0002.json (text)
+shar: Saving ./cloud_scripts/opt/cloud/testdata/README (text)
+shar: Saving ./cloud_scripts/opt/cloud/testdata/ips0001.json (text)
+shar: Saving ./cloud_scripts/opt/cloud/testdata/ips0003.json (text)
+shar: Saving ./cloud_scripts/opt/cloud/testdata/dhcp0001.json (text)
+shar: Saving ./cloud_scripts/opt/cloud/testdata/acl0001.json (text)
+shar: Saving ./cloud_scripts/opt/cloud/testdata/s2s0001.json (text)
+shar: Saving ./cloud_scripts/opt/cloud/testdata/test.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/testdata/gn0001.json (text)
+shar: Saving ./cloud_scripts/opt/cloud/testdata/vmp0001.json (text)
+shar: Saving ./cloud_scripts/opt/cloud/testdata/ips0002.json (text)
+shar: Saving ./cloud_scripts/opt/cloud/testdata/README (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/ipsectunnel.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/vr_cfg.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/update_interface_config.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/passwd_server_ip.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/getRouterMonitorResults.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/get_diagnostics_files.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/vpn_l2tp.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/configure_router.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs_firewallrules.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/get_template_version.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/prepare_pxe.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/netusage.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs_staticroutes.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/update_config.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cloud-nic.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/vmdata.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/get_haproxy_stats.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/loadbalancer.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/checks2svpn.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/checkbatchs2svpn.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/ipassoc.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/diagnostics.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/checkrouter.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/merge.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs_vmdata.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs_loadbalancer.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cleanup.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/baremetal-vr.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/monitor_service.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/postinit.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/cksnode.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/ilbvm.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/patch.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/router.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/vpcrouter.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/cloud-early-config (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/common.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/elbvm.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/dhcpsrvr.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/bootstrap.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/consoleproxy.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/init.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/secstorage.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/default.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/savepassword.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/vpc_func.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/patched.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs_ip.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs_forwardingrules.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/filesystem_writable_check.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/bumpup_priority.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs_remoteaccessvpn.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/manage_service.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup_tf_route.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs_site2sitevpn.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs_monitorservice.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs_dhcp.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/vpc_netusage.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/vpc_staticroute.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/baremetal_snat.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs_network_acl.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsApp.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsRule.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsRoute.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsRedundant.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsFile.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsVpcGuestNetwork.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/__init__.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsHelper.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsNetfilter.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsAddress.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsLoadBalancer.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsProcess.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsDatabag.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsGuestNetwork.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsDhcp.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsStaticRoutes.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsMonitor.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsConfig.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/vpc_snat.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/edithosts.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs_vmp.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs_vpnusers.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs_guestnetwork.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/line_edit.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/set_redundant.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/getRouterAlerts.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/dnsmasq.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/configure.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/ilb.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs_cmdline.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/ipsectunnel.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/vr_cfg.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/update_interface_config.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/passwd_server_ip.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/getRouterMonitorResults.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/get_diagnostics_files.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/vpn_l2tp.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/configure_router.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs_firewallrules.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/get_template_version.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/prepare_pxe.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/netusage.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs_staticroutes.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/update_config.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cloud-nic.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/vmdata.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/get_haproxy_stats.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/loadbalancer.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/checks2svpn.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/checkbatchs2svpn.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/ipassoc.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/diagnostics.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/checkrouter.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/merge.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs_vmdata.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs_loadbalancer.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cleanup.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/baremetal-vr.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/monitor_service.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/postinit.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/cksnode.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/ilbvm.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/patch.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/router.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/vpcrouter.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/cloud-early-config (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/common.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/elbvm.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/dhcpsrvr.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/bootstrap.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/consoleproxy.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/init.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/secstorage.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/default.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/postinit.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/cksnode.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/ilbvm.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/patch.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/router.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/vpcrouter.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/cloud-early-config (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/common.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/elbvm.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/dhcpsrvr.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/bootstrap.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/consoleproxy.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/init.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/secstorage.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup/default.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/savepassword.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/vpc_func.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/patched.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs_ip.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs_forwardingrules.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/filesystem_writable_check.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/bumpup_priority.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs_remoteaccessvpn.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/manage_service.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/setup_tf_route.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs_site2sitevpn.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs_monitorservice.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs_dhcp.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/vpc_netusage.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/vpc_staticroute.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/baremetal_snat.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs_network_acl.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsApp.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsRule.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsRoute.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsRedundant.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsFile.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsVpcGuestNetwork.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/__init__.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsHelper.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsNetfilter.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsAddress.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsLoadBalancer.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsProcess.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsDatabag.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsGuestNetwork.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsDhcp.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsStaticRoutes.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsMonitor.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsConfig.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsApp.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsRule.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsRoute.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsRedundant.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsFile.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsVpcGuestNetwork.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/__init__.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsHelper.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsNetfilter.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsAddress.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsLoadBalancer.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsProcess.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsDatabag.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsGuestNetwork.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsDhcp.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsStaticRoutes.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsMonitor.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs/CsConfig.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/vpc_snat.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/edithosts.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs_vmp.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs_vpnusers.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs_guestnetwork.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/line_edit.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/set_redundant.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/getRouterAlerts.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/dnsmasq.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/configure.py (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/ilb.sh (text)
+shar: Saving ./cloud_scripts/opt/cloud/bin/cs_cmdline.py (text)
+shar: Saving ./cloud_scripts/usr/share/cloud/cloud-scripts.tar (text)
+shar: Saving ./cloud_scripts/usr/share/cloud/cloud-scripts.tar (text)
+shar: Saving ./cloud_scripts/usr/share/cloud/cloud-scripts.tar (text)
+shar: Saving ./cloud_scripts/usr/share/cloud/cloud-scripts.tar (text)
+shar: Saving ./cloud_scripts/etc/cloud-nic.rules (text)
+shar: Saving ./cloud_scripts/etc/profile.d/cloud.sh (text)
+shar: Saving ./cloud_scripts/etc/vmware-tools/tools.conf (text)
+shar: Saving ./cloud_scripts/etc/rsyslog.conf (text)
+shar: Saving ./cloud_scripts/etc/apache2/httpd.conf (text)
+shar: Saving ./cloud_scripts/etc/apache2/vhost.template (text)
+shar: Saving ./cloud_scripts/etc/apache2/conf-enabled/mods-enabled/mpm_event.conf (text)
+shar: Saving ./cloud_scripts/etc/apache2/conf-enabled/security.conf (text)
+shar: Saving ./cloud_scripts/etc/ipsec.d/l2tp.conf (text)
+shar: Saving ./cloud_scripts/etc/sysctl.conf (text)
+shar: Saving ./cloud_scripts/etc/ppp/options.xl2tpd (text)
+shar: Saving ./cloud_scripts/etc/radvd.conf.tmpl (text)
+shar: Saving ./cloud_scripts/etc/haproxy/haproxy.cfg (text)
+shar: Saving ./cloud_scripts/etc/modprobe.d/pcspkr.conf (text)
+shar: Saving ./cloud_scripts/etc/modprobe.d/aesni_intel.conf (text)
+shar: Saving ./cloud_scripts/etc/iptables/iptables-vpcrouter (text)
+shar: Saving ./cloud_scripts/etc/iptables/rules (text)
+shar: Saving ./cloud_scripts/etc/iptables/iptables-secstorage (text)
+shar: Saving ./cloud_scripts/etc/iptables/iptables-consoleproxy (text)
+shar: Saving ./cloud_scripts/etc/iptables/iptables-router (text)
+shar: Saving ./cloud_scripts/etc/iptables/iptables-elbvm (text)
+shar: Saving ./cloud_scripts/etc/iptables/rt_tables_init (text)
+shar: Saving ./cloud_scripts/etc/iptables/iptables-dhcpsrvr (text)
+shar: Saving ./cloud_scripts/etc/iptables/iptables-ilbvm (text)
+shar: Saving ./cloud_scripts/etc/logrotate.d/dnsmasq (text)
+shar: Saving ./cloud_scripts/etc/logrotate.d/wtmp (text)
+shar: Saving ./cloud_scripts/etc/logrotate.d/apache2 (text)
+shar: Saving ./cloud_scripts/etc/logrotate.d/routerServiceMonitor (text)
+shar: Saving ./cloud_scripts/etc/logrotate.d/ppp (text)
+shar: Saving ./cloud_scripts/etc/logrotate.d/haproxy (text)
+shar: Saving ./cloud_scripts/etc/logrotate.d/rsyslog (text)
+shar: Saving ./cloud_scripts/etc/logrotate.d/monitor (text)
+shar: Saving ./cloud_scripts/etc/logrotate.d/btmp (text)
+shar: Saving ./cloud_scripts/etc/logrotate.d/conntrackd (text)
+shar: Saving ./cloud_scripts/etc/logrotate.d/cloud (text)
+shar: Saving ./cloud_scripts/etc/vpcdnsmasq.conf (text)
+shar: Saving ./cloud_scripts/etc/cron.hourly/clear_cache (text)
+shar: Saving ./cloud_scripts/etc/xl2tpd/xl2tpd.conf (text)
+shar: Saving ./cloud_scripts/etc/ipsec.secrets (text)
+shar: Saving ./cloud_scripts/etc/logrotate.conf (text)
+shar: Saving ./cloud_scripts/etc/dnsmasq.conf.tmpl (text)
+shar: Saving ./cloud_scripts/etc/systemd/system/hyperv-daemons.hv-vss-daemon.service (text)
+shar: Saving ./cloud_scripts/etc/systemd/system/open-vm-tools.service (text)
+shar: Saving ./cloud_scripts/etc/systemd/system/cloud-preinit.service (text)
+shar: Saving ./cloud_scripts/etc/systemd/system/xe-daemon.service (text)
+shar: Saving ./cloud_scripts/etc/systemd/system/cloud-early-config.service (text)
+shar: Saving ./cloud_scripts/etc/systemd/system/hyperv-daemons.hv-kvp-daemon.service (text)
+shar: Saving ./cloud_scripts/etc/systemd/system/cloud.service (text)
+shar: Saving ./cloud_scripts/etc/systemd/system/cloud-password-server@.service (text)
+shar: Saving ./cloud_scripts/etc/systemd/system/hyperv-daemons.hv-fcopy-daemon.service (text)
+shar: Saving ./cloud_scripts/etc/systemd/system/baremetal-vr.service (text)
+shar: Saving ./cloud_scripts/etc/systemd/system/cloud-postinit.service (text)
+shar: Saving ./cloud_scripts/etc/systemd/journald.conf (text)
+shar: Saving ./cloud_scripts/etc/cron.daily/clean_cloud_processed_files (text)
+shar: Saving ./cloud_scripts/etc/cron.daily/clear_cache (text)
+shar: Saving ./cloud_scripts/etc/ssh/sshd_config (text)
+shar: Saving ./cloud_scripts/etc/ipsec.conf (text)
+shar: Saving ./cloud_scripts/etc/cloud-nic.rules (text)
+shar: Saving ./cloud_scripts/etc/profile.d/cloud.sh (text)
+shar: Saving ./cloud_scripts/etc/profile.d/cloud.sh (text)
+shar: Saving ./cloud_scripts/etc/vmware-tools/tools.conf (text)
+shar: Saving ./cloud_scripts/etc/vmware-tools/tools.conf (text)
+shar: Saving ./cloud_scripts/etc/rsyslog.conf (text)
+shar: Saving ./cloud_scripts/etc/apache2/httpd.conf (text)
+shar: Saving ./cloud_scripts/etc/apache2/vhost.template (text)
+shar: Saving ./cloud_scripts/etc/apache2/conf-enabled/mods-enabled/mpm_event.conf (text)
+shar: Saving ./cloud_scripts/etc/apache2/conf-enabled/security.conf (text)
+shar: Saving ./cloud_scripts/etc/apache2/httpd.conf (text)
+shar: Saving ./cloud_scripts/etc/apache2/vhost.template (text)
+shar: Saving ./cloud_scripts/etc/apache2/conf-enabled/mods-enabled/mpm_event.conf (text)
+shar: Saving ./cloud_scripts/etc/apache2/conf-enabled/security.conf (text)
+shar: Saving ./cloud_scripts/etc/apache2/conf-enabled/mods-enabled/mpm_event.conf (text)
+shar: Saving ./cloud_scripts/etc/apache2/conf-enabled/mods-enabled/mpm_event.conf (text)
+shar: Saving ./cloud_scripts/etc/apache2/conf-enabled/security.conf (text)
+shar: Saving ./cloud_scripts/etc/ipsec.d/l2tp.conf (text)
+shar: Saving ./cloud_scripts/etc/ipsec.d/l2tp.conf (text)
+shar: Saving ./cloud_scripts/etc/sysctl.conf (text)
+shar: Saving ./cloud_scripts/etc/ppp/options.xl2tpd (text)
+shar: Saving ./cloud_scripts/etc/ppp/options.xl2tpd (text)
+shar: Saving ./cloud_scripts/etc/radvd.conf.tmpl (text)
+shar: Saving ./cloud_scripts/etc/haproxy/haproxy.cfg (text)
+shar: Saving ./cloud_scripts/etc/haproxy/haproxy.cfg (text)
+shar: Saving ./cloud_scripts/etc/modprobe.d/pcspkr.conf (text)
+shar: Saving ./cloud_scripts/etc/modprobe.d/aesni_intel.conf (text)
+shar: Saving ./cloud_scripts/etc/modprobe.d/pcspkr.conf (text)
+shar: Saving ./cloud_scripts/etc/modprobe.d/aesni_intel.conf (text)
+shar: Saving ./cloud_scripts/etc/iptables/iptables-vpcrouter (text)
+shar: Saving ./cloud_scripts/etc/iptables/rules (text)
+shar: Saving ./cloud_scripts/etc/iptables/iptables-secstorage (text)
+shar: Saving ./cloud_scripts/etc/iptables/iptables-consoleproxy (text)
+shar: Saving ./cloud_scripts/etc/iptables/iptables-router (text)
+shar: Saving ./cloud_scripts/etc/iptables/iptables-elbvm (text)
+shar: Saving ./cloud_scripts/etc/iptables/rt_tables_init (text)
+shar: Saving ./cloud_scripts/etc/iptables/iptables-dhcpsrvr (text)
+shar: Saving ./cloud_scripts/etc/iptables/iptables-ilbvm (text)
+shar: Saving ./cloud_scripts/etc/iptables/iptables-vpcrouter (text)
+shar: Saving ./cloud_scripts/etc/iptables/rules (text)
+shar: Saving ./cloud_scripts/etc/iptables/iptables-secstorage (text)
+shar: Saving ./cloud_scripts/etc/iptables/iptables-consoleproxy (text)
+shar: Saving ./cloud_scripts/etc/iptables/iptables-router (text)
+shar: Saving ./cloud_scripts/etc/iptables/iptables-elbvm (text)
+shar: Saving ./cloud_scripts/etc/iptables/rt_tables_init (text)
+shar: Saving ./cloud_scripts/etc/iptables/iptables-dhcpsrvr (text)
+shar: Saving ./cloud_scripts/etc/iptables/iptables-ilbvm (text)
+shar: Saving ./cloud_scripts/etc/logrotate.d/dnsmasq (text)
+shar: Saving ./cloud_scripts/etc/logrotate.d/wtmp (text)
+shar: Saving ./cloud_scripts/etc/logrotate.d/apache2 (text)
+shar: Saving ./cloud_scripts/etc/logrotate.d/routerServiceMonitor (text)
+shar: Saving ./cloud_scripts/etc/logrotate.d/ppp (text)
+shar: Saving ./cloud_scripts/etc/logrotate.d/haproxy (text)
+shar: Saving ./cloud_scripts/etc/logrotate.d/rsyslog (text)
+shar: Saving ./cloud_scripts/etc/logrotate.d/monitor (text)
+shar: Saving ./cloud_scripts/etc/logrotate.d/btmp (text)
+shar: Saving ./cloud_scripts/etc/logrotate.d/conntrackd (text)
+shar: Saving ./cloud_scripts/etc/logrotate.d/cloud (text)
+shar: Saving ./cloud_scripts/etc/logrotate.d/dnsmasq (text)
+shar: Saving ./cloud_scripts/etc/logrotate.d/wtmp (text)
+shar: Saving ./cloud_scripts/etc/logrotate.d/apache2 (text)
+shar: Saving ./cloud_scripts/etc/logrotate.d/routerServiceMonitor (text)
+shar: Saving ./cloud_scripts/etc/logrotate.d/ppp (text)
+shar: Saving ./cloud_scripts/etc/logrotate.d/haproxy (text)
+shar: Saving ./cloud_scripts/etc/logrotate.d/rsyslog (text)
+shar: Saving ./cloud_scripts/etc/logrotate.d/monitor (text)
+shar: Saving ./cloud_scripts/etc/logrotate.d/btmp (text)
+shar: Saving ./cloud_scripts/etc/logrotate.d/conntrackd (text)
+shar: Saving ./cloud_scripts/etc/logrotate.d/cloud (text)
+shar: Saving ./cloud_scripts/etc/vpcdnsmasq.conf (text)
+shar: Saving ./cloud_scripts/etc/cron.hourly/clear_cache (text)
+shar: Saving ./cloud_scripts/etc/cron.hourly/clear_cache (text)
+shar: Saving ./cloud_scripts/etc/xl2tpd/xl2tpd.conf (text)
+shar: Saving ./cloud_scripts/etc/xl2tpd/xl2tpd.conf (text)
+shar: Saving ./cloud_scripts/etc/ipsec.secrets (text)
+shar: Saving ./cloud_scripts/etc/logrotate.conf (text)
+shar: Saving ./cloud_scripts/etc/dnsmasq.conf.tmpl (text)
+shar: Saving ./cloud_scripts/etc/systemd/system/hyperv-daemons.hv-vss-daemon.service (text)
+shar: Saving ./cloud_scripts/etc/systemd/system/open-vm-tools.service (text)
+shar: Saving ./cloud_scripts/etc/systemd/system/cloud-preinit.service (text)
+shar: Saving ./cloud_scripts/etc/systemd/system/xe-daemon.service (text)
+shar: Saving ./cloud_scripts/etc/systemd/system/cloud-early-config.service (text)
+shar: Saving ./cloud_scripts/etc/systemd/system/hyperv-daemons.hv-kvp-daemon.service (text)
+shar: Saving ./cloud_scripts/etc/systemd/system/cloud.service (text)
+shar: Saving ./cloud_scripts/etc/systemd/system/cloud-password-server@.service (text)
+shar: Saving ./cloud_scripts/etc/systemd/system/hyperv-daemons.hv-fcopy-daemon.service (text)
+shar: Saving ./cloud_scripts/etc/systemd/system/baremetal-vr.service (text)
+shar: Saving ./cloud_scripts/etc/systemd/system/cloud-postinit.service (text)
+shar: Saving ./cloud_scripts/etc/systemd/journald.conf (text)
+shar: Saving ./cloud_scripts/etc/systemd/system/hyperv-daemons.hv-vss-daemon.service (text)
+shar: Saving ./cloud_scripts/etc/systemd/system/open-vm-tools.service (text)
+shar: Saving ./cloud_scripts/etc/systemd/system/cloud-preinit.service (text)
+shar: Saving ./cloud_scripts/etc/systemd/system/xe-daemon.service (text)
+shar: Saving ./cloud_scripts/etc/systemd/system/cloud-early-config.service (text)
+shar: Saving ./cloud_scripts/etc/systemd/system/hyperv-daemons.hv-kvp-daemon.service (text)
+shar: Saving ./cloud_scripts/etc/systemd/system/cloud.service (text)
+shar: Saving ./cloud_scripts/etc/systemd/system/cloud-password-server@.service (text)
+shar: Saving ./cloud_scripts/etc/systemd/system/hyperv-daemons.hv-fcopy-daemon.service (text)
+shar: Saving ./cloud_scripts/etc/systemd/system/baremetal-vr.service (text)
+shar: Saving ./cloud_scripts/etc/systemd/system/cloud-postinit.service (text)
+shar: Saving ./cloud_scripts/etc/systemd/system/hyperv-daemons.hv-vss-daemon.service (text)
+shar: Saving ./cloud_scripts/etc/systemd/system/open-vm-tools.service (text)
+shar: Saving ./cloud_scripts/etc/systemd/system/cloud-preinit.service (text)
+shar: Saving ./cloud_scripts/etc/systemd/system/xe-daemon.service (text)
+shar: Saving ./cloud_scripts/etc/systemd/system/cloud-early-config.service (text)
+shar: Saving ./cloud_scripts/etc/systemd/system/hyperv-daemons.hv-kvp-daemon.service (text)
+shar: Saving ./cloud_scripts/etc/systemd/system/cloud.service (text)
+shar: Saving ./cloud_scripts/etc/systemd/system/cloud-password-server@.service (text)
+shar: Saving ./cloud_scripts/etc/systemd/system/hyperv-daemons.hv-fcopy-daemon.service (text)
+shar: Saving ./cloud_scripts/etc/systemd/system/baremetal-vr.service (text)
+shar: Saving ./cloud_scripts/etc/systemd/system/cloud-postinit.service (text)
+shar: Saving ./cloud_scripts/etc/systemd/journald.conf (text)
+shar: Saving ./cloud_scripts/etc/cron.daily/clean_cloud_processed_files (text)
+shar: Saving ./cloud_scripts/etc/cron.daily/clear_cache (text)
+shar: Saving ./cloud_scripts/etc/cron.daily/clean_cloud_processed_files (text)
+shar: Saving ./cloud_scripts/etc/cron.daily/clear_cache (text)
+shar: Saving ./cloud_scripts/etc/ssh/sshd_config (text)
+shar: Saving ./cloud_scripts/etc/ssh/sshd_config (text)
+shar: Saving ./cloud_scripts/etc/ipsec.conf (text)
+shar: Saving ./cloud_scripts/root/reconfigLB.sh (text)
+shar: Saving ./cloud_scripts/root/clearUsageRules.sh (text)
+shar: Saving ./cloud_scripts/root/monitorServices.py (text)
+shar: Saving ./cloud_scripts/root/func.sh (text)
+shar: Saving ./cloud_scripts/root/health_checks/iptables_check.py (text)
+shar: Saving ./cloud_scripts/root/health_checks/dhcp_check.py (text)
+shar: Saving ./cloud_scripts/root/health_checks/__init__.py (text)
+shar: Saving ./cloud_scripts/root/health_checks/memory_usage_check.py (text)
+shar: Saving ./cloud_scripts/root/health_checks/haproxy_check.py (text)
+shar: Saving ./cloud_scripts/root/health_checks/disk_space_check.py (text)
+shar: Saving ./cloud_scripts/root/health_checks/router_version_check.py (text)
+shar: Saving ./cloud_scripts/root/health_checks/dns_check.py (text)
+shar: Saving ./cloud_scripts/root/health_checks/gateways_check.py (text)
+shar: Saving ./cloud_scripts/root/health_checks/utility/__init__.py (text)
+shar: Saving ./cloud_scripts/root/health_checks/utility/sharedFunctions.py (text)
+shar: Saving ./cloud_scripts/root/health_checks/cpu_usage_check.py (text)
+shar: Saving ./cloud_scripts/root/reconfigLB.sh (text)
+shar: Saving ./cloud_scripts/root/clearUsageRules.sh (text)
+shar: Saving ./cloud_scripts/root/monitorServices.py (text)
+shar: Saving ./cloud_scripts/root/func.sh (text)
+shar: Saving ./cloud_scripts/root/health_checks/iptables_check.py (text)
+shar: Saving ./cloud_scripts/root/health_checks/dhcp_check.py (text)
+shar: Saving ./cloud_scripts/root/health_checks/__init__.py (text)
+shar: Saving ./cloud_scripts/root/health_checks/memory_usage_check.py (text)
+shar: Saving ./cloud_scripts/root/health_checks/haproxy_check.py (text)
+shar: Saving ./cloud_scripts/root/health_checks/disk_space_check.py (text)
+shar: Saving ./cloud_scripts/root/health_checks/router_version_check.py (text)
+shar: Saving ./cloud_scripts/root/health_checks/dns_check.py (text)
+shar: Saving ./cloud_scripts/root/health_checks/gateways_check.py (text)
+shar: Saving ./cloud_scripts/root/health_checks/utility/__init__.py (text)
+shar: Saving ./cloud_scripts/root/health_checks/utility/sharedFunctions.py (text)
+shar: Saving ./cloud_scripts/root/health_checks/cpu_usage_check.py (text)
+shar: Saving ./cloud_scripts/root/health_checks/iptables_check.py (text)
+shar: Saving ./cloud_scripts/root/health_checks/dhcp_check.py (text)
+shar: Saving ./cloud_scripts/root/health_checks/__init__.py (text)
+shar: Saving ./cloud_scripts/root/health_checks/memory_usage_check.py (text)
+shar: Saving ./cloud_scripts/root/health_checks/haproxy_check.py (text)
+shar: Saving ./cloud_scripts/root/health_checks/disk_space_check.py (text)
+shar: Saving ./cloud_scripts/root/health_checks/router_version_check.py (text)
+shar: Saving ./cloud_scripts/root/health_checks/dns_check.py (text)
+shar: Saving ./cloud_scripts/root/health_checks/gateways_check.py (text)
+shar: Saving ./cloud_scripts/root/health_checks/utility/__init__.py (text)
+shar: Saving ./cloud_scripts/root/health_checks/utility/sharedFunctions.py (text)
+shar: Saving ./cloud_scripts/root/health_checks/utility/__init__.py (text)
+shar: Saving ./cloud_scripts/root/health_checks/utility/sharedFunctions.py (text)
+shar: Saving ./cloud_scripts/root/health_checks/cpu_usage_check.py (text)
++ cd /var/lib/jenkins/workspace/systemvmtemplate-multi-arch/tools/appliance
++ rm -rf /tmp/shar_cloud.wLdofEcE
++ chmod +x cloud_scripts_shar_archive.sh
++ echo cloud_scripts are in cloud_scripts_shar_archive.sh
+cloud_scripts are in cloud_scripts_shar_archive.sh
++ add_on_exit rm -f cloud_scripts_shar_archive.sh
++ local n=1
++ on_exit_items[${n}]='rm -f cloud_scripts_shar_archive.sh'
++ '[' 1 -eq 0 ']'
++ packer_build
++ log INFO 'building new image with packer'
++ local level=INFO
++ shift
++ [[ 1 != \1 ]]
++ local code=
+++ date '+%F %T'
++ local 'line=[2024-08-28 11:10:19] INFO: building new image with packer'
++ '[' -t 2 ']'
++ echo '[2024-08-28 11:10:19] INFO: building new image with packer'
+[2024-08-28 11:10:19] INFO: building new image with packer
++ cd systemvmtemplate-4.20.0-s390x
++ packer build template-base_x86_64-target_s390x.json
+2024/08/28 11:10:19 [INFO] Packer version: 1.9.5 [go1.20.11 linux amd64]
+2024/08/28 11:10:19 [TRACE] discovering plugins in /usr/local/bin
+2024/08/28 11:10:19 [TRACE] discovering plugins in .
+2024/08/28 11:10:19 [TRACE] discovering plugins in /var/lib/jenkins/.config/packer/plugins
+2024/08/28 11:10:19 [INFO] PACKER_CONFIG env var not set; checking the default config file path
+2024/08/28 11:10:19 [INFO] PACKER_CONFIG env var set; attempting to open config file: /var/lib/jenkins/.packerconfig
+2024/08/28 11:10:19 [WARN] Config file doesn't exist: /var/lib/jenkins/.packerconfig
+2024/08/28 11:10:19 [INFO] Setting cache directory: /var/lib/jenkins/.cache/packer
+e: Running in background, not using a TTY
+
+This template relies on the use of plugins bundled into the Packer binary.
+The practice of bundling external plugins into Packer will be removed in an
+upcoming version.
+
+To remove this warning and ensure builds keep working you can install these
+external plugins with the 'packer plugins install' command
+
+* packer plugins install github.com/hashicorp/qemu
+
+Alternatively, if you upgrade your templates to HCL2, you can use 'packer init'
+with a 'required_plugins' block to automatically install external plugins.
+
+You can try HCL2 by running 'packer hcl2_upgrade
+/var/lib/jenkins/workspace/systemvmtemplate-multi-arch/tools/appliance/systemvmtemplate-4.20.0-s390x/template-base_x86_64-target_s390x.json'
+
+2024/08/28 11:10:19 [INFO] Starting internal plugin packer-builder-qemu
+2024/08/28 11:10:19 Starting plugin: /usr/local/bin/packer []string{"/usr/local/bin/packer", "plugin", "packer-builder-qemu"}
+Warning: Bundled plugins used
+
+This template relies on the use of plugins bundled into the Packer binary.
+2024/08/28 11:10:19 Waiting for RPC address for: /usr/local/bin/packer
+The practice of bundling external plugins into Packer will be removed in an
+upcoming version.
+
+To remove this warning and ensure builds keep working you can install these
+external plugins with the 'packer plugins install' command
+
+* packer plugins install github.com/hashicorp/qemu
+
+Alternatively, if you upgrade your templates to HCL2, you can use 'packer init'
+with a 'required_plugins' block to automatically install external plugins.
+
+You can try HCL2 by running 'packer hcl2_upgrade
+/var/lib/jenkins/workspace/systemvmtemplate-multi-arch/tools/appliance/systemvmtemplate-4.20.0-s390x/template-base_x86_64-target_s390x.json'
+
+
+2024/08/28 11:10:19 packer-builder-qemu plugin: [INFO] Packer version: 1.9.5 [go1.20.11 linux amd64]
+2024/08/28 11:10:19 packer-builder-qemu plugin: [INFO] PACKER_CONFIG env var not set; checking the default config file path
+2024/08/28 11:10:19 packer-builder-qemu plugin: [INFO] PACKER_CONFIG env var set; attempting to open config file: /var/lib/jenkins/.packerconfig
+2024/08/28 11:10:19 packer-builder-qemu plugin: [WARN] Config file doesn't exist: /var/lib/jenkins/.packerconfig
+2024/08/28 11:10:19 packer-builder-qemu plugin: [INFO] Setting cache directory: /var/lib/jenkins/.cache/packer
+2024/08/28 11:10:19 packer-builder-qemu plugin: args: []string{"packer-builder-qemu"}
+2024/08/28 11:10:19 packer-builder-qemu plugin: Plugin address: unix /tmp/packer-plugin1911234812
+2024/08/28 11:10:19 packer-builder-qemu plugin: Waiting for connection...
+2024/08/28 11:10:19 Received unix RPC address for /usr/local/bin/packer: addr is /tmp/packer-plugin1911234812
+2024/08/28 11:10:19 packer-builder-qemu plugin: Serving a plugin connection...
+2024/08/28 11:10:19 [INFO] Starting internal plugin packer-provisioner-shell
+2024/08/28 11:10:19 Starting plugin: /usr/local/bin/packer []string{"/usr/local/bin/packer", "plugin", "packer-provisioner-shell"}
+2024/08/28 11:10:19 Waiting for RPC address for: /usr/local/bin/packer
+2024/08/28 11:10:19 packer-provisioner-shell plugin: [INFO] Packer version: 1.9.5 [go1.20.11 linux amd64]
+2024/08/28 11:10:19 packer-provisioner-shell plugin: [INFO] PACKER_CONFIG env var not set; checking the default config file path
+2024/08/28 11:10:19 packer-provisioner-shell plugin: [INFO] PACKER_CONFIG env var set; attempting to open config file: /var/lib/jenkins/.packerconfig
+2024/08/28 11:10:19 packer-provisioner-shell plugin: [WARN] Config file doesn't exist: /var/lib/jenkins/.packerconfig
+2024/08/28 11:10:19 packer-provisioner-shell plugin: [INFO] Setting cache directory: /var/lib/jenkins/.cache/packer
+2024/08/28 11:10:19 packer-provisioner-shell plugin: args: []string{"packer-provisioner-shell"}
+2024/08/28 11:10:19 packer-provisioner-shell plugin: Plugin address: unix /tmp/packer-plugin658062845
+2024/08/28 11:10:19 packer-provisioner-shell plugin: Waiting for connection...
+2024/08/28 11:10:19 Received unix RPC address for /usr/local/bin/packer: addr is /tmp/packer-plugin658062845
+2024/08/28 11:10:19 packer-provisioner-shell plugin: Serving a plugin connection...
+2024/08/28 11:10:19 Preparing build: qemu
+2024/08/28 11:10:19 packer-builder-qemu plugin: use detected accelerator: kvm
+2024/08/28 11:10:19 packer-builder-qemu plugin: MemorySize 0 is too small, using default: 512
+2024/08/28 11:10:19 Build debug mode: false
+2024/08/28 11:10:19 Force build: false
+2024/08/28 11:10:19 On error: 
+2024/08/28 11:10:19 Waiting on builds to complete...
+2024/08/28 11:10:19 Starting build run: qemu
+2024/08/28 11:10:19 Running builder: qemu
+2024/08/28 11:10:19 [INFO] (telemetry) Starting builder qemu
+[1;32mqemu: output will be in this color.[0m
+
+2024/08/28 11:10:19 packer-builder-qemu plugin: Qemu path: /usr/bin/qemu-system-s390x, Qemu Image path: /usr/bin/qemu-img
+[1;32m==> qemu: Retrieving ISO[0m
+2024/08/28 11:10:19 packer-builder-qemu plugin: Acquiring lock for: https://cdimage.debian.org/mirror/cdimage/archive/12.5.0/s390x/iso-cd/debian-12.5.0-s390x-netinst.iso?checksum=sha512%3A52455df8fe44b90b55d90fafc7ca6fa5d57c4be1b6c6d5a06e8ef36634c764607f6ff8119a3b6daf3b33ab420a20f263561176c7d4de2efc3c2b285edf2e6ff6 (/var/lib/jenkins/.cache/packer/b72ffe1c77b511f2fb8e21234082ae848c523f55.iso.lock)
+[1;32m==> qemu: Trying https://cdimage.debian.org/mirror/cdimage/archive/12.5.0/s390x/iso-cd/debian-12.5.0-s390x-netinst.iso[0m
+[1;32m==> qemu: Trying https://cdimage.debian.org/mirror/cdimage/archive/12.5.0/s390x/iso-cd/debian-12.5.0-s390x-netinst.iso?checksum=sha512%3A52455df8fe44b90b55d90fafc7ca6fa5d57c4be1b6c6d5a06e8ef36634c764607f6ff8119a3b6daf3b33ab420a20f263561176c7d4de2efc3c2b285edf2e6ff6[0m
+2024/08/28 11:10:20 packer-builder-qemu plugin: Leaving retrieve loop for ISO
+2024/08/28 11:10:20 packer-builder-qemu plugin: No floppy files specified. Floppy disk will not be made.
+2024/08/28 11:10:20 packer-builder-qemu plugin: No CD files specified. CD disk will not be made.
+2024/08/28 11:10:20 packer-builder-qemu plugin: [INFO] Creating disk with Path: ../dist/systemvmtemplate and Size: 5000M
+2024/08/28 11:10:20 packer-builder-qemu plugin: Executing qemu-img: []string{"create", "-f", "qcow2", "../dist/systemvmtemplate", "5000M"}
+[1;32m==> qemu: https://cdimage.debian.org/mirror/cdimage/archive/12.5.0/s390x/iso-cd/debian-12.5.0-s390x-netinst.iso?checksum=sha512%3A52455df8fe44b90b55d90fafc7ca6fa5d57c4be1b6c6d5a06e8ef36634c764607f6ff8119a3b6daf3b33ab420a20f263561176c7d4de2efc3c2b285edf2e6ff6 => /var/lib/jenkins/.cache/packer/b72ffe1c77b511f2fb8e21234082ae848c523f55.iso[0m
+2024/08/28 11:10:20 packer-builder-qemu plugin: stdout: Formatting '../dist/systemvmtemplate', fmt=qcow2 size=5242880000 cluster_size=65536 lazy_refcounts=off refcount_bits=16
+2024/08/28 11:10:20 packer-builder-qemu plugin: stderr:
+2024/08/28 11:10:20 packer-builder-qemu plugin: Found available port: 8188 on IP: 0.0.0.0
+[1;32m==> qemu: Starting HTTP server on port 8188[0m
+2024/08/28 11:10:20 packer-builder-qemu plugin: Looking for available communicator (SSH, WinRM, etc) port between 2222 and 4444
+2024/08/28 11:10:20 packer-builder-qemu plugin: Found available port: 3551 on IP: 127.0.0.1
+[1;32m==> qemu: Found port for communicator (SSH, WinRM, etc): 3551.[0m
+[1;32m==> qemu: Looking for available port between 5900 and 6000 on 127.0.0.1[0m
+2024/08/28 11:10:20 packer-builder-qemu plugin: Looking for available port between 5900 and 6000 on 127.0.0.1
+2024/08/28 11:10:20 packer-builder-qemu plugin: Found available port: 5942 on IP: 127.0.0.1
+2024/08/28 11:10:20 packer-builder-qemu plugin: Found available VNC port: 5942 on IP: 127.0.0.1
+2024/08/28 11:10:20 packer-builder-qemu plugin: Qemu --version output: QEMU emulator version 4.2.1 (Debian 1:4.2-3ubuntu6.29)
+2024/08/28 11:10:20 packer-builder-qemu plugin: Copyright (c) 2003-2019 Fabrice Bellard and the QEMU Project developers
+2024/08/28 11:10:20 packer-builder-qemu plugin: Qemu version: 4.2.1
+[1;32m==> qemu: Starting VM, booting from CD-ROM[0m
+    qemu: view the screen of the VM, connect via VNC without a password to
+[0;32m    qemu: The VM will be run headless, without a GUI. If you want to
+    qemu: vnc://127.0.0.1:5942[0m
+2024/08/28 11:10:20 packer-builder-qemu plugin: Qemu Builder has no floppy files, not attaching a floppy.
+    qemu: view the screen of the VM, connect via VNC without a password to
+    qemu: vnc://127.0.0.1:5942[0m
+[1;32m==> qemu: Overriding default Qemu arguments with qemuargs template option...[0m
+2024/08/28 11:10:20 packer-builder-qemu plugin: Executing /usr/bin/qemu-system-s390x: []string{"-machine", "s390-ccw-virtio", "-smp", "2", "-monitor", "none", "-drive", "file=../dist/systemvmtemplate,if=virtio,cache=writeback,discard=ignore,format=qcow2", "-drive", "file=/var/lib/jenkins/.cache/packer/b72ffe1c77b511f2fb8e21234082ae848c523f55.iso,if=none,index=0,id=cdrom0,media=cdrom", "-device", "virtio-net,netdev=user.0", "-device", "virtio-scsi-pci,id=scsi0", "-device", "virtio-scsi-device", "-device", "scsi-cd,drive=cdrom0", "-m", "500M", "-cpu", "max,zpci=on", "-boot", "strict=off", "-netdev", "user,id=user.0,hostfwd=tcp::3551-:22", "-vnc", "127.0.0.1:42", "-name", "systemvmtemplate"}
+2024/08/28 11:10:20 packer-builder-qemu plugin: Started Qemu. Pid: 108861
+2024/08/28 11:10:20 packer-builder-qemu plugin: Qemu stderr: qemu-system-s390x: warning: 'msa5-base' requires 'kimd-sha-512'.
+2024/08/28 11:10:20 packer-builder-qemu plugin: Qemu stderr: qemu-system-s390x: warning: 'msa5-base' requires 'klmd-sha-512'.
+2024/08/28 11:10:20 packer-builder-qemu plugin: Qemu stderr: qemu-system-s390x: warning: 'msa5-base' requires 'kimd-sha-512'.
+2024/08/28 11:10:20 packer-builder-qemu plugin: Qemu stderr: qemu-system-s390x: warning: 'msa5-base' requires 'klmd-sha-512'.
+2024/08/28 11:10:20 packer-builder-qemu plugin: Qemu stderr: qemu-system-s390x: -device virtio-scsi-device: No 'virtio-bus' bus found for device 'virtio-scsi-device'
+[1;31m==> qemu: Error launching VM: Qemu failed to start. Please run with PACKER_LOG=1 to get more info.[0m
+2024/08/28 11:10:20 packer-builder-qemu plugin: failed to unlock port lockfile: close tcp 127.0.0.1:5942: use of closed network connection
+2024/08/28 11:10:20 packer-builder-qemu plugin: failed to unlock port lockfile: close tcp 127.0.0.1:3551: use of closed network connection
+[1;32m==> qemu: Deleting output directory...[0m
+2024/08/28 11:10:20 [INFO] (telemetry) ending qemu
+==> Wait completed after 501 milliseconds 245 microseconds
+2024/08/28 11:10:20 machine readable: error-count []string{"1"}
+==> Some builds didn't complete successfully and had errors:
+2024/08/28 11:10:20 machine readable: qemu,error []string{"Build was halted."}
+==> Builds finished but no artifacts were created.
+[1;31mBuild 'qemu' errored after 501 milliseconds 209 microseconds: Build was halted.[0m
+2024/08/28 11:10:20 [INFO] (telemetry) Finalizing.
+
+==> Wait completed after 501 milliseconds 245 microseconds
+
+==> Some builds didn't complete successfully and had errors:
+--> qemu: Build was halted.
+
+==> Builds finished but no artifacts were created.
+2024/08/28 11:10:20 waiting for all plugin processes to complete...
+2024/08/28 11:10:20 /usr/local/bin/packer: plugin process exited
+2024/08/28 11:10:20 /usr/local/bin/packer: plugin process exited
++ on_exit
++ (( i=2-1  ))
++ (( i>=0  ))
++ sleep 2
++ log DEBUG 'on_exit: rm -f cloud_scripts_shar_archive.sh'
++ local level=DEBUG
++ shift
++ [[ 1 != \1 ]]
++ local code=
+++ date '+%F %T'
++ local 'line=[2024-08-28 11:10:22] DEBUG: on_exit: rm -f cloud_scripts_shar_archive.sh'
++ '[' -t 2 ']'
++ echo '[2024-08-28 11:10:22] DEBUG: on_exit: rm -f cloud_scripts_shar_archive.sh'
+[2024-08-28 11:10:22] DEBUG: on_exit: rm -f cloud_scripts_shar_archive.sh
++ eval rm -f cloud_scripts_shar_archive.sh
+++ rm -f cloud_scripts_shar_archive.sh
++ (( i--  ))
++ (( i>=0  ))
++ sleep 2
++ log DEBUG 'on_exit: rm -rf systemvmtemplate-4.20.0-s390x'
++ local level=DEBUG
++ shift
++ [[ 1 != \1 ]]
++ local code=
+++ date '+%F %T'
++ local 'line=[2024-08-28 11:10:24] DEBUG: on_exit: rm -rf systemvmtemplate-4.20.0-s390x'
++ '[' -t 2 ']'
++ echo '[2024-08-28 11:10:24] DEBUG: on_exit: rm -rf systemvmtemplate-4.20.0-s390x'
+[2024-08-28 11:10:24] DEBUG: on_exit: rm -rf systemvmtemplate-4.20.0-s390x
++ eval rm -rf systemvmtemplate-4.20.0-s390x
+++ rm -rf systemvmtemplate-4.20.0-s390x
++ (( i--  ))
++ (( i>=0  ))
+Build step 'Execute shell' marked build as failure
+Finished: FAILURE

@@ -1,0 +1,266 @@
+From c390cb5ba2d139b37af5481e2792e3626db1af2f Mon Sep 17 00:00:00 2001
+From: Rohit Yadav <rohit.yadav@shapeblue.com>
+Date: Wed, 28 Aug 2024 10:48:41 +0530
+Subject: [PATCH] systemvm: s390x example build configuration
+
+To experiment building with packer, install packer, qemu-system-<arch>
+and other dependencies mentioned on README.md
+
+To initiate build, run this for s390x:
+
+  bash -x build.sh systemvmtemplate 4.20.0 s390x
+
+Signed-off-by: Rohit Yadav <rohit.yadav@shapeblue.com>
+---
+ .../systemvmtemplate/http/preseed_s390x.cfg   | 113 ++++++++++++++++++
+ .../scripts/install_systemvm_packages.sh      |   6 +-
+ .../template-base_x86_64-target_s390x.json    |  86 +++++++++++++
+ 3 files changed, 203 insertions(+), 2 deletions(-)
+ create mode 100644 tools/appliance/systemvmtemplate/http/preseed_s390x.cfg
+ create mode 100644 tools/appliance/systemvmtemplate/template-base_x86_64-target_s390x.json
+
+diff --git a/tools/appliance/systemvmtemplate/http/preseed_s390x.cfg b/tools/appliance/systemvmtemplate/http/preseed_s390x.cfg
+new file mode 100644
+index 00000000000..1ed0edd492f
+--- /dev/null
++++ b/tools/appliance/systemvmtemplate/http/preseed_s390x.cfg
+@@ -0,0 +1,113 @@
++# Licensed to the Apache Software Foundation (ASF) under one
++# or more contributor license agreements.  See the NOTICE file
++# distributed with this work for additional information
++# regarding copyright ownership.  The ASF licenses this file
++# to you under the Apache License, Version 2.0 (the
++# "License"); you may not use this file except in compliance
++# with the License.  You may obtain a copy of the License at
++#
++#   http://www.apache.org/licenses/LICENSE-2.0
++#
++# Unless required by applicable law or agreed to in writing,
++# software distributed under the License is distributed on an
++# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
++# KIND, either express or implied.  See the License for the
++# specific language governing permissions and limitations
++# under the License.
++
++### Localization
++# Locale sets language and country.
++d-i debian-installer/locale string en_US.UTF-8
++d-i debian-installer/country string IN
++
++# Keyboard selection.
++d-i keymap select us
++d-i keyboard-configuration/xkb-keymap select us
++
++### Network configuration
++d-i netcfg/choose_interface select auto
++d-i netcfg/get_hostname string systemvm
++d-i netcfg/get_domain string apache.org
++d-i netcfg/wireless_wep string
++
++d-i hw-detect/load_firmware boolean true
++
++### Mirror settings
++d-i mirror/country string manual
++d-i mirror/http/hostname string deb.debian.org
++d-i mirror/http/directory string /debian
++d-i mirror/http/proxy string
++
++### Apt setup
++d-i apt-setup/cdrom/set-first false
++d-i apt-setup/security-updates boolean true
++d-i apt-setup/services-select multiselect security, updates
++d-i apt-setup/security_host string security.debian.org
++d-i apt-setup/local0/source boolean false
++d-i apt-setup/multiarch string i386
++d-i apt-setup/backports  boolean true
++d-i apt-setup/contrib    boolean true
++d-i apt-setup/multiverse boolean true
++d-i apt-setup/universe   boolean true
++
++### Clock and time zone setup
++d-i clock-setup/utc boolean true
++d-i time/zone string UTC
++d-i clock-setup/ntp boolean true
++
++### Partitioning
++d-i partman-auto/disk string /dev/vda
++d-i partman-auto/method string regular
++d-i partman-auto/expert_recipe string                         \
++      boot-root ::                                            \
++              400 60 400 ext2                                 \
++                      $primary{ } $bootable{ }                \
++                      method{ format } format{ }              \
++                      use_filesystem{ } filesystem{ ext2 }    \
++                      mountpoint{ /boot }                     \
++              .                                               \
++              512 1000 512 linux-swap                         \
++                      method{ swap } format{ }                \
++              .                                               \
++              2240 40 4000 ext4                               \
++                      method{ format } format{ }              \
++                      use_filesystem{ } filesystem{ ext4 }    \
++                      mountpoint{ / }                         \
++              .
++
++d-i partman-md/confirm boolean true
++d-i partman-partitioning/confirm_write_new_label boolean true
++d-i partman/choose_partition select finish
++d-i partman/confirm boolean true
++d-i partman/confirm_nooverwrite boolean true
++
++### Base system installation
++# ...
++
++### Account setup
++d-i passwd/root-login boolean false
++d-i passwd/root-password password password
++d-i passwd/root-password-again password password
++d-i passwd/user-fullname string Cloud User
++d-i passwd/username string cloud
++d-i passwd/user-password password cloud
++d-i passwd/user-password-again password cloud
++d-i user-setup/encrypt-home boolean false
++d-i user-setup/allow-password-weak boolean true
++d-i passwd/user-default-groups string audio cdrom video admin
++
++### Package selection
++tasksel tasksel/first multiselect ssh-server
++d-i pkgsel/include string openssh-server ntp acpid sudo bzip2 openssl
++# Allowed values: none, safe-upgrade, full-upgrade
++d-i pkgsel/upgrade select full-upgrade
++d-i pkgsel/update-policy select none
++
++popularity-contest popularity-contest/participate boolean false
++
++### Boot loader installation
++d-i grub-installer/only_debian boolean true
++d-i grub-installer/bootdev  string default
++d-i finish-install/reboot_in_progress note
++
++#### Advanced options
+diff --git a/tools/appliance/systemvmtemplate/scripts/install_systemvm_packages.sh b/tools/appliance/systemvmtemplate/scripts/install_systemvm_packages.sh
+index 686661a72f9..d1f17454777 100644
+--- a/tools/appliance/systemvmtemplate/scripts/install_systemvm_packages.sh
++++ b/tools/appliance/systemvmtemplate/scripts/install_systemvm_packages.sh
+@@ -83,7 +83,7 @@ function install_packages() {
+   apt_clean
+ 
+   # 32 bit architecture support for vhd-util
+-  if [[ "${arch}" != "i386" && "${arch}" != "arm64" ]]; then
++  if [[ "${arch}" != "i386" && "${arch}" == "amd64" ]]; then
+     dpkg --add-architecture i386
+     apt-get update
+     ${apt_get} install libuuid1:i386 libc6:i386
+@@ -96,6 +96,8 @@ function install_packages() {
+     add-apt-repository "deb [arch=arm64] https://download.docker.com/linux/debian $(lsb_release -cs) stable"
+   elif [ "${arch}" == "amd64" ]; then
+     add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable"
++  elif [ "${arch}" == "s390x" ]; then
++    add-apt-repository "deb [arch=s390x] https://download.docker.com/linux/debian $(lsb_release -cs) stable"
+   else
+     add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable"
+   fi
+@@ -104,7 +106,7 @@ function install_packages() {
+ 
+   apt_clean
+ 
+-  if [ "${arch}" != "arm64" ]; then
++  if [ "${arch}" == "amd64" ]; then
+     install_vhd_util
+     # Install xenserver guest utilities as debian repos don't have it
+     wget --no-check-certificate https://download.cloudstack.org/systemvm/debian/xe-guest-utilities_7.20.2-0ubuntu1_amd64.deb
+diff --git a/tools/appliance/systemvmtemplate/template-base_x86_64-target_s390x.json b/tools/appliance/systemvmtemplate/template-base_x86_64-target_s390x.json
+new file mode 100644
+index 00000000000..946611bab62
+--- /dev/null
++++ b/tools/appliance/systemvmtemplate/template-base_x86_64-target_s390x.json
+@@ -0,0 +1,86 @@
++{
++  "_license": "Apache License 2.0",
++  "builders": [
++    {
++      "boot_command": [
++        "<esc><wait>",
++        "install <wait>",
++        "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed_s390x.cfg <wait>",
++        "debian-installer=en_US.UTF-8 <wait>",
++        "auto <wait>",
++        "language=en locale=en_US.UTF-8 <wait>",
++        "kbd-chooser/method=us <wait>",
++        "keyboard-configuration/xkb-keymap=us <wait>",
++        "netcfg/get_hostname=systemvm <wait>",
++        "netcfg/get_domain=apache.org <wait>",
++        "country=IN keymap=us <wait>",
++        "fb=false <wait>",
++        "debconf/frontend=noninteractive <wait>",
++        "console-setup/ask_detect=false <wait>",
++        "console-keymaps-at/keymap=us <wait>",
++        "<enter><wait>"
++      ],
++      "boot_wait": "60s",
++      "disk_interface": "virtio",
++      "cdrom_interface": "virtio-scsi",
++      "disk_size": "5000M",
++      "format": "qcow2",
++      "headless": true,
++      "http_directory": "http",
++      "iso_checksum": "sha512:52455df8fe44b90b55d90fafc7ca6fa5d57c4be1b6c6d5a06e8ef36634c764607f6ff8119a3b6daf3b33ab420a20f263561176c7d4de2efc3c2b285edf2e6ff6",
++      "iso_url": "https://cdimage.debian.org/mirror/cdimage/archive/12.5.0/s390x/iso-cd/debian-12.5.0-s390x-netinst.iso",
++      "net_device": "virtio-net",
++      "output_directory": "../dist",
++      "qemu_binary": "qemu-system-s390x",
++      "qemuargs": [
++        [
++          "-m",
++          "500M"
++        ],
++        [
++          "-machine",
++          "s390-ccw-virtio"
++        ],
++        [
++          "-cpu",
++          "max,zpci=on"
++        ],
++        [
++          "-smp",
++          "2"
++        ],
++        [ "-monitor", "none" ],
++        [ "-boot", "strict=off" ]
++      ],
++      "shutdown_command": "sudo halt -p",
++      "ssh_password": "cloud",
++      "ssh_timeout": "120m",
++      "ssh_username": "cloud",
++      "type": "qemu",
++      "vm_name": "systemvmtemplate"
++    }
++  ],
++  "description": "CloudStack SystemVM template",
++  "provisioners": [
++    {
++      "execute_command": "echo 'cloud' | sudo -u root -S bash {{.Path}}",
++      "scripts": [
++        "scripts/apt_upgrade.sh",
++        "scripts/configure_grub.sh",
++        "scripts/configure_locale.sh",
++        "scripts/configure_networking.sh",
++        "scripts/configure_acpid.sh",
++        "scripts/install_systemvm_packages.sh",
++        "scripts/configure_conntrack.sh",
++        "scripts/authorized_keys.sh",
++        "scripts/configure_persistent_config.sh",
++        "scripts/configure_login.sh",
++        "../cloud_scripts_shar_archive.sh",
++        "scripts/configure_systemvm_services.sh",
++        "scripts/cleanup.sh",
++        "scripts/finalize.sh"
++      ],
++      "type": "shell"
++    }
++  ]
++}
+-- 
+2.45.2
+
