@@ -30,7 +30,7 @@ main() {
     check_if_root
 
     copy_scripts
-    
+
     script_ended_ok=true
 }
 
@@ -60,8 +60,8 @@ copy_scripts() {
     do_cmd "ssh $SSH_PARAMS $USER_AT_HOST mkdir -p scripts"
     # copy the files after running the create_shar_archive.sh script from the cloudstack source folder to the systemvm guest
     do_cmd "scp $SCP_PARAMS /data/cloudstack/tools/appliance/cloud_scripts_shar_archive.sh $USER_AT_HOST:."
-    do_cmd "scp $SCP_PARAMS /data/scripts/systemvmtemplate/scripts/*.sh $USER_AT_HOST:scripts"
-    do_cmd "scp $SCP_PARAMS /data/scripts/systemvmtemplate/deb_install.sh $USER_AT_HOST:."
+    do_cmd "scp $SCP_PARAMS /data/cloudstack/tools/appliance/systemvmtemplate/scripts/*.sh $USER_AT_HOST:scripts"
+    do_cmd "scp $SCP_PARAMS /data/scripts/systemvmtemplate/things_todo_on_systemvm_right_after_install.sh $USER_AT_HOST:."
     do_cmd "scp $SCP_PARAMS /data/scripts/systemvmtemplate/exec_scripts_for_svm.sh $USER_AT_HOST:."
     do_cmd "ssh $SSH_PARAMS $USER_AT_HOST nohup sudo bash -c './exec_scripts_for_svm.sh'"
     #hostnamectl --static set-hostname deb390-4
