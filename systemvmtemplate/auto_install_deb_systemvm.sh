@@ -18,7 +18,7 @@ virt-install --name deb11-a \
     --disk path=/data/primary/vm/images/deb11-a.qcow2,size=6 \
     --check disk_size=off \
     --location=/mnt/iso/debian/debian-11.11.0-s390x-netinst.iso \
-    --extra-args="auto=true priority=critical s390-netdevice/choose_networktype=virtio preseed/url=http://localhost:8090/preseed_s390x.cfg DEBCONF_DEBUG=5 DEBIAN_FRONTEND=noninteractive auto-install/enable=true"
+    --extra-args="auto=true priority=critical $parms1 preseed/url=http://localhost:8090/preseed_s390x.cfg DEBCONF_DEBUG=5 DEBIAN_FRONTEND=noninteractive auto-install/enable=true"
 
 
 
