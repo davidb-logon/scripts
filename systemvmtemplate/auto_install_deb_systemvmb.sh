@@ -12,7 +12,7 @@ virt-install --name deb11-b \
     --os-variant=debian11 \
     --graphics=none \
     -v \
-    --disk path=/data/primary/vm/images/deb11-a.qcow2,size=6 \
+    --disk path=/data/primary/vm/images/deb11-b.qcow2,size=6 \
     --check disk_size=off \
     --location=/mnt/iso/debian/debian-11.11.0-s390x-netinst.iso \
     --extra-args="auto=true priority=critical preseed/file=/preseed_s390xb.cfg DEBIAN_FRONTEND=noninteractive auto-install/enable=true" \
