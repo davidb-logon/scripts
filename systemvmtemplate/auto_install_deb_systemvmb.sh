@@ -13,8 +13,7 @@ virt-install --name deb11-b \
     --os-variant=debian11 \
     --graphics none \
     --console pty,target_type=serial \
-    --noautoconsole \
-    -v \
+     -v \
     --disk path=/data/primary/vm/images/deb11-b.qcow2,size=6 \
     --check disk_size=off \
     --location=/mnt/iso/debian/debian-11.11.0-s390x-netinst.iso \
@@ -24,7 +23,7 @@ virt-install --name deb11-b \
 
 
 # --network network=default \
-
+# --noautoconsole \
 
 
 
