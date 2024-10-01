@@ -7,7 +7,8 @@
 # on the host s390x machine we did:
 virsh undefine deb11-a
 parms1=" netcfg/get_ipaddress=192.168.124.100 netcfg/get_netmask=255.255.255.0 netcfg/get_gateway=192.168.124.1 netcfg/get_nameservers=8.8.8.8 "
-parms2=" network-console/password=password network-console/password-again password "
+parms2=" network-console/password=password network-console/password-again password passwd/root-password=password passwd/root-password-again=password"
+parms3=" passwd/root-password=password passwd/root-password-again=password"
 virt-install --name deb11-a \
     --memory 2048 \
     --vcpus=2 \
@@ -17,7 +18,7 @@ virt-install --name deb11-a \
     --disk path=/data/primary/vm/images/deb11-a.qcow2,size=6 \
     --check disk_size=off \
     --location=/mnt/iso/debian/debian-11.11.0-s390x-netinst.iso \
-    --extra-args="auto=true priority=critical s390-netdevice/choose_networktype=virtio $parms1 $parms2 file=/preseed_s390x.cfg DEBCONF_DEBUG=5 DEBIAN_FRONTEND=noninteractive auto-install/enable=true" \
+    --extra-args="auto=true priority=critical s390-netdevice/choose_networktype=virtio $parms1 $parms2 $parms3 file=/preseed_s390x.cfg DEBCONF_DEBUG=5 DEBIAN_FRONTEND=noninteractive auto-install/enable=true" \
     --initrd-inject="/data/scripts/systemvmtemplate/http/preseed_s390x.cfg"
 
 
