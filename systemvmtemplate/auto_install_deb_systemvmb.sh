@@ -23,6 +23,7 @@ virt-install --name deb11-b \
 
 
 
+
 # --network network=default \
 # --noautoconsole \
 
