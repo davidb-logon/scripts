@@ -18,7 +18,7 @@ virt-install --name deb11-b \
     --check disk_size=off \
     --location=/mnt/iso/debian/debian-11.11.0-s390x-netinst.iso \
     --initrd-inject="/data/scripts/systemvmtemplate/http/preseed_simple.cfg" \
-    --extra-args="auto=true priority=critical net.ifnames=0 biosdevname=0 preseed/file=/preseed_simple.cfg s390-netdevice/choose_networktype=virtio DEBIAN_FRONTEND=noninteractive auto-install/enable=true BOOTIF=01-52-54-00-52-0a-b8 interface=eth0" 
+    --extra-args="auto=true priority=critical net.ifnames=0 biosdevname=0 preseed/file=/preseed_simple.cfg s390-netdevice/choose_networktype=virtio DEBCONF_DEBUG=5 DEBIAN_FRONTEND=noninteractive auto-install/enable=true interface=eth0" 
 
 
 
