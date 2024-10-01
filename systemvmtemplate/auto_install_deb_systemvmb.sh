@@ -7,20 +7,31 @@
 # on the host s390x machine we did:
 virsh destroy  deb11-b
 virsh undefine deb11-b
+# virt-install --name deb11-b \
+#     --memory 2048 \
+#     --vcpus=2 \
+#     --os-variant=debian11 \
+#     --graphics none \
+#     --console pty,target_type=serial \
+#     -v \
+#     --disk path=/data/primary/vm/images/deb11-b.qcow2,size=6 \
+#     --check disk_size=off \
+#     --location=/mnt/iso/debian/debian-11.11.0-s390x-netinst.iso \
+#     --initrd-inject="/data/scripts/systemvmtemplate/http/preseed_simple.cfg" \
+#     --extra-args="auto=true priority=critical net.ifnames=0 biosdevname=0 preseed/file=/preseed_simple.cfg s390-netdevice/choose_networktype=virtio DEBCONF_DEBUG=5 DEBIAN_FRONTEND=noninteractive auto-install/enable=true interface=eth0"
+
+
 virt-install --name deb11-b \
-    --memory 2048 \
-    --vcpus=2 \
-    --os-variant=debian11 \
-    --graphics none \
-    --console pty,target_type=serial \
-    -v \
-    --disk path=/data/primary/vm/images/deb11-b.qcow2,size=6 \
-    --check disk_size=off \
-    --location=/mnt/iso/debian/debian-11.11.0-s390x-netinst.iso \
-    --initrd-inject="/data/scripts/systemvmtemplate/http/preseed_simple.cfg" \
-    --extra-args="auto=true priority=critical net.ifnames=0 biosdevname=0 preseed/file=/preseed_simple.cfg s390-netdevice/choose_networktype=virtio DEBCONF_DEBUG=5 DEBIAN_FRONTEND=noninteractive auto-install/enable=true interface=eth0"
-
-
+--vcpus 2 \
+--memory 2048 \
+--disk size=8,bus=virtio,format=qcow2 \
+--boot cdrom,hd \
+--network bridge=virbr0 \
+--graphics none \
+--console pty,target_type=sclp \
+--location /var/lib/libvirt/images/ubuntu-17.10-server-s390x.iso \
+--initrd-inject=/var/lib/libvirt/images/preseed.cfg \
+--extra-args="locale=en_US auto=true priority=critical s390-netdevice/choose_networktype=virtio netcfg/use_autoconfig=true netcfg/disable_dhcp=false netcfg/get_hostname=ubu-vm-03 netcfg/get_domain=domain.com network-console/password=instpass network-console/start=true file=file:/preseed.cfg"
 
 
 
