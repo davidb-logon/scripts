@@ -5,6 +5,7 @@
 # on our dlinux make sure the nfs iso is mounted to /mnt/iso:
 # mkdir -p /mnt/iso;mount -t nfs 54.227.191.101:/iso /mnt/iso
 # on the host s390x machine we did:
+virsh destroy  deb11-b
 virsh undefine deb11-b
 virt-install --name deb11-b \
     --memory 2048 \
