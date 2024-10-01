@@ -29,7 +29,7 @@ virt-install --name deb11-b \
 --network bridge=virbr0 \
 --graphics none \
 --console pty,target_type=sclp \
---location /var/lib/libvirt/images/ubuntu-17.10-server-s390x.iso \
+--location=/mnt/iso/debian/debian-11.11.0-s390x-netinst.iso \
 --initrd-inject=/var/lib/libvirt/images/preseed.cfg \
 --extra-args="locale=en_US auto=true priority=critical s390-netdevice/choose_networktype=virtio netcfg/use_autoconfig=true netcfg/disable_dhcp=false netcfg/get_hostname=ubu-vm-03 netcfg/get_domain=domain.com network-console/password=instpass network-console/start=true file=file:/preseed.cfg"
 
