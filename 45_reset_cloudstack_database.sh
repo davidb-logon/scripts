@@ -24,14 +24,14 @@ script_ended_ok=true
 }
 
 main() {
-    detect_linux_distribution # Sets global variable $LINUX_DISTRIBUTION
     init_vars "logon" "reset_cloudstack_database" "$@"
     start_logging
-
+    detect_linux_distribution # Sets global variable $LINUX_DISTRIBUTION
     stop_cs # stop managment and agent
     install_and_configure_mysql_database
+    sleep 10
     do_cmd "cloudstack-setup-management"
-
+    sleep 10
     prepare_system_vm_template
     fix_cluster_node_ip_in_db_properties "$LOCAL_IP"
     sleep 10
