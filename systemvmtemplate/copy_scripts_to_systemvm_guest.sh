@@ -78,9 +78,9 @@ function wait_for_vm_ip() {
 }
 prepare_fresh_systemvm() {
     logMessage "First copy deb11-1 to systemvm guest deb11-systemvm "
-    do_cmd "virsh destroy deb11-1"
-    do_cmd "virsh destroy deb11-systemvm"
-    do_cmd "virsh undefine deb11-systemvm"
+    do_cmd "virsh destroy deb11-1" "" "INFO: Vm deb11-1 is stopped"
+    do_cmd "virsh destroy deb11-systemvm" "" "INFO: Vm deb11-systemvm is stopped"
+    do_cmd "virsh undefine deb11-systemvm"  "" "INFO: Vm deb11-systemvm is erased"
     do_cmd "virt-clone --original deb11-1  --name deb11-systemvm --auto-clone"
     do_cmd "virsh start deb11-systemvm"
     # Wait until systemvm is up
