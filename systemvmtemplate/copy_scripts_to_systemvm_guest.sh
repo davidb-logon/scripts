@@ -56,7 +56,7 @@ parse_command_line_arguments() {
 }
 function wait_for_vm_ip() {
     local vm_name="$1"
-    local ip_info=""
+    ip_info=""
     
     echo "Waiting for VM $vm_name to get a non-loopback IP (ignoring 127.0.0.1)..."
 
@@ -92,6 +92,7 @@ prepare_fresh_systemvm() {
 
 }
 copy_scripts() {
+    logMessage "copying scripts to systemvm [$SCP_PARAMS][$USER_AT_HOST]"
     SSH_PARAM="${SCP_PARAMS/-P/-p}"
     #do_cmd "ssh-copy-id $USER_AT_HOST"
     do_cmd "ssh $SSH_PARAMS $USER_AT_HOST mkdir -p scripts"
