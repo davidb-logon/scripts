@@ -92,6 +92,7 @@ prepare_fresh_systemvm() {
 
 }
 copy_scripts() {
+    SCP_PARAMS=" -o StrictHostKeyChecking=no "
     logMessage "copying scripts to systemvm [$SCP_PARAMS][$USER_AT_HOST]"
     SSH_PARAM="${SCP_PARAMS/-P/-p}"
     #do_cmd "ssh-copy-id $USER_AT_HOST"
