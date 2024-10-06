@@ -43,10 +43,10 @@ init_vars() {
 
 }
 parse_command_line_arguments() {
-    if [[ $# -lt 1 || $# -gt 2 ]]; then
-        usage
-        exit
-    fi
+    # if [[ $# -lt 1 || $# -gt 2 ]]; then
+    #     usage
+    #     exit
+    # fi
 
     SCP_PARAMS="$1"
     #SCP_PARAMS="-P 3922 -i /root/.ssh/systemvm.rsa"
