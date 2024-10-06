@@ -30,7 +30,6 @@ main() {
     start_logging
     check_if_root
     prepare_fresh_systemvm
-    exit 0
     copy_scripts
 
     script_ended_ok=true
@@ -87,6 +86,9 @@ prepare_fresh_systemvm() {
     wait_for_vm_ip "deb11-systemvm"
     logMessage "First copy deb11-1 to systemvm guest deb11-systemvm DONE"
     logMessage "VM: $vm_name, IP: $ip_info"
+    SCP_PARAMS=" -o StrictHostKeyChecking=no "
+    #SCP_PARAMS="-P 3922 -i /root/.ssh/systemvm.rsa"
+    USER_AT_HOST="sefi@$ip_info"
 
 }
 copy_scripts() {
@@ -101,7 +103,7 @@ copy_scripts() {
     do_cmd "scp $SCP_PARAMS /data/scripts/systemvmtemplate/things_todo_on_systemvm_right_after_install.sh $USER_AT_HOST:."
     do_cmd "scp $SCP_PARAMS /data/scripts/systemvmtemplate/exec_scripts_for_svm.sh $USER_AT_HOST:."
     do_cmd "ssh $SSH_PARAMS $USER_AT_HOST chmod +x scripts/* cloud_scripts_shar_archive.sh exec_scripts_for_svm.sh scripts/install_systemvm_packages_s390x.sh"
-    do_cmd "ssh $SSH_PARAMS $USER_AT_HOST nohup sudo bash -c './exec_scripts_for_svm.sh'"
+    # do_cmd "ssh $SSH_PARAMS $USER_AT_HOST nohup sudo bash -c './exec_scripts_for_svm.sh'"
     #hostnamectl --static set-hostname deb390-4
 }
 
