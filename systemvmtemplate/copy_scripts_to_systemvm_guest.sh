@@ -93,7 +93,7 @@ prepare_fresh_systemvm() {
 }
 copy_scripts() {
     SSH_PARAM="${SCP_PARAMS/-P/-p}"
-    do_cmd "ssh-copy-id $USER_AT_HOST"
+    #do_cmd "ssh-copy-id $USER_AT_HOST"
     do_cmd "ssh $SSH_PARAMS $USER_AT_HOST mkdir -p scripts"
     do_cmd "ssh $SSH_PARAMS $USER_AT_HOST mkdir -p lib"
     do_cmd "scp $SCP_PARAMS /data/scripts/lib/common.sh $USER_AT_HOST:lib/."
