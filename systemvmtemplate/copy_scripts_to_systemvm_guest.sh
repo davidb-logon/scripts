@@ -29,7 +29,8 @@ main() {
     parse_command_line_arguments "$@"
     start_logging
     check_if_root
-
+    prepare_fresh_systemvm
+    exit 0
     copy_scripts
 
     script_ended_ok=true
@@ -54,7 +55,40 @@ parse_command_line_arguments() {
 
     #temp=1
 }
+function wait_for_vm_ip() {
+    local vm_name="$1"
+    local ip_info=""
+    
+    echo "Waiting for VM $vm_name to start and get an IP..."
 
+    # Loop until the VM gets an IP address
+    while true; do
+        # Get the IP address of the VM
+        ip_info=$(virsh domifaddr "$vm_name" --source agent 2>/dev/null | grep ipv4 | awk '{print $4}' | cut -d'/' -f1)
+
+        # If an IP is found, print it and break the loop
+        if [ -n "$ip_info" ]; then
+            echo "VM: $vm_name, IP: $ip_info"
+            break
+        fi
+
+        # Sleep for 1 second before checking again
+        sleep 1
+    done
+}
+prepare_fresh_systemvm() {
+    logMessage "First copy deb11-1 to systemvm guest deb11-systemvm "
+    do_cmd "virsh destroy deb11-1"
+    do_cmd "virsh destroy deb11-systemvm"
+    do_cmd "virsh undefine deb11-systemvm"
+    do_cmd "virt-clone --original deb11-1  --name deb11-systemvm --auto-clone"
+    do_cmd "virsh start deb11-systemvm"
+    # Wait until systemvm is up
+    wait_for_vm_ip "deb11-systemvm"
+    logMessage "First copy deb11-1 to systemvm guest deb11-systemvm DONE"
+    logMessage "VM: $vm_name, IP: $ip_info"
+
+}
 copy_scripts() {
     SSH_PARAM="${SCP_PARAMS/-P/-p}"
     do_cmd "ssh-copy-id $USER_AT_HOST"

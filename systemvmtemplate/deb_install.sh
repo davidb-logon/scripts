@@ -35,6 +35,8 @@ cat >> ~/.bashrc << EOF
 export EDITOR=vi
 export VISUAL=vi
 EOF
+#/etc/zipl.conf
+parameters = "root=UUID=55c20b27-f56b-4828-8b84-e88591817670 net.ifnames=0"
 
 IP_ADDR=$(ip a | grep 192 | awk '{print $2}' | awk -F/ '{print $1}')
 cat > /etc/hosts << EOF

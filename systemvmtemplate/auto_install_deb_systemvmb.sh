@@ -24,7 +24,7 @@ virsh undefine deb11-b
 virt-install --name deb11-b \
 --vcpus 2 \
 --memory 2048 \
---disk size=8,bus=virtio,format=qcow2 \
+--disk size=5,bus=virtio,format=qcow2 \
 --boot cdrom,hd \
 --network bridge=virbr0 \
 --graphics none \
