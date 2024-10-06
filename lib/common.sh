@@ -31,7 +31,7 @@ add_line_to_bashrc_if_not_exists() {
 
 # Function to detect the Linux distribution and set the LINUX_DISTRIBUTION variable
 detect_linux_distribution() {
-    logMessage "--- Start to detect Linux distribution..."
+    echo "--- Start to detect Linux distribution..."
 
     # Detect the distribution and convert it to uppercase
     DIST=$(grep ^ID= /etc/*release | awk -F= '{gsub("\"",""); print toupper($2)}')
@@ -47,7 +47,7 @@ detect_linux_distribution() {
         export LINUX_DISTRIBUTION="Unknown"
         ;;
     esac
-    logMessage "--- End of detecting Linux distribution, detected distribution: $LINUX_DISTRIBUTION"
+    echo "--- End of detecting Linux distribution, detected distribution: $LINUX_DISTRIBUTION"
 }
 
 detect_architecture() {
@@ -82,7 +82,7 @@ exit_if_unsupported_distribution() {
 }
 
 # Function uses the $LINUX_DISTRIBUTION and $INSTALL_CMD variables
-check_and_install_package() { 
+check_and_install_package() {
     local package=$1
     logMessage "Checking if $package is installed..."
     case "$LINUX_DISTRIBUTION" in
@@ -119,7 +119,7 @@ example_use_case() {
     "Unknown")
       logMessage "--- Unknown Linux distribution, exiting"
       exit 1
-      ;;    
+      ;;
     *)
       logMessage "Unknown Unsupported LINUX_DISTRIBUTION: $LINUX_DISTRIBUTION, exiting"
       exit 1
@@ -140,7 +140,7 @@ exit_if_unsupported_distribution() {
     "Unknown")
       logMessage "--- Unknown Linux distribution, exiting"
       exit 1
-      ;;    
+      ;;
     *)
       logMessage "UnknowUnsupported LINUX_DISTRIBUTION: $LINUX_DISTRIBUTION, exiting"
       exit 1
@@ -218,13 +218,13 @@ error_exit() {
 }
 
 cleanup() {
-    if $script_ended_ok; then 
+    if $script_ended_ok; then
         echo -e "$green"
-        echo 
+        echo
         echo "--- SCRIPT WAS SUCCESSFUL"
     else
         echo -e "$red"
-        echo 
+        echo
         echo "--- SCRIPT WAS UNSUCCESSFUL"
     fi
     echo "--- Logfile at: cat $LOGFILE"
@@ -265,7 +265,7 @@ ensure_dir_does_not_exist() {
             error_exit "Removal of $dir was not approved."
         fi
     fi
-} 
+}
 
 # Function to update configuration file thanks chatGpt.
 update_config_file() {
