@@ -59,14 +59,14 @@ function wait_for_vm_ip() {
     local vm_name="$1"
     local ip_info=""
     
-    echo "Waiting for VM $vm_name to start and get an IP..."
+    echo "Waiting for VM $vm_name to get a non-loopback IP (ignoring 127.0.0.1)..."
 
-    # Loop until the VM gets an IP address
+    # Loop until the VM gets a non-loopback IP address
     while true; do
-        # Get the IP address of the VM
-        ip_info=$(virsh domifaddr "$vm_name" --source agent 2>/dev/null | grep ipv4 | awk '{print $4}' | cut -d'/' -f1)
+        # Get IP addresses associated with the VM and filter out 127.0.0.1
+        ip_info=$(virsh domifaddr "$vm_name" --source agent 2>/dev/null | grep ipv4 | grep -v '127.0.0.1' | awk '{print $4}' | cut -d'/' -f1)
 
-        # If an IP is found, print it and break the loop
+        # If a non-loopback IP is found, print it and break the loop
         if [ -n "$ip_info" ]; then
             echo "VM: $vm_name, IP: $ip_info"
             break
