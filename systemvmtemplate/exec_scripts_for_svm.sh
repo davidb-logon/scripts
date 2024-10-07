@@ -32,6 +32,7 @@ main() {
 
     echo "@@@@@@@ Doing install_systemvm_packages.sh: $(date "+%m-%d %H:%M:%S")" | tee -a exec.log
     do_cmd "/home/sefi/scripts/install_systemvm_packages.sh 2>&1 | tee -a exec.log"
+    confirm "Continue?" || exit 1
 
     echo "@@@@@@@ Doing configure_conntrack.sh: $(date "+%m-%d %H:%M:%S")" | tee -a exec.log
     do_cmd "/home/sefi/scripts/configure_conntrack.sh 2>&1 | tee -a exec.log"
