@@ -30,9 +30,17 @@ main() {
     start_logging
     check_if_root
     prepare_fresh_systemvm
+    run_the_shar
     copy_scripts
 
     script_ended_ok=true
+}
+
+run_the_shar(){
+    logMessage "--- Start shar"
+    cd /data/cloudstack/tools/appliance
+    ./shar_cloud_scripts.sh 2>&1 | tee shar.log
+    logMessage "--- End shar"
 }
 
 init_vars() {
@@ -57,7 +65,7 @@ parse_command_line_arguments() {
 function wait_for_vm_ip() {
     local vm_name="$1"
     ip_info=""
-    
+
     echo "Waiting for VM $vm_name to get a non-loopback IP (ignoring 127.0.0.1)..."
 
     # Loop until the VM gets a non-loopback IP address
@@ -75,6 +83,7 @@ function wait_for_vm_ip() {
         sleep 1
     done
 }
+
 prepare_fresh_systemvm() {
     logMessage "First copy deb11-1 to systemvm guest deb11-systemvm "
     do_cmd "virsh destroy deb11-1" "" "INFO: Vm deb11-1 is stopped"
@@ -91,6 +100,7 @@ prepare_fresh_systemvm() {
     USER_AT_HOST="sefi@$ip_info"
 
 }
+
 copy_scripts() {
     SCP_PARAMS=" -o StrictHostKeyChecking=no "
     logMessage "copying scripts to systemvm [$SCP_PARAMS][$USER_AT_HOST]"
