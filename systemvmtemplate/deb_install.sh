@@ -54,7 +54,7 @@ sudo zipl
 
 # =====================================================
 virsh net-start default
-virsh undefine deb390-12-1
+virsh undefine deb390-12-1 --remove-all-storage
 virt-install --name deb390-12-1 \
      --memory 2048 \
      --vcpus=2  \

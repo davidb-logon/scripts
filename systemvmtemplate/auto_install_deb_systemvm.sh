@@ -5,7 +5,7 @@
 # on our dlinux make sure the nfs iso is mounted to /mnt/iso:
 # mkdir -p /mnt/iso;mount -t nfs 54.227.191.101:/iso /mnt/iso
 # on the host s390x machine we did:
-virsh undefine deb11-a
+virsh undefine deb11-a --remove-all-storage
 parms1=" netcfg/get_ipaddress=192.168.124.100 netcfg/get_netmask=255.255.255.0 netcfg/get_gateway=192.168.124.1 netcfg/get_nameservers=8.8.8.8 "
 parms2=" network-console/password=password network-console/password-again password passwd/root-password=password passwd/root-password-again=password"
 parms3=" passwd/root-password=password passwd/root-password-again=password"

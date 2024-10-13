@@ -45,12 +45,12 @@ main() {
 install_systemvm(){
 logMessage "Installing systemvm"
 virsh destroy $VM_NAME
-virsh undefine $VM_NAME
+virsh undefine $VM_NAME --remove-all-storage
 do_cmd "mkdir -p /data/vm"
 do_cmd "cd /data/vm"
 if ! [ -f $ISO_PATH ]; then
   do_cmd "wget https://cdimage.debian.org/cdimage/archive/11.10.0/s390x/iso-dvd/debian-11.10.0-s390x-DVD-1.iso"
-fi 
+fi
 do_cmd "mkdir -p /data/primary/vm/images"
 if ! [ -f $DISK_PATH ]; then
   do_cmd "qemu-img create -o preallocation=off -f qcow2 $DISK_PATH 5242880000"
@@ -83,7 +83,7 @@ else
     # Check for available disk space
     AVAILABLE_SPACE=$(df "$DISK_DIR" | awk 'NR==2 {print $4}')
     REQUIRED_SPACE=$((DISK_SIZE * 1024 * 1024))  # Convert GB to KB
-    
+
     if [ "$AVAILABLE_SPACE" -lt "$REQUIRED_SPACE" ]; then
         error_exit "Not enough disk space to create $DISK_SIZE GB file in $DISK_DIR"
     fi

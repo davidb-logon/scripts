@@ -4,10 +4,10 @@
 #------------------------------------------------------------------------------
 # See usage for what this script does.
 # TODOs:
-#      - to work around issue with multiple ip addresses for cs management, add 
+#      - to work around issue with multiple ip addresses for cs management, add
 #        1. set in the hypervisor config the ip to "csmanagement"
 #        2. In the agent install, add to the /etc/hosts file an entry with "csmangement" pointing
-#           to the local or public cs management server ip address (this can be added as a 
+#           to the local or public cs management server ip address (this can be added as a
 #           parameter to agent install
 
 # Source script libraries as needed.
@@ -21,7 +21,7 @@ trap 'cleanup' EXIT
 usage() {
 cat << EOF
 -------------------------------------------------------------------------------
-Install Cloudstack server from local repo 
+Install Cloudstack server from local repo
 
 Following instructions at:
 http://docs.cloudstack.apache.org/en/4.19.0.0/installguide/management-server/index.html
@@ -36,7 +36,7 @@ main() {
     detect_linux_distribution # Sets global variable $LINUX_DISTRIBUTION
     init_vars "logon" "install_cloudstack_server" "$@"
     start_logging
-    
+
     prepare_os
     start_web_server_on_repo.sh
     stop_cs # stop managment and agent
@@ -44,10 +44,11 @@ main() {
     install_management_server
     22_install_cmk_and_jq.sh  # need to run this after managment instalation to reinstall cmk for s390x
     install_and_configure_mysql_database
+    10_configure_nfs.sh
     check_if_running_kvm_here
 
     do_cmd "cloudstack-setup-management"
-    
+
     if [[ $LINUX_DISTRIBUTION = "UBUNTU" ]]; then
         11_configure_firewall.sh #$SEFI_NETWORK $MAINFRAME_NETWORK
     else
@@ -65,6 +66,7 @@ main() {
     fix_cluster_node_ip_in_db_properties "$LOCAL_IP"
     sleep 10
     logMessage "--- Restarting CloudStack management server"
+    add_env_vars_to_cloudstack_management
     restart
     script_ended_ok=true
 }
@@ -91,6 +93,18 @@ init_vars() {
       exit 1
       ;;
     esac
+}
+
+add_env_vars_to_cloudstack_management() {
+    local file="/etc/default/cloudstack-management"
+
+        # Add the specified lines to the file
+        cat <<EOL >> "$file"
+JAVA_DEBUG="-agentlib:jdwp=transport=dt_socket,address=*:8000,server=y,suspend=n"
+EOL
+
+        logMessage "--- Java debug enabled in $file."
+    fi
 }
 
 fix_cluster_node_ip_in_db_properties() {
@@ -125,7 +139,7 @@ prepare_os() {
     fi
     HOSTNAME=$(hostname --fqdn)
     confirm "--- hostname: $HOSTNAME, confirm " || exit 1
-    
+
 
     if ! check_if_connected_to_internet; then
         logMessage "--- Not connected to internet"
@@ -135,13 +149,13 @@ prepare_os() {
 
     install_ntp
     install_java.sh
-    
+
 
     logMessage "--- End of preparing OS"
 }
 
 install_ntp() {
-    logMessage "--- Start Installing ntp" 
+    logMessage "--- Start Installing ntp"
     do_cmd "$CMD install chrony" "Installed chrony" "Unable to install chrony"
     do_cmd "systemctl start chronyd" "Started chronyd" "Unable to start chronyd"
     do_cmd "systemctl enable chronyd" "Enabled chronyd" "Unable to enable chronyd"
@@ -183,7 +197,7 @@ install_management_server() {
         # do_cmd "cd /home/davidb/logon/work/rpm"
         # files=("cloudstack-common-4.19.0.0-1.x86_64.rpm" "cloudstack-management-4.19.0.0-1.x86_64.rpm")  # cloudstack-agent-4.19.0.0-1.x86_64.rpm
         # for file in $files:
-        #     if [ ! -f "$file" ]; then 
+        #     if [ ! -f "$file" ]; then
         #         do_cmd "wget http://download.cloudstack.org/el/9/4.19/$file"
         #         do_cmd "rpm -i --ignorearch  --nodeps  $file"
         #     fi
@@ -233,5 +247,5 @@ prepare_system_vm_template() {
     12_install_systemvm_for_kvm.sh
     logMessage "--- End of preparing system VM template"
 }
-  
+
 main "$@"

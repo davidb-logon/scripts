@@ -11,11 +11,11 @@
 
 
 
-#   │                                                                                                                                                                                                                           │ 
-#   │                                                                                   Virtual disk 1 (vda) - 6.4 GB Virtio Block Device                                                                                       │ 
-#   │                                                                                   >     #1  primary   99.6 MB    f  ext2    /boot                                                                                         │ 
-#   │                                                                                   >     #2  primary    6.0 GB    f  xfs     /                                                                                             │ 
-#   │                                                                                   >     #3  primary  340.8 MB    f  swap    swap   
+#   │                                                                                                                                                                                                                           │
+#   │                                                                                   Virtual disk 1 (vda) - 6.4 GB Virtio Block Device                                                                                       │
+#   │                                                                                   >     #1  primary   99.6 MB    f  ext2    /boot                                                                                         │
+#   │                                                                                   >     #2  primary    6.0 GB    f  xfs     /                                                                                             │
+#   │                                                                                   >     #3  primary  340.8 MB    f  swap    swap
 # on our nfs server we did:
 # wget https://cdimage.debian.org/cdimage/archive/11.11.0/s390x/iso-cd/debian-11.11.0-s390x-netinst.iso
 # on our dlinux make sure the nfs iso is mounted to /mnt/iso:
@@ -25,7 +25,7 @@ virt-install --name deb11-1 \
      --memory 2048 --vcpus=2  --os-variant=debian11  \
      --network network=default --graphics=none -v \
      --disk path=/data/primary/vm/images/deb11-1.qcow2,size=6 \
-     --check disk_size=off --boot hd --location=/mnt/iso/debian/debian-11.11.0-s390x-netinst.iso --extra-args ro 
+     --check disk_size=off --boot hd --location=/mnt/iso/debian/debian-11.11.0-s390x-netinst.iso --extra-args ro
 
 # root password should be "password"
 # after installation finished, i added the folowing packages:
@@ -38,7 +38,7 @@ EOF
 
 # =====================================================
 virsh net-start default
-virsh undefine deb390-12-1
+virsh undefine deb390-12-1 --remove-all-storage
 virt-install --name deb390-12-1 \
      --memory 2048 \
      --vcpus=2  \
@@ -54,10 +54,10 @@ virt-install --name deb390-12-1 \
 # usermod -aG sudo sefi
 # visudo
 # apt-get install cloud-init
-# apt install uuid-runtime    
-# update-alternatives --config editor      
-# apt-get install sharutils 
-# apt-get install s390-tools      
+# apt install uuid-runtime
+# update-alternatives --config editor
+# apt-get install sharutils
+# apt-get install s390-tools
 
 #working on guest deb390-12-1
 /home/sefi/scripts/apt_upgrade.sh
@@ -73,12 +73,12 @@ virt-install --name deb390-12-1 \
 /home/sefi/cloud_scripts_shar_archive.sh
 /home/sefi/scripts/configure_systemvm_services.sh
 /home/sefi/scripts/cleanup.sh
-/home/sefi/scripts/finalize.shroot@debs390-2:/home/sefi# scripts/apt_upgrade.sh    
+/home/sefi/scripts/finalize.shroot@debs390-2:/home/sefi# scripts/apt_upgrade.sh
 
 E: Unable to locate package xenstore-utils
 E: Unable to locate package libxenstore4
 E: Package 'open-vm-tools' has no installation candidate
-E: Unable to locate package hyperv-daemons                                                                               │ 
+E: Unable to locate package hyperv-daemons                                                                               │
 
 ssh -p 3922 -i /root/.ssh/systemvm.rsa sefi@192.168.124.171
 scp /data/scripts/exec_scripts_for_svm.sh -P 3922 -i /root/.ssh/systemvm.rsa $USER_AT_HOST:.
