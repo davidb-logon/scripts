@@ -45,7 +45,15 @@ for vol in "${all_volumes[@]}"; do
   if [[ ! " ${defined_vm_volumes[@]} " =~ " ${vol} " ]]; then
     # Volume not in use by any defined VM, delete it
     echo "Removing unused volume: $vol"
-    virsh vol-delete "$vol" --pool "$(virsh vol-list "$pool" | awk 'NR>2 {print $1}' | grep -v "^$")"
+
+    # Find the pool that the volume belongs to
+    pool_name=$(virsh vol-pool "$vol" 2>/dev/null)
+    
+    if [[ -n "$pool_name" ]]; then
+      virsh vol-delete "$vol" --pool "$pool_name"
+    else
+      echo "Error: Unable to find pool for volume $vol"
+    fi
   fi
 done
 
