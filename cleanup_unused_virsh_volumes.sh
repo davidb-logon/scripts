@@ -33,8 +33,14 @@ for pool in $all_pools; do
   done
 done
 
-# Step 3: Compare the lists and delete unused volumes
+# Step 3: Compare the lists and delete unused volumes, excluding .iso files
 for vol in "${all_volumes[@]}"; do
+  # Skip .iso volumes
+  if [[ "$vol" == *.iso ]]; then
+    echo "Skipping .iso volume: $vol"
+    continue
+  fi
+
   # Check if the volume is in the list of defined VM volumes
   if [[ ! " ${defined_vm_volumes[@]} " =~ " ${vol} " ]]; then
     # Volume not in use by any defined VM, delete it
