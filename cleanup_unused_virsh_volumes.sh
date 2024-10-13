@@ -23,7 +23,7 @@ all_volumes=()
 
 # Loop through all storage pools to list all volumes
 for pool in $all_pools; do
-  pool_volumes=$(virsh vol-list "$pool" --name)
+  pool_volumes=$(virsh vol-list "$pool" | awk 'NR>2 {print $1}' | grep -v "^$")
   for volume in $pool_volumes; do
     if [[ -n "$volume" ]]; then
       # Get the full path to the volume
@@ -39,7 +39,7 @@ for vol in "${all_volumes[@]}"; do
   if [[ ! " ${defined_vm_volumes[@]} " =~ " ${vol} " ]]; then
     # Volume not in use by any defined VM, delete it
     echo "Removing unused volume: $vol"
-    virsh vol-delete "$vol" --pool "$(virsh vol-list --pool --name | grep "$vol")"
+    virsh vol-delete "$vol" --pool "$(virsh vol-list "$pool" | awk 'NR>2 {print $1}' | grep -v "^$")"
   fi
 done
 
