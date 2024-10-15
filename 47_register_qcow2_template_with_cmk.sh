@@ -11,8 +11,17 @@ TEMPLATE_URL="https://cloud.centos.org/centos/9-stream/s390x/images/CentOS-Strea
 HYPERVISOR="kvm"
 FORMAT="QCOW2"
 OS_TYPE="CentOS"
-ZONE_ID="<your-zone-id>"
+ZONE_NAME="dlinux_zone"
 IS_PUBLIC="true"
+
+# Get the Zone ID for the zone named "dlinux_zone" using jq
+ZONE_ID=$(cmk list zones name="$ZONE_NAME" | jq -r '.zone[] | select(.name=="'"$ZONE_NAME"'") | .id')
+
+# Ensure the zone was found
+if [ -z "$ZONE_ID" ]; then
+  echo "Error: Zone '$ZONE_NAME' not found!"
+  exit 1
+fi
 
 # Register the template
 cmk register template \
@@ -22,8 +31,8 @@ cmk register template \
   zoneid="$ZONE_ID" \
   hypervisor="$HYPERVISOR" \
   format="$FORMAT" \
-  ostypeid=$(cmk list ostypes description="$OS_TYPE" | grep -i 'CentOS' | awk '{print $2}') \
+  ostypeid=$(cmk list ostypes description="$OS_TYPE" | jq -r '.ostype[] | select(.description | contains("CentOS")) | .id') \
   ispublic="$IS_PUBLIC"
 
 # Print confirmation message
-echo "Template '$TEMPLATE_NAME' has been registered successfully!"
+echo "Template '$TEMPLATE_NAME' has been registered successfully in zone '$ZONE_NAME'!"
