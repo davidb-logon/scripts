@@ -1,4 +1,5 @@
 alias ahelp='colums=8;cn=0;alias | awk -F= "{print \$1}" | awk "{print \$2}" | while read -r sal; do  printf  "%-15s"  $sal;((cn++));if ((cn % colums == 0)); then echo ;fi;done;echo'
+alias m='cd /data/scripts;./m.sh'
 alias ml='sudo less -N /var/log/cloudstack/management/management-server.log'
 alias mll='sudo grep --color=always -E "ERROR|WARN" /var/log/cloudstack/management/management-server.log | less -NR'
 alias mlc='sudo tail -f /var/log/cloudstack/management/management-server.log | grep --color=always -E "ERROR|WARN|^"'
