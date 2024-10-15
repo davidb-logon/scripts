@@ -17,16 +17,14 @@ cat << EOF
 -------------------------------------------------------------------------------
 run like that:
 example:
-    copy_scripts_to_systemvm_guest.sh "-P 3922 -i /root/.ssh/systemvm.rsa"  sefi@192.168.124.98
-    copy_scripts_to_systemvm_guest.sh " "  sefi@192.168.124.98
+    copy_scripts_to_systemvm_guest.sh
 -------------------------------------------------------------------------------
 EOF
 script_ended_ok=true
 }
 
 main() {
-    init_vars "logon" "set_cloudbr0_on_rhel_z"
-    parse_command_line_arguments "$@"
+    init_vars "logon" "prepare_systemvm_template"
     start_logging
     check_if_root
     prepare_fresh_systemvm
@@ -47,21 +45,8 @@ init_vars() {
     init_utils_vars $1 $2
     # Set variables for the service offering
 
-
 }
-parse_command_line_arguments() {
-    # if [[ $# -lt 1 || $# -gt 2 ]]; then
-    #     usage
-    #     exit
-    # fi
 
-    SCP_PARAMS="$1"
-    #SCP_PARAMS="-P 3922 -i /root/.ssh/systemvm.rsa"
-    USER_AT_HOST="$2"
-    #USER_AT_HOST="sefi@192.168.124.3"
-
-    #temp=1
-}
 function wait_for_vm_ip() {
     local vm_name="$1"
     ip_info=""
@@ -117,8 +102,8 @@ copy_scripts() {
     do_cmd "scp $SCP_PARAMS /data/scripts/systemvmtemplate/exec_scripts_for_svm.sh $USER_AT_HOST:."
     do_cmd "ssh $SSH_PARAMS $USER_AT_HOST chmod +x scripts/* cloud_scripts_shar_archive.sh exec_scripts_for_svm.sh scripts/install_systemvm_packages_s390x.sh"
     do_cmd "ssh $SSH_PARAMS $USER_AT_HOST nohup sudo bash -c './exec_scripts_for_svm.sh'"
-    do_cmd "ssh $SSH_PARAMS $USER_AT_HOST nohup sudo bash -c 'shutdown -h now'"
-    #hostnamectl --static set-hostname deb390-4
+    # do_cmd "ssh $SSH_PARAMS $USER_AT_HOST nohup sudo bash -c 'shutdown -h now'"
+    # hostnamectl --static set-hostname deb390-4
 }
 
 main "$@"
