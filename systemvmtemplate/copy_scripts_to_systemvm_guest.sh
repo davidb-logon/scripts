@@ -90,8 +90,9 @@ prepare_fresh_systemvm() {
 copy_scripts() {
     SCP_PARAMS=" -o StrictHostKeyChecking=no "
     logMessage "copying scripts to systemvm [$SCP_PARAMS][$USER_AT_HOST]"
-    SSH_PARAMS="${SCP_PARAMS/-P/-p}"
+    #SSH_PARAMS="${SCP_PARAMS/-P/-p}"
     #do_cmd "ssh-copy-id $USER_AT_HOST"
+    SSH_PARAMS=$SCP_PARAMS
     do_cmd "ssh $SSH_PARAMS $USER_AT_HOST mkdir -p scripts"
     do_cmd "ssh $SSH_PARAMS $USER_AT_HOST mkdir -p lib"
     do_cmd "scp $SCP_PARAMS /data/scripts/lib/common.sh $USER_AT_HOST:lib/."
@@ -102,7 +103,8 @@ copy_scripts() {
     do_cmd "scp $SCP_PARAMS /data/scripts/systemvmtemplate/exec_scripts_for_svm.sh $USER_AT_HOST:."
     do_cmd "ssh $SSH_PARAMS $USER_AT_HOST chmod +x scripts/* cloud_scripts_shar_archive.sh exec_scripts_for_svm.sh scripts/install_systemvm_packages_s390x.sh"
     do_cmd "ssh $SSH_PARAMS $USER_AT_HOST nohup sudo bash -c './exec_scripts_for_svm.sh'"
-    # do_cmd "ssh $SSH_PARAMS $USER_AT_HOST nohup sudo bash -c 'shutdown -h now'"
+    SSH_PARAMS="-o StrictHostKeyChecking=no -i /root/.ssh/id_rsa.cloud"
+    do_cmd "ssh $SSH_PARAMS root@$ip_info nohup bash -c 'shutdown -h now'"
     # hostnamectl --static set-hostname deb390-4
 }
 
