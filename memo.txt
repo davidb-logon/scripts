@@ -1,3 +1,28 @@
+# need to take care of it
+sefi@systemvm:~$ ssh -o StrictHostKeyChecking=no sefi@192.168.124.70
+Warning: Permanently added '192.168.124.70' (ECDSA) to the list of known hosts.
+sefi@192.168.124.70's password: 
+
+Building dependency tree...
+Reading state information...
++ exit 0
+--- SUCCESS: /home/sefi/scripts/install_systemvm_packages.sh 2>&1 | tee
+
+
+
+--- SCRIPT WAS UNSUCCESSFUL
+--- Logfile at: cat /var/log/logon/cloudstack-setup-systemvm_20241014_095531.log
+--- End Script
+
+--- ERROR: ssh -o StrictHostKeyChecking=no sefi@192.168.124.70
+
+
+--- SCRIPT WAS UNSUCCESSFUL
+--- Logfile at: cat /var/log/logon/set_cloudbr0_on_rhel_z_20241014_045503.log
+--- End Script
+
+
+
 CS scripts Manual
   
 To build and install cloudstack server and agent after code changes:

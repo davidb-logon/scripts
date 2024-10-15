@@ -117,6 +117,7 @@ copy_scripts() {
     do_cmd "scp $SCP_PARAMS /data/scripts/systemvmtemplate/exec_scripts_for_svm.sh $USER_AT_HOST:."
     do_cmd "ssh $SSH_PARAMS $USER_AT_HOST chmod +x scripts/* cloud_scripts_shar_archive.sh exec_scripts_for_svm.sh scripts/install_systemvm_packages_s390x.sh"
     do_cmd "ssh $SSH_PARAMS $USER_AT_HOST nohup sudo bash -c './exec_scripts_for_svm.sh'"
+    do_cmd "ssh $SSH_PARAMS $USER_AT_HOST nohup sudo bash -c 'shutdown -h now'"
     #hostnamectl --static set-hostname deb390-4
 }
 
