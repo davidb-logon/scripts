@@ -3,6 +3,7 @@
 # Set CloudMonkey (cmk) to the desired profile and configure options
 cmk set profile cloudstack
 cmk set asyncblock true
+cmk sync
 
 # Template details
 TEMPLATE_NAME="CentOS 9 Stream"
