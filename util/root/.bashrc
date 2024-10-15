@@ -72,12 +72,19 @@ function qls_root() {
 
 
 function vssh(){
-HOST=$1
-set -x
+if [[ "$1" =~ ^[0-9]+$ ]]; then
+    #echo "$1 is a number"
+    #find the host domain name from the number
+    HOST=$(virsh dominfo "$1" | grep '^Name:' | awk '{print $2}')
+else
+    HOST=$1
+    #echo "$HOST is not a number"
+fi
+#set -x
 HOSTIP=$(vnd $HOST | grep 169.254 )
 ip=$(echo "$HOSTIP" | grep -oE '169\.[0-9]+\.[0-9]+\.[0-9]+')
 ssh  -p 3922 -o StrictHostKeyChecking=no -i /root/.ssh/id_rsa.cloud root@$ip
-set +x
+#set +x
 }
 function vsc() {
     vm_name="$1"
