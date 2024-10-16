@@ -5,11 +5,92 @@ alias rm='rm -i'
 alias cp='cp -i'
 alias mv='mv -i'
 
+function qipa() {
+    local vm_name="$1"
+
+    # Execute the ip -br a command inside the VM and get the PID
+    local exec_command='{"execute":"guest-exec", "arguments":{"path":"/bin/ip", "arg":["-br", "a"], "capture-output":true}}'
+    local exec_result=$(virsh qemu-agent-command "$vm_name" "$exec_command")
+    local pid=$(echo "$exec_result" | grep -oP '(?<="pid":)\d+')
+
+    if [ -z "$pid" ]; then
+        echo "Failed to execute the command in the VM."
+        return 1
+    fi
+
+    # Fetch the command status using the PID
+    local status_command='{"execute":"guest-exec-status", "arguments":{"pid":'"$pid"'}}'
+    local status_result=$(virsh qemu-agent-command "$vm_name" "$status_command")
+
+    # Extract base64 encoded output
+    local encoded_output=$(echo "$status_result" | grep -oP '(?<="out-data":")[^"]+')
+
+    if [ -z "$encoded_output" ]; then
+        echo "Failed to retrieve the command output."
+        return 1
+    fi
+
+    # Decode the base64 output
+    echo "$encoded_output" | base64 --decode
+}
+
+# Example usage:
+# qemu_agent_ip_br_a "deb11-systemvm"
+
+
+function qls_root() {
+    local vm_name="$1"
+
+    # Execute the ls /root command inside the VM and get the PID
+    local exec_command='{"execute":"guest-exec", "arguments":{"path":"/bin/ls", "arg":["/root"], "capture-output":true}}'
+    local exec_result=$(virsh qemu-agent-command "$vm_name" "$exec_command")
+    local pid=$(echo "$exec_result" | grep -oP '(?<="pid":)\d+')
+
+    if [ -z "$pid" ]; then
+        echo "Failed to execute the command in the VM."
+        return 1
+    fi
+
+    # Fetch the command status using the PID
+    local status_command='{"execute":"guest-exec-status", "arguments":{"pid":'"$pid"'}}'
+    local status_result=$(virsh qemu-agent-command "$vm_name" "$status_command")
+
+    # Extract base64 encoded output
+    local encoded_output=$(echo "$status_result" | grep -oP '(?<="out-data":")[^"]+')
+
+    if [ -z "$encoded_output" ]; then
+        echo "Failed to retrieve the command output."
+        return 1
+    fi
+
+    # Decode the base64 output
+    echo "$encoded_output" | base64 --decode
+}
+
+# Example usage:
+# qemu_agent_ls_root "deb11-systemvm"
+
+
+function vssh(){
+if [[ "$1" =~ ^[0-9]+$ ]]; then
+    #echo "$1 is a number"
+    #find the host domain name from the number
+    HOST=$(virsh dominfo "$1" | grep '^Name:' | awk '{print $2}')
+else
+    HOST=$1
+    #echo "$HOST is not a number"
+fi
+#set -x
+HOSTIP=$(vnd $HOST | grep 169.254 )
+ip=$(echo "$HOSTIP" | grep -oE '169\.[0-9]+\.[0-9]+\.[0-9]+')
+ssh  -p 3922 -o StrictHostKeyChecking=no -i /root/.ssh/id_rsa.cloud root@$ip
+#set +x
+}
 function vsc() {
     vm_name="$1"
 
     # Check if the default network is active
-    if virsh net-info default | grep -q 'Active: yes'; then
+    if virsh net-info default | grep -q 'Active:         yes'; then
         echo "The 'default' network is already active."
     else
         echo "The 'default' network is not active. Starting it..."
@@ -33,6 +114,37 @@ function vsc() {
     virsh console "$vm_name"
 }
 function vnd(){
+   vm_name="$1"
+
+    # Function to get IPs for a given VM using domifaddr
+    get_ip_for_vm() {
+        local vm="$1"
+        # Get all IP addresses associated with the VM
+        ip_info=$(virsh domifaddr "$vm" --source agent 2>/dev/null | grep ipv4 | awk '{print $4}' | cut -d'/' -f1 | tr '\n' ' ')
+
+        if [ -n "$ip_info" ]; then
+            echo "VM: $vm, IP: $ip_info"
+        else
+            echo "VM: $vm, IP: Not found or Guest Agent not installed"
+        fi
+    }
+
+    # Check if a VM name was passed
+    if [ -n "$vm_name" ]; then
+        # Report IP for the specified VM
+        get_ip_for_vm "$vm_name"
+    else
+        # Get a list of all online VMs
+        vm_list=$(virsh list --name)
+
+        # Loop through each VM and fetch its IP
+        for vm in $vm_list; do
+            get_ip_for_vm "$vm"
+        done
+    fi
+}
+
+function vndo(){
    vm_name="$1"
 
     # Function to get IPs for a given VM using domifaddr

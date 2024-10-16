@@ -68,6 +68,7 @@ create_ovpn_server(){
     do_cmd "sed -i 's/;group nogroup/group nogroup/' /etc/openvpn/server.conf"
     do_cmd "sed -i 's/;client-to-client/client-to-client/' /etc/openvpn/server.conf"
     do_cmd "sed -i 's/server 10.8.0.0/server $vpnnetwork/' /etc/openvpn/server.conf"
+    do_cmd "echo \"push route 192.168.122.0 255.255.255.0\""  >> /etc/openvpn/server.conf"  
     
 
 
