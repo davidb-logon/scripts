@@ -11,7 +11,7 @@ TEMPLATE_DISPLAY_TEXT="CentOS 9 Stream - GenericCloud 20240527.0"
 TEMPLATE_URL="https://cloud.centos.org/centos/9-stream/s390x/images/CentOS-Stream-GenericCloud-9-20240527.0.s390x.qcow2"
 HYPERVISOR="kvm"
 FORMAT="QCOW2"
-OS_TYPE="CentOS"
+OS_TYPE="CentOS 9"
 ZONE_NAME="dlinux_zone"
 IS_PUBLIC="true"
 
