@@ -5,6 +5,36 @@ alias rm='rm -i'
 alias cp='cp -i'
 alias mv='mv -i'
 
+function qsh() {
+    local vm_name="$1"
+    local vm_cmd="$2"
+
+    # Execute the ip -br a command inside the VM and get the PID
+    local exec_command='{"execute":"guest-exec", "arguments":{"path":"/bin/ip", "arg":["-br", "a"], "capture-output":true}}'
+    local exec_result=$(virsh qemu-agent-command "$vm_name" "$exec_command")
+    local pid=$(echo "$exec_result" | grep -oP '(?<="pid":)\d+')
+
+    if [ -z "$pid" ]; then
+        echo "Failed to execute the command in the VM."
+        return 1
+    fi
+
+    # Fetch the command status using the PID
+    local status_command='{"execute":"guest-exec-status", "arguments":{"pid":'"$pid"'}}'
+    local status_result=$(virsh qemu-agent-command "$vm_name" "$status_command")
+
+    # Extract base64 encoded output
+    local encoded_output=$(echo "$status_result" | grep -oP '(?<="out-data":")[^"]+')
+
+    if [ -z "$encoded_output" ]; then
+        echo "Failed to retrieve the command output."
+        return 1
+    fi
+
+    # Decode the base64 output
+    echo "$encoded_output" | base64 --decode
+}
+
 function qipa() {
     local vm_name="$1"
 
