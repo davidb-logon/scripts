@@ -21,8 +21,8 @@ iptables -t mangle -X
 sysctl -w net.ipv4.ip_forward=1
 
 # Add forwarding rules
-iptables -A FORWARD -i tun0 -o cloudbr0 -j ACCEPT
-iptables -A FORWARD -i cloudbr0 -o tun0 -j ACCEPT
+# iptables -A FORWARD -i tun0 -o cloudbr0 -j ACCEPT
+# iptables -A FORWARD -i cloudbr0 -o tun0 -j ACCEPT
 
 # Add NAT rule
 iptables -t nat -A POSTROUTING -s 192.168.122.0/24 -o tun0 -j MASQUERADE
