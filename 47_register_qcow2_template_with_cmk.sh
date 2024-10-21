@@ -37,3 +37,37 @@ cmk register template \
 
 # Print confirmation message
 echo "Template '$TEMPLATE_NAME' has been registered successfully in zone '$ZONE_NAME'!"
+
+
+# Template details
+TEMPLATE_NAME="Ubuntu 24.04 LTS"
+TEMPLATE_DISPLAY_TEXT="Ubuntu 24.04 LTS (Noble Numbat) daily [20241004]"
+TEMPLATE_URL="https://cloud-images.ubuntu.com/noble/20241004/noble-server-cloudimg-s390x.img"
+HYPERVISOR="kvm"
+FORMAT="QCOW2"
+OS_TYPE="UBUNTU 24.04 LTS"
+ZONE_NAME="dlinux_zone"
+IS_PUBLIC="true"
+
+# Get the Zone ID for the zone named "dlinux_zone" using jq
+ZONE_ID=$(cmk list zones name="$ZONE_NAME" | jq -r '.zone[] | select(.name=="'"$ZONE_NAME"'") | .id')
+
+# Ensure the zone was found
+if [ -z "$ZONE_ID" ]; then
+  echo "Error: Zone '$ZONE_NAME' not found!"
+  exit 1
+fi
+
+# Register the template
+cmk register template \
+  name="$TEMPLATE_NAME" \
+  displaytext="$TEMPLATE_DISPLAY_TEXT" \
+  url="$TEMPLATE_URL" \
+  zoneid="$ZONE_ID" \
+  hypervisor="$HYPERVISOR" \
+  format="$FORMAT" \
+  ostypeid=$(cmk list ostypes description="$OS_TYPE" | jq -r '.ostype[] | select(.description | contains("CentOS")) | .id') \
+  ispublic="$IS_PUBLIC"
+
+# Print confirmation message
+echo "Template '$TEMPLATE_NAME' has been registered successfully in zone '$ZONE_NAME'!"
