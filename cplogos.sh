@@ -19,3 +19,6 @@
 cp /data/scripts/images/wavenextgen.svg /usr/share/cloudstack-management/webapp/assets/mini-logo.svg
 cp /data/scripts/images/wavenextgen-withText2.svg /usr/share/cloudstack-management/webapp/assets/logo.svg
 cp /data/scripts/images/wavenextgen-withText2.svg /usr/share/cloudstack-management/webapp/assets/banner.svg
+ls -l /data/scripts/images/wavenextgen-withText2.svg /usr/share/cloudstack-management/webapp/assets/banner.svg
+cd /data/cloudstack/ui
+npm run build
