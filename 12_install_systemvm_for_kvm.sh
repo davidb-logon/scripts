@@ -22,10 +22,16 @@ main() {
     init_vars "logon" "install_systemvm"
     start_logging
     check_if_root
-    extract_template_from_vm
-    prepare_repo
-    verify_all_stopped
-    register_template
+    if [ "$USE_X86_TEMPLATE" = true ]; then
+        verify_all_stopped
+        register_template
+    else
+        extract_template_from_vm
+        prepare_repo
+        verify_all_stopped
+        register_template
+    fi
+
     script_ended_ok=true
 }
 
@@ -33,7 +39,9 @@ init_vars() {
     init_utils_vars $1 $2
     SCRIPT_PATH="/usr/share/cloudstack-common/scripts/storage/secondary/cloud-install-sys-tmplt"
     DOMAIN="deb11-systemvm"
-    REPO_PATH="http://localhost:8090/" 
+    USE_X86_TEMPLATE=true # If doing x86, we download the zipped temlate from cloudstack repo
+    REPO_PATH="http://localhost:8090/"
+
 }
 
 extract_template_from_vm() {
@@ -60,12 +68,20 @@ get_version() {
      logMessage "Last version: $LAST_VERSION, new version: $VERSION"
 }
 register_template() {
-    logMessage "Start register template using"
-    SVM_PATH=${REPO_PATH}$(basename $FILE_PATH)
-    logMessage "SVM PATH: $SVM_PATH"
-    get_version
-    # do_cmd "$SCRIPT_PATH -m /data/mainframe_secondary -u ${SVM_PATH}.bz2 -h kvm -F"
-    do_cmd "$SCRIPT_PATH -m /data/mainframe_secondary -u ${SVM_PATH}?date=$(date +"%Y%m%d%H%M%S")\&version=$VERSION -h kvm -F"
+    if [ "$USE_X86_TEMPLATE" = true ]; then
+        logMessage "Start register x86 template using:"
+        URL="http://download.cloudstack.org/systemvm/4.19/systemvmtemplate-4.19.1-kvm.qcow2.bz2"
+        logMessage "URL: $URL"
+        do_cmd "$SCRIPT_PATH -m /data/mainframe_secondary -u $URL -h kvm -F"
+    else
+        logMessage "Start register s390x template using:"
+        SVM_PATH=${REPO_PATH}$(basename $FILE_PATH)
+        logMessage "SVM PATH: $SVM_PATH"
+        get_version
+        # do_cmd "$SCRIPT_PATH -m /data/mainframe_secondary -u ${SVM_PATH}.bz2 -h kvm -F"
+        do_cmd "$SCRIPT_PATH -m /data/mainframe_secondary -u ${SVM_PATH}?date=$(date +"%Y%m%d%H%M%S")\&version=$VERSION -h kvm -F"
+    fi
+
     do_cmd "restart"
     logMessage "End register template"
 }
@@ -80,7 +96,7 @@ verify_all_stopped(){
         echo "Updating VM: $vm"
         mysql -D cloud -e "UPDATE vm_instance SET state = 'Stopped' WHERE name = '$vm';"
         virsh destroy $vm
-    done 
+    done
 
 }
 main $@
