@@ -50,8 +50,8 @@ sudo firewall-cmd --permanent --zone=public --add-port=892/udp
 sudo firewall-cmd --permanent --zone=public --add-port=5900-5920/tcp 
 
 
-sudo firewall-cmd --permanent --zone=public --add-rich-rule='rule family="ipv4" source address="192.168.123.0/24" destination address="192.168.122.0/24" accept'
-sudo firewall-cmd --permanent --zone=public --add-rich-rule='rule family="ipv4" source address="192.168.122.0/24" destination address="192.168.123.0/24" accept'
+# sudo firewall-cmd --permanent --zone=public --add-rich-rule='rule family="ipv4" source address="192.168.123.0/24" destination address="192.168.122.0/24" accept'
+# sudo firewall-cmd --permanent --zone=public --add-rich-rule='rule family="ipv4" source address="192.168.122.0/24" destination address="192.168.123.0/24" accept'
 
 sudo firewall-cmd --reload
 firewall-cmd --list-all
