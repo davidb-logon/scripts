@@ -25,7 +25,7 @@ sysctl -w net.ipv4.ip_forward=1
 # iptables -A FORWARD -i cloudbr0 -o tun0 -j ACCEPT
 
 # Add NAT rule
-iptables -t nat -A POSTROUTING -s 192.168.122.0/24 -o tun0 -j MASQUERADE
+# iptables -t nat -A POSTROUTING -s 192.168.122.0/24 -o tun0 -j MASQUERADE
 
 # Ensure VPN client traffic can reach `virsh` network
 # iptables -A FORWARD -i tun0 -s 192.168.123.0/24 -d 192.168.122.0/24 -j ACCEPT
