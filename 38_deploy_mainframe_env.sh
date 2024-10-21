@@ -29,7 +29,7 @@ main() {
     add_secondary_storage "$ZONE_ID" "dlinux_secondary"
 
     enable_zone "$ZONE_ID"
-    
+    check_security_rule  # Check if the rule exists. If not, create it - this is a workaround for cloudstack dropping connectivity
     end_time=$(date +%s)
     elapsed_time=$((end_time - start_time))
     logMessage "The script took $elapsed_time seconds to complete."
@@ -200,6 +200,29 @@ create_physical_network() {
   do_cmd 'result=$(cmk create physicalnetwork name=phy-network zoneid='$zone_id')' "Network created." "Network creation failed."
   PHY_ID=$(echo $result | jq -r '.physicalnetwork.id')
   logMessage "--- Physical Network: $PHY_ID created."
+}
+
+check_security_rule() {
+    # Get the JSON data from the command (assuming it's stored in a variable or directly in the function)
+    json_output=$(cmk list securitygroups)
+
+    # Use jq to parse the JSON and check for the rule
+    rule_exists=$(echo "$json_output" | jq '.securitygroup[].ingressrule[] | select(.protocol == "all" and .cidr == "0.0.0.0/0")')
+
+    if [ -n "$rule_exists" ]; then
+        logMessage "Rule for protocol=all and cidr=0.0.0.0/0 exists."
+    else
+       logMessage "Rule for protocol=all and cidr=0.0.0.0/0 does not exist."
+
+        # If the rule doesn't exist, create it
+        create_securitygroup_ingressrule
+    fi
+}
+
+create_securitygroup_ingressrule() {
+  local securitygroupid=$(cmk list securitygroups | jq -r '.securitygroup[0].id')
+  local domainid=$(cmk list domains | jq -r '.domain[0].id');
+  do_cmd 'result=$(cmk authorizeSecurityGroupIngress securitygroupid='$securitygroupid' domainid='$domainid' protocol=all cidrlist=0.0.0.0/0)' "Rule created." "Rule creation failed."
 }
 
 add_traffic_type() {
