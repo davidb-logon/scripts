@@ -38,6 +38,7 @@ iptables -A FORWARD -i virbr0 -o enc1c00 -j ACCEPT
 
 sudo firewall-cmd --permanent --zone=trusted --add-source=80.178.85.20 #sefi
 sudo firewall-cmd --permanent --zone=trusted --add-source=84.95.45.250 #dudi
+sudo firewall-cmd --permanent --zone=trusted --add-source=84.228.94.152 #sharon
 #Open port 22 for these IP addresses in the trusted zone:
 sudo firewall-cmd --permanent --zone=trusted --add-port=22/tcp
 sudo firewall-cmd --permanent --zone=public --add-port=111/tcp
