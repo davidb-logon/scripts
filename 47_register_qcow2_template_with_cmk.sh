@@ -71,3 +71,44 @@ cmk register template \
 
 # Print confirmation message
 echo "Template '$TEMPLATE_NAME' has been registered successfully in zone '$ZONE_NAME'!"
+
+
+#################################################### debian 
+if [ ! -f /data/repo/deb11-1-1.qcow2 ]; then
+  cp /data/primary/vm/images/deb11-1-1.qcow2 /data/repo
+fi
+start_web_server_on_repo.sh
+# Template details
+TEMPLATE_NAME="Debian 11.11 s390x"
+TEMPLATE_DISPLAY_TEXT="Debian 11.11 s390x"
+REPO_PATH="http://localhost:8090/deb11-1-1.qcow2"
+TEMPLATE_URL=$REPO_PATH
+HYPERVISOR="kvm"
+FORMAT="QCOW2"
+OS_TYPE="Debian GNU/Linux 9 (64-bit)"
+ZONE_NAME="dlinux_zone"
+IS_PUBLIC="true"
+ 
+
+# Get the Zone ID for the zone named "dlinux_zone" using jq
+ZONE_ID=$(cmk list zones name="$ZONE_NAME" | jq -r '.zone[] | select(.name=="'"$ZONE_NAME"'") | .id')
+
+# Ensure the zone was found
+if [ -z "$ZONE_ID" ]; then
+  echo "Error: Zone '$ZONE_NAME' not found!"
+  exit 1
+fi
+
+# Register the template
+cmk register template \
+  name="$TEMPLATE_NAME" \
+  displaytext="$TEMPLATE_DISPLAY_TEXT" \
+  url="$TEMPLATE_URL" \
+  zoneid="$ZONE_ID" \
+  hypervisor="$HYPERVISOR" \
+  format="$FORMAT" \
+  ostypeid=$(cmk list ostypes description="$OS_TYPE" | jq -r '.ostype[] | select(.description | contains("CentOS")) | .id') \
+  ispublic="$IS_PUBLIC"
+
+# Print confirmation message
+echo "Template '$TEMPLATE_NAME' has been registered successfully in zone '$ZONE_NAME'!"
