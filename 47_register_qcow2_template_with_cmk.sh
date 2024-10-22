@@ -81,7 +81,7 @@ start_web_server_on_repo.sh
 # Template details
 TEMPLATE_NAME="Debian 11.11 s390x"
 TEMPLATE_DISPLAY_TEXT="Debian 11.11 s390x"
-REPO_PATH="http://localhost:8090"
+REPO_PATH="http://192.168.122.1:8090"
 TEMPLATE_URL=$REPO_PATH/deb11-1-1.qcow2
 HYPERVISOR="kvm"
 FORMAT="QCOW2"
