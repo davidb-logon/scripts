@@ -85,7 +85,8 @@ REPO_PATH="http://localhost:8090"
 TEMPLATE_URL=$REPO_PATH/deb11-1-1.qcow2
 HYPERVISOR="kvm"
 FORMAT="QCOW2"
-OS_TYPE="Debian GNU/Linux 9 (64-bit)"
+#OS_TYPE="Debian GNU/Linux 9 (64-bit)"
+OS_TYPE="UBUNTU 24.04 LTS"
 ZONE_NAME="dlinux_zone"
 IS_PUBLIC="true"
  
