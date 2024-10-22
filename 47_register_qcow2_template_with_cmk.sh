@@ -81,8 +81,8 @@ start_web_server_on_repo.sh
 # Template details
 TEMPLATE_NAME="Debian 11.11 s390x"
 TEMPLATE_DISPLAY_TEXT="Debian 11.11 s390x"
-REPO_PATH="http://localhost:8090/deb11-1-1.qcow2"
-TEMPLATE_URL=$REPO_PATH
+REPO_PATH="http://localhost:8090"
+TEMPLATE_URL=$REPO_PATH/deb11-1-1.qcow2
 HYPERVISOR="kvm"
 FORMAT="QCOW2"
 OS_TYPE="Debian GNU/Linux 9 (64-bit)"
@@ -98,7 +98,7 @@ if [ -z "$ZONE_ID" ]; then
   echo "Error: Zone '$ZONE_NAME' not found!"
   exit 1
 fi
-
+set -x
 # Register the template
 cmk register template \
   name="$TEMPLATE_NAME" \
@@ -109,6 +109,6 @@ cmk register template \
   format="$FORMAT" \
   ostypeid=$(cmk list ostypes description="$OS_TYPE" | jq -r '.ostype[] | select(.description | contains("CentOS")) | .id') \
   ispublic="$IS_PUBLIC"
-
+set +x
 # Print confirmation message
 echo "Template '$TEMPLATE_NAME' has been registered successfully in zone '$ZONE_NAME'!"
