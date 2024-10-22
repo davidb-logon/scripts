@@ -74,15 +74,15 @@ echo "Template '$TEMPLATE_NAME' has been registered successfully in zone '$ZONE_
 
 
 #################################################### debian 
-if [ ! -f /data/repo/deb11-1-1.qcow2 ]; then
-  cp /data/primary/vm/images/deb11-1-1.qcow2 /data/repo
+if [ ! -f /data/repo/deb11-1-1-clone.qcow2 ]; then
+  cp /data/primary/vm/images/deb11-1-1-clone.qcow2 /data/repo
 fi
 start_web_server_on_repo.sh
 # Template details
 TEMPLATE_NAME="Debian 11.11 s390x"
 TEMPLATE_DISPLAY_TEXT="Debian 11.11 s390x"
 REPO_PATH="http://192.168.122.1:8090"
-TEMPLATE_URL=$REPO_PATH/deb11-1-1.qcow2
+TEMPLATE_URL=$REPO_PATH/deb11-1-1-clone.qcow2
 HYPERVISOR="kvm"
 FORMAT="QCOW2"
 #OS_TYPE="Debian GNU/Linux 9 (64-bit)"
