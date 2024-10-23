@@ -10,6 +10,7 @@ function register_template() {
     HYPERVISOR="kvm"
     FORMAT="QCOW2"
     ZONE_NAME="dlinux_zone"
+    IS_PUBLIC="true"
     case "$TEMPLATE_NAME" in
         "CentOS 9 Stream")
             TEMPLATE_DISPLAY_TEXT="CentOS 9 Stream - GenericCloud 20240527.0"
