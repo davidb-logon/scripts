@@ -19,7 +19,7 @@ function register_template() {
         "Ubuntu 24")
             TEMPLATE_DISPLAY_TEXT="Ubuntu 24.04 LTS (Noble Numbat) daily [20241004]"
             TEMPLATE_URL="https://cloud-images.ubuntu.com/noble/20241004/noble-server-cloudimg-s390x.img"
-            OS_TYPE="UBUNTU 24.04 LTS"
+            OS_TYPE="Ubuntu 22.04 LTS"
             ;;
         "Debian 11.11 s390x")
             TEMPLATE_DISPLAY_TEXT="Debian 11.11 s390x"
