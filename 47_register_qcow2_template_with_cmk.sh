@@ -38,6 +38,13 @@ function register_template() {
             TEMPLATE_URL="http://192.168.122.1:8090/AlmaLinux-9-GenericCloud-9.4-20240805.s390x.qcow2"
             OS_TYPE="AlmaLinux 9"
             ;;
+        "RockyLinux 9 s390x")
+            TEMPLATE_DISPLAY_TEXT=$TEMPLATE_NAME
+            TEMPLATE_URL="https://dl.rockylinux.org/pub/rocky/9/images/s390x/Rocky-9-GenericCloud-Base.latest.s390x.qcow2"
+            TEMPLATE_URL="http://192.168.122.1:8090/Rocky-9-GenericCloud-Base.latest.s390x.qcow2"
+            OS_TYPE="Rocky Linux 9"
+            ;;
+          
         *)
             echo "Unknown template: $TEMPLATE_NAME"
             exit 1
@@ -63,7 +70,7 @@ function register_template() {
 
 #first the template list
 # Define an array with some template names
-my_templates=("CentOS 9 Stream" "Ubuntu 24" "Debian 11.11 s390x" "Debian 12.5 s390x" "AlmaLinux 9.4 s390x")
+my_templates=("CentOS 9 Stream" "Ubuntu 24" "Debian 11.11 s390x" "Debian 12.5 s390x" "AlmaLinux 9.4 s390x" "RockyLinux 9 s390x")
 
 #second get current list of templates
 ctemplates=$(cmk listTemplates listall=true templatefilter=all | jq -r '.template[].name')
