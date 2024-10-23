@@ -95,7 +95,7 @@ for my_template in "${my_templates[@]}"; do
 done
 
 
-exit 1
+exit 0
 
 # Template details
 TEMPLATE_NAME="CentOS 9 Stream"
