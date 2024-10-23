@@ -11,7 +11,8 @@ my_templates=("CentOS 9 Stream" "Ubuntu 24" "Debian 11.11 s390x" "Debian 12.5 s3
 
 #second get current list of templates
 ctemplates=$(cmk listTemplates listall=true templatefilter=all | jq -r '.template[].name')
-
+echo $ctemplates
+echo "#############################"
 # For loop to iterate over each template
 # Loop through each template from the cmk command
 while IFS= read -r template; do
@@ -22,7 +23,7 @@ while IFS= read -r template; do
         echo "Template '$template' is NOT in the array."
     fi
 done <<< "$ctemplates"
-
+echo "#############################"
 for my_template in "${my_templates[@]}"; do
     # Check if the template exists in the ctemplates list
     if echo "$ctemplates" | grep -qFx "$my_template"; then
