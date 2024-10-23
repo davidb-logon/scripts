@@ -1,5 +1,5 @@
 #!/bin/bash
-
+#  cmk listOsTypes | jq -r '.ostype[].name' | grep -i ubuntu 
 # Set CloudMonkey (cmk) to the desired profile and configure options
 cmk set profile cloudstack
 cmk set asyncblock true
@@ -45,7 +45,7 @@ function register_template() {
     zoneid="$ZONE_ID" \
     hypervisor="$HYPERVISOR" \
     format="$FORMAT" \
-    ostypeid=$(cmk list ostypes description="$OS_TYPE" | jq -r '.ostype[] | select(.description | contains("CentOS")) | .id') \
+    ostypeid=$(cmk list ostypes description="$OS_TYPE" | jq -r '.ostype[] | select(.description) | .id') \
     ispublic="$IS_PUBLIC"
 
   # Print confirmation message
