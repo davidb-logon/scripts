@@ -32,6 +32,11 @@ function register_template() {
             TEMPLATE_URL="http://192.168.122.1:8090/deb390-12-6.qcow2"
             OS_TYPE="Debian GNU/Linux 12 (64-bit)"
             ;;
+        "AlmaLinux 9.4 s390x")
+            TEMPLATE_DISPLAY_TEXT=$TEMPLATE_NAME
+            TEMPLATE_URL="https://repo.almalinux.org/almalinux/9/cloud/s390x/images/AlmaLinux-9-GenericCloud-9.4-20240805.s390x.qcow2"
+            OS_TYPE="AlmaLinux 9"
+            ;;
         *)
             echo "Unknown template: $TEMPLATE_NAME"
             exit 1
@@ -57,7 +62,7 @@ function register_template() {
 
 #first the template list
 # Define an array with some template names
-my_templates=("CentOS 9 Stream" "Ubuntu 24" "Debian 11.11 s390x" "Debian 12.5 s390x")
+my_templates=("CentOS 9 Stream" "Ubuntu 24" "Debian 11.11 s390x" "Debian 12.5 s390x" "AlmaLinux 9.4 s390x")
 
 #second get current list of templates
 ctemplates=$(cmk listTemplates listall=true templatefilter=all | jq -r '.template[].name')
