@@ -5,46 +5,6 @@ cmk set profile cloudstack
 cmk set asyncblock true
 cmk sync
 
-#first the template list
-# Define an array with some template names
-my_templates=("CentOS 9 Stream" "Ubuntu 24" "Debian 11.11 s390x" "Debian 12.5 s390x")
-
-#second get current list of templates
-ctemplates=$(cmk listTemplates listall=true templatefilter=all | jq -r '.template[].name')
-# echo $ctemplates
-# echo "#############################"
-# # For loop to iterate over each template
-# # Loop through each template from the cmk command
-# while IFS= read -r template; do
-#     # Check if the template is in the my_templates array
-#     if [[ " ${my_templates[*]} " =~ " ${template} " ]]; then
-#         echo "Template '$template' is in the array."
-#     else
-#         echo "Template '$template' is NOT in the array."
-#     fi
-# done <<< "$ctemplates"
-
-# third - make sure the repo have all needed files
-
-if [ ! -f /data/repo/deb11-1-1-clone.qcow2 ]; then
-  cp /data/primary/vm/images/deb11-1-1-clone.qcow2 /data/repo
-fi
-
-if [ ! -f /data/repo/deb390-12-6.qcow2 ]; then
-  cp /data/primary/vm/images/deb390-12-4-1-clone-clone.qcow2 /data/repo/deb390-12-6.qcow2
-fi
-
-echo "############################# start ############################"
-for my_template in "${my_templates[@]}"; do
-    # Check if the template exists in the ctemplates list
-    if echo "$ctemplates" | grep -qFx "$my_template"; then
-        echo "Template '$my_template' exists in the list."
-    else
-        echo "Template '$my_template' does NOT exist in the list."
-        register_template "$my_template"
-    fi
-done
-
 function register_template() {
     TEMPLATE_NAME="$1"
     HYPERVISOR="kvm"
@@ -91,6 +51,49 @@ function register_template() {
   # Print confirmation message
   echo "Template '$TEMPLATE_NAME' has been registered successfully in zone '$ZONE_NAME'!"
 }
+
+
+
+#first the template list
+# Define an array with some template names
+my_templates=("CentOS 9 Stream" "Ubuntu 24" "Debian 11.11 s390x" "Debian 12.5 s390x")
+
+#second get current list of templates
+ctemplates=$(cmk listTemplates listall=true templatefilter=all | jq -r '.template[].name')
+# echo $ctemplates
+# echo "#############################"
+# # For loop to iterate over each template
+# # Loop through each template from the cmk command
+# while IFS= read -r template; do
+#     # Check if the template is in the my_templates array
+#     if [[ " ${my_templates[*]} " =~ " ${template} " ]]; then
+#         echo "Template '$template' is in the array."
+#     else
+#         echo "Template '$template' is NOT in the array."
+#     fi
+# done <<< "$ctemplates"
+
+# third - make sure the repo have all needed files
+
+if [ ! -f /data/repo/deb11-1-1-clone.qcow2 ]; then
+  cp /data/primary/vm/images/deb11-1-1-clone.qcow2 /data/repo
+fi
+
+if [ ! -f /data/repo/deb390-12-6.qcow2 ]; then
+  cp /data/primary/vm/images/deb390-12-4-1-clone-clone.qcow2 /data/repo/deb390-12-6.qcow2
+fi
+
+echo "############################# start ############################"
+for my_template in "${my_templates[@]}"; do
+    # Check if the template exists in the ctemplates list
+    if echo "$ctemplates" | grep -qFx "$my_template"; then
+        echo "Template '$my_template' exists in the list."
+    else
+        echo "Template '$my_template' does NOT exist in the list."
+        register_template "$my_template"
+    fi
+done
+
 
 exit 1
 
