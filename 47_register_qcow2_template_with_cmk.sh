@@ -5,6 +5,35 @@ cmk set profile cloudstack
 cmk set asyncblock true
 cmk sync
 
+#first the template list
+# Define an array with some template names
+my_templates=("CentOS 9 Stream" "Ubuntu 24" "Debian 11.11 s390x" "Debian 12.5 s390x")
+
+#second get current list of templates
+ctemplates=$(cmk listTemplates listall=true templatefilter=all | jq -r '.template[].name')
+
+# For loop to iterate over each template
+# Loop through each template from the cmk command
+while IFS= read -r template; do
+    # Check if the template is in the my_templates array
+    if [[ " ${my_templates[*]} " =~ " ${template} " ]]; then
+        echo "Template '$template' is in the array."
+    else
+        echo "Template '$template' is NOT in the array."
+    fi
+done <<< "$ctemplates"
+
+for my_template in "${my_templates[@]}"; do
+    # Check if the template exists in the ctemplates list
+    if echo "$ctemplates" | grep -qFx "$my_template"; then
+        echo "Template '$my_template' exists in the list."
+    else
+        echo "Template '$my_template' does NOT exist in the list."
+    fi
+done
+
+exit 1
+
 # Template details
 TEMPLATE_NAME="CentOS 9 Stream"
 TEMPLATE_DISPLAY_TEXT="CentOS 9 Stream - GenericCloud 20240527.0"
