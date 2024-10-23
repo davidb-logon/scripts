@@ -16,7 +16,7 @@ function register_template() {
             TEMPLATE_URL="https://cloud.centos.org/centos/9-stream/s390x/images/CentOS-Stream-GenericCloud-9-20240527.0.s390x.qcow2"
             OS_TYPE="CentOS 9"
             ;;
-        "Ubuntu 24.04 LTS")
+        "Ubuntu 24")
             TEMPLATE_DISPLAY_TEXT="Ubuntu 24.04 LTS (Noble Numbat) daily [20241004]"
             TEMPLATE_URL="https://cloud-images.ubuntu.com/noble/20241004/noble-server-cloudimg-s390x.img"
             OS_TYPE="UBUNTU 24.04 LTS"
