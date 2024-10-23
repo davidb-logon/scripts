@@ -35,6 +35,7 @@ function register_template() {
         "AlmaLinux 9.4 s390x")
             TEMPLATE_DISPLAY_TEXT=$TEMPLATE_NAME
             TEMPLATE_URL="https://repo.almalinux.org/almalinux/9/cloud/s390x/images/AlmaLinux-9-GenericCloud-9.4-20240805.s390x.qcow2"
+            TEMPLATE_URL="http://192.168.122.1:8090/AlmaLinux-9-GenericCloud-9.4-20240805.s390x.qcow2"
             OS_TYPE="AlmaLinux 9"
             ;;
         *)
